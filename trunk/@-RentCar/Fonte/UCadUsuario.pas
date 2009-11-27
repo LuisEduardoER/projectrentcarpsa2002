@@ -46,7 +46,6 @@ end;
 
 procedure TfrmCadUsuarios.FormShow(Sender: TObject);
 begin
-dmRentCar.ZTAcesso.Open;
  With dmRentCar do
  Begin
   ZQFunctions.Close;

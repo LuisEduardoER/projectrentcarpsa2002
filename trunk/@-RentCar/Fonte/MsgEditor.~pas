@@ -70,8 +70,8 @@ procedure TfrmMessageEditor.FormShow(Sender: TObject);
 begin
   sbRentCar.Panels[1].Text := DateToStr(date);
   sbRentCar.Panels[2].Text := TimeToStr(now);
-
-  {if email = 'r' then
+  Application.CreateForm(TfrmLocacao, frmLocacao);
+  if frmLocacao.email = 'r' then
   Begin
    MCorpo.Lines.Add('--------------------------------'+
                    '--------------------------------'+
@@ -80,9 +80,8 @@ begin
                    '-----------------------------------'+
                    '         '+
                    'Srº'+' '+'informamos que a foi feita a reserva do veículo '+''+'');
-  end else}
-  Application.CreateForm(TfrmLocacao, frmLocacao);
-   if frmLocacao.email = 'l' then
+  end else
+  if frmLocacao.email = 'l' then
   Begin
    MCorpo.Lines.Add('--------------------------------'+
                    '--------------------------------'+
@@ -97,7 +96,7 @@ end;
 
 procedure TfrmMessageEditor.bbtnOkClick(Sender: TObject);
 begin
- { if (edtTo.Text = '') then
+  if (edtTo.Text = '') then
    Begin
      ShowMessage('Digite o e-mail do destinatário');
      edtTo.SetFocus;
@@ -108,8 +107,8 @@ begin
      ShowMessage('Digite um nome para o destinatário');
      edtNameTo.SetFocus;
    end
-   else}
-  //Begin
+   else
+  Begin
    with MSG do
    begin
       Body.Add(MCorpo.Text);
@@ -130,7 +129,7 @@ begin
       exit;
    end;
    ShowMessage('Mensagem enviada com sucesso!');
-// end;
+ end;
 end;
 
 procedure TfrmMessageEditor.FormCreate(Sender: TObject);

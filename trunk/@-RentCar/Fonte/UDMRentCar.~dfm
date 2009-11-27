@@ -378,6 +378,10 @@ object dmRentCar: TdmRentCar
       FieldName = 'Alu_Reserva'
       Size = 1
     end
+    object ZTAlugarAlu_Loc: TStringField
+      FieldName = 'Alu_Loc'
+      Size = 1
+    end
   end
   object dsTAlugar: TDataSource
     DataSet = ZTAlugar

@@ -161,6 +161,7 @@ object dmRentCar: TdmRentCar
     Top = 24
   end
   object dsTChamado: TDataSource
+    DataSet = ZTChamado
     Left = 144
     Top = 24
   end
@@ -376,6 +377,10 @@ object dmRentCar: TdmRentCar
     end
     object ZTAlugarAlu_Reserva: TStringField
       FieldName = 'Alu_Reserva'
+      Size = 1
+    end
+    object ZTAlugarAlu_Loc: TStringField
+      FieldName = 'Alu_Loc'
       Size = 1
     end
   end

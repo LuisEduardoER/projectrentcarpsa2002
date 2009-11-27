@@ -47,7 +47,7 @@ procedure TfrmConsultaClientes.btnBuscarClick(Sender: TObject);
 begin
  with dmRentCar do
   Begin
-    if frmRentCarPrincipal.tipo = 'F' then
+    if frmRentCarPrincipal.tipo = 'PF' then
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
