@@ -59,8 +59,8 @@ object frmAcesso: TfrmAcesso
     ItemHeight = 13
     TabOrder = 2
     Items.Strings = (
-      'Administrador'
-      'Funcionario')
+      'A'
+      'F')
   end
   object btnAcessar: TButton
     Left = 40

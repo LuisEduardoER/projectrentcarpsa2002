@@ -86,6 +86,13 @@ type
     ZQFunctions: TZQuery;
     dsQFunctions: TDataSource;
     ZTEnderecoEnd_Num: TLargeintField;
+    ZTAcesso: TZTable;
+    dsAcesso: TDataSource;
+    ZTAcessoAc_id: TLargeintField;
+    ZTAcessoRentCar_PesFis_PesFis_id: TLargeintField;
+    ZTAcessoAc_Login: TStringField;
+    ZTAcessoAc_Senha: TIntegerField;
+    ZTAcessoAc_Perfil: TStringField;
   private
     { Private declarations }
   public

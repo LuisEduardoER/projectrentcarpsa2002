@@ -61,11 +61,11 @@ type
     lblCidade: TLabel;
     DBECidade: TDBEdit;
     lblEstado: TLabel;
-    DBCBEstado: TDBComboBox;
     DBENumero: TDBEdit;
     lblNumero: TLabel;
     lblResCPFCNPJ: TLabel;
     lblResCNPJ: TLabel;
+    cbEstado: TComboBox;
     procedure btnSairClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -135,12 +135,14 @@ begin
       Begin
        if ValidEmail(DBEmail.Text) then
        Begin
+        dmRentCar.ZTEnderecoEnd_Estado.Value := cbEstado.Text;
         dmRentCar.ZTEndereco.Post;
         dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
         dmRentCar.ZTPessoa.Post;
         dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
         dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
         dmRentCar.ZTPesFis.Post;
+        gbEndereco.Enabled := False;
       if frmRentCarPrincipal.tipo = 'FU' then
       Begin
         dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
@@ -168,11 +170,13 @@ begin
       Begin
       if ValidEmail(DBEmail.Text) then
        Begin
+        dmRentCar.ZTEnderecoEnd_Estado.Value := cbEstado.Text;
         dmRentCar.ZTEndereco.Post;
         dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
         dmRentCar.ZTPessoa.Post;
         dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
         dmRentCar.ZTPesJu.Post;
+        gbEndereco.Enabled := False;
        end else
        Begin
         ShowMessage('e-mail inválido');
@@ -347,8 +351,9 @@ begin
  DBEndereco.Text := ListBox.Items.Strings[0];
  DBEBairro.Text := ListBox.Items.Strings[1];
  DBECidade.Text := ListBox.Items.Strings[2];
- DBCBEstado.Text := ListBox.Items.Strings[3];
+ cbEstado.Text := ListBox.Items.Strings[3];
  t.free;
+ gbEndereco.Enabled := True;
 
 end;
 
@@ -454,6 +459,7 @@ begin
  Begin
    dmRentCar.ZTPesJu.Edit;
  end;
+ gbEndereco.Enabled := True;
 end;
 
 procedure TfrmCadClientes.DBENmFantKeyPress(Sender: TObject;

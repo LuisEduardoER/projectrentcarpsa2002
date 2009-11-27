@@ -35,7 +35,6 @@ type
     ZTPessoaPes_TelRes: TStringField;
     ZTPessoaPes_Cel: TStringField;
     ZTPessoaPes_TelOp: TStringField;
-    ZTPessoaPes_Num: TLargeintField;
     ZTPesFisPesFis_id: TLargeintField;
     ZTPesFisRentCar_Pessoa_Pes_id: TLargeintField;
     ZTPesFisPesFis_RG: TStringField;
@@ -86,6 +85,14 @@ type
     ZTAlugarAlu_Reserva: TStringField;
     ZQFunctions: TZQuery;
     dsQFunctions: TDataSource;
+    ZTEnderecoEnd_Num: TLargeintField;
+    ZTAcesso: TZTable;
+    dsAcesso: TDataSource;
+    ZTAcessoAc_id: TLargeintField;
+    ZTAcessoRentCar_PesFis_PesFis_id: TLargeintField;
+    ZTAcessoAc_Login: TStringField;
+    ZTAcessoAc_Senha: TIntegerField;
+    ZTAcessoAc_Perfil: TStringField;
   private
     { Private declarations }
   public
