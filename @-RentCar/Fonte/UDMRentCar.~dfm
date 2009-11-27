@@ -2,8 +2,8 @@ object dmRentCar: TdmRentCar
   OldCreateOrder = False
   Left = 200
   Top = 169
-  Height = 326
-  Width = 284
+  Height = 334
+  Width = 325
   object ZRentCar: TZConnection
     Protocol = 'mysql-4.1'
     HostName = 'localhost'
@@ -13,7 +13,7 @@ object dmRentCar: TdmRentCar
     AutoCommit = False
     ReadOnly = True
     TransactIsolationLevel = tiNone
-    Connected = False
+    Connected = True
     SQLHourGlass = False
     Left = 22
     Top = 8
@@ -148,10 +148,6 @@ object dmRentCar: TdmRentCar
       FieldName = 'Pes_TelOp'
       EditMask = '!\(999\)0000-0000;1;_'
       Size = 15
-    end
-    object ZTPessoaPes_Num: TLargeintField
-      FieldName = 'Pes_Num'
-      Visible = False
     end
     object ZTPessoaPes_Email: TStringField
       DisplayLabel = 'Email'
@@ -325,6 +321,9 @@ object dmRentCar: TdmRentCar
       FieldName = 'End_CEP'
       Size = 15
     end
+    object ZTEnderecoEnd_Num: TLargeintField
+      FieldName = 'End_Num'
+    end
   end
   object dsTEndereco: TDataSource
     DataSet = ZTEndereco
@@ -433,5 +432,40 @@ object dmRentCar: TdmRentCar
     DataSet = ZQFunctions
     Left = 232
     Top = 200
+  end
+  object ZTAcesso: TZTable
+    Connection = ZRentCar
+    CachedUpdates = False
+    ReadOnly = False
+    TableName = 'rentcar_acesso'
+    ShowRecordTypes = [usUnmodified, usModified, usInserted]
+    UpdateMode = umUpdateChanged
+    WhereMode = wmWhereKeyOnly
+    Options = [doCalcDefaults]
+    Left = 264
+    Top = 88
+    object ZTAcessoAc_id: TLargeintField
+      FieldName = 'Ac_id'
+    end
+    object ZTAcessoRentCar_PesFis_PesFis_id: TLargeintField
+      FieldName = 'RentCar_PesFis_PesFis_id'
+      Required = True
+    end
+    object ZTAcessoAc_Login: TStringField
+      FieldName = 'Ac_Login'
+      Size = 15
+    end
+    object ZTAcessoAc_Senha: TIntegerField
+      FieldName = 'Ac_Senha'
+    end
+    object ZTAcessoAc_Perfil: TStringField
+      FieldName = 'Ac_Perfil'
+      Size = 1
+    end
+  end
+  object dsAcesso: TDataSource
+    DataSet = ZTAcesso
+    Left = 280
+    Top = 104
   end
 end

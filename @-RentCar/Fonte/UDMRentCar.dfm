@@ -2,8 +2,8 @@ object dmRentCar: TdmRentCar
   OldCreateOrder = False
   Left = 200
   Top = 169
-  Height = 326
-  Width = 284
+  Height = 334
+  Width = 325
   object ZRentCar: TZConnection
     Protocol = 'mysql-4.1'
     HostName = 'localhost'
@@ -432,5 +432,40 @@ object dmRentCar: TdmRentCar
     DataSet = ZQFunctions
     Left = 232
     Top = 200
+  end
+  object ZTAcesso: TZTable
+    Connection = ZRentCar
+    CachedUpdates = False
+    ReadOnly = False
+    TableName = 'rentcar_acesso'
+    ShowRecordTypes = [usUnmodified, usModified, usInserted]
+    UpdateMode = umUpdateChanged
+    WhereMode = wmWhereKeyOnly
+    Options = [doCalcDefaults]
+    Left = 264
+    Top = 88
+    object ZTAcessoAc_id: TLargeintField
+      FieldName = 'Ac_id'
+    end
+    object ZTAcessoRentCar_PesFis_PesFis_id: TLargeintField
+      FieldName = 'RentCar_PesFis_PesFis_id'
+      Required = True
+    end
+    object ZTAcessoAc_Login: TStringField
+      FieldName = 'Ac_Login'
+      Size = 15
+    end
+    object ZTAcessoAc_Senha: TIntegerField
+      FieldName = 'Ac_Senha'
+    end
+    object ZTAcessoAc_Perfil: TStringField
+      FieldName = 'Ac_Perfil'
+      Size = 1
+    end
+  end
+  object dsAcesso: TDataSource
+    DataSet = ZTAcesso
+    Left = 280
+    Top = 104
   end
 end

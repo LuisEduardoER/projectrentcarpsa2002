@@ -1,8 +1,8 @@
 object frmCadUsuarios: TfrmCadUsuarios
-  Left = 200
-  Top = 172
-  Width = 411
-  Height = 326
+  Left = 261
+  Top = 177
+  Width = 363
+  Height = 232
   Caption = '@-RentCar - Cadastro Usu'#225'rios'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,6 +11,7 @@ object frmCadUsuarios: TfrmCadUsuarios
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lblPessoa: TLabel
@@ -55,83 +56,69 @@ object frmCadUsuarios: TfrmCadUsuarios
   object DBLookupCBPessoa: TDBLookupComboBox
     Left = 10
     Top = 32
-    Width = 385
+    Width = 253
     Height = 21
+    KeyField = 'Pes_id'
+    ListField = 'Pes_nome'
+    ListSource = dmRentCar.dsQFunctions
     TabOrder = 0
-  end
-  object ListBox1: TListBox
-    Left = 10
-    Top = 124
-    Width = 121
-    Height = 113
-    ItemHeight = 13
-    Items.Strings = (
-      'Administrador'
-      'Funcion'#225'rio')
-    TabOrder = 1
+    OnClick = DBLookupCBPessoaClick
   end
   object DBESenha: TDBEdit
     Left = 10
     Top = 73
     Width = 145
     Height = 21
-    TabOrder = 2
-  end
-  object DBListBox1: TDBListBox
-    Left = 201
-    Top = 123
-    Width = 121
-    Height = 113
-    ItemHeight = 13
-    TabOrder = 3
+    DataField = 'Ac_Senha'
+    DataSource = dmRentCar.dsAcesso
+    TabOrder = 1
   end
   object btnCadastar: TButton
-    Left = 11
-    Top = 256
+    Left = 9
+    Top = 163
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
-    TabOrder = 4
+    TabOrder = 2
+    OnClick = btnCadastarClick
   end
   object btnSalvar: TButton
-    Left = 98
-    Top = 256
+    Left = 96
+    Top = 163
     Width = 75
     Height = 25
     Caption = 'Salvar'
-    TabOrder = 5
+    TabOrder = 3
+    OnClick = btnSalvarClick
   end
   object btnAlterar: TButton
-    Left = 185
-    Top = 256
+    Left = 183
+    Top = 163
     Width = 75
     Height = 25
     Caption = 'Alterar'
-    TabOrder = 6
+    TabOrder = 4
+    OnClick = btnAlterarClick
   end
   object btnSair: TButton
-    Left = 276
-    Top = 256
+    Left = 274
+    Top = 163
     Width = 75
     Height = 25
     Caption = 'Sair'
-    TabOrder = 7
+    TabOrder = 5
     OnClick = btnSairClick
   end
-  object btnAdd: TButton
-    Left = 140
-    Top = 144
-    Width = 49
-    Height = 25
-    Caption = '>>'
-    TabOrder = 8
-  end
-  object btnRet: TButton
-    Left = 140
-    Top = 192
-    Width = 49
-    Height = 25
-    Caption = '<<'
-    TabOrder = 9
+  object cbPerfil: TComboBox
+    Left = 8
+    Top = 128
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    ItemHeight = 13
+    TabOrder = 6
+    Items.Strings = (
+      'Administrador'
+      'Cliente')
   end
 end

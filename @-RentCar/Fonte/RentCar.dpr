@@ -24,9 +24,9 @@ uses
 
 begin
   Application.Initialize;
+  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
-  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.Run;
 end.

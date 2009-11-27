@@ -31,7 +31,7 @@ var
 
 implementation
 
-uses URentCarPrincipal;
+uses URentCarPrincipal, UDMRentCar;
 
 {$R *.dfm}
 
@@ -42,9 +42,19 @@ end;
 
 procedure TfrmAcesso.btnAcessarClick(Sender: TObject);
 begin
- Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
- frmRentCarPrincipal.ShowModal;
- frmRentCarPrincipal.Free;
+ dmRentCar.ZTAcesso.Open;
+ dmRentCar.ZTAcesso.Filtered := False;
+ dmRentCar.ZTAcesso.Filter := 'Ac_Login = '+QuotedStr(edtLogin.Text)+' and Ac_Senha = '+QuotedStr(edtSenha.Text)+' and Ac_Perfil = '+ QuotedStr(cbPerfil.Text);
+ dmRentCar.ZTAcesso.Filtered := True;
+ if not dmRentCar.ZTAcesso.IsEmpty then
+ Begin
+  Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
+  frmRentCarPrincipal.ShowModal;
+  frmRentCarPrincipal.Free;
+ end else
+ Begin
+   ShowMessage('Acesso Inválido, tente novamente');
+ end;
 end;
 
 end.

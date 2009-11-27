@@ -19,7 +19,7 @@ object frmCadClientes: TfrmCadClientes
     Top = 8
     Width = 697
     Height = 233
-    ActivePage = tsDadosPJ
+    ActivePage = tsEndereco
     TabOrder = 0
     object tsDadosPF: TTabSheet
       Caption = 'Dados Pessoais'
@@ -260,6 +260,7 @@ object frmCadClientes: TfrmCadClientes
         Top = 40
         Width = 681
         Height = 164
+        Enabled = False
         TabOrder = 2
         object lblEndereco: TLabel
           Left = 8
@@ -323,14 +324,22 @@ object frmCadClientes: TfrmCadClientes
           DataSource = dmRentCar.dsTEndereco
           TabOrder = 2
         end
-        object DBCBEstado: TDBComboBox
-          Left = 6
-          Top = 140
+        object DBENumero: TDBEdit
+          Left = 441
+          Top = 25
           Width = 49
           Height = 21
-          DataField = 'End_Estado'
+          DataField = 'End_Num'
           DataSource = dmRentCar.dsTEndereco
+          TabOrder = 3
+        end
+        object cbEstado: TComboBox
+          Left = 7
+          Top = 136
+          Width = 49
+          Height = 21
           ItemHeight = 13
+          TabOrder = 4
           Items.Strings = (
             'AC'
             'AL'
@@ -359,16 +368,6 @@ object frmCadClientes: TfrmCadClientes
             'SP'
             'SE'
             'TO')
-          TabOrder = 3
-        end
-        object DBENumero: TDBEdit
-          Left = 441
-          Top = 25
-          Width = 49
-          Height = 21
-          DataField = 'End_Num'
-          DataSource = dmRentCar.dsTEndereco
-          TabOrder = 4
         end
       end
     end
