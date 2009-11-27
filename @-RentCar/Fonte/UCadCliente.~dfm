@@ -19,7 +19,7 @@ object frmCadClientes: TfrmCadClientes
     Top = 8
     Width = 697
     Height = 233
-    ActivePage = tsDadosPF
+    ActivePage = tsDadosPJ
     TabOrder = 0
     object tsDadosPF: TTabSheet
       Caption = 'Dados Pessoais'
@@ -65,12 +65,12 @@ object frmCadClientes: TfrmCadClientes
         Height = 13
         Caption = 'Estado Civil'
       end
-      object lblResCPF: TLabel
+      object lblResCPFCNPJ: TLabel
         Left = 6
         Top = 90
-        Width = 59
+        Width = 90
         Height = 13
-        Caption = 'lblResCPF'
+        Caption = 'lblResCPFCNPJ'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -148,6 +148,7 @@ object frmCadClientes: TfrmCadClientes
         Width = 104
         Height = 21
         Style = csDropDownList
+        DataField = 'PesFis_EstCivil'
         DataSource = dmRentCar.dsTPesFis
         ItemHeight = 13
         Items.Strings = (
@@ -186,8 +187,9 @@ object frmCadClientes: TfrmCadClientes
       object lblResCNPJ: TLabel
         Left = 6
         Top = 147
-        Width = 5
+        Width = 67
         Height = 13
+        Caption = 'lblResCNPJ'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -200,6 +202,8 @@ object frmCadClientes: TfrmCadClientes
         Top = 25
         Width = 345
         Height = 21
+        DataField = 'PesJu_NmFantasia'
+        DataSource = dmRentCar.dsTPesJu
         TabOrder = 0
         OnKeyPress = DBENmFantKeyPress
       end
@@ -208,6 +212,8 @@ object frmCadClientes: TfrmCadClientes
         Top = 122
         Width = 124
         Height = 21
+        DataField = 'PesJu_CNPJ'
+        DataSource = dmRentCar.dsTPesJu
         TabOrder = 1
       end
       object DBERzSocial: TDBEdit
@@ -215,6 +221,8 @@ object frmCadClientes: TfrmCadClientes
         Top = 73
         Width = 345
         Height = 21
+        DataField = 'PesJu_RazaoSocial'
+        DataSource = dmRentCar.dsTPesJu
         TabOrder = 2
         OnKeyPress = DBERzSocialKeyPress
       end

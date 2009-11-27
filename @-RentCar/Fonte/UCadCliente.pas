@@ -64,7 +64,7 @@ type
     DBCBEstado: TDBComboBox;
     DBENumero: TDBEdit;
     lblNumero: TLabel;
-    lblResCPF: TLabel;
+    lblResCPFCNPJ: TLabel;
     lblResCNPJ: TLabel;
     procedure btnSairClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -127,20 +127,71 @@ procedure TfrmCadClientes.btnSalvarClick(Sender: TObject);
 Var
 cnpj,cpf:string;
 begin
-  //Comando para inserir o Endereço do Cliente
-  dmRentCar.ZTEndereco.Post;
-  //Comando para o cliente receber o código do endereço
-  dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
-  //Chamada da função para verifica a validade ou não do e-mail
-  if ValidEmail(DBEmail.Text) then
+  if frmRentCarPrincipal.tipo = 'PF' then
   Begin
-   //Comando para inserir um Cliente no Banco
-   dmRentCar.ZTPessoa.Post;
-   //Caso o cadastro seja para Cliente Pessoa Fisica
+    cpf := DBECPF.Text;
+    lblResCPFCNPJ.Caption := confereCPF(cpf);
+    if lblResCPFCNPJ.Caption <> 'CPF Invalido' then
+      Begin
+       if ValidEmail(DBEmail.Text) then
+       Begin
+        dmRentCar.ZTEndereco.Post;
+        dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
+        dmRentCar.ZTPessoa.Post;
+        dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
+        dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
+        dmRentCar.ZTPesFis.Post;
+      if frmRentCarPrincipal.tipo = 'FU' then
+      Begin
+        dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
+      end else
+      Begin
+        dmRentCar.ZTPesFisPesFis_Tipo.Value := 'C';
+      end;
+      end else
+      Begin
+       ShowMessage('e-mail inválido');
+       DBEmail.SetFocus;
+      end;
+    end else
+    Begin
+      ShowMessage('invalido');
+      DBECPF.SetFocus;
+    end;
+   end else
+  if frmRentCarPrincipal.tipo = 'PJ' then
+  Begin
+    ShowMessage('juridica krai');
+    cnpj := DBECNPJ.Text;
+    lblResCNPJ.Caption := confereCNPJ(cnpj);
+    if lblResCNPJ.Caption <> 'CNPJ Invalido' then
+      Begin
+      if ValidEmail(DBEmail.Text) then
+       Begin
+        dmRentCar.ZTEndereco.Post;
+        dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
+        dmRentCar.ZTPessoa.Post;
+        dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
+        dmRentCar.ZTPesJu.Post;
+       end else
+       Begin
+        ShowMessage('e-mail inválido');
+        DBEmail.SetFocus;
+       end;
+      end else 
+    Begin
+      DBECNPJ.SetFocus;
+    end;
+
+   end;
+end;
+
+{  if ValidEmail(DBEmail.Text) then
+  Begin
+   //dmRentCar.ZTPessoa.Post;
+
    if frmRentCarPrincipal.tipo = 'PF' then
    Begin
-    dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
-    dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
     if frmRentCarPrincipal.tipo = 'FU' then
     Begin
       dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
@@ -152,7 +203,10 @@ begin
        lblResCPF.Caption := confereCPF(cpf);
     if lblResCPF.Caption <> 'CPF Invalido' then
     Begin
-      dmRentCar.ZTPesFis.Post;
+     dmRentCar.ZTPessoa.Post;
+     dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
+     dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
+     dmRentCar.ZTPesFis.Post;
     end else
     Begin
       DBECPF.SetFocus;
@@ -176,9 +230,9 @@ begin
      ShowMessage('E-mail invalido');
   end;
   end;
+   }
 
-
-end;
+//end;
 
 //Fuñção que verifica se o e-mail digitado pelo usuário é ou não válido
 function TfrmCadClientes.ValidEmail(email: string): boolean;
