@@ -1,0 +1,55 @@
+unit URelVelDisp;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, QuickRpt, QRCtrls, DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset;
+
+type
+  TfrmRelVelDisp = class(TForm)
+    QRVelDisp: TQuickRep;
+    QRBand1: TQRBand;
+    QRBand2: TQRBand;
+    QRDBImgVel: TQRDBImage;
+    QRDBRTVelDisp: TQRDBRichText;
+    QRBand3: TQRBand;
+    QRSysData1: TQRSysData;
+    QRSysData2: TQRSysData;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmRelVelDisp: TfrmRelVelDisp;
+
+implementation
+
+uses UDMRentCar;
+
+{$R *.dfm}
+
+procedure TfrmRelVelDisp.FormShow(Sender: TObject);
+begin
+ with dmRentCar do
+    Begin
+      ZQCliente.Close;
+      ZQCliente.SQL.Clear;
+      ZQAlugar.SQL.Add('Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img');
+      ZQAlugar.SQL.Add('from rentcar_veiculo, rentcar_alugar');
+      ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id');
+      ZQAlugar.SQL.Add('and rentcar_alugar.Alu_Reserva ='+'"N"'+'"');
+      ZQAlugar.Open;
+
+      if ZQAlugar.IsEmpty then
+        Begin
+          ShowMessage('Não Existem Veiculos Disponíveis');
+        end;
+  end;
+end;
+
+end.
