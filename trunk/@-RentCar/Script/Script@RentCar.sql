@@ -14,6 +14,7 @@ CREATE TABLE RentCar_Alugar (
   RentCar_Ger_Valores_GerVal_id INTEGER UNSIGNED NOT NULL,
   RentCar_Veiculo_Vel_id INTEGER UNSIGNED NOT NULL,
   Alu_Reserva CHAR(1) NULL,
+  Alu_Loc CHAR(1) NULL,
   PRIMARY KEY(Alu_id),
   INDEX RentCar_Alugar_Veiculo(RentCar_Veiculo_Vel_id),
   INDEX RentCar_Alugar_Valores(RentCar_Ger_Valores_GerVal_id),
