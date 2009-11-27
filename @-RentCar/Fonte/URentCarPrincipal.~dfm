@@ -91,6 +91,14 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       end
       object Locacao: TMenuItem
         Caption = 'Locacao'
+        object LocPesFis: TMenuItem
+          Caption = 'Fisica'
+          OnClick = LocPesFisClick
+        end
+        object LocPesJu: TMenuItem
+          Caption = 'Juridica'
+          OnClick = LocPesJuClick
+        end
       end
     end
     object Chamados: TMenuItem

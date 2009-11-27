@@ -8,7 +8,6 @@ uses
   UDMRentCar in 'UDMRentCar.pas' {dmRentCar: TDataModule},
   UGerVlrVeiculo in 'UGerVlrVeiculo.pas' {frmRentCarVlrVeiculos},
   UChamado in 'UChamado.pas' {frmRentCarAberturaChamado},
-  UTiposChamados in 'UTiposChamados.pas' {frmRentCarTiposChamados},
   URentCarPrincipal in 'URentCarPrincipal.pas' {frmRentCarPrincipal},
   cep in 'cep.pas',
   ULocacao in 'ULocacao.pas' {frmLocacao},

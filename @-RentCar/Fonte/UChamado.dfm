@@ -57,9 +57,9 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     object lblCPF: TLabel
       Left = 27
       Top = 49
-      Width = 20
+      Width = 52
       Height = 13
-      Caption = 'CPF'
+      Caption = 'CPF/CNPJ'
     end
     object edtNome: TEdit
       Left = 28
@@ -109,22 +109,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 13
       Caption = 'Solicita'#231#227'o'
     end
-    object lblTiposSoliciticao: TLabel
-      Left = 158
-      Top = 40
-      Width = 114
-      Height = 13
-      Caption = 'Atribuir Solicita'#231#245'es'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      OnClick = lblTiposSoliciticaoClick
-    end
     object lblData: TLabel
-      Left = 279
+      Left = 183
       Top = 25
       Width = 23
       Height = 13
@@ -137,6 +123,54 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 13
       Caption = 'Descri'#231#227'o'
     end
+    object lblProtocol: TLabel
+      Left = 208
+      Top = 264
+      Width = 55
+      Height = 13
+      Caption = 'Protocolo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object DBTProtocol: TDBText
+      Left = 272
+      Top = 264
+      Width = 81
+      Height = 17
+      DataField = 'Ch_Protocol'
+      DataSource = dmRentCar.dsTChamado
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object DBTHora: TDBText
+      Left = 311
+      Top = 38
+      Width = 65
+      Height = 17
+      DataField = 'Ch_HoraCh'
+      DataSource = dmRentCar.dsTChamado
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label1: TLabel
+      Left = 311
+      Top = 25
+      Width = 23
+      Height = 13
+      Caption = 'Hora'
+    end
     object DBLCBSolcit: TDBLookupComboBox
       Left = 8
       Top = 36
@@ -145,7 +179,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       TabOrder = 0
     end
     object DateTimePicker1: TDateTimePicker
-      Left = 279
+      Left = 183
       Top = 37
       Width = 103
       Height = 21

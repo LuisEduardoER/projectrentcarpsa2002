@@ -1,6 +1,6 @@
 object frmRelVelAlugados: TfrmRelVelAlugados
-  Left = 192
-  Top = 114
+  Left = 210
+  Top = 277
   Width = 870
   Height = 500
   Caption = '@-RentCar - Veiculos Alugados'

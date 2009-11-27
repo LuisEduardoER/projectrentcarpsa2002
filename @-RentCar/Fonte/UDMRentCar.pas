@@ -93,6 +93,7 @@ type
     ZTAcessoAc_Login: TStringField;
     ZTAcessoAc_Senha: TIntegerField;
     ZTAcessoAc_Perfil: TStringField;
+    ZTAlugarAlu_Loc: TStringField;
   private
     { Private declarations }
   public

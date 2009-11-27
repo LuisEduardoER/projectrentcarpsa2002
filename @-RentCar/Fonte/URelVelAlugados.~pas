@@ -7,7 +7,7 @@ uses
   Dialogs, QRCtrls, QuickRpt, ExtCtrls;
 
 type
-  TfrmRelVelAlugado = class(TForm)
+  TfrmRelVelAlugados = class(TForm)
     QRVelAlugados: TQuickRep;
     QRBand1: TQRBand;
     QRBand2: TQRBand;
@@ -23,7 +23,7 @@ type
   end;
 
 var
-  frmRelVelAlugado: TfrmRelVelAlugado;
+  frmRelVelAlugados: TfrmRelVelAlugados;
 
 implementation
 

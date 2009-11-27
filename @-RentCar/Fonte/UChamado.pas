@@ -21,15 +21,17 @@ type
     gbAberturaChamados: TGroupBox;
     DBLCBSolcit: TDBLookupComboBox;
     lblSolicitacao: TLabel;
-    lblTiposSoliciticao: TLabel;
     DateTimePicker1: TDateTimePicker;
     lblData: TLabel;
     DBREChamado: TDBRichEdit;
     lblDesc: TLabel;
     brnSalvar: TButton;
     rgStatusChamados: TRadioGroup;
+    lblProtocol: TLabel;
+    DBTProtocol: TDBText;
+    DBTHora: TDBText;
+    Label1: TLabel;
     procedure btnCadastrarClick(Sender: TObject);
-    procedure lblTiposSoliciticaoClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure rbNomeClick(Sender: TObject);
     procedure rbCPFClick(Sender: TObject);
@@ -45,21 +47,14 @@ var
 
 implementation
 
-uses UTiposChamados, UDMRentCar;
+uses UDMRentCar, UBCliente;
 
 {$R *.dfm}
 
 procedure TfrmRentCarAberturaChamado.btnCadastrarClick(Sender: TObject);
 begin
  dmRentCar.ZTChamado.Insert;
-end;
-
-procedure TfrmRentCarAberturaChamado.lblTiposSoliciticaoClick(
-  Sender: TObject);
-begin
-  Application.CreateForm(TfrmRentCarTiposChamados, frmRentCarTiposChamados);
-  frmRentCarTiposChamados.ShowModal;
-  frmRentCarTiposChamados.Free;
+ DBTHora.Caption := DateToStr(now); 
 end;
 
 procedure TfrmRentCarAberturaChamado.btnSairClick(Sender: TObject);
@@ -71,14 +66,22 @@ procedure TfrmRentCarAberturaChamado.rbNomeClick(Sender: TObject);
 begin
  edtNome.Enabled := True;
  edtCPF.Enabled := False;
- edtNome.SetFocus;
+ //edtNome.SetFocus;
+ Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
+ frmConsultaClientes.ckNome.Checked := True;
+ frmConsultaClientes.ShowModal;
+ frmConsultaClientes.Free;
 end;
 
 procedure TfrmRentCarAberturaChamado.rbCPFClick(Sender: TObject);
 begin
  edtNome.Enabled := False;
  edtCPF.Enabled := True;
- edtCPF.SetFocus;
+ //edtCPF.SetFocus;
+ Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
+ frmConsultaClientes.ckCPFCNPJ.Checked := True;
+ frmConsultaClientes.ShowModal;
+ frmConsultaClientes.Free;
 end;
 
 procedure TfrmRentCarAberturaChamado.brnSalvarClick(Sender: TObject);

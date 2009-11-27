@@ -70,8 +70,8 @@ procedure TfrmMessageEditor.FormShow(Sender: TObject);
 begin
   sbRentCar.Panels[1].Text := DateToStr(date);
   sbRentCar.Panels[2].Text := TimeToStr(now);
-
-  {if email = 'r' then
+  Application.CreateForm(TfrmLocacao, frmLocacao);
+  if frmLocacao.email = 'r' then
   Begin
    MCorpo.Lines.Add('--------------------------------'+
                    '--------------------------------'+
@@ -80,9 +80,8 @@ begin
                    '-----------------------------------'+
                    '         '+
                    'Srº'+' '+'informamos que a foi feita a reserva do veículo '+''+'');
-  end else}
-  Application.CreateForm(TfrmLocacao, frmLocacao);
-   if frmLocacao.email = 'l' then
+  end else
+  if frmLocacao.email = 'l' then
   Begin
    MCorpo.Lines.Add('--------------------------------'+
                    '--------------------------------'+

@@ -20,7 +20,6 @@ type
     SkinData1: TSkinData;
     procedure btnSairClick(Sender: TObject);
     procedure btnAcessarClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,22 +48,23 @@ begin
  perfil := cbPerfil.Text;
  sperfil := LeftStr(trim(perfil),1);
  dmRentCar.ZTAcesso.Filtered := False;
- dmRentCar.ZTAcesso.Filter := 'Ac_Login = '+QuotedStr(edtLogin.Text)+' and Ac_Senha = '+QuotedStr(edtSenha.Text)+' and Ac_Perfil ='+ QuotedStr(sperfil);
+ dmRentCar.ZTAcesso.Filter := 'Ac_Login = '+QuotedStr(edtLogin.Text)+' and Ac_Senha = '+QuotedStr(edtSenha.Text)+' and Ac_Perfil = '+ QuotedStr(sperfil);
  dmRentCar.ZTAcesso.Filtered := True;
+ ShowMessage(dmRentCar.ZTAcesso.Filter);
  if not dmRentCar.ZTAcesso.IsEmpty then
  Begin
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
+  if dmRentCar.ZTAcessoAc_Perfil.Value = 'C' then
+  Begin
+    frmRentCarPrincipal.Configuracoes.Visible := False;
+  end;
   frmRentCarPrincipal.ShowModal;
   frmRentCarPrincipal.Free;
+  dmRentCar.ZTAcesso.Close;
  end else
  Begin
    ShowMessage('Acesso Inválido, tente novamente');
  end;
-end;
-
-procedure TfrmAcesso.FormShow(Sender: TObject);
-begin
- cbPerfil.MaxLength:= 1;
 end;
 
 end.

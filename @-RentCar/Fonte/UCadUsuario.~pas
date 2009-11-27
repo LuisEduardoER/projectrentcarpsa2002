@@ -18,6 +18,7 @@ type
     lblSenha: TLabel;
     lblAdicionarPerfil: TLabel;
     cbPerfil: TComboBox;
+    DBGrid1: TDBGrid;
     procedure btnSairClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -46,7 +47,6 @@ end;
 
 procedure TfrmCadUsuarios.FormShow(Sender: TObject);
 begin
-dmRentCar.ZTAcesso.Open;
  With dmRentCar do
  Begin
   ZQFunctions.Close;
