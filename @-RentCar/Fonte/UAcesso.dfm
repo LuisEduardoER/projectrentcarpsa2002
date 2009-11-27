@@ -12,6 +12,7 @@ object frmAcesso: TfrmAcesso
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lblLogin: TLabel
@@ -57,10 +58,11 @@ object frmAcesso: TfrmAcesso
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
+    MaxLength = 1
     TabOrder = 2
     Items.Strings = (
-      'A'
-      'F')
+      'Administrador'
+      'Cliente')
   end
   object btnAcessar: TButton
     Left = 40
