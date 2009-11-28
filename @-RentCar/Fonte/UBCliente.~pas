@@ -18,7 +18,7 @@ type
     procedure ckNomeClick(Sender: TObject);
     procedure ckCPFCNPJClick(Sender: TObject);
     procedure btnBuscarClick(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure DBGrid1CellClick(Column: TColumn);
   private
     { Private declarations }
   public
@@ -30,7 +30,7 @@ var
 
 implementation
 
-uses UDMRentCar, URentCarPrincipal;
+uses UDMRentCar, URentCarPrincipal, ULocacao, DB;
 
 {$R *.dfm}
 
@@ -54,12 +54,12 @@ begin
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF');
+      ZQCliente.SQL.Add('Select rentcar_pesfis.PesFis_Id, rentcar_pesfis.PesFis_Nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF, rentcar_pessoa.Pes_Email');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       if ckNome.Checked = True then
       Begin
-        ZQCliente.SQL.Add('where rentcar_pessoa.pes_Nome ="'+edtNome.Text+'"');
+        ZQCliente.SQL.Add('where rentcar_pesfis.pesfis_Nome ="'+edtNome.Text+'"');
       end else
       if ckCPFCNPJ.Checked = True then
       Begin
@@ -71,11 +71,12 @@ begin
       ZQCliente.Open;
       ShowMessage(ZQCliente.SQL.Text);
     end else
-     Begin
+     if frmRentCarPrincipal.tipo = 'PJ' then
+      Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
       ZQCliente.SQL.Add('Select rentcar_pesju.PesJu_NmFantasia, rentcar_pesju.PesJu_CNPJ, rentcar_pessoa.pes_TelRes, rentcar_pessoa.pes_TelOP, rentcar_pessoa.pes_Cel');
-      ZQCliente.SQL.Add('from rentcar_pessoa, rentcar_pesju');
+      ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       if ckNome.Checked = True then
       Begin
@@ -91,12 +92,20 @@ begin
      ZQCliente.Open;
   end;
 
-  end;
-  end;
-procedure TfrmConsultaClientes.FormCloseQuery(Sender: TObject;
-  var CanClose: Boolean);
+  end; 
+end;
+
+procedure TfrmConsultaClientes.DBGrid1CellClick(Column: TColumn);
 begin
- dmRentCar.ZQCliente.Close;
+  close;
+  if frmRentCarPrincipal.tipo = 'PF' and frmRentCarPrincipal.veiculo = 'R' then
+  Begin
+  frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
+  end else
+  if frmRentCarPrincipal.tipo = 'PF' and frmRentCarPrincipal.veiculo = 'R' then
+  Begin
+  frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
+  end;
 end;
 
 end.

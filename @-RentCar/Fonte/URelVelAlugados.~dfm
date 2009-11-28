@@ -1,6 +1,6 @@
 object frmRelVelAlugados: TfrmRelVelAlugados
-  Left = 192
-  Top = 114
+  Left = 210
+  Top = 277
   Width = 870
   Height = 500
   Caption = '@-RentCar - Veiculos Alugados'
@@ -24,7 +24,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
     Frame.DrawBottom = False
     Frame.DrawLeft = False
     Frame.DrawRight = False
-    DataSet = dmRentCar.ZTAlugar
+    DataSet = dmRentCar.ZQAlugar
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13

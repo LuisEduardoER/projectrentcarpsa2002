@@ -17,15 +17,17 @@ uses
   UAcesso in 'UAcesso.pas' {frmAcesso},
   UCadUsuario in 'UCadUsuario.pas' {frmCadUsuarios},
   MsgEditor in 'MsgEditor.pas' {frmMessageEditor},
-  UListContato in 'UListContato.pas' {frmListContatos};
+  UListContato in 'UListContato.pas' {frmListContatos},
+  URelVelRes in 'URelVelRes.pas' {frmRelVelRes};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
+  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
+  Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
   Application.Run;
 end.

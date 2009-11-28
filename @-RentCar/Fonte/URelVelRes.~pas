@@ -1,4 +1,4 @@
-unit URelVelAlugados;
+unit URelVelRes;
 
 interface
 
@@ -7,8 +7,8 @@ uses
   Dialogs, QRCtrls, QuickRpt, ExtCtrls;
 
 type
-  TfrmRelVelAlugados = class(TForm)
-    QRVelAlugados: TQuickRep;
+  TfrmRelVelRes = class(TForm)
+    QRVelRes: TQuickRep;
     QRBand1: TQRBand;
     QRBand2: TQRBand;
     QRDBImgVel: TQRDBImage;
@@ -23,7 +23,7 @@ type
   end;
 
 var
-  frmRelVelAlugados: TfrmRelVelAlugados;
+  frmRelVelRes: TfrmRelVelRes;
 
 implementation
 

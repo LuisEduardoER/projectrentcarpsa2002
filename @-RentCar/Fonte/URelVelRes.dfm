@@ -1,9 +1,9 @@
-object frmRelVelDisp: TfrmRelVelDisp
-  Left = 193
-  Top = 157
+object frmRelVelRes: TfrmRelVelRes
+  Left = 252
+  Top = 218
   Width = 870
   Height = 500
-  Caption = '@-RentCar - Veiculos Dispon'#237'veis'
+  Caption = '@-RentCar - Veiculos Reservados'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,9 +14,9 @@ object frmRelVelDisp: TfrmRelVelDisp
   Scaled = False
   PixelsPerInch = 96
   TextHeight = 13
-  object QRVelDisp: TQuickRep
-    Left = 0
-    Top = 0
+  object QRVelRes: TQuickRep
+    Left = -8
+    Top = -9
     Width = 794
     Height = 1123
     Frame.Color = clBlack
@@ -114,31 +114,31 @@ object frmRelVelDisp: TfrmRelVelDisp
         DataField = 'Vel_Img'
         DataSet = dmRentCar.ZQAlugar
       end
-      object QRDBRTVelDisp: TQRDBRichText
-        Left = 168
-        Top = 10
-        Width = 457
-        Height = 106
+      object QRDBText1: TQRDBText
+        Left = 152
+        Top = 39
+        Width = 64
+        Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          280.458333333333400000
-          444.500000000000000000
-          26.458333333333330000
-          1209.145833333333000000)
+          44.979166666666670000
+          402.166666666666600000
+          103.187500000000000000
+          169.333333333333300000)
         Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
         AutoStretch = False
-        Color = clWindow
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = []
-        DataField = 'Vel_Espec'
+        Color = clWhite
         DataSet = dmRentCar.ZQAlugar
+        DataField = 'Vel_Espec'
+        Transparent = False
+        WordWrap = True
+        FontSize = 10
       end
     end
     object QRBand3: TQRBand

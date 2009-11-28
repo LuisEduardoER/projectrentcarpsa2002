@@ -48,12 +48,6 @@ object dmRentCar: TdmRentCar
       DisplayLabel = 'Ano'
       FieldName = 'Vel_Ano'
     end
-    object ZTCadVeiculoVel_Espec: TMemoField
-      DisplayLabel = 'Espec'
-      FieldName = 'Vel_Espec'
-      Visible = False
-      BlobType = ftMemo
-    end
     object ZTCadVeiculoVel_Modelo: TStringField
       DisplayLabel = 'Modelo'
       FieldName = 'Vel_Modelo'
@@ -66,6 +60,10 @@ object dmRentCar: TdmRentCar
     object ZTCadVeiculoVel_Marca: TStringField
       DisplayLabel = 'Marca'
       FieldName = 'Vel_Marca'
+    end
+    object ZTCadVeiculoVel_Espec: TStringField
+      FieldName = 'Vel_Espec'
+      Size = 60
     end
   end
   object ZTChamado: TZTable
@@ -103,6 +101,10 @@ object dmRentCar: TdmRentCar
     object ZTChamadoCh_DataCh: TDateField
       FieldName = 'Ch_DataCh'
     end
+    object ZTChamadoCh_Status: TStringField
+      FieldName = 'Ch_Status'
+      Size = 1
+    end
   end
   object ZTPessoa: TZTable
     Connection = ZRentCar
@@ -124,12 +126,6 @@ object dmRentCar: TdmRentCar
       FieldName = 'RentCar_Enderecos_End_Id'
       Required = True
       Visible = False
-    end
-    object ZTPessoaPes_Nome: TStringField
-      DisplayLabel = 'Nome'
-      DisplayWidth = 50
-      FieldName = 'Pes_Nome'
-      Size = 100
     end
     object ZTPessoaPes_TelRes: TStringField
       DisplayLabel = 'TelRes'
@@ -213,6 +209,18 @@ object dmRentCar: TdmRentCar
     end
     object ZTPesFisPesFis_Validade: TDateField
       FieldName = 'PesFis_Validade'
+    end
+    object ZTPesFisPesFis_Login: TStringField
+      FieldName = 'PesFis_Login'
+      Size = 15
+    end
+    object ZTPesFisPesFis_Senha: TStringField
+      FieldName = 'PesFis_Senha'
+      Size = 10
+    end
+    object ZTPesFisPesFis_Nome: TStringField
+      FieldName = 'PesFis_Nome'
+      Size = 255
     end
   end
   object dsTPesFis: TDataSource
@@ -360,20 +368,17 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 88
     Top = 168
-    object ZTAlugarAlu_id: TLargeintField
+    object ZTAlugarAlu_id: TIntegerField
       FieldName = 'Alu_id'
     end
-    object ZTAlugarRentCar_PesFis_PesFis_id: TLargeintField
+    object ZTAlugarRentCar_PesFis_PesFis_id: TIntegerField
       FieldName = 'RentCar_PesFis_PesFis_id'
-      Required = True
     end
-    object ZTAlugarRentCar_Ger_Valores_GerVal_id: TLargeintField
+    object ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField
       FieldName = 'RentCar_Ger_Valores_GerVal_id'
-      Required = True
     end
-    object ZTAlugarRentCar_Veiculo_Vel_id: TLargeintField
+    object ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField
       FieldName = 'RentCar_Veiculo_Vel_id'
-      Required = True
     end
     object ZTAlugarAlu_Reserva: TStringField
       FieldName = 'Alu_Reserva'
@@ -398,12 +403,6 @@ object dmRentCar: TdmRentCar
     Connection = ZRentCar
     CachedUpdates = False
     RequestLive = False
-    SQL.Strings = (
-      'Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img'
-      'from rentcar_veiculo, rentcar_alugar'
-      
-        'where rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Ve' +
-        'l_id')
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]
@@ -412,13 +411,6 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 160
     Top = 168
-    object ZQAlugarVel_Espec: TMemoField
-      FieldName = 'Vel_Espec'
-      BlobType = ftMemo
-    end
-    object ZQAlugarVel_Img: TBlobField
-      FieldName = 'Vel_Img'
-    end
   end
   object ZQFunctions: TZQuery
     Connection = ZRentCar

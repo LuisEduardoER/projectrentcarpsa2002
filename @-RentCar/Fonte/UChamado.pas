@@ -14,28 +14,25 @@ type
     GroupBox1: TGroupBox;
     edtNome: TEdit;
     lblNome: TLabel;
-    edtCPF: TEdit;
-    lblCPF: TLabel;
-    rbNome: TRadioButton;
-    rbCPF: TRadioButton;
     gbAberturaChamados: TGroupBox;
     DBLCBSolcit: TDBLookupComboBox;
     lblSolicitacao: TLabel;
-    DateTimePicker1: TDateTimePicker;
+    DataChamado: TDateTimePicker;
     lblData: TLabel;
     DBREChamado: TDBRichEdit;
     lblDesc: TLabel;
     brnSalvar: TButton;
-    rgStatusChamados: TRadioGroup;
     lblProtocol: TLabel;
     DBTProtocol: TDBText;
     DBTHora: TDBText;
     Label1: TLabel;
+    DBRadioGroup1: TDBRadioGroup;
+    btnBuscar: TButton;
     procedure btnCadastrarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
-    procedure rbNomeClick(Sender: TObject);
-    procedure rbCPFClick(Sender: TObject);
     procedure brnSalvarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnBuscarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,28 +59,6 @@ begin
  close;
 end;
 
-procedure TfrmRentCarAberturaChamado.rbNomeClick(Sender: TObject);
-begin
- edtNome.Enabled := True;
- edtCPF.Enabled := False;
- //edtNome.SetFocus;
- Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
- frmConsultaClientes.ckNome.Checked := True;
- frmConsultaClientes.ShowModal;
- frmConsultaClientes.Free;
-end;
-
-procedure TfrmRentCarAberturaChamado.rbCPFClick(Sender: TObject);
-begin
- edtNome.Enabled := False;
- edtCPF.Enabled := True;
- //edtCPF.SetFocus;
- Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
- frmConsultaClientes.ckCPFCNPJ.Checked := True;
- frmConsultaClientes.ShowModal;
- frmConsultaClientes.Free;
-end;
-
 procedure TfrmRentCarAberturaChamado.brnSalvarClick(Sender: TObject);
 Var
 Rand : integer;
@@ -98,9 +73,22 @@ begin
     until(Length(protocol)= 10); //quantos números diferentes você desejar obter.
 
 dmRentCar.ZTChamadoCh_HoraCh.Value := Now;
-dmRentCar.ZTChamadoCh_DataCh.Value := Date;
+dmRentCar.ZTChamadoCh_DataCh.Value := DataChamado.Date;
 dmRentCar.ZTChamadoCh_Protocol.AsString := protocol;
 dmRentCar.ZTChamado.Post;
+end;
+
+procedure TfrmRentCarAberturaChamado.FormShow(Sender: TObject);
+begin
+ DBTHora.Caption := DateToStr(Date);
+end;
+
+procedure TfrmRentCarAberturaChamado.btnBuscarClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
+  frmConsultaClientes.ShowModal;
+  frmConsultaClientes.Close;
+
 end;
 
 end.

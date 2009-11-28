@@ -63,7 +63,7 @@ object frmLocacao: TfrmLocacao
     Top = 16
     Width = 465
     Height = 289
-    ActivePage = tsLocacao
+    ActivePage = tsReserva
     TabOrder = 5
     object tsLocacao: TTabSheet
       Caption = 'Loca'#231#227'o'
@@ -74,21 +74,13 @@ object frmLocacao: TfrmLocacao
         Height = 13
         Caption = 'Cliente'
       end
-      object edtCliente: TEdit
-        Left = 5
-        Top = 24
-        Width = 244
-        Height = 21
-        TabOrder = 0
-        OnChange = edtClienteChange
-      end
       object btnBuscar: TButton
         Left = 260
         Top = 20
         Width = 75
         Height = 25
         Caption = 'Buscar'
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnBuscarClick
       end
       object gbLocacao: TGroupBox
@@ -96,8 +88,7 @@ object frmLocacao: TfrmLocacao
         Top = 52
         Width = 449
         Height = 201
-        Enabled = False
-        TabOrder = 2
+        TabOrder = 1
         object lblTipoPg: TLabel
           Left = 8
           Top = 116
@@ -108,9 +99,9 @@ object frmLocacao: TfrmLocacao
         object lblVlrPagar: TLabel
           Left = 8
           Top = 70
-          Width = 37
+          Width = 65
           Height = 13
-          Caption = 'Ve'#237'culo'
+          Caption = 'Valor A Pagar'
         end
         object lblVeiculo: TLabel
           Left = 8
@@ -140,21 +131,24 @@ object frmLocacao: TfrmLocacao
           Width = 73
           Height = 17
           Caption = 'Alugado'
-          DataField = 'Alu_Reserva'
+          DataField = 'Alu_Loc'
           DataSource = dmRentCar.dsTAlugar
           TabOrder = 0
-          ValueChecked = 'True'
-          ValueUnchecked = 'False'
+          ValueChecked = 'AL'
+          ValueUnchecked = 'NAL'
         end
         object DBCBTpPg: TDBComboBox
           Left = 8
           Top = 130
-          Width = 145
+          Width = 89
           Height = 21
           Style = csDropDownList
           DataField = 'GerVal_TipoPag'
           DataSource = dmRentCar.dsTGerVal
           ItemHeight = 13
+          Items.Strings = (
+            'Dinheiro'
+            'Cheque')
           TabOrder = 1
         end
         object DBEVlrAPagar: TDBEdit
@@ -172,8 +166,9 @@ object frmLocacao: TfrmLocacao
           Width = 241
           Height = 21
           DataField = 'RentCar_Veiculo_Vel_id'
+          DataSource = dmRentCar.dsTAlugar
           KeyField = 'Vel_id'
-          ListField = 'Vel_Espec'
+          ListField = 'Vel_Marca'
           ListSource = dmRentCar.dsCadVeiculo
           TabOrder = 3
           OnClick = DBLookupCBVeiculoClick
@@ -188,6 +183,13 @@ object frmLocacao: TfrmLocacao
           TabOrder = 4
         end
       end
+      object edtCliLoc: TEdit
+        Left = 5
+        Top = 22
+        Width = 240
+        Height = 21
+        TabOrder = 2
+      end
     end
     object tsReserva: TTabSheet
       Caption = 'Reserva'
@@ -199,21 +201,13 @@ object frmLocacao: TfrmLocacao
         Height = 13
         Caption = 'Cliente'
       end
-      object Edit1: TEdit
-        Left = 5
-        Top = 24
-        Width = 244
-        Height = 21
-        TabOrder = 0
-        OnChange = edtClienteChange
-      end
       object btnB: TButton
         Left = 260
         Top = 20
         Width = 75
         Height = 25
         Caption = 'Buscar'
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnBuscarClick
       end
       object GroupBox1: TGroupBox
@@ -221,8 +215,7 @@ object frmLocacao: TfrmLocacao
         Top = 63
         Width = 449
         Height = 155
-        Enabled = False
-        TabOrder = 2
+        TabOrder = 1
         object Label5: TLabel
           Left = 8
           Top = 22
@@ -251,11 +244,11 @@ object frmLocacao: TfrmLocacao
           Width = 73
           Height = 17
           Caption = 'Reservado'
-          DataField = 'Alu_Loc'
+          DataField = 'Alu_Reserva'
           DataSource = dmRentCar.dsTAlugar
           TabOrder = 0
-          ValueChecked = 'True'
-          ValueUnchecked = 'False'
+          ValueChecked = 'R'
+          ValueUnchecked = 'NR'
         end
         object DBLCBV: TDBLookupComboBox
           Left = 8
@@ -263,8 +256,9 @@ object frmLocacao: TfrmLocacao
           Width = 241
           Height = 21
           DataField = 'RentCar_Veiculo_Vel_id'
+          DataSource = dmRentCar.dsTAlugar
           KeyField = 'Vel_id'
-          ListField = 'Vel_Espec'
+          ListField = 'Vel_Marca'
           ListSource = dmRentCar.dsCadVeiculo
           TabOrder = 1
           OnClick = DBLCBVClick
@@ -278,6 +272,13 @@ object frmLocacao: TfrmLocacao
           DataSource = dmRentCar.dsCadVeiculo
           TabOrder = 2
         end
+      end
+      object edtCliRes: TEdit
+        Left = 4
+        Top = 24
+        Width = 234
+        Height = 21
+        TabOrder = 2
       end
     end
   end

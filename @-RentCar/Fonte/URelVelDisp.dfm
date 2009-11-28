@@ -24,7 +24,7 @@ object frmRelVelDisp: TfrmRelVelDisp
     Frame.DrawBottom = False
     Frame.DrawLeft = False
     Frame.DrawRight = False
-    DataSet = dmRentCar.ZTAlugar
+    DataSet = dmRentCar.ZQAlugar
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -82,7 +82,7 @@ object frmRelVelDisp: TfrmRelVelDisp
       Left = 38
       Top = 137
       Width = 718
-      Height = 126
+      Height = 127
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -93,7 +93,7 @@ object frmRelVelDisp: TfrmRelVelDisp
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        333.375000000000000000
+        336.020833333333400000
         1899.708333333333000000)
       BandType = rbDetail
       object QRDBImgVel: TQRDBImage
@@ -114,38 +114,38 @@ object frmRelVelDisp: TfrmRelVelDisp
         DataField = 'Vel_Img'
         DataSet = dmRentCar.ZQAlugar
       end
-      object QRDBRTVelDisp: TQRDBRichText
-        Left = 168
-        Top = 10
-        Width = 457
-        Height = 106
+      object QRDBText1: TQRDBText
+        Left = 152
+        Top = 39
+        Width = 64
+        Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          280.458333333333400000
-          444.500000000000000000
-          26.458333333333330000
-          1209.145833333333000000)
+          44.979166666666670000
+          402.166666666666600000
+          103.187500000000000000
+          169.333333333333300000)
         Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
         AutoStretch = False
-        Color = clWindow
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = []
-        DataField = 'Vel_Espec'
+        Color = clWhite
         DataSet = dmRentCar.ZQAlugar
+        DataField = 'Vel_Espec'
+        Transparent = False
+        WordWrap = True
+        FontSize = 10
       end
     end
     object QRBand3: TQRBand
       Left = 38
-      Top = 263
+      Top = 264
       Width = 718
-      Height = 27
+      Height = 32
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -156,7 +156,7 @@ object frmRelVelDisp: TfrmRelVelDisp
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        71.437500000000000000
+        84.666666666666680000
         1899.708333333333000000)
       BandType = rbSummary
       object QRSysData1: TQRSysData

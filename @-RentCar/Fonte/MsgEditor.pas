@@ -70,7 +70,7 @@ procedure TfrmMessageEditor.FormShow(Sender: TObject);
 begin
   sbRentCar.Panels[1].Text := DateToStr(date);
   sbRentCar.Panels[2].Text := TimeToStr(now);
-  Application.CreateForm(TfrmLocacao, frmLocacao);
+  //Application.CreateForm(TfrmLocacao, frmLocacao);
   if frmLocacao.email = 'r' then
   Begin
    MCorpo.Lines.Add('--------------------------------'+
@@ -91,7 +91,7 @@ begin
                    '         '+
                    'Srº'+' '+'estamos mandando esse e-mail para confirmar a locação do veículo '+''+'');
   end;
-  frmLocacao.Free;
+ // frmLocacao.Free;
 end;
 
 procedure TfrmMessageEditor.bbtnOkClick(Sender: TObject);

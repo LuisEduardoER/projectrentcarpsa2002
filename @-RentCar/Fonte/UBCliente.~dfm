@@ -12,7 +12,6 @@ object frmConsultaClientes: TfrmConsultaClientes
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
@@ -21,12 +20,14 @@ object frmConsultaClientes: TfrmConsultaClientes
     Width = 427
     Height = 215
     DataSource = dmRentCar.dsQCliente
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnCellClick = DBGrid1CellClick
   end
   object gbFiltros: TGroupBox
     Left = 13
