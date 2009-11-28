@@ -27,6 +27,8 @@ var
 
 implementation
 
+uses UDMRentCar;
+
 {$R *.dfm}
 
 end.

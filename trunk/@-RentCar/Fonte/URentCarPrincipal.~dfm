@@ -70,6 +70,10 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
             Caption = 'Dispon'#237'veis'
             OnClick = DisponveisClick
           end
+          object Reservados: TMenuItem
+            Caption = 'Reservados'
+            OnClick = ReservadosClick
+          end
         end
       end
     end

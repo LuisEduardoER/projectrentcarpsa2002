@@ -12,11 +12,12 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object btnSair: TButton
-    Left = 333
-    Top = 401
+    Left = 331
+    Top = 372
     Width = 71
     Height = 25
     Caption = 'Sair'
@@ -24,16 +25,16 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     OnClick = btnSairClick
   end
   object btnLimpar: TButton
-    Left = 241
-    Top = 401
+    Left = 239
+    Top = 372
     Width = 68
     Height = 25
     Caption = 'Limpar'
     TabOrder = 1
   end
   object btnCadastrar: TButton
-    Left = 51
-    Top = 401
+    Left = 49
+    Top = 372
     Width = 78
     Height = 25
     Caption = 'Cadastrar'
@@ -44,59 +45,37 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     Left = 4
     Top = 5
     Width = 465
-    Height = 92
+    Height = 61
     Caption = 'Busca dos Dados'
     TabOrder = 3
     object lblNome: TLabel
-      Left = 28
+      Left = 14
       Top = 14
       Width = 28
       Height = 13
       Caption = 'Nome'
     end
-    object lblCPF: TLabel
-      Left = 27
-      Top = 49
-      Width = 52
-      Height = 13
-      Caption = 'CPF/CNPJ'
-    end
     object edtNome: TEdit
-      Left = 28
+      Left = 14
       Top = 28
       Width = 305
       Height = 21
       Enabled = False
       TabOrder = 0
     end
-    object edtCPF: TEdit
-      Left = 28
-      Top = 63
-      Width = 121
-      Height = 21
-      Enabled = False
+    object btnBuscar: TButton
+      Left = 334
+      Top = 25
+      Width = 75
+      Height = 25
+      Caption = 'Buscar'
       TabOrder = 1
-    end
-    object rbNome: TRadioButton
-      Left = 6
-      Top = 30
-      Width = 18
-      Height = 17
-      TabOrder = 2
-      OnClick = rbNomeClick
-    end
-    object rbCPF: TRadioButton
-      Left = 6
-      Top = 62
-      Width = 17
-      Height = 17
-      TabOrder = 3
-      OnClick = rbCPFClick
+      OnClick = btnBuscarClick
     end
   end
   object gbAberturaChamados: TGroupBox
     Left = 4
-    Top = 106
+    Top = 74
     Width = 465
     Height = 291
     Caption = 'Abertura Chamados'
@@ -178,7 +157,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 21
       TabOrder = 0
     end
-    object DateTimePicker1: TDateTimePicker
+    object DataChamado: TDateTimePicker
       Left = 183
       Top = 37
       Width = 103
@@ -192,24 +171,31 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Top = 87
       Width = 449
       Height = 162
+      DataField = 'Ch_DescCh'
+      DataSource = dmRentCar.dsTChamado
       TabOrder = 2
     end
-    object rgStatusChamados: TRadioGroup
+    object DBRadioGroup1: TDBRadioGroup
       Left = 8
-      Top = 253
-      Width = 191
+      Top = 254
+      Width = 185
       Height = 33
       Caption = 'Status Chamado'
       Columns = 2
+      DataField = 'Ch_Status'
+      DataSource = dmRentCar.dsTChamado
       Items.Strings = (
         'Fechado'
         'Em Espera')
       TabOrder = 3
+      Values.Strings = (
+        'F'
+        'E')
     end
   end
   object brnSalvar: TButton
-    Left = 147
-    Top = 401
+    Left = 145
+    Top = 372
     Width = 73
     Height = 25
     Caption = 'Salvar'
