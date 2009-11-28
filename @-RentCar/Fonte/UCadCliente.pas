@@ -163,7 +163,6 @@ begin
    end else
   if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
-    ShowMessage('juridica krai');
     cnpj := DBECNPJ.Text;
     lblResCNPJ.Caption := confereCNPJ(cnpj);
     if lblResCNPJ.Caption <> 'CNPJ Invalido' then

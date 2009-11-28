@@ -40,23 +40,6 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
     Top = 32
     object Administrativo1: TMenuItem
       Caption = 'Administrativo'
-      object CadastroSolicitaesChamados1: TMenuItem
-        Caption = 'Cadastro Solicita'#231#245'es'
-      end
-      object Relatorios: TMenuItem
-        Caption = 'Relatorios'
-        object RelVeiculos: TMenuItem
-          Caption = 'Ve'#237'culos'
-          object Alugados: TMenuItem
-            Caption = 'Alugados'
-            OnClick = AlugadosClick
-          end
-          object Disponveis: TMenuItem
-            Caption = 'Dispon'#237'veis'
-            OnClick = DisponveisClick
-          end
-        end
-      end
       object Cadastros1: TMenuItem
         Caption = 'Cadastros'
         object Clientes: TMenuItem
@@ -73,6 +56,20 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         object Veiculos: TMenuItem
           Caption = 'Veiculos'
           OnClick = VeiculosClick
+        end
+      end
+      object Relatorios: TMenuItem
+        Caption = 'Relatorios'
+        object RelVeiculos: TMenuItem
+          Caption = 'Ve'#237'culos'
+          object Alugados: TMenuItem
+            Caption = 'Alugados'
+            OnClick = AlugadosClick
+          end
+          object Disponveis: TMenuItem
+            Caption = 'Dispon'#237'veis'
+            OnClick = DisponveisClick
+          end
         end
       end
     end

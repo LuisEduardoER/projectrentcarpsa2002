@@ -161,6 +161,7 @@ object dmRentCar: TdmRentCar
     Top = 24
   end
   object dsTChamado: TDataSource
+    DataSet = ZTChamado
     Left = 144
     Top = 24
   end

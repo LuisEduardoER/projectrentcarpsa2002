@@ -15,7 +15,6 @@ type
     Administrativo1: TMenuItem;
     Usurios1: TMenuItem;
     Funcionarios1: TMenuItem;
-    CadastroSolicitaesChamados1: TMenuItem;
     Relatorios: TMenuItem;
     LocVeiculos: TMenuItem;
     Chamados: TMenuItem;
@@ -117,6 +116,8 @@ begin
 end;
 
 procedure TfrmRentCarPrincipal.PesFisicaClick(Sender: TObject);
+var
+cpf : string;
 begin
  tipo := 'PF';
  dmRentCar.ZTPesFis.Open;
@@ -124,6 +125,8 @@ begin
  dmRentCar.ZTEndereco.Open;
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPJ.Destroy;
+ cpf := frmCadClientes.DBECPF.Text;
+ frmCadClientes.lblResCPFCNPJ.Caption := frmCadClientes.confereCPF(cpf);
  dmRentCar.ZTPesFis.Filtered := False;
  dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
  dmRentCar.ZTPesFis.Filtered := True;
@@ -142,6 +145,8 @@ begin
 end;
 
 procedure TfrmRentCarPrincipal.PesJuridicaClick(Sender: TObject);
+var
+cnpj : string;
 begin
  tipo := 'PJ';
  dmRentCar.ZTPesJu.Open;
@@ -149,6 +154,8 @@ begin
  dmRentCar.ZTEndereco.Open;
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPF.Destroy;
+ cnpj := frmCadClientes.DBECNPJ.Text;
+ frmCadClientes.lblResCNPJ.Caption := frmCadClientes.confereCNPJ(cnpj);
  dmRentCar.ZTPesJu.Filtered := False;
  dmRentCar.ZTPesJu.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
  dmRentCar.ZTPesJu.Filtered := True;
