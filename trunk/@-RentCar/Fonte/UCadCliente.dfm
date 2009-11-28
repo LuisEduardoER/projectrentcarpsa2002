@@ -19,7 +19,7 @@ object frmCadClientes: TfrmCadClientes
     Top = 8
     Width = 697
     Height = 233
-    ActivePage = tsEndereco
+    ActivePage = tsDadosPF
     TabOrder = 0
     object tsDadosPF: TTabSheet
       Caption = 'Dados Pessoais'

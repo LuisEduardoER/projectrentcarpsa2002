@@ -12,6 +12,7 @@ object frmConsultaClientes: TfrmConsultaClientes
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
@@ -46,7 +47,7 @@ object frmConsultaClientes: TfrmConsultaClientes
       Left = 6
       Top = 47
       Width = 73
-      Height = 17
+      Height = 18
       Caption = 'CPF/CNPJ'
       TabOrder = 1
       OnClick = ckCPFCNPJClick
@@ -56,17 +57,16 @@ object frmConsultaClientes: TfrmConsultaClientes
       Top = 14
       Width = 329
       Height = 21
+      Enabled = False
       TabOrder = 2
     end
-    object mkCPFCNPJ: TMaskEdit
-      Left = 85
-      Top = 45
-      Width = 85
+    object edtCPFCNPJ: TEdit
+      Left = 84
+      Top = 42
+      Width = 121
       Height = 21
-      EditMask = '000.000.000-00;1;_'
-      MaxLength = 14
+      Enabled = False
       TabOrder = 3
-      Text = '   .   .   -  '
     end
   end
   object btnBuscar: TButton
