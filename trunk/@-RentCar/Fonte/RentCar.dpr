@@ -18,7 +18,8 @@ uses
   UCadUsuario in 'UCadUsuario.pas' {frmCadUsuarios},
   MsgEditor in 'MsgEditor.pas' {frmMessageEditor},
   UListContato in 'UListContato.pas' {frmListContatos},
-  URelVelRes in 'URelVelRes.pas' {frmRelVelRes};
+  URelVelRes in 'URelVelRes.pas' {frmRelVelRes},
+  UContraoPesJu in 'UContraoPesJu.pas' {frmContratoLocacaoPesJu};
 
 {$R *.res}
 
@@ -29,5 +30,6 @@ begin
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
+  Application.CreateForm(TfrmContratoLocacaoPesJu, frmContratoLocacaoPesJu);
   Application.Run;
 end.

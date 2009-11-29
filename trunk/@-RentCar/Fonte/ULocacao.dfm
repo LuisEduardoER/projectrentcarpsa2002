@@ -282,4 +282,27 @@ object frmLocacao: TfrmLocacao
       end
     end
   end
+  object SMTP: TIdSMTP
+    MaxLineAction = maException
+    ReadTimeout = 0
+    Port = 25
+    AuthenticationType = atNone
+    Left = 384
+  end
+  object SSLSocket: TIdSSLIOHandlerSocket
+    SSLOptions.Method = sslvSSLv2
+    SSLOptions.Mode = sslmUnassigned
+    SSLOptions.VerifyMode = []
+    SSLOptions.VerifyDepth = 0
+    Left = 416
+  end
+  object MSG: TIdMessage
+    AttachmentEncoding = 'MIME'
+    BccList = <>
+    CCList = <>
+    Encoding = meMIME
+    Recipients = <>
+    ReplyTo = <>
+    Left = 448
+  end
 end

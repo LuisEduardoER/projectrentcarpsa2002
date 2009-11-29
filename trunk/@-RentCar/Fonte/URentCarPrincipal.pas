@@ -85,10 +85,6 @@ procedure TfrmRentCarPrincipal.FisicaClick(Sender: TObject);
 begin
  tipo := 'PF';
  veiculo := 'R';
- {dmRentCar.ZTAlugar.Open;
- dmRentCar.ZTCadVeiculo.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTPesFis.Open; }
  dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
@@ -99,10 +95,6 @@ begin
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTGerVal.Close;
- {dmRentCar.ZTAlugar.Close;
- dmRentCar.ZTCadVeiculo.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTPesFis.Close;}
 
 end;
 
@@ -110,18 +102,16 @@ procedure TfrmRentCarPrincipal.JuridicaClick(Sender: TObject);
 begin
  tipo := 'PJ';
  veiculo := 'R';
-{ dmRentCar.ZTAlugar.Open;
+ dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTPesJu.Open; }
+ dmRentCar.ZTGerVal.Open;
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsLocacao.Destroy;
  frmLocacao.ShowModal;
  frmLocacao.Free;
-{ dmRentCar.ZTAlugar.Close;
+ dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTPesJu.Close; }
+ dmRentCar.ZTGerVal.Close;
 end;
 
 procedure TfrmRentCarPrincipal.PesFisicaClick(Sender: TObject);
@@ -252,46 +242,34 @@ end;
 
 procedure TfrmRentCarPrincipal.LocPesFisClick(Sender: TObject);
 begin
- tipo := 'PF';
- veiculo := 'L';
-{ dmRentCar.ZTAlugar.Open;
- dmRentCar.ZTCadVeiculo.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTPesFis.Open;}
- veiculo := 'L';
+  tipo := 'PF';
+  veiculo := 'L';
   dmRentCar.ZTAlugar.Open;
   dmRentCar.ZTCadVeiculo.Open;
-   dmRentCar.ZTGerVal.Open;
- Application.CreateForm(TfrmLocacao, frmLocacao);
- frmLocacao.tsReserva.Destroy;
- frmLocacao.ShowModal;
- frmLocacao.Free;
+  dmRentCar.ZTGerVal.Open;
+  Application.CreateForm(TfrmLocacao, frmLocacao);
+  frmLocacao.tsReserva.Destroy;
+  frmLocacao.ShowModal;
+  frmLocacao.Free;
   dmRentCar.ZTCadVeiculo.Open;
   dmRentCar.ZTAlugar.Close;
-   dmRentCar.ZTGerVal.Open;
- {dmRentCar.ZTAlugar.Close;
- dmRentCar.ZTCadVeiculo.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTPesFis.Close;}
-
+  dmRentCar.ZTGerVal.Close;
 end;
 
 procedure TfrmRentCarPrincipal.LocPesJuClick(Sender: TObject);
 begin
  tipo := 'PJ';
  veiculo := 'L';
- {dmRentCar.ZTAlugar.Open;
+ dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTPesFis.Open; }
+ dmRentCar.ZTGerVal.Open;
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsReserva.Destroy;
  frmLocacao.ShowModal;
  frmLocacao.Free;
- {dmRentCar.ZTAlugar.Close;
+ dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTPesFis.Close; }
+ dmRentCar.ZTGerVal.Close;
 
 end;
 

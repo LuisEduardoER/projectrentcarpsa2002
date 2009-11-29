@@ -1,4 +1,4 @@
-unit UContrato;
+unit UContraoPesJu;
 
 interface
 
@@ -7,8 +7,8 @@ uses
   Dialogs, QRCtrls, QuickRpt, ExtCtrls;
 
 type
-  TfrmContratoLocacao = class(TForm)
-    QRVelContrLoc: TQuickRep;
+  TfrmContratoLocacaoPesJu = class(TForm)
+    QRVelContrLocPesJu: TQuickRep;
     QRBand1: TQRBand;
     QRBand2: TQRBand;
     QRLabel1: TQRLabel;
@@ -18,8 +18,6 @@ type
     QRDBEstC: TQRDBText;
     QRLabel4: TQRLabel;
     QRDBRG: TQRDBText;
-    QRLabel5: TQRLabel;
-    QRDBCPF: TQRDBText;
     QRLabel6: TQRLabel;
     QRDBLogr: TQRDBText;
     QRLabel7: TQRLabel;
@@ -80,11 +78,9 @@ type
   end;
 
 var
-  frmContratoLocacao: TfrmContratoLocacao;
+  frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu;
 
 implementation
-
-uses UDMRentCar;
 
 {$R *.dfm}
 
