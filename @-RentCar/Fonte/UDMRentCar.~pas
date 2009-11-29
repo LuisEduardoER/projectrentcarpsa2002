@@ -63,13 +63,6 @@ type
     ZTEnderecoEnd_CEP: TStringField;
     ZQCliente: TZQuery;
     dsQCliente: TDataSource;
-    ZTChamadoCh_id: TLargeintField;
-    ZTChamadoRentCar_PesFis_PesFis_id: TLargeintField;
-    ZTChamadoCh_TipoCh: TStringField;
-    ZTChamadoCh_DescCh: TMemoField;
-    ZTChamadoCh_Protocol: TLargeintField;
-    ZTChamadoCh_HoraCh: TTimeField;
-    ZTChamadoCh_DataCh: TDateField;
     ZTAlugar: TZTable;
     dsTAlugar: TDataSource;
     dsQAlugar: TDataSource;
@@ -88,13 +81,24 @@ type
     ZTPesFisPesFis_Senha: TStringField;
     ZTPesFisPesFis_Nome: TStringField;
     ZTCadVeiculoVel_Espec: TStringField;
-    ZTChamadoCh_Status: TStringField;
-    ZTAlugarAlu_id: TLargeintField;
-    ZTAlugarRentCar_Pessoa_Pes_id: TLargeintField;
-    ZTAlugarRentCar_Ger_Valores_GerVal_id: TLargeintField;
-    ZTAlugarRentCar_Veiculo_Vel_id: TLargeintField;
+    ZTAlugarAlu_id: TIntegerField;
+    ZTAlugarRentCar_Pessoa_Pes_id: TIntegerField;
+    ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField;
+    ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField;
     ZTAlugarAlu_Reserva: TStringField;
     ZTAlugarAlu_Loc: TStringField;
+    ZQFunctionsVel_Img: TBlobField;
+    ZQFunctionsVel_Espec: TStringField;
+    ZQFunctionsMaxAlu_Loc: TStringField;
+    ZQFunctionsMaxAlu_Reserva: TStringField;
+    ZTChamadoCh_id: TLargeintField;
+    ZTChamadoRentCar_Pessoa_Pes_id: TLargeintField;
+    ZTChamadoCh_TipoCh: TStringField;
+    ZTChamadoCh_DescCh: TMemoField;
+    ZTChamadoCh_Protocol: TLargeintField;
+    ZTChamadoCh_HoraCh: TTimeField;
+    ZTChamadoCh_DataCh: TDateField;
+    ZTChamadoCh_Status: TStringField;
   private
     { Private declarations }
   public

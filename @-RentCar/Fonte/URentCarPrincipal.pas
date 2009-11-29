@@ -36,6 +36,7 @@ type
     LocPesFis: TMenuItem;
     LocPesJu: TMenuItem;
     Reservados: TMenuItem;
+    GerarPerfil1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
@@ -51,6 +52,7 @@ type
     procedure LocPesFisClick(Sender: TObject);
     procedure LocPesJuClick(Sender: TObject);
     procedure ReservadosClick(Sender: TObject);
+    procedure GerarPerfil1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,7 +68,7 @@ var
 implementation
 
 uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado, URelVelDisp,
-  URelVelAlugados, UCadUsuario, URelVelRes;
+  URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil;
 
 {$R *.dfm}
 
@@ -294,6 +296,13 @@ begin
   end;
   end;
 
+end;
+
+procedure TfrmRentCarPrincipal.GerarPerfil1Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
+  frmGerarPerfil.ShowModal;
+  frmGerarPerfil.Free;
 end;
 
 end.

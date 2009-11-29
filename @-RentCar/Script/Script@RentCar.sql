@@ -23,7 +23,7 @@ CREATE TABLE RentCar_Alugar (
 
 CREATE TABLE RentCar_Chamado (
   Ch_id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  RentCar_PesFis_PesFis_id INTEGER UNSIGNED NOT NULL,
+  RentCar_Pessoa_Pes_id INTEGER UNSIGNED NOT NULL,
   Ch_TipoCh VARCHAR(15) NULL,
   Ch_DescCh TEXT NULL,
   Ch_Protocol INTEGER(11) UNSIGNED NULL,
@@ -31,7 +31,7 @@ CREATE TABLE RentCar_Chamado (
   Ch_DataCh DATE NULL,
   Ch_Status CHAR(1) NULL,
   PRIMARY KEY(Ch_id),
-  INDEX RentCar_Chamado_Pessoa(RentCar_PesFis_PesFis_id)
+  INDEX RentCar_Chamado_Pessoa(RentCar_Pessoa_Pes_id)
 );
 
 CREATE TABLE RentCar_Enderecos (

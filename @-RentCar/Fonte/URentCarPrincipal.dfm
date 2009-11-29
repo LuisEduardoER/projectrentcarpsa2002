@@ -125,6 +125,10 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         Caption = 'Funcionarios'
         OnClick = Funcionarios1Click
       end
+      object GerarPerfil1: TMenuItem
+        Caption = 'Gerar Perfil'
+        OnClick = GerarPerfil1Click
+      end
     end
     object Sair: TMenuItem
       Caption = 'Sair'
