@@ -36,6 +36,7 @@ type
     LocPesFis: TMenuItem;
     LocPesJu: TMenuItem;
     Reservados: TMenuItem;
+    GerarPerfil1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
@@ -255,8 +256,7 @@ end;
 
 procedure TfrmRentCarPrincipal.LocPesJuClick(Sender: TObject);
 begin
- tipo := 'PJ';
- veiculo := 'L';
+ veiculo := 'PJL';
  dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
