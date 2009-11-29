@@ -10,7 +10,7 @@ CREATE TABLE RentCar_Acesso (
 
 CREATE TABLE RentCar_Alugar (
   Alu_id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  RentCar_PesFis_PesFis_id INTEGER UNSIGNED NOT NULL,
+  RentCar_Pessoa_Pes_id INTEGER UNSIGNED NOT NULL,
   RentCar_Ger_Valores_GerVal_id INTEGER UNSIGNED NOT NULL,
   RentCar_Veiculo_Vel_id INTEGER UNSIGNED NOT NULL,
   Alu_Reserva CHAR(1) NULL,
@@ -18,7 +18,7 @@ CREATE TABLE RentCar_Alugar (
   PRIMARY KEY(Alu_id),
   INDEX RentCar_Alugar_Veiculo(RentCar_Veiculo_Vel_id),
   INDEX RentCar_Alugar_Valores(RentCar_Ger_Valores_GerVal_id),
-  INDEX RentCar_Alugar_PesFis(RentCar_PesFis_PesFis_id)
+  INDEX RentCar_Alugar_Pessoa(RentCar_Pessoa_Pes_id)
 );
 
 CREATE TABLE RentCar_Chamado (

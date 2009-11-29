@@ -83,8 +83,7 @@ end;
 
 procedure TfrmRentCarPrincipal.FisicaClick(Sender: TObject);
 begin
- tipo := 'PF';
- veiculo := 'R';
+ veiculo := 'PFR';
  dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
@@ -100,8 +99,7 @@ end;
 
 procedure TfrmRentCarPrincipal.JuridicaClick(Sender: TObject);
 begin
- tipo := 'PJ';
- veiculo := 'R';
+ veiculo := 'PJR';
  dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
@@ -242,8 +240,7 @@ end;
 
 procedure TfrmRentCarPrincipal.LocPesFisClick(Sender: TObject);
 begin
-  tipo := 'PF';
-  veiculo := 'L';
+  veiculo := 'PFL';
   dmRentCar.ZTAlugar.Open;
   dmRentCar.ZTCadVeiculo.Open;
   dmRentCar.ZTGerVal.Open;
@@ -258,8 +255,7 @@ end;
 
 procedure TfrmRentCarPrincipal.LocPesJuClick(Sender: TObject);
 begin
- tipo := 'PJ';
- veiculo := 'L';
+ veiculo := 'PJL';
  dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;

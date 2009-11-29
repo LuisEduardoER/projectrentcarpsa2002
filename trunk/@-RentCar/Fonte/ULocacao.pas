@@ -97,7 +97,7 @@ begin
   if frmRentCarPrincipal.veiculo = 'L' then
   Begin
     dmRentCar.ZTAlugarRentCar_Ger_Valores_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
-    dmRentCar.ZTAlugarRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQCliente.fieldbyname('PesFis_Id').AsInteger;
+    dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_id').AsInteger;
     dmRentCar.ZTAlugar.Post;
     if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmando a locação do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
     Begin
@@ -134,7 +134,7 @@ begin
     if frmRentCarPrincipal.veiculo = 'R' then
     Begin
       dmRentCar.ZTAlugarRentCar_Ger_Valores_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
-      dmRentCar.ZTAlugarRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQCliente.fieldbyname('PesFis_Id').AsInteger;
+      dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_id').AsInteger;
       dmRentCar.ZTAlugar.Post;
       if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmar a reserva do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
       Begin
@@ -169,7 +169,7 @@ begin
  Begin
   ZTCadVeiculo.Filtered := False;
   ZTCadVeiculo.Filter := 'Vel_Marca = '+ QuotedStr(DBLCBV.Text);
-  ZTGerVal.Filtered := False;
+  //ZTGerVal.Filtered := False;
   ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
   ZTGerVal.Filtered := True;
  end;

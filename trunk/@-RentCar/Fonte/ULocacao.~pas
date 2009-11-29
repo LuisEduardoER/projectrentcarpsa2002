@@ -97,7 +97,7 @@ begin
   if frmRentCarPrincipal.veiculo = 'L' then
   Begin
     dmRentCar.ZTAlugarRentCar_Ger_Valores_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
-    dmRentCar.ZTAlugarRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQCliente.fieldbyname('PesFis_Id').AsInteger;
+    dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_id').AsInteger;
     dmRentCar.ZTAlugar.Post;
     if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmando a locação do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
     Begin
@@ -134,7 +134,7 @@ begin
     if frmRentCarPrincipal.veiculo = 'R' then
     Begin
       dmRentCar.ZTAlugarRentCar_Ger_Valores_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
-      dmRentCar.ZTAlugarRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQCliente.fieldbyname('PesFis_Id').AsInteger;
+      dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_id').AsInteger;
       dmRentCar.ZTAlugar.Post;
       if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmar a reserva do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
       Begin
@@ -151,9 +151,9 @@ begin
           ZQCliente.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_PesFis_PesFis_id = rentcar_pesfis.PesFis_id ');
           ZQCliente.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
           ZQCliente.SQL.Add('where PesFis_Nome = "'+edtCliRes.Text+'"');
-end;
-end;
-end;
+        end;
+      end;
+    end;
 end;
 
 procedure TfrmLocacao.btnBuscarClick(Sender: TObject);

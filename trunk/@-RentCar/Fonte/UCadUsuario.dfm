@@ -60,7 +60,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 253
     Height = 21
     KeyField = 'Pes_id'
-    ListField = 'Pes_nome'
+    ListField = 'PesFis_nome'
     ListSource = dmRentCar.dsQFunctions
     TabOrder = 0
     OnClick = DBLookupCBPessoaClick

@@ -371,8 +371,8 @@ object dmRentCar: TdmRentCar
     object ZTAlugarAlu_id: TIntegerField
       FieldName = 'Alu_id'
     end
-    object ZTAlugarRentCar_PesFis_PesFis_id: TIntegerField
-      FieldName = 'RentCar_PesFis_PesFis_id'
+    object ZTAlugarRentCar_Pessoa_Pes_id: TIntegerField
+      FieldName = 'RentCar_Pessoa_Pes_id'
     end
     object ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField
       FieldName = 'RentCar_Ger_Valores_GerVal_id'
