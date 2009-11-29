@@ -94,6 +94,7 @@ type
     ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField;
     ZTAlugarAlu_Reserva: TStringField;
     ZTAlugarAlu_Loc: TStringField;
+    ZTChamadoCh_Status: TStringField;
   private
     { Private declarations }
   public

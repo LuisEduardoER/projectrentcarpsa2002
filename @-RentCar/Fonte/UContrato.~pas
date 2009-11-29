@@ -8,18 +8,14 @@ uses
 
 type
   TfrmContratoLocacao = class(TForm)
-    QRVelAlugados: TQuickRep;
+    QRVelContrLoc: TQuickRep;
     QRBand1: TQRBand;
     QRBand2: TQRBand;
-    QRBand3: TQRBand;
-    QRSysData1: TQRSysData;
-    QRSysData2: TQRSysData;
     QRLabel1: TQRLabel;
     QRLabel2: TQRLabel;
     QRLabel3: TQRLabel;
     QRDBNome: TQRDBText;
     QRDBEstC: TQRDBText;
-    QRDBProfi: TQRDBText;
     QRLabel4: TQRLabel;
     QRDBRG: TQRDBText;
     QRLabel5: TQRLabel;
@@ -45,7 +41,6 @@ type
     QRDBModelo: TQRDBText;
     QRLabel17: TQRLabel;
     QRDBAno: TQRDBText;
-    QRLabel18: TQRLabel;
     QRLabel19: TQRLabel;
     QRLabel20: TQRLabel;
     QRLabel21: TQRLabel;
@@ -75,6 +70,9 @@ type
     QRLabel42: TQRLabel;
     QRLabel43: TQRLabel;
     QRLabel44: TQRLabel;
+    QRLabel18: TQRLabel;
+    QRLabel45: TQRLabel;
+    QRLabel46: TQRLabel;
   private
     { Private declarations }
   public
@@ -85,6 +83,8 @@ var
   frmContratoLocacao: TfrmContratoLocacao;
 
 implementation
+
+uses UDMRentCar;
 
 {$R *.dfm}
 

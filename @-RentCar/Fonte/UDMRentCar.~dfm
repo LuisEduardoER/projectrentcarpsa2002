@@ -101,6 +101,10 @@ object dmRentCar: TdmRentCar
     object ZTChamadoCh_DataCh: TDateField
       FieldName = 'Ch_DataCh'
     end
+    object ZTChamadoCh_Status: TStringField
+      FieldName = 'Ch_Status'
+      Size = 1
+    end
   end
   object ZTPessoa: TZTable
     Connection = ZRentCar

@@ -2,7 +2,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
   Left = 287
   Top = 205
   Width = 479
-  Height = 463
+  Height = 439
   Caption = '@-RentCar - Abertura de Chamados'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,7 +12,6 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object btnSair: TButton
@@ -31,6 +30,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     Height = 25
     Caption = 'Limpar'
     TabOrder = 1
+    OnClick = btnLimparClick
   end
   object btnCadastrar: TButton
     Left = 49
@@ -79,7 +79,6 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     Width = 465
     Height = 291
     Caption = 'Abertura Chamados'
-    Enabled = False
     TabOrder = 4
     object lblSolicitacao: TLabel
       Left = 8
@@ -150,13 +149,6 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 13
       Caption = 'Hora'
     end
-    object DBLCBSolcit: TDBLookupComboBox
-      Left = 8
-      Top = 36
-      Width = 145
-      Height = 21
-      TabOrder = 0
-    end
     object DataChamado: TDateTimePicker
       Left = 183
       Top = 37
@@ -164,7 +156,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 21
       Date = 40134.684487303240000000
       Time = 40134.684487303240000000
-      TabOrder = 1
+      TabOrder = 0
     end
     object DBREChamado: TDBRichEdit
       Left = 8
@@ -173,7 +165,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 162
       DataField = 'Ch_DescCh'
       DataSource = dmRentCar.dsTChamado
-      TabOrder = 2
+      TabOrder = 1
     end
     object DBRadioGroup1: TDBRadioGroup
       Left = 8
@@ -187,10 +179,26 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Items.Strings = (
         'Fechado'
         'Em Espera')
-      TabOrder = 3
+      TabOrder = 2
       Values.Strings = (
         'F'
         'E')
+    end
+    object DBCBSolic: TDBComboBox
+      Left = 8
+      Top = 37
+      Width = 145
+      Height = 21
+      Style = csDropDownList
+      DataField = 'Ch_TipoCh'
+      DataSource = dmRentCar.dsTChamado
+      ItemHeight = 13
+      Items.Strings = (
+        'Loca'#231#227'o de Ve'#237'culos'
+        'Reserva de Veiculos'
+        'Reclama'#231#227'o'
+        'Duvida')
+      TabOrder = 3
     end
   end
   object brnSalvar: TButton
