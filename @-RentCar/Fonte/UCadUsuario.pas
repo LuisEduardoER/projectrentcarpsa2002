@@ -50,7 +50,7 @@ begin
  Begin
   ZQFunctions.Close;
   ZQFunctions.SQL.Clear;
-  ZQFunctions.SQL.Add('select Pes_id,Pes_Nome from rentcar_pessoa, rentcar_pesfis ');
+  ZQFunctions.SQL.Add('select Pes_id,PesFis_Nome from rentcar_pessoa, rentcar_pesfis ');
   ZQFunctions.SQL.Add('where rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
   ZQFunctions.Open;
  end;
@@ -66,6 +66,7 @@ end;
 
 procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
 begin
+ dmRentCar.ZTAcesso.Open;
  dmRentCar.ZTAcesso.Insert;
 end;
 

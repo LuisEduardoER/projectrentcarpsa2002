@@ -368,17 +368,20 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 88
     Top = 168
-    object ZTAlugarAlu_id: TIntegerField
+    object ZTAlugarAlu_id: TLargeintField
       FieldName = 'Alu_id'
     end
-    object ZTAlugarRentCar_PesFis_PesFis_id: TIntegerField
-      FieldName = 'RentCar_PesFis_PesFis_id'
+    object ZTAlugarRentCar_Pessoa_Pes_id: TLargeintField
+      FieldName = 'RentCar_Pessoa_Pes_id'
+      Required = True
     end
-    object ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField
+    object ZTAlugarRentCar_Ger_Valores_GerVal_id: TLargeintField
       FieldName = 'RentCar_Ger_Valores_GerVal_id'
+      Required = True
     end
-    object ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField
+    object ZTAlugarRentCar_Veiculo_Vel_id: TLargeintField
       FieldName = 'RentCar_Veiculo_Vel_id'
+      Required = True
     end
     object ZTAlugarAlu_Reserva: TStringField
       FieldName = 'Alu_Reserva'

@@ -60,7 +60,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 253
     Height = 21
     KeyField = 'Pes_id'
-    ListField = 'Pes_nome'
+    ListField = 'PesFis_nome'
     ListSource = dmRentCar.dsQFunctions
     TabOrder = 0
     OnClick = DBLookupCBPessoaClick
@@ -121,18 +121,5 @@ object frmCadUsuarios: TfrmCadUsuarios
     Items.Strings = (
       'Administrador'
       'Cliente')
-  end
-  object DBGrid1: TDBGrid
-    Left = 248
-    Top = 64
-    Width = 320
-    Height = 120
-    DataSource = dmRentCar.dsAcesso
-    TabOrder = 7
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = []
   end
 end

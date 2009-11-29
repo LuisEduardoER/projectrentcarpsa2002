@@ -88,13 +88,13 @@ type
     ZTPesFisPesFis_Senha: TStringField;
     ZTPesFisPesFis_Nome: TStringField;
     ZTCadVeiculoVel_Espec: TStringField;
+    ZTChamadoCh_Status: TStringField;
     ZTAlugarAlu_id: TIntegerField;
-    ZTAlugarRentCar_PesFis_PesFis_id: TIntegerField;
+    ZTAlugarRentCar_Pessoa_Pes_id: TIntegerField;
     ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField;
     ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField;
     ZTAlugarAlu_Reserva: TStringField;
     ZTAlugarAlu_Loc: TStringField;
-    ZTChamadoCh_Status: TStringField;
   private
     { Private declarations }
   public
