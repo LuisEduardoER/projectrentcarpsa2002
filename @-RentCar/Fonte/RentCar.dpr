@@ -17,11 +17,11 @@ uses
   UAcesso in 'UAcesso.pas' {frmAcesso},
   UCadUsuario in 'UCadUsuario.pas' {frmCadUsuarios},
   MsgEditor in 'MsgEditor.pas' {frmMessageEditor},
-  UListContato in 'UListContato.pas' {frmListContatos},
   URelVelRes in 'URelVelRes.pas' {frmRelVelRes},
   UContraoPesJu in 'UContraoPesJu.pas' {frmContratoLocacaoPesJu},
   UPerfil in 'UPerfil.pas' {frmPerfil},
-  UGerarPerfil in 'UGerarPerfil.pas' {frmGerarPerfil};
+  UGerarPerfil in 'UGerarPerfil.pas' {frmGerarPerfil},
+  UListChamados in 'UListChamados.pas' {frmListChamados};
 
 {$R *.res}
 
@@ -35,5 +35,6 @@ begin
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
   Application.CreateForm(TfrmContratoLocacaoPesJu, frmContratoLocacaoPesJu);
   Application.CreateForm(TfrmPerfil, frmPerfil);
+  Application.CreateForm(TfrmListChamados, frmListChamados);
   Application.Run;
 end.

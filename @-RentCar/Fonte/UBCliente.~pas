@@ -30,7 +30,7 @@ var
 
 implementation
 
-uses UDMRentCar, URentCarPrincipal, ULocacao, DB, UChamado;
+uses UDMRentCar, URentCarPrincipal, ULocacao, DB, UChamado, UGerarPerfil;
 
 {$R *.dfm}
 
@@ -50,7 +50,7 @@ procedure TfrmConsultaClientes.btnBuscarClick(Sender: TObject);
 begin
  with dmRentCar do
   Begin
-    if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PFL') then
+    if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.perfil = 'F') or (frmRentCarPrincipal.chamado = 'F') then
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
@@ -71,7 +71,7 @@ begin
       ZQCliente.Open;
       ShowMessage(ZQCliente.SQL.Text);
     end else
-     if (frmRentCarPrincipal.tipo = 'PJ') or (frmRentCarPrincipal.veiculo = 'PJL') or (frmRentCarPrincipal.veiculo = 'PJR') then
+     if (frmRentCarPrincipal.tipo = 'PJ') or (frmRentCarPrincipal.veiculo = 'PJL') or (frmRentCarPrincipal.veiculo = 'PJR') or (frmRentCarPrincipal.perfil = 'J') or (frmRentCarPrincipal.chamado = 'J') then
       Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
@@ -97,7 +97,7 @@ end;
 procedure TfrmConsultaClientes.DBGrid1CellClick(Column: TColumn);
 begin
   close;
-  if (frmRentCarPrincipal.tipo = 'PFR') then
+  if (frmRentCarPrincipal.veiculo = 'PFR') then
   Begin
   frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
@@ -114,10 +114,22 @@ begin
     ShowMessage('krai');
   frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
-  if frmRentCarAberturaChamado.chamado = 'Ch' then
+  if frmRentCarPrincipal.perfil = 'F' then
+  Begin
+    frmGerarPerfil.edtCli.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
+  end else
+  if frmRentCarPrincipal.perfil = 'J' then
+  Begin
+        frmGerarPerfil.edtCli.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
+  end else
+  if frmRentCarPrincipal.chamado = 'F' then
   Begin
    frmRentCarAberturaChamado.edtNome.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
-  end;
+  end else
+  if frmRentCarPrincipal.chamado = 'J' then
+  Begin
+   frmRentCarAberturaChamado.edtNome.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
+  end; 
 
 end;
 

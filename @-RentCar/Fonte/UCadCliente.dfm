@@ -20,7 +20,7 @@ object frmCadClientes: TfrmCadClientes
     Top = 8
     Width = 697
     Height = 233
-    ActivePage = tsDadosPJ
+    ActivePage = tsEndereco
     TabOrder = 0
     object tsDadosPF: TTabSheet
       Caption = 'Dados Pessoais'
@@ -339,7 +339,6 @@ object frmCadClientes: TfrmCadClientes
           Top = 137
           Width = 45
           Height = 21
-          Style = csDropDownList
           DataField = 'End_Estado'
           DataSource = dmRentCar.dsTEndereco
           ItemHeight = 13

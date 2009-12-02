@@ -12,7 +12,6 @@ object frmCadVeiculos: TfrmCadVeiculos
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object gbCadVeiculo: TGroupBox
@@ -143,14 +142,15 @@ object frmCadVeiculos: TfrmCadVeiculos
       Stretch = True
       TabOrder = 6
     end
-    object DBCBAno: TDBComboBox
-      Left = 155
+    object DateAno: TDateTimePicker
+      Left = 156
       Top = 40
-      Width = 74
+      Width = 49
       Height = 21
-      DataField = 'Vel_Ano'
-      DataSource = dmRentCar.dsCadVeiculo
-      ItemHeight = 13
+      Date = 40149.664795277780000000
+      Format = 'yyyy'
+      Time = 40149.664795277780000000
+      DateMode = dmUpDown
       TabOrder = 7
     end
   end

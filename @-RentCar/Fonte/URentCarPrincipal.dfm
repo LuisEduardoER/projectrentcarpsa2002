@@ -106,13 +106,22 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       Caption = 'Chamados'
       object AberturaChamados: TMenuItem
         Caption = 'Abertura Chamados'
-        OnClick = AberturaChamadosClick
+        object ChPesFis: TMenuItem
+          Caption = 'Fisica'
+          OnClick = ChPesFisClick
+        end
+        object ChPesJu: TMenuItem
+          Caption = 'Juridica'
+          OnClick = ChPesJuClick
+        end
       end
       object ChamadosEmEspera: TMenuItem
         Caption = 'Chamados em Espera'
+        OnClick = ChamadosEmEsperaClick
       end
       object ChamadosFinalizados: TMenuItem
         Caption = 'Chamados Finalizados'
+        OnClick = ChamadosFinalizadosClick
       end
     end
     object Configuracoes: TMenuItem
@@ -127,7 +136,14 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       end
       object GerarPerfil1: TMenuItem
         Caption = 'Gerar Perfil'
-        OnClick = GerarPerfil1Click
+        object PFisica: TMenuItem
+          Caption = 'Fisica'
+          OnClick = PFisicaClick
+        end
+        object PJuridica: TMenuItem
+          Caption = 'Juridica'
+          OnClick = PJuridicaClick
+        end
       end
     end
     object Sair: TMenuItem

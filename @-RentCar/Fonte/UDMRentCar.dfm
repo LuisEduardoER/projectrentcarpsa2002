@@ -415,7 +415,7 @@ object dmRentCar: TdmRentCar
   object ZQFunctions: TZQuery
     Connection = ZRentCar
     CachedUpdates = False
-    RequestLive = False
+    RequestLive = True
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]

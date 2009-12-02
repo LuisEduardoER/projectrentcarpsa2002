@@ -37,6 +37,10 @@ type
     LocPesJu: TMenuItem;
     Reservados: TMenuItem;
     GerarPerfil1: TMenuItem;
+    PFisica: TMenuItem;
+    PJuridica: TMenuItem;
+    ChPesFis: TMenuItem;
+    ChPesJu: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
@@ -44,7 +48,6 @@ type
     procedure PesFisicaClick(Sender: TObject);
     procedure PesJuridicaClick(Sender: TObject);
     procedure VeiculosClick(Sender: TObject);
-    procedure AberturaChamadosClick(Sender: TObject);
     procedure AlugadosClick(Sender: TObject);
     procedure DisponveisClick(Sender: TObject);
     procedure Funcionarios1Click(Sender: TObject);
@@ -52,13 +55,16 @@ type
     procedure LocPesFisClick(Sender: TObject);
     procedure LocPesJuClick(Sender: TObject);
     procedure ReservadosClick(Sender: TObject);
-    procedure GerarPerfil1Click(Sender: TObject);
+    procedure PFisicaClick(Sender: TObject);
+    procedure PJuridicaClick(Sender: TObject);
+    procedure ChPesFisClick(Sender: TObject);
+    procedure ChPesJuClick(Sender: TObject);
+    procedure ChamadosEmEsperaClick(Sender: TObject);
+    procedure ChamadosFinalizadosClick(Sender: TObject);
   private
     { Private declarations }
   public
-     tipo : string;
-     veiculo : string;
-     cli : string; 
+     tipo, veiculo, cli, perfil, chamado : string;
     { Public declarations }
   end;
 
@@ -68,7 +74,7 @@ var
 implementation
 
 uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado, URelVelDisp,
-  URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil;
+  URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil, UListChamados;
 
 {$R *.dfm}
 
@@ -153,17 +159,6 @@ begin
  frmCadVeiculos.ShowModal;
  frmCadVeiculos.Free;
  dmRentCar.ZTCadVeiculo.Close;
-end;
-
-procedure TfrmRentCarPrincipal.AberturaChamadosClick(Sender: TObject);
-begin
- dmRentCar.ZTPesFis.Open;
- dmRentCar.ZTChamado.Open;
- Application.CreateForm(TfrmRentCarAberturaChamado, frmRentCarAberturaChamado);
- frmRentCarAberturaChamado.ShowModal;
- frmRentCarAberturaChamado.Free;
- dmRentCar.ZTPesFis.Close;
- dmRentCar.ZTChamado.Close;
 end;
 
 procedure TfrmRentCarPrincipal.AlugadosClick(Sender: TObject);
@@ -298,11 +293,60 @@ begin
 
 end;
 
-procedure TfrmRentCarPrincipal.GerarPerfil1Click(Sender: TObject);
+procedure TfrmRentCarPrincipal.PFisicaClick(Sender: TObject);
 begin
+  perfil := 'F';
   Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
   frmGerarPerfil.ShowModal;
   frmGerarPerfil.Free;
+end;
+
+procedure TfrmRentCarPrincipal.PJuridicaClick(Sender: TObject);
+begin
+  perfil := 'J';
+  Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
+  frmGerarPerfil.ShowModal;
+  frmGerarPerfil.Free;
+end;
+
+procedure TfrmRentCarPrincipal.ChPesFisClick(Sender: TObject);
+begin
+ chamado := 'F';
+ dmRentCar.ZTChamado.Open;
+ Application.CreateForm(TfrmRentCarAberturaChamado, frmRentCarAberturaChamado);
+ frmRentCarAberturaChamado.ShowModal;
+ frmRentCarAberturaChamado.Free;
+ dmRentCar.ZTChamado.Close;
+end;
+
+procedure TfrmRentCarPrincipal.ChPesJuClick(Sender: TObject);
+begin
+ chamado := 'J';
+ dmRentCar.ZTChamado.Open;
+ Application.CreateForm(TfrmRentCarAberturaChamado, frmRentCarAberturaChamado);
+ frmRentCarAberturaChamado.ShowModal;
+ frmRentCarAberturaChamado.Free;
+ dmRentCar.ZTChamado.Close;
+end;
+
+procedure TfrmRentCarPrincipal.ChamadosEmEsperaClick(Sender: TObject);
+begin
+ chamado := 'LE';
+ dmRentCar.ZTChamado.Open;
+ Application.CreateForm(TfrmListChamados, frmListChamados);
+ frmListChamados.ShowModal;
+ frmListChamados.Free;
+ dmRentCar.ZTChamado.Close;
+end;
+
+procedure TfrmRentCarPrincipal.ChamadosFinalizadosClick(Sender: TObject);
+begin
+ chamado := 'LF';
+ dmRentCar.ZTChamado.Open;
+ Application.CreateForm(TfrmListChamados, frmListChamados);
+ frmListChamados.ShowModal;
+ frmListChamados.Free;
+ dmRentCar.ZTChamado.Close;
 end;
 
 end.

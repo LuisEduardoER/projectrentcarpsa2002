@@ -10,7 +10,7 @@ type
   TfrmGerarPerfil = class(TForm)
     gbFiltros: TGroupBox;
     btnGerarPerfil: TButton;
-    edtCliRes: TEdit;
+    edtCli: TEdit;
     btnB: TButton;
     Label1: TLabel;
     pbPerfil: TProgressBar;
@@ -19,6 +19,7 @@ type
   private
     { Private declarations }
   public
+     perfil : string;
     { Public declarations }
   end;
 
@@ -33,6 +34,7 @@ uses UBCliente, UPerfil;
 
 procedure TfrmGerarPerfil.btnBClick(Sender: TObject);
 begin
+ perfil := 'p'
  Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
  frmConsultaClientes.ShowModal;
  frmConsultaClientes.Free;
@@ -42,8 +44,13 @@ procedure TfrmGerarPerfil.btnGerarPerfilClick(Sender: TObject);
 var
    i:integer;
 begin
-   pbPerfil.Max:= 10000;
-   for i:= 1 to 10000 do
+  if edtCli.Text = '' then
+  Begin
+    ShowMessage('Escolha o Cliente');
+  end else
+  Begin
+   pbPerfil.Max:= 5000;
+   for i:= 1 to 5000 do
    Begin
       pbPerfil.Position:=i;
    end;
@@ -51,6 +58,7 @@ begin
    Application.CreateForm(TfrmPerfil,frmPerfil);
    frmPerfil.ShowModal;
    frmPerfil.Free;
+  end;
 end;
 
 end.
