@@ -87,10 +87,6 @@ type
     ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField;
     ZTAlugarAlu_Reserva: TStringField;
     ZTAlugarAlu_Loc: TStringField;
-    ZQFunctionsVel_Img: TBlobField;
-    ZQFunctionsVel_Espec: TStringField;
-    ZQFunctionsMaxAlu_Loc: TStringField;
-    ZQFunctionsMaxAlu_Reserva: TStringField;
     ZTChamadoCh_id: TLargeintField;
     ZTChamadoRentCar_Pessoa_Pes_id: TLargeintField;
     ZTChamadoCh_TipoCh: TStringField;

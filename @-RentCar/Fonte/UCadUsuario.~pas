@@ -52,6 +52,7 @@ begin
   ZQFunctions.SQL.Clear;
   ZQFunctions.SQL.Add('select Pes_id,PesFis_Nome from rentcar_pessoa, rentcar_pesfis ');
   ZQFunctions.SQL.Add('where rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+  ShowMessage(ZQFunctions.SQL.Text);
   ZQFunctions.Open;
  end;
 end;
@@ -66,6 +67,7 @@ end;
 
 procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
 begin
+ dmRentCar.ZTAcesso.Open;
  dmRentCar.ZTAcesso.Insert;
 end;
 
@@ -81,6 +83,7 @@ begin
   ZTAcesso.Filtered := False;
   ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id like'+ QuotedStr('*' + DBLookupCBPessoa.KeyField  + '*');
   ZTAcesso.Filtered := True;
+  cbPerfil.Text := ZTAcessoAc_Perfil.AsString;
  end;
 
 end;

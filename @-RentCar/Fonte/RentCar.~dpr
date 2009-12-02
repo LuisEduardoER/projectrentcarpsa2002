@@ -21,12 +21,13 @@ uses
   URelVelRes in 'URelVelRes.pas' {frmRelVelRes},
   UContraoPesJu in 'UContraoPesJu.pas' {frmContratoLocacaoPesJu},
   UPerfil in 'UPerfil.pas' {frmPerfil},
-  UGerarPerfil in 'UGerarPerfil.pas' {Form1};
+  UGerarPerfil in 'UGerarPerfil.pas' {frmGerarPerfil};
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
@@ -34,6 +35,5 @@ begin
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
   Application.CreateForm(TfrmContratoLocacaoPesJu, frmContratoLocacaoPesJu);
   Application.CreateForm(TfrmPerfil, frmPerfil);
-  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
