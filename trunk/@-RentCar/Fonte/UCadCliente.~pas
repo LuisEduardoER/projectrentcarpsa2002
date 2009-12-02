@@ -93,7 +93,6 @@ type
   private
     { Private declarations }
   public
-    estado : string;
     { Public declarations }
   end;
 
@@ -137,7 +136,6 @@ begin
       Begin
        if ValidEmail(DBEmail.Text) then
        Begin
-          dmRentCar.ZTEnderecoEnd_Estado.Value := estado;
           dmRentCar.ZTEndereco.Post;
           dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
           dmRentCar.ZTPessoa.Post;
@@ -302,7 +300,7 @@ begin
   DBEndereco.Text := ListBox.Items.Strings[0];
   DBEBairro.Text := ListBox.Items.Strings[1];
   DBECidade.Text := ListBox.Items.Strings[2];
-  estado := ListBox.Items.Strings[3];
+  DBCBEstado.Text := ListBox.Items.Strings[3];
   t.free;
   gbEndereco.Enabled := True;
 end;

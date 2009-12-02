@@ -52,7 +52,7 @@ var
 
 implementation
 
-uses UListContato, ULocacao;
+uses ULocacao;
 
 {$R *.DFM}
 
@@ -155,9 +155,9 @@ end;
 
 procedure TfrmMessageEditor.bbtnAdvancedClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrmListContatos, frmListContatos);
+{  Application.CreateForm(TfrmListContatos, frmListContatos);
   frmListContatos.ShowModal;
-  frmListContatos.Free;
+  frmListContatos.Free; }
 end;
 
 end.

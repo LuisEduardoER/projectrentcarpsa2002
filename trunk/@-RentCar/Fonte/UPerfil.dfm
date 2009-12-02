@@ -12,30 +12,19 @@ object frmPerfil: TfrmPerfil
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object DBTEspec: TDBText
     Left = 186
-    Top = 126
+    Top = 110
     Width = 65
     Height = 17
-  end
-  object DBTNome: TDBText
-    Left = 186
-    Top = 78
-    Width = 65
-    Height = 17
-  end
-  object lblNome: TLabel
-    Left = 186
-    Top = 62
-    Width = 28
-    Height = 13
-    Caption = 'Nome'
+    DataSource = dmRentCar.dsQFunctions
   end
   object Label1: TLabel
     Left = 186
-    Top = 110
+    Top = 94
     Width = 72
     Height = 13
     Caption = 'Especifica'#231#245'es'
@@ -45,6 +34,7 @@ object frmPerfil: TfrmPerfil
     Top = 44
     Width = 152
     Height = 133
+    DataSource = dmRentCar.dsQFunctions
     TabOrder = 0
   end
   object DBNPerfil: TDBNavigator
@@ -52,6 +42,7 @@ object frmPerfil: TfrmPerfil
     Top = 183
     Width = 152
     Height = 25
+    DataSource = dmRentCar.dsQFunctions
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
     TabOrder = 1
   end

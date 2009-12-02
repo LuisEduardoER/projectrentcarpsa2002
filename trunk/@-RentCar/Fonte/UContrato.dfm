@@ -12,11 +12,12 @@ object frmContratoLocacao: TfrmContratoLocacao
   Font.Style = []
   OldCreateOrder = False
   Scaled = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object QRVelContrLoc: TQuickRep
-    Left = 0
-    Top = -1
+    Left = 48
+    Top = 63
     Width = 1123
     Height = 794
     Frame.Color = clBlack

@@ -189,9 +189,8 @@ object frmCadClientes: TfrmCadClientes
       object lblResCNPJ: TLabel
         Left = 6
         Top = 147
-        Width = 67
+        Width = 5
         Height = 13
-        Caption = 'lblResCNPJ'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -11
@@ -340,7 +339,6 @@ object frmCadClientes: TfrmCadClientes
           Top = 137
           Width = 45
           Height = 21
-          Style = csDropDownList
           DataField = 'End_Estado'
           DataSource = dmRentCar.dsTEndereco
           ItemHeight = 13

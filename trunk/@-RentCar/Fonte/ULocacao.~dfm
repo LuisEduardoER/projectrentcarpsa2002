@@ -190,14 +190,6 @@ object frmLocacao: TfrmLocacao
         Height = 21
         TabOrder = 2
       end
-      object Edit1: TEdit
-        Left = 264
-        Top = 8
-        Width = 121
-        Height = 21
-        TabOrder = 3
-        Text = 'Edit1'
-      end
     end
     object tsReserva: TTabSheet
       Caption = 'Reserva'

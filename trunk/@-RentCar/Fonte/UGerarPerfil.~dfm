@@ -27,7 +27,7 @@ object frmGerarPerfil: TfrmGerarPerfil
       Height = 13
       Caption = 'Cliente'
     end
-    object edtCliRes: TEdit
+    object edtCli: TEdit
       Left = 5
       Top = 26
       Width = 234
