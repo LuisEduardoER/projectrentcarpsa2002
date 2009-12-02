@@ -2,7 +2,7 @@ object frmGerarPerfil: TfrmGerarPerfil
   Left = 192
   Top = 114
   Width = 397
-  Height = 133
+  Height = 160
   Caption = '@-RentCar - Gerar Perfil'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -51,5 +51,14 @@ object frmGerarPerfil: TfrmGerarPerfil
     Height = 22
     Caption = 'Gerar Perfil'
     TabOrder = 1
+    OnClick = btnGerarPerfilClick
+  end
+  object pbPerfil: TProgressBar
+    Left = 3
+    Top = 104
+    Width = 385
+    Height = 17
+    Step = 1
+    TabOrder = 2
   end
 end

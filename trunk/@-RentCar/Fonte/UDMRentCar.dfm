@@ -416,16 +416,6 @@ object dmRentCar: TdmRentCar
     Connection = ZRentCar
     CachedUpdates = False
     RequestLive = False
-    SQL.Strings = (
-      
-        'select Vel_Img, Vel_Espec, Max(Alu_Loc), Max(Alu_Reserva) from r' +
-        'entcar_veiculo'
-      
-        'inner join rentcar_alugar on rentcar_veiculo.Vel_id = rentcar_al' +
-        'ugar.RentCar_Veiculo_Vel_id'
-      
-        'inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_alu' +
-        'gar.RentCar_Pessoa_Pes_id')
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]
@@ -434,21 +424,6 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 216
     Top = 168
-    object ZQFunctionsVel_Img: TBlobField
-      FieldName = 'Vel_Img'
-    end
-    object ZQFunctionsVel_Espec: TStringField
-      FieldName = 'Vel_Espec'
-      Size = 60
-    end
-    object ZQFunctionsMaxAlu_Loc: TStringField
-      FieldName = 'Max(Alu_Loc)'
-      Size = 1
-    end
-    object ZQFunctionsMaxAlu_Reserva: TStringField
-      FieldName = 'Max(Alu_Reserva)'
-      Size = 1
-    end
   end
   object dsQFunctions: TDataSource
     DataSet = ZQFunctions

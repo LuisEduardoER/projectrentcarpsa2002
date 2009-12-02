@@ -50,11 +50,11 @@ procedure TfrmConsultaClientes.btnBuscarClick(Sender: TObject);
 begin
  with dmRentCar do
   Begin
-    if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR')or (frmRentCarPrincipal.veiculo = 'PFL') then
+    if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PFL') then
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Id, rentcar_pesfis.PesFis_Nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF, rentcar_pessoa.Pes_Email');
+      ZQCliente.SQL.Add('Select rentcar_pesfis.PesFis_Nome, rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Id, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF, rentcar_pessoa.Pes_Email');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       if ckNome.Checked = True then
@@ -97,26 +97,28 @@ end;
 procedure TfrmConsultaClientes.DBGrid1CellClick(Column: TColumn);
 begin
   close;
-  if (frmRentCarPrincipal.tipo = 'PFR') then
+  if (frmRentCarPrincipal.veiculo = 'PFR') then
   Begin
   frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
-  if (frmRentCarPrincipal.tipo = 'PJR') then
+  if (frmRentCarPrincipal.veiculo = 'PJR') then
   Begin
   frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
   end else
-  if (frmRentCarPrincipal.tipo = 'PJL') then
+  if (frmRentCarPrincipal.veiculo = 'PJL') then
   Begin
   frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
   end else
-  if (frmRentCarPrincipal.tipo = 'PFL') then
+  if (frmRentCarPrincipal.veiculo = 'PFL') then
   Begin
+    ShowMessage('krai');
   frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
   if frmRentCarAberturaChamado.chamado = 'Ch' then
   Begin
    frmRentCarAberturaChamado.edtNome.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end;
+
 end;
 
 end.

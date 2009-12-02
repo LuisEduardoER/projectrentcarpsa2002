@@ -25,7 +25,7 @@ type
     lblVeiculo: TLabel;
     Label1: TLabel;
     DBTAluguel: TDBText;
-    DBCheckBox1: TDBCheckBox;
+    DBCKAlu: TDBCheckBox;
     DBCBTpPg: TDBComboBox;
     DBEVlrAPagar: TDBEdit;
     DBLookupCBVeiculo: TDBLookupComboBox;
@@ -94,7 +94,7 @@ begin
   dmRentCar.ZTGerVal.Edit;
   dmRentCar.ZTGerVal.Post;
 
-  if frmRentCarPrincipal.veiculo = 'L' then
+  if (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.veiculo = 'PJL')  then
   Begin
     dmRentCar.ZTAlugarRentCar_Ger_Valores_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
     dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_id').AsInteger;
@@ -113,9 +113,10 @@ begin
         ZQAlugar.SQL.Add('from rentcar_pessoa ');
         ZQAlugar.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
         ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
-        ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_PesFis_PesFis_id = rentcar_pesfis.PesFis_id ');
+        ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
         ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
         ZQAlugar.SQL.Add('where PesFis_Nome = "'+edtCliLoc.Text+'"');
+        ShowMessage(ZQAlugar.SQL.Text);
         ZQAlugar.Open;
 
         if ZQAlugar.IsEmpty then
@@ -148,7 +149,7 @@ begin
           ZQCliente.SQL.Add('from rentcar_pessoa ');
           ZQCliente.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
           ZQCliente.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
-          ZQCliente.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_PesFis_PesFis_id = rentcar_pesfis.PesFis_id ');
+          ZQCliente.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
           ZQCliente.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
           ZQCliente.SQL.Add('where PesFis_Nome = "'+edtCliRes.Text+'"');
         end;

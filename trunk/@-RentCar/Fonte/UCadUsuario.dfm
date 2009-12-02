@@ -115,7 +115,6 @@ object frmCadUsuarios: TfrmCadUsuarios
     Top = 128
     Width = 145
     Height = 21
-    Style = csDropDownList
     ItemHeight = 13
     TabOrder = 6
     Items.Strings = (

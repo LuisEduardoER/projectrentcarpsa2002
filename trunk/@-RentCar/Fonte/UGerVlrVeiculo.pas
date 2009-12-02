@@ -21,6 +21,7 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,6 +39,7 @@ uses UDMRentCar;
 
 procedure TfrmRentCarVlrVeiculos.btnCadastrarClick(Sender: TObject);
 begin
+ dmRentCar.ZTGerVal.Insert;
  dmRentCar.ZTGerValRentCar_Veiculo_Vel_id.Value := dmRentCar.ZTCadVeiculoVel_id.Value;
  dmRentCar.ZTGerVal.Post;
 end;
@@ -55,6 +57,13 @@ end;
 procedure TfrmRentCarVlrVeiculos.btnSairClick(Sender: TObject);
 begin
  close;
+end;
+
+procedure TfrmRentCarVlrVeiculos.FormShow(Sender: TObject);
+begin
+ dmRentCar.ZTGerVal.Filtered := False;
+ dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZTGerVal.Filtered := True;
 end;
 
 end.
