@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, Menus, WinSkinData, StdCtrls, Buttons;
+  Dialogs, ComCtrls, Menus, WinSkinData, StdCtrls, Buttons, pngimage,
+  ExtCtrls;
 
 type
   TfrmRentCarPrincipal = class(TForm)
@@ -41,6 +42,7 @@ type
     PJuridica: TMenuItem;
     ChPesFis: TMenuItem;
     ChPesJu: TMenuItem;
+    Image1: TImage;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
