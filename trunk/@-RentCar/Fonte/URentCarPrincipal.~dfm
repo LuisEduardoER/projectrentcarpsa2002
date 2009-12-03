@@ -121,6 +121,7 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       end
       object ChamadosFinalizados: TMenuItem
         Caption = 'Chamados Finalizados'
+        OnClick = ChamadosFinalizadosClick
       end
     end
     object Configuracoes: TMenuItem

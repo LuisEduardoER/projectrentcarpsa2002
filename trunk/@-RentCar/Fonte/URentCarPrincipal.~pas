@@ -60,6 +60,7 @@ type
     procedure ChPesFisClick(Sender: TObject);
     procedure ChPesJuClick(Sender: TObject);
     procedure ChamadosEmEsperaClick(Sender: TObject);
+    procedure ChamadosFinalizadosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -331,6 +332,16 @@ end;
 procedure TfrmRentCarPrincipal.ChamadosEmEsperaClick(Sender: TObject);
 begin
  chamado := 'LE';
+ dmRentCar.ZTChamado.Open;
+ Application.CreateForm(TfrmListChamados, frmListChamados);
+ frmListChamados.ShowModal;
+ frmListChamados.Free;
+ dmRentCar.ZTChamado.Close;
+end;
+
+procedure TfrmRentCarPrincipal.ChamadosFinalizadosClick(Sender: TObject);
+begin
+ chamado := 'LF';
  dmRentCar.ZTChamado.Open;
  Application.CreateForm(TfrmListChamados, frmListChamados);
  frmListChamados.ShowModal;

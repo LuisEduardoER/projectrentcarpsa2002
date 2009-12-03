@@ -116,7 +116,7 @@ object frmRelVelRes: TfrmRelVelRes
       end
       object QRDBText1: TQRDBText
         Left = 152
-        Top = 11
+        Top = 39
         Width = 64
         Height = 17
         Frame.Color = clBlack
@@ -127,7 +127,7 @@ object frmRelVelRes: TfrmRelVelRes
         Size.Values = (
           44.979166666666670000
           402.166666666666600000
-          29.104166666666670000
+          103.187500000000000000
           169.333333333333300000)
         Alignment = taLeftJustify
         AlignToBand = False

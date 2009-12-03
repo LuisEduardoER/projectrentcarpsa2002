@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, QuickRpt, QRCtrls, DB, ZAbstractRODataset,
-  ZAbstractDataset, ZDataset;
+  ZAbstractDataset, ZDataset, pngimage;
 
 type
   TfrmRelVelDisp = class(TForm)
@@ -17,6 +17,7 @@ type
     QRSysData1: TQRSysData;
     QRSysData2: TQRSysData;
     QRDBText1: TQRDBText;
+    QRImage1: TQRImage;
   private
     { Private declarations }
   public

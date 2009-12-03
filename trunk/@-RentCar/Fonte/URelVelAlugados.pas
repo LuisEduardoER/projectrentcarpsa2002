@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, QRCtrls, QuickRpt, ExtCtrls;
+  Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage;
 
 type
   TfrmRelVelAlugados = class(TForm)
@@ -16,6 +16,7 @@ type
     QRSysData1: TQRSysData;
     QRSysData2: TQRSysData;
     QRDBText1: TQRDBText;
+    QRImage1: TQRImage;
   private
     { Private declarations }
   public

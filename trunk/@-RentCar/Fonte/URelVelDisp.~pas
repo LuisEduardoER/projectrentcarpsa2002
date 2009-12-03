@@ -13,10 +13,10 @@ type
     QRBand1: TQRBand;
     QRBand2: TQRBand;
     QRDBImgVel: TQRDBImage;
-    QRDBRTVelDisp: TQRDBRichText;
     QRBand3: TQRBand;
     QRSysData1: TQRSysData;
     QRSysData2: TQRSysData;
+    QRDBText1: TQRDBText;
   private
     { Private declarations }
   public
