@@ -17,6 +17,8 @@ type
     QRSysData2: TQRSysData;
     QRDBText1: TQRDBText;
     QRImage1: TQRImage;
+    QRRichText1: TQRRichText;
+    QRVecRes: TQRLabel;
   private
     { Private declarations }
   public

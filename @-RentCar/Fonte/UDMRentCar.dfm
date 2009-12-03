@@ -273,16 +273,14 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 136
     Top = 88
-    object ZTGerValGerVal_id: TLargeintField
+    object ZTGerValGerVal_id: TIntegerField
       FieldName = 'GerVal_id'
     end
-    object ZTGerValRentCar_Veiculo_Vel_id: TLargeintField
+    object ZTGerValRentCar_Veiculo_Vel_id: TIntegerField
       FieldName = 'RentCar_Veiculo_Vel_id'
-      Required = True
     end
     object ZTGerValGerVal_ValAlu: TLargeintField
       FieldName = 'GerVal_ValAlu'
-      DisplayFormat = '0.00'
     end
     object ZTGerValGerVal_ValAPag: TLargeintField
       FieldName = 'GerVal_ValAPag'

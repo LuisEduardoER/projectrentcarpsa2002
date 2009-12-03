@@ -72,7 +72,7 @@ var
 begin
  ano := YearOf(DateAno.Date);
  
- DBREspec.Text := 'Carro :  '+DBEModelo.Text +' Ano : '+ ano +' Marca: '+DBEMarca.Text +' Cor : '+DBECor.Text;
+ DBREspec.Text := 'Carro :  '+DBEModelo.Text +' Ano : '+ IntToStr(ano) +' Marca: '+DBEMarca.Text +' Cor : '+DBECor.Text;
 
  aDest := tbitmap.create;
  aDest.Width := 95;
@@ -109,9 +109,11 @@ end;
 procedure TfrmCadVeiculos.lblVlrVeiculosClick(Sender: TObject);
 begin
  dmRentCar.ZTGerVal.Open;
+ dmRentCar.ZTCadVeiculo.Open;
  Application.CreateForm(TfrmRentCarVlrVeiculos, frmRentCarVlrVeiculos);
  frmRentCarVlrVeiculos.ShowModal;
  frmRentCarVlrVeiculos.Free;
+ dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
 end;
 

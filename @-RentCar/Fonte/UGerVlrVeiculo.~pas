@@ -40,6 +40,7 @@ uses UDMRentCar;
 procedure TfrmRentCarVlrVeiculos.btnCadastrarClick(Sender: TObject);
 begin
  dmRentCar.ZTGerVal.Insert;
+ ShowMessage(dmRentCar.ZTCadVeiculoVel_id.AsString);
  dmRentCar.ZTGerValRentCar_Veiculo_Vel_id.Value := dmRentCar.ZTCadVeiculoVel_id.Value;
  dmRentCar.ZTGerVal.Post;
 end;
@@ -63,7 +64,7 @@ procedure TfrmRentCarVlrVeiculos.FormShow(Sender: TObject);
 begin
  dmRentCar.ZTGerVal.Filtered := False;
  dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
- dmRentCar.ZTGerVal.Filtered := Filtered;
+ dmRentCar.ZTGerVal.Filtered := True;
 end;
 
 end.

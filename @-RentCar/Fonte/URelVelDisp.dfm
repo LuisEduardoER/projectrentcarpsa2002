@@ -535,6 +535,64 @@ object frmRelVelDisp: TfrmRelVelDisp
           3C36CCA9ADFD92B19EFF5A78FD7FC26730C5389D16E70000000049454E44AE42
           6082}
       end
+      object QRRichText1: TQRRichText
+        Left = 184
+        Top = 15
+        Width = 441
+        Height = 41
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          108.479166666666700000
+          486.833333333333400000
+          39.687500000000000000
+          1166.812500000000000000)
+        Alignment = taLeftJustify
+        AutoStretch = False
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Lines.Strings = (
+          '                       @-RentCar - Locadora de Ve'#237'culos'
+          '                         Tambauzinho, Jo'#227'o Pessoa - PB')
+      end
+      object QRVecDisp: TQRLabel
+        Left = 328
+        Top = 79
+        Width = 161
+        Height = 20
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          52.916666666666660000
+          867.833333333333500000
+          209.020833333333300000
+          425.979166666666700000)
+        Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
+        AutoStretch = False
+        Caption = 'Ve'#237'culos Dispon'#237'veis'
+        Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        WordWrap = True
+        FontSize = 12
+      end
     end
     object QRBand2: TQRBand
       Left = 38
