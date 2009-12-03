@@ -217,7 +217,7 @@ end;
 
 procedure TfrmRentCarPrincipal.Funcionarios1Click(Sender: TObject);
 begin
- cli := 'FU';
+ tipo := 'FUN';
  dmRentCar.ZTPesFis.Open;
  dmRentCar.ZTPessoa.Open;
  dmRentCar.ZTEndereco.Open;

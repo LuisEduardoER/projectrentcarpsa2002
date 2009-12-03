@@ -34,7 +34,7 @@ uses UBCliente, UPerfil;
 
 procedure TfrmGerarPerfil.btnBClick(Sender: TObject);
 begin
- perfil := 'p'
+ perfil := 'P'
  Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
  frmConsultaClientes.ShowModal;
  frmConsultaClientes.Free;
