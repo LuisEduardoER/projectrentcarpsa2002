@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ProjectTreeState projectID="OJvrqcSF2QBsXwSe" projectPath="C:\Documents and Settings\Alan\Desktop\@-RentCar\Documentacao(CasoUso)\CasoUso_@-RentCar.vpp">
 	<TreeState name="ModelRepository" viewX="0" viewY="0"/>
-	<TreeState name="DiagramNavigator" viewX="0" viewY="0">
+	<TreeState name="DiagramNavigator" viewX="0" viewY="19">
 		<ExpandedPath>DiagramNavigator</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,UML Diagrams</ExpandedPath>
 		<ExpandedPath>UseCaseDiagram</ExpandedPath>
+		<ExpandedPath>ClassDiagram</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Requirements Capturing</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Database Modeling</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Others</ExpandedPath>
-		<SelectedPath>UseCaseDiagram,5rcmlcSF2QB83bX.</SelectedPath>
+		<SelectedPath>ClassDiagram,7qdRaqSAKAEWDQVL</SelectedPath>
 	</TreeState>
 	<TreeState name="ClassBrowser" viewX="0" viewY="0"/>
 	<TreeState name="LogicalView" viewX="0" viewY="0"/>
