@@ -282,7 +282,6 @@ object dmRentCar: TdmRentCar
     end
     object ZTGerValGerVal_ValAlu: TLargeintField
       FieldName = 'GerVal_ValAlu'
-      DisplayFormat = '0.00'
     end
     object ZTGerValGerVal_ValAPag: TLargeintField
       FieldName = 'GerVal_ValAPag'
@@ -415,7 +414,7 @@ object dmRentCar: TdmRentCar
   object ZQFunctions: TZQuery
     Connection = ZRentCar
     CachedUpdates = False
-    RequestLive = False
+    RequestLive = True
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]

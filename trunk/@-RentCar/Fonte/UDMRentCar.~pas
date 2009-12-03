@@ -39,11 +39,6 @@ type
     ZTPesFisPesFis_CPF: TStringField;
     ZTPesFisPesFis_Sexo: TStringField;
     ZTPesFisPesFis_Tipo: TStringField;
-    ZTGerValGerVal_id: TLargeintField;
-    ZTGerValRentCar_Veiculo_Vel_id: TLargeintField;
-    ZTGerValGerVal_ValAlu: TLargeintField;
-    ZTGerValGerVal_ValAPag: TLargeintField;
-    ZTGerValGerVal_TipoPag: TStringField;
     ZTPesFisPesFis_EstCivil: TStringField;
     ZTPessoaPes_Email: TStringField;
     ZTPesFisPesFis_CNH: TStringField;
@@ -95,6 +90,11 @@ type
     ZTChamadoCh_HoraCh: TTimeField;
     ZTChamadoCh_DataCh: TDateField;
     ZTChamadoCh_Status: TStringField;
+    ZTGerValGerVal_id: TLargeintField;
+    ZTGerValRentCar_Veiculo_Vel_id: TLargeintField;
+    ZTGerValGerVal_ValAlu: TLargeintField;
+    ZTGerValGerVal_ValAPag: TLargeintField;
+    ZTGerValGerVal_TipoPag: TStringField;
   private
     { Private declarations }
   public

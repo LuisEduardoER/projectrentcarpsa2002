@@ -110,16 +110,20 @@ object frmCadUsuarios: TfrmCadUsuarios
     TabOrder = 5
     OnClick = btnSairClick
   end
-  object cbPerfil: TComboBox
-    Left = 8
-    Top = 128
-    Width = 145
-    Height = 21
-    Style = csDropDownList
-    ItemHeight = 13
-    TabOrder = 6
+  object DBRGPerfil: TDBRadioGroup
+    Left = 11
+    Top = 120
+    Width = 185
+    Height = 33
+    Columns = 2
+    DataField = 'Ac_Perfil'
+    DataSource = dmRentCar.dsAcesso
     Items.Strings = (
       'Administrador'
       'Cliente')
+    TabOrder = 6
+    Values.Strings = (
+      'A'
+      'C')
   end
 end

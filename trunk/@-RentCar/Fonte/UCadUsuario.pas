@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, DBCtrls, Mask, Grids, DBGrids;
+  Dialogs, StdCtrls, DBCtrls, Mask, Grids, DBGrids, ExtCtrls;
 
 type
   TfrmCadUsuarios = class(TForm)
@@ -17,7 +17,7 @@ type
     lblPessoa: TLabel;
     lblSenha: TLabel;
     lblAdicionarPerfil: TLabel;
-    cbPerfil: TComboBox;
+    DBRGPerfil: TDBRadioGroup;
     procedure btnSairClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -61,7 +61,6 @@ procedure TfrmCadUsuarios.btnSalvarClick(Sender: TObject);
 begin
  dmRentCar.ZTAcessoRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsInteger;
  dmRentCar.ZTAcessoAc_Login.Value := DBLookupCBPessoa.Text;
- dmRentCar.ZTAcessoAc_Perfil.Value := cbPerfil.Text;
  dmRentCar.ZTAcesso.Post;
 end;
 
@@ -83,7 +82,11 @@ begin
   ZTAcesso.Filtered := False;
   ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id like'+ QuotedStr('*' + DBLookupCBPessoa.KeyField  + '*');
   ZTAcesso.Filtered := True;
-  cbPerfil.Text := ZTAcessoAc_Perfil.AsString;
+  ZTAcesso.Open;
+  if not ZTAcesso.IsEmpty then
+   Begin
+     btnCadastar.Enabled := False;
+   end;
  end;
 
 end;
