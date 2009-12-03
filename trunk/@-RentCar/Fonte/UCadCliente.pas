@@ -141,7 +141,7 @@ begin
           dmRentCar.ZTPessoa.Post;
           dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
           dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
-      if frmRentCarPrincipal.cli = 'FU' then
+      if frmRentCarPrincipal.cli = 'FUN' then
       Begin
         dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
       end else
@@ -564,6 +564,7 @@ begin
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
       ZQCliente.Open;
     end else
+    if frmRentCarPrincipal.tipo = 'PF' then
      Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
@@ -571,6 +572,16 @@ begin
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesju.RentCar_Pessoa_Pes_id');
+     end else
+     if frmRentCarPrincipal.tipo = 'FUN' then
+     Begin
+      ZQCliente.Close;
+      ZQCliente.SQL.Clear;
+      ZQCliente.SQL.Add('Select rentcar_pesfis.PesFis_nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF');
+      ZQCliente.SQL.Add('from rentcar_pessoa');
+      ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+      ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
+      ZQCliente.Open;
      end;
      ZQCliente.Open;
   end;

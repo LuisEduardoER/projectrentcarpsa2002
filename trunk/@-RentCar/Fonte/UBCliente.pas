@@ -111,7 +111,6 @@ begin
   end else
   if (frmRentCarPrincipal.veiculo = 'PFL') then
   Begin
-    ShowMessage('krai');
   frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
   if frmRentCarPrincipal.perfil = 'F' then
@@ -129,7 +128,7 @@ begin
   if frmRentCarPrincipal.chamado = 'J' then
   Begin
    frmRentCarAberturaChamado.edtNome.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
-  end; 
+  end;
 
 end;
 

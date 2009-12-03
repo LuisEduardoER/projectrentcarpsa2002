@@ -20,6 +20,7 @@ object frmPerfil: TfrmPerfil
     Top = 110
     Width = 65
     Height = 17
+    DataField = 'Max(Vel_Espec)'
     DataSource = dmRentCar.dsQFunctions
   end
   object Label1: TLabel
@@ -34,6 +35,7 @@ object frmPerfil: TfrmPerfil
     Top = 44
     Width = 152
     Height = 133
+    DataField = 'Vel_Img'
     DataSource = dmRentCar.dsQFunctions
     TabOrder = 0
   end
