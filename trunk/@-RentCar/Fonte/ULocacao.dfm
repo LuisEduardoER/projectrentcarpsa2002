@@ -1,8 +1,8 @@
 object frmLocacao: TfrmLocacao
-  Left = 276
-  Top = 212
-  Width = 488
-  Height = 376
+  Left = 229
+  Top = 223
+  Width = 490
+  Height = 364
   Caption = '@-RentCar - Gerenciamento Loca'#231#227'o/Reserva Ve'#237'culos'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,17 +15,17 @@ object frmLocacao: TfrmLocacao
   PixelsPerInch = 96
   TextHeight = 13
   object btnCadastar: TButton
-    Left = 16
-    Top = 310
+    Left = 12
+    Top = 293
     Width = 75
-    Height = 25
+    Height = 24
     Caption = 'Cadastrar'
     TabOrder = 0
     OnClick = btnCadastarClick
   end
   object btnAlterar: TButton
-    Left = 190
-    Top = 310
+    Left = 186
+    Top = 293
     Width = 75
     Height = 25
     Caption = 'Alterar'
@@ -33,8 +33,8 @@ object frmLocacao: TfrmLocacao
     OnClick = btnAlterarClick
   end
   object btnSair: TButton
-    Left = 391
-    Top = 310
+    Left = 387
+    Top = 293
     Width = 75
     Height = 25
     Caption = 'Sair'
@@ -42,28 +42,28 @@ object frmLocacao: TfrmLocacao
     OnClick = btnSairClick
   end
   object btnConsultarLoc: TButton
-    Left = 280
-    Top = 310
+    Left = 276
+    Top = 293
     Width = 101
     Height = 24
     Caption = 'Consultar Loca'#231#245'es'
     TabOrder = 3
   end
   object btnSalvar: TButton
-    Left = 102
-    Top = 311
+    Left = 98
+    Top = 293
     Width = 75
     Height = 25
     Caption = 'Salvar'
     TabOrder = 4
     OnClick = btnSalvarClick
   end
-  object PageControl1: TPageControl
-    Left = 8
-    Top = 16
+  object pgGerLovResDev: TPageControl
+    Left = 9
+    Top = 8
     Width = 465
-    Height = 289
-    ActivePage = tsLocacao
+    Height = 278
+    ActivePage = tsDevolucao
     TabOrder = 5
     object tsLocacao: TTabSheet
       Caption = 'Loca'#231#227'o'
@@ -87,59 +87,69 @@ object frmLocacao: TfrmLocacao
         Left = 3
         Top = 52
         Width = 449
-        Height = 201
+        Height = 182
         TabOrder = 1
         object lblTipoPg: TLabel
-          Left = 8
-          Top = 116
+          Left = 6
+          Top = 133
           Width = 78
           Height = 13
           Caption = 'Tipo Pagamento'
         end
         object lblVlrPagar: TLabel
-          Left = 8
-          Top = 70
+          Left = 6
+          Top = 97
           Width = 65
           Height = 13
           Caption = 'Valor A Pagar'
         end
         object lblVeiculo: TLabel
-          Left = 8
-          Top = 22
+          Left = 6
+          Top = 14
           Width = 37
           Height = 13
           Caption = 'Ve'#237'culo'
         end
         object Label1: TLabel
           Left = 288
-          Top = 153
+          Top = 128
           Width = 62
           Height = 13
           Caption = 'Valor Aluguel'
         end
         object DBTAluguel: TDBText
           Left = 368
-          Top = 153
+          Top = 128
           Width = 65
           Height = 17
           DataField = 'GerVal_ValAlu'
           DataSource = dmRentCar.dsTGerVal
         end
-        object DBCKAlu: TDBCheckBox
-          Left = 8
-          Top = 168
-          Width = 73
+        object DBTVlrAPag: TDBText
+          Left = 7
+          Top = 110
+          Width = 65
           Height = 17
-          Caption = 'Alugado'
-          DataField = 'Alu_Loc'
-          DataSource = dmRentCar.dsTAlugar
-          TabOrder = 0
-          ValueChecked = 'AL'
-          ValueUnchecked = 'NAL'
+          DataField = 'GerVal_ValAPag'
+          DataSource = dmRentCar.dsTGerVal
+        end
+        object lblPerLoc: TLabel
+          Left = 6
+          Top = 55
+          Width = 83
+          Height = 13
+          Caption = 'Per'#237'odo Loca'#231#227'o'
+        end
+        object Label3: TLabel
+          Left = 94
+          Top = 70
+          Width = 6
+          Height = 13
+          Caption = 'a'
         end
         object DBCBTpPg: TDBComboBox
-          Left = 8
-          Top = 130
+          Left = 6
+          Top = 147
           Width = 89
           Height = 21
           Style = csDropDownList
@@ -149,28 +159,19 @@ object frmLocacao: TfrmLocacao
           Items.Strings = (
             'Dinheiro'
             'Cheque')
-          TabOrder = 1
-        end
-        object DBEVlrAPagar: TDBEdit
-          Left = 8
-          Top = 84
-          Width = 121
-          Height = 21
-          DataField = 'GerVal_ValAPag'
-          DataSource = dmRentCar.dsTGerVal
-          TabOrder = 2
+          TabOrder = 0
         end
         object DBLookupCBVeiculo: TDBLookupComboBox
-          Left = 8
-          Top = 36
+          Left = 6
+          Top = 28
           Width = 241
           Height = 21
           DataField = 'RentCar_Veiculo_Vel_id'
           DataSource = dmRentCar.dsTAlugar
           KeyField = 'Vel_id'
-          ListField = 'Vel_Marca'
+          ListField = 'Vel_Espec'
           ListSource = dmRentCar.dsCadVeiculo
-          TabOrder = 3
+          TabOrder = 1
           OnClick = DBLookupCBVeiculoClick
         end
         object DBImgVeiculo: TDBImage
@@ -180,6 +181,24 @@ object frmLocacao: TfrmLocacao
           Height = 105
           DataField = 'Vel_Img'
           DataSource = dmRentCar.dsCadVeiculo
+          TabOrder = 2
+        end
+        object DateLocI: TDateTimePicker
+          Left = 6
+          Top = 68
+          Width = 86
+          Height = 21
+          Date = 40150.949875393520000000
+          Time = 40150.949875393520000000
+          TabOrder = 3
+        end
+        object DateLocF: TDateTimePicker
+          Left = 106
+          Top = 67
+          Width = 86
+          Height = 21
+          Date = 40150.949875393520000000
+          Time = 40150.949875393520000000
           TabOrder = 4
         end
       end
@@ -238,17 +257,12 @@ object frmLocacao: TfrmLocacao
           DataField = 'GerVal_ValAlu'
           DataSource = dmRentCar.dsTGerVal
         end
-        object DBCBR: TDBCheckBox
-          Left = 8
-          Top = 72
-          Width = 73
-          Height = 17
-          Caption = 'Reservado'
-          DataField = 'Alu_Reserva'
-          DataSource = dmRentCar.dsTAlugar
-          TabOrder = 0
-          ValueChecked = 'R'
-          ValueUnchecked = 'NR'
+        object Label4: TLabel
+          Left = 9
+          Top = 67
+          Width = 66
+          Height = 13
+          Caption = 'Data Reserva'
         end
         object DBLCBV: TDBLookupComboBox
           Left = 8
@@ -258,9 +272,9 @@ object frmLocacao: TfrmLocacao
           DataField = 'RentCar_Veiculo_Vel_id'
           DataSource = dmRentCar.dsTAlugar
           KeyField = 'Vel_id'
-          ListField = 'Vel_Marca'
+          ListField = 'Vel_Espec'
           ListSource = dmRentCar.dsCadVeiculo
-          TabOrder = 1
+          TabOrder = 0
           OnClick = DBLCBVClick
         end
         object DBImgV: TDBImage
@@ -270,6 +284,15 @@ object frmLocacao: TfrmLocacao
           Height = 105
           DataField = 'Vel_Img'
           DataSource = dmRentCar.dsCadVeiculo
+          TabOrder = 1
+        end
+        object DateReserva: TDateTimePicker
+          Left = 9
+          Top = 82
+          Width = 89
+          Height = 21
+          Date = 40150.949875393520000000
+          Time = 40150.949875393520000000
           TabOrder = 2
         end
       end
@@ -279,6 +302,62 @@ object frmLocacao: TfrmLocacao
         Width = 234
         Height = 21
         TabOrder = 2
+      end
+    end
+    object tsDevolucao: TTabSheet
+      Caption = 'Devolucao'
+      ImageIndex = 2
+      OnShow = tsDevolucaoShow
+      object GroupBox2: TGroupBox
+        Left = 3
+        Top = 36
+        Width = 449
+        Height = 151
+        TabOrder = 0
+        object Label9: TLabel
+          Left = 6
+          Top = 14
+          Width = 37
+          Height = 13
+          Caption = 'Ve'#237'culo'
+        end
+        object Label10: TLabel
+          Left = 288
+          Top = 128
+          Width = 62
+          Height = 13
+          Caption = 'Valor Aluguel'
+        end
+        object DBTVlrDev: TDBText
+          Left = 368
+          Top = 128
+          Width = 65
+          Height = 17
+          DataField = 'GerVal_ValAlu'
+          DataSource = dmRentCar.dsTGerVal
+        end
+        object DBLookupVecDev: TDBLookupComboBox
+          Left = 6
+          Top = 28
+          Width = 241
+          Height = 21
+          DataField = 'RentCar_Veiculo_Vel_id'
+          DataSource = dmRentCar.dsTAlugar
+          KeyField = 'Vel_id'
+          ListField = 'Vel_Espec'
+          ListSource = dmRentCar.dsCadVeiculo
+          TabOrder = 0
+          OnClick = DBLookupVecDevClick
+        end
+        object DBImgDev: TDBImage
+          Left = 304
+          Top = 16
+          Width = 105
+          Height = 105
+          DataField = 'Vel_Img'
+          DataSource = dmRentCar.dsCadVeiculo
+          TabOrder = 1
+        end
       end
     end
   end

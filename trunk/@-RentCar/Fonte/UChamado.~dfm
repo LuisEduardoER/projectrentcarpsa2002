@@ -2,7 +2,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
   Left = 287
   Top = 205
   Width = 479
-  Height = 439
+  Height = 435
   Caption = '@-RentCar - Abertura de Chamados'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,8 +15,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
   PixelsPerInch = 96
   TextHeight = 13
   object btnSair: TButton
-    Left = 331
-    Top = 372
+    Left = 330
+    Top = 370
     Width = 71
     Height = 25
     Caption = 'Sair'
@@ -24,8 +24,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     OnClick = btnSairClick
   end
   object btnLimpar: TButton
-    Left = 239
-    Top = 372
+    Left = 238
+    Top = 370
     Width = 68
     Height = 25
     Caption = 'Limpar'
@@ -33,8 +33,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     OnClick = btnLimparClick
   end
   object btnCadastrar: TButton
-    Left = 49
-    Top = 372
+    Left = 48
+    Top = 370
     Width = 78
     Height = 25
     Caption = 'Cadastrar'
@@ -77,33 +77,33 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     Left = 4
     Top = 74
     Width = 465
-    Height = 291
+    Height = 287
     Caption = 'Abertura Chamados'
     TabOrder = 4
     object lblSolicitacao: TLabel
-      Left = 8
-      Top = 20
+      Left = 9
+      Top = 22
       Width = 52
       Height = 13
       Caption = 'Solicita'#231#227'o'
     end
     object lblData: TLabel
-      Left = 183
-      Top = 25
+      Left = 184
+      Top = 27
       Width = 23
       Height = 13
       Caption = 'Data'
     end
     object lblDesc: TLabel
       Left = 9
-      Top = 72
+      Top = 67
       Width = 48
       Height = 13
       Caption = 'Descri'#231#227'o'
     end
     object lblProtocol: TLabel
       Left = 208
-      Top = 264
+      Top = 259
       Width = 55
       Height = 13
       Caption = 'Protocolo'
@@ -116,7 +116,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     end
     object DBTProtocol: TDBText
       Left = 272
-      Top = 264
+      Top = 259
       Width = 81
       Height = 17
       DataField = 'Ch_Protocol'
@@ -129,8 +129,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       ParentFont = False
     end
     object DBTHora: TDBText
-      Left = 311
-      Top = 38
+      Left = 312
+      Top = 40
       Width = 65
       Height = 17
       DataField = 'Ch_HoraCh'
@@ -143,15 +143,15 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       ParentFont = False
     end
     object Label1: TLabel
-      Left = 311
-      Top = 25
+      Left = 312
+      Top = 27
       Width = 23
       Height = 13
       Caption = 'Hora'
     end
     object DataChamado: TDateTimePicker
-      Left = 183
-      Top = 37
+      Left = 184
+      Top = 39
       Width = 103
       Height = 21
       Date = 40134.684487303240000000
@@ -160,7 +160,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     end
     object DBREChamado: TDBRichEdit
       Left = 8
-      Top = 87
+      Top = 82
       Width = 449
       Height = 162
       DataField = 'Ch_DescCh'
@@ -169,7 +169,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     end
     object DBRadioGroup1: TDBRadioGroup
       Left = 8
-      Top = 254
+      Top = 249
       Width = 185
       Height = 33
       Caption = 'Status Chamado'
@@ -185,8 +185,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
         'E')
     end
     object DBCBSolic: TDBComboBox
-      Left = 8
-      Top = 37
+      Left = 9
+      Top = 39
       Width = 145
       Height = 21
       DataField = 'Ch_TipoCh'
@@ -201,8 +201,8 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     end
   end
   object brnSalvar: TButton
-    Left = 145
-    Top = 372
+    Left = 144
+    Top = 370
     Width = 73
     Height = 25
     Caption = 'Salvar'

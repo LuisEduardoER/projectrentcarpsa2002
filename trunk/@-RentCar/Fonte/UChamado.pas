@@ -73,13 +73,10 @@ begin
       protocol := protocol +IntToStr(Rand);
     until(Length(protocol)= 10); //quantos números diferentes você desejar obter.
 
-ShowMessage(protocol);
 dmRentCar.ZTChamadoRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_Id').AsInteger;
 dmRentCar.ZTChamadoCh_HoraCh.Value := Now;
 dmRentCar.ZTChamadoCh_DataCh.Value := DataChamado.Date;
-ShowMessage(protocol);
 dmRentCar.ZTChamadoCh_Protocol.AsString := protocol;
-ShowMessage(dmRentCar.ZTChamadoCh_Protocol.AsString);
 dmRentCar.ZTChamado.Post;
 end;
 

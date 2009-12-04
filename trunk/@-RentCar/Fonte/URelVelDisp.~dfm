@@ -562,7 +562,7 @@ object frmRelVelDisp: TfrmRelVelDisp
           '                       @-RentCar - Locadora de Ve'#237'culos'
           '                         Tambauzinho, Jo'#227'o Pessoa - PB')
       end
-      object QRVecAlu: TQRLabel
+      object QRVecDisp: TQRLabel
         Left = 328
         Top = 79
         Width = 161

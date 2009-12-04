@@ -2,7 +2,7 @@ object frmCadClientes: TfrmCadClientes
   Left = 236
   Top = 111
   Width = 733
-  Height = 533
+  Height = 551
   Caption = '@-RentCar - Cadastro de Clientes'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,6 +15,20 @@ object frmCadClientes: TfrmCadClientes
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object lblStatusCad: TLabel
+    Left = 18
+    Top = 242
+    Width = 89
+    Height = 16
+    Caption = 'lblStatusCad'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Visible = False
+  end
   object pgcClientes: TPageControl
     Left = 16
     Top = 8
@@ -123,8 +137,8 @@ object frmCadClientes: TfrmCadClientes
           'Feminino')
         TabOrder = 3
         Values.Strings = (
-          'M'
-          'F')
+          'Masculino'
+          'Feminino')
       end
       object DBECNH: TDBEdit
         Left = 6
@@ -314,6 +328,7 @@ object frmCadClientes: TfrmCadClientes
           Height = 21
           DataField = 'End_Bairro'
           DataSource = dmRentCar.dsTEndereco
+          Enabled = False
           TabOrder = 1
         end
         object DBECidade: TDBEdit
@@ -323,6 +338,7 @@ object frmCadClientes: TfrmCadClientes
           Height = 21
           DataField = 'End_Cidade'
           DataSource = dmRentCar.dsTEndereco
+          Enabled = False
           TabOrder = 2
         end
         object DBENumero: TDBEdit
@@ -341,6 +357,7 @@ object frmCadClientes: TfrmCadClientes
           Height = 21
           DataField = 'End_Estado'
           DataSource = dmRentCar.dsTEndereco
+          Enabled = False
           ItemHeight = 13
           Items.Strings = (
             'AC'
@@ -414,6 +431,7 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_TelRes'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 0
+        OnKeyPress = DBTelResKeyPress
       end
       object DBCel: TDBEdit
         Left = 8
@@ -423,6 +441,7 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_Cel'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 1
+        OnKeyPress = DBCelKeyPress
       end
       object DBEmail: TDBEdit
         Left = 185
@@ -441,21 +460,23 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_TelOp'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 3
+        OnKeyPress = DBTelOpKeyPress
       end
     end
   end
   object btnSalvar: TButton
     Left = 127
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 1
     OnClick = btnSalvarClick
   end
   object btnAlterar: TButton
     Left = 214
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Alterar'
@@ -464,7 +485,7 @@ object frmCadClientes: TfrmCadClientes
   end
   object btnExcluir: TButton
     Left = 303
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Excluir'
@@ -473,7 +494,7 @@ object frmCadClientes: TfrmCadClientes
   end
   object btnLimpar: TButton
     Left = 391
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Limpar'
@@ -482,7 +503,7 @@ object frmCadClientes: TfrmCadClientes
   end
   object btnConsultar: TButton
     Left = 479
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Consultar'
@@ -491,7 +512,7 @@ object frmCadClientes: TfrmCadClientes
   end
   object btnSair: TButton
     Left = 567
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Sair'
@@ -500,7 +521,7 @@ object frmCadClientes: TfrmCadClientes
   end
   object DBGClientes: TDBGrid
     Left = 23
-    Top = 284
+    Top = 299
     Width = 697
     Height = 201
     DataSource = dmRentCar.dsQCliente
@@ -510,10 +531,11 @@ object frmCadClientes: TfrmCadClientes
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnCellClick = DBGClientesCellClick
   end
   object btnCadastar: TButton
     Left = 40
-    Top = 248
+    Top = 263
     Width = 75
     Height = 25
     Caption = 'Cadastrar'

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, QRCtrls, QuickRpt, ExtCtrls;
+  Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage;
 
 type
   TfrmContratoLocacao = class(TForm)
@@ -73,7 +73,12 @@ type
     QRLabel18: TQRLabel;
     QRLabel45: TQRLabel;
     QRLabel46: TQRLabel;
-    procedure FormShow(Sender: TObject);
+    QRVecAlu: TQRLabel;
+    QRRichText1: TQRRichText;
+    QRImage1: TQRImage;
+    QRLabel47: TQRLabel;
+    procedure QRVelContrLocBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
   private
     { Private declarations }
   public
@@ -89,7 +94,8 @@ uses UDMRentCar, ULocacao;
 
 {$R *.dfm}
 
-procedure TfrmContratoLocacao.FormShow(Sender: TObject);
+procedure TfrmContratoLocacao.QRVelContrLocBeforePrint(
+  Sender: TCustomQuickRep; var PrintReport: Boolean);
 begin
       With dmRentCar do
       Begin
@@ -103,21 +109,8 @@ begin
         ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
         ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
         ZQAlugar.SQL.Add('where PesFis_Nome = "'+frmLocacao.edtCliLoc.Text+'"');
-        ShowMessage(ZQAlugar.SQL.Text);
         ZQAlugar.Open;
-
-        if ZQAlugar.IsEmpty then
-        Begin
-          ShowMessage('Não Existem Veiculos Alugados');
-        end else
-        Begin
-          Application.CreateForm(TfrmContratoLocacao, frmContratoLocacao);
-          frmContratoLocacao.QRVelContrLoc.Preview;
-          frmContratoLocacao.Free;
-          dmRentCar.ZQAlugar.Close;
-        end;
       end;
-
 end;
 
 end.

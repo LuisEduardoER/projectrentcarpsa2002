@@ -19,7 +19,7 @@ type
     QRDBText1: TQRDBText;
     QRImage1: TQRImage;
     QRRichText1: TQRRichText;
-    QRVecAlu: TQRLabel;
+    QRVecDisp: TQRLabel;
   private
     { Private declarations }
   public
