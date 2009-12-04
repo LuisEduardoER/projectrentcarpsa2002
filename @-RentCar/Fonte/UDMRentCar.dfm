@@ -65,6 +65,14 @@ object dmRentCar: TdmRentCar
       FieldName = 'Vel_Espec'
       Size = 60
     end
+    object ZTCadVeiculoVel_StatusLoc: TStringField
+      FieldName = 'Vel_StatusLoc'
+      Size = 1
+    end
+    object ZTCadVeiculoVel_StatusRes: TStringField
+      FieldName = 'Vel_StatusRes'
+      Size = 1
+    end
   end
   object ZTChamado: TZTable
     Connection = ZRentCar
@@ -192,16 +200,8 @@ object dmRentCar: TdmRentCar
       FieldName = 'PesFis_CPF'
       Size = 15
     end
-    object ZTPesFisPesFis_Sexo: TStringField
-      FieldName = 'PesFis_Sexo'
-      Size = 1
-    end
     object ZTPesFisPesFis_Tipo: TStringField
       FieldName = 'PesFis_Tipo'
-      Size = 1
-    end
-    object ZTPesFisPesFis_EstCivil: TStringField
-      FieldName = 'PesFis_EstCivil'
       Size = 1
     end
     object ZTPesFisPesFis_CNH: TStringField
@@ -222,6 +222,14 @@ object dmRentCar: TdmRentCar
       FieldName = 'PesFis_Nome'
       Size = 255
     end
+    object ZTPesFisPesFis_Sexo: TStringField
+      FieldName = 'PesFis_Sexo'
+      Size = 15
+    end
+    object ZTPesFisPesFis_EstCivil: TStringField
+      FieldName = 'PesFis_EstCivil'
+      Size = 15
+    end
   end
   object dsTPesFis: TDataSource
     DataSet = ZTPesFis
@@ -239,12 +247,11 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 72
     Top = 88
-    object ZTPesJuPesJu_id: TLargeintField
+    object ZTPesJuPesJu_id: TIntegerField
       FieldName = 'PesJu_id'
     end
-    object ZTPesJuRentCar_Pessoa_Pes_id: TLargeintField
+    object ZTPesJuRentCar_Pessoa_Pes_id: TIntegerField
       FieldName = 'RentCar_Pessoa_Pes_id'
-      Required = True
     end
     object ZTPesJuPesJu_CNPJ: TStringField
       FieldName = 'PesJu_CNPJ'
@@ -281,13 +288,15 @@ object dmRentCar: TdmRentCar
     end
     object ZTGerValGerVal_ValAlu: TLargeintField
       FieldName = 'GerVal_ValAlu'
+      DisplayFormat = '0.00'
     end
     object ZTGerValGerVal_ValAPag: TLargeintField
       FieldName = 'GerVal_ValAPag'
+      DisplayFormat = '0.00'
     end
     object ZTGerValGerVal_TipoPag: TStringField
       FieldName = 'GerVal_TipoPag'
-      Size = 1
+      Size = 15
     end
   end
   object dsTGerVal: TDataSource
@@ -306,7 +315,7 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 200
     Top = 88
-    object ZTEnderecoEnd_Id: TLargeintField
+    object ZTEnderecoEnd_Id: TIntegerField
       FieldName = 'End_Id'
     end
     object ZTEnderecoEnd_Cidade: TStringField
@@ -328,7 +337,7 @@ object dmRentCar: TdmRentCar
       FieldName = 'End_CEP'
       Size = 15
     end
-    object ZTEnderecoEnd_Num: TLargeintField
+    object ZTEnderecoEnd_Num: TIntegerField
       FieldName = 'End_Num'
     end
   end
@@ -340,7 +349,7 @@ object dmRentCar: TdmRentCar
   object ZQCliente: TZQuery
     Connection = ZRentCar
     CachedUpdates = False
-    RequestLive = False
+    RequestLive = True
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]
@@ -378,13 +387,14 @@ object dmRentCar: TdmRentCar
     object ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField
       FieldName = 'RentCar_Veiculo_Vel_id'
     end
-    object ZTAlugarAlu_Reserva: TStringField
-      FieldName = 'Alu_Reserva'
-      Size = 1
+    object ZTAlugarPerInicialLoc: TDateField
+      FieldName = 'PerInicialLoc'
     end
-    object ZTAlugarAlu_Loc: TStringField
-      FieldName = 'Alu_Loc'
-      Size = 1
+    object ZTAlugarPerFinalLoc: TDateField
+      FieldName = 'PerFinalLoc'
+    end
+    object ZTAlugarDataReserva: TDateField
+      FieldName = 'DataReserva'
     end
   end
   object dsTAlugar: TDataSource

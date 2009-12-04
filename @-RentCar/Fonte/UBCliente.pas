@@ -54,7 +54,7 @@ begin
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pesfis.PesFis_Nome, rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Id, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF, rentcar_pessoa.Pes_Email');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF, rentcar_pessoa.Pes_Email');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       if ckNome.Checked = True then
@@ -69,7 +69,6 @@ begin
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
       end;
       ZQCliente.Open;
-      ShowMessage(ZQCliente.SQL.Text);
     end else
      if (frmRentCarPrincipal.tipo = 'PJ') or (frmRentCarPrincipal.veiculo = 'PJL') or (frmRentCarPrincipal.veiculo = 'PJR') or (frmRentCarPrincipal.perfil = 'J') or (frmRentCarPrincipal.chamado = 'J') then
       Begin
@@ -97,21 +96,46 @@ end;
 procedure TfrmConsultaClientes.DBGrid1CellClick(Column: TColumn);
 begin
   close;
+
+  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
+  Begin
+    dmRentCar.ZTPessoa.Filtered := False;
+    dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
+    dmRentCar.ZTPessoa.Filtered := True;
+    dmRentCar.ZTPesFis.Filtered := False;
+    dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+    dmRentCar.ZTPesFis.Filtered := True;
+    dmRentCar.ZTEndereco.Filtered := False;
+    dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
+    dmRentCar.ZTEndereco.Filtered := True;
+  end else
+  if (frmRentCarPrincipal.tipo = 'PJ') then
+  Begin
+    dmRentCar.ZTPessoa.Filtered := False;
+    dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
+    dmRentCar.ZTPessoa.Filtered := True;
+    dmRentCar.ZTPesJu.Filtered := False;
+    dmRentCar.ZTPesJu.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+    dmRentCar.ZTPesJu.Filtered := True;
+    dmRentCar.ZTEndereco.Filtered := False;
+    dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
+    dmRentCar.ZTEndereco.Filtered := True;
+  end else
   if (frmRentCarPrincipal.veiculo = 'PFR') then
   Begin
-  frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
+    frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
   if (frmRentCarPrincipal.veiculo = 'PJR') then
   Begin
-  frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
+    frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
   end else
   if (frmRentCarPrincipal.veiculo = 'PJL') then
   Begin
-  frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
+    frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
   end else
   if (frmRentCarPrincipal.veiculo = 'PFL') then
   Begin
-  frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
+    frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
   end else
   if frmRentCarPrincipal.perfil = 'F' then
   Begin
@@ -119,7 +143,7 @@ begin
   end else
   if frmRentCarPrincipal.perfil = 'J' then
   Begin
-        frmGerarPerfil.edtCli.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
+   frmGerarPerfil.edtCli.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
   end else
   if frmRentCarPrincipal.chamado = 'F' then
   Begin

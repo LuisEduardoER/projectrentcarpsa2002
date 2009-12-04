@@ -109,6 +109,7 @@ begin
   Begin
    ShowMessage('Nao existem mais chamados');
   end else
+ if Application.MessageBox('Deseja mudar o Status do Chamado para Finalizado?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
  Begin
  dmRentCar.ZQFunctions.Edit;
  dmRentCar.ZQFunctions.fieldbyname('Ch_Status').Value := 'F';
@@ -118,10 +119,17 @@ begin
  end else
  if frmRentCarPrincipal.chamado = 'LF' then
  Begin
+  if dmRentCar.ZQFunctions.RecordCount <= 0 then
+  Begin
+   ShowMessage('Nao existem mais chamados');
+  end else
+ if Application.MessageBox('Deseja mudar o Status do Chamado para Finalizado?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+ Begin
  dmRentCar.ZQFunctions.Edit;
  dmRentCar.ZQFunctions.fieldbyname('Ch_Status').Value := 'E';
  dmRentCar.ZQFunctions.Post;
  dmRentCar.ZQFunctions.Refresh;
+ end;
  end;
 end;
 

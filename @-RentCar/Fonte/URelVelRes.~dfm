@@ -565,7 +565,7 @@ object frmRelVelRes: TfrmRelVelRes
       object QRVecRes: TQRLabel
         Left = 328
         Top = 75
-        Width = 144
+        Width = 163
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -576,12 +576,12 @@ object frmRelVelRes: TfrmRelVelRes
           52.916666666666660000
           867.833333333333500000
           198.437500000000000000
-          381.000000000000000000)
+          431.270833333333400000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'Ve'#237'culos Alugados'
+        Caption = 'Ve'#237'culos Reservados'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText

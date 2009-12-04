@@ -173,6 +173,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Width = 70
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 2
     OnClick = btnSalvarClick
   end
@@ -220,14 +221,14 @@ object frmCadVeiculos: TfrmCadVeiculos
     TabOrder = 7
     OnClick = btnSairClick
   end
-  object Button1: TButton
+  object btnCadastrar: TButton
     Left = 11
     Top = 304
     Width = 70
     Height = 25
     Caption = 'Cadastrar'
     TabOrder = 8
-    OnClick = Button1Click
+    OnClick = btnCadastrarClick
   end
   object OpenPicture: TOpenPictureDialog
     Left = 314

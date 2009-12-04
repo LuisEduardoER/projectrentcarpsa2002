@@ -17,8 +17,8 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 152
-    Top = 96
+    Left = 112
+    Top = 88
     Width = 601
     Height = 225
     Picture.Data = {
@@ -2459,6 +2459,10 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
           Caption = 'Juridica'
           OnClick = LocPesJuClick
         end
+      end
+      object Devolucao: TMenuItem
+        Caption = 'Devolucao'
+        OnClick = DevolucaoClick
       end
     end
     object Chamados: TMenuItem

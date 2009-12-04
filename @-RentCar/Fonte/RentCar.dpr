@@ -27,14 +27,12 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
-  Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
   Application.CreateForm(TfrmAcesso, frmAcesso);
+  Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
   Application.CreateForm(TfrmContratoLocacaoPesJu, frmContratoLocacaoPesJu);
-  Application.CreateForm(TfrmPerfil, frmPerfil);
   Application.CreateForm(TfrmListChamados, frmListChamados);
   Application.Run;
 end.

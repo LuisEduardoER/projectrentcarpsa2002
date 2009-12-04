@@ -59,6 +59,8 @@ object frmCadUsuarios: TfrmCadUsuarios
     Top = 32
     Width = 253
     Height = 21
+    DataField = 'RentCar_PesFis_PesFis_id'
+    DataSource = dmRentCar.dsAcesso
     KeyField = 'Pes_id'
     ListField = 'PesFis_nome'
     ListSource = dmRentCar.dsQFunctions
@@ -120,10 +122,10 @@ object frmCadUsuarios: TfrmCadUsuarios
     DataSource = dmRentCar.dsAcesso
     Items.Strings = (
       'Administrador'
-      'Cliente')
+      'Funcionario')
     TabOrder = 6
     Values.Strings = (
       'A'
-      'C')
+      'F')
   end
 end

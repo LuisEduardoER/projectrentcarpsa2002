@@ -43,6 +43,7 @@ type
     ChPesFis: TMenuItem;
     ChPesJu: TMenuItem;
     Image1: TImage;
+    Devolucao: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
@@ -63,6 +64,7 @@ type
     procedure ChPesJuClick(Sender: TObject);
     procedure ChamadosEmEsperaClick(Sender: TObject);
     procedure ChamadosFinalizadosClick(Sender: TObject);
+    procedure DevolucaoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,6 +101,7 @@ begin
  dmRentCar.ZTGerVal.Open;
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsLocacao.Destroy;
+ frmLocacao.tsDevolucao.Destroy;
  frmLocacao.ShowModal;
  frmLocacao.Free;
  dmRentCar.ZTCadVeiculo.Close;
@@ -115,6 +118,7 @@ begin
  dmRentCar.ZTGerVal.Open;
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsLocacao.Destroy;
+ frmLocacao.tsDevolucao.Destroy;
  frmLocacao.ShowModal;
  frmLocacao.Free;
  dmRentCar.ZTAlugar.Close;
@@ -125,12 +129,13 @@ end;
 procedure TfrmRentCarPrincipal.PesFisicaClick(Sender: TObject);
 begin
  tipo := 'PF';
- cli := 'Cli';
+ cli := 'cli';
  dmRentCar.ZTPesFis.Open;
  dmRentCar.ZTPessoa.Open;
  dmRentCar.ZTEndereco.Open;
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPJ.Destroy;
+ frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPF;
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
  dmRentCar.ZTPesFis.Close;
@@ -141,12 +146,13 @@ end;
 procedure TfrmRentCarPrincipal.PesJuridicaClick(Sender: TObject);
 begin
  tipo := 'PJ';
- cli := 'Cli';
+ cli := 'cli';
  dmRentCar.ZTPesJu.Open;
  dmRentCar.ZTPessoa.Open;
  dmRentCar.ZTEndereco.Open;
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPF.Destroy;
+ frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPJ;
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
  dmRentCar.ZTPesJu.Close;
@@ -169,11 +175,10 @@ begin
   Begin
     ZQAlugar.Close;
     ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img');
-    ZQAlugar.SQL.Add('from rentcar_veiculo, rentcar_alugar');
-    ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id');
-    ZQAlugar.SQL.Add('and rentcar_alugar.Alu_Loc ="AL"');
-        ShowMessage(ZQAlugar.SQL.Text);
+    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
+    ZQAlugar.SQL.Add('from rentcar_veiculo ');
+    ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
+    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusLoc ="O" ');
     ZQAlugar.Open;
 
   if ZQAlugar.IsEmpty then
@@ -195,11 +200,10 @@ begin
   Begin
     ZQAlugar.Close;
     ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img');
-    ZQAlugar.SQL.Add('from rentcar_veiculo, rentcar_alugar');
-    ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id');
-    ZQAlugar.SQL.Add('and rentcar_alugar.Alu_Reserva ="NR" and rentcar_alugar.Alu_Loc ="NAL"');
-    ShowMessage(ZQAlugar.SQL.Text);
+    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
+    ZQAlugar.SQL.Add('from rentcar_veiculo ');
+    ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
+    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusLoc ="L" ');
     ZQAlugar.Open;
 
   if ZQAlugar.IsEmpty then
@@ -218,6 +222,7 @@ end;
 procedure TfrmRentCarPrincipal.Funcionarios1Click(Sender: TObject);
 begin
  tipo := 'FUN';
+ cli := 'FUN';
  dmRentCar.ZTPesFis.Open;
  dmRentCar.ZTPessoa.Open;
  dmRentCar.ZTEndereco.Open;
@@ -232,9 +237,11 @@ end;
 
 procedure TfrmRentCarPrincipal.Usurios1Click(Sender: TObject);
 begin
+  dmRentCar.ZTAcesso.Open;
   Application.CreateForm(TfrmCadUsuarios, frmCadUsuarios);
   frmCadUsuarios.ShowModal;
   frmCadUsuarios.Free;
+  dmRentCar.ZTAcesso.Close;
 end;
 
 procedure TfrmRentCarPrincipal.LocPesFisClick(Sender: TObject);
@@ -245,6 +252,7 @@ begin
   dmRentCar.ZTGerVal.Open;
   Application.CreateForm(TfrmLocacao, frmLocacao);
   frmLocacao.tsReserva.Destroy;
+  frmLocacao.tsDevolucao.Destroy;
   frmLocacao.ShowModal;
   frmLocacao.Free;
   dmRentCar.ZTCadVeiculo.Open;
@@ -260,6 +268,7 @@ begin
  dmRentCar.ZTGerVal.Open;
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsReserva.Destroy;
+ frmLocacao.tsDevolucao.Destroy;
  frmLocacao.ShowModal;
  frmLocacao.Free;
  dmRentCar.ZTAlugar.Close;
@@ -274,16 +283,15 @@ begin
   Begin
     ZQAlugar.Close;
     ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img');
-    ZQAlugar.SQL.Add('from rentcar_veiculo, rentcar_alugar');
-    ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id');
-    ZQAlugar.SQL.Add('and rentcar_alugar.Alu_Reserva ="R"');
-        ShowMessage(ZQAlugar.SQL.Text);
+    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
+    ZQAlugar.SQL.Add('from rentcar_veiculo ');
+    ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
+    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusRes="R" and rentcar_alugar.DataReserva <> ""');
     ZQAlugar.Open;
 
   if ZQAlugar.IsEmpty then
   Begin
-    ShowMessage('Não Existem Veiculos Alugados');
+    ShowMessage('Não Existem Veiculos Reservados');
   end else
   Begin
     Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
@@ -349,6 +357,21 @@ begin
  frmListChamados.ShowModal;
  frmListChamados.Free;
  dmRentCar.ZTChamado.Close;
+end;
+
+procedure TfrmRentCarPrincipal.DevolucaoClick(Sender: TObject);
+begin
+  dmRentCar.ZTAlugar.Open;
+  dmRentCar.ZTGerVal.Open;
+  Application.CreateForm(TfrmLocacao, frmLocacao);
+  frmLocacao.tsReserva.Destroy;
+  frmLocacao.tsLocacao.Destroy;
+  frmLocacao.btnCadastar.Enabled := False;
+  frmLocacao.btnAlterar.Enabled := False;
+  frmLocacao.ShowModal;
+  frmLocacao.Free;
+  dmRentCar.ZTAlugar.Close;
+  dmRentCar.ZTGerVal.Close;
 end;
 
 end.

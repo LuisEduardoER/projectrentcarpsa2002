@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, DBCtrls, Mask;
+  Dialogs, StdCtrls, DBCtrls, Mask, Grids, DBGrids;
 
 type
   TfrmRentCarVlrVeiculos = class(TForm)
@@ -39,7 +39,6 @@ uses UDMRentCar;
 
 procedure TfrmRentCarVlrVeiculos.btnCadastrarClick(Sender: TObject);
 begin
- dmRentCar.ZTGerVal.Insert;
  dmRentCar.ZTGerValRentCar_Veiculo_Vel_id.Value := dmRentCar.ZTCadVeiculoVel_id.Value;
  dmRentCar.ZTGerVal.Post;
 end;
@@ -47,6 +46,7 @@ end;
 procedure TfrmRentCarVlrVeiculos.btnAlterarClick(Sender: TObject);
 begin
  dmRentCar.ZTGerVal.Edit;
+ btnCadastrar.Enabled := True;
 end;
 
 procedure TfrmRentCarVlrVeiculos.Button1Click(Sender: TObject);

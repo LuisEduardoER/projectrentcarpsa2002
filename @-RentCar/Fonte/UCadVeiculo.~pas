@@ -32,7 +32,7 @@ type
     lblVlrVeiculos: TLabel;
     OpenPicture: TOpenPictureDialog;
     DBImgVeic: TDBImage;
-    Button1: TButton;
+    btnCadastrar: TButton;
     DateAno: TDateTimePicker;
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -41,7 +41,7 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure btnLimparClick(Sender: TObject);
     procedure lblVlrVeiculosClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnCadastrarClick(Sender: TObject);
     procedure MakeThumbNail(aSource :TGraphic; aDest: TBitmap; iWidth, iHeight: Integer);
 
 
@@ -80,6 +80,8 @@ begin
  aDest.Canvas.StretchDraw(Rect(0, 0, aDest.width, aDest.Height), DBImgVeic.Picture.Graphic);
  DBImgVeic.Picture.Assign(aDest);
  dmRentCar.ZTCadVeiculoVel_Ano.Value := ano;
+ dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
+ dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'L';
  dmRentCar.ZTCadVeiculo.post;
  lblVlrVeiculos.Enabled := True;
 end;
@@ -94,6 +96,7 @@ procedure TfrmCadVeiculos.btnAlterarClick(Sender: TObject);
 begin
  gbCadVeiculo.Enabled := True;
  dmRentCar.ZTCadVeiculo.Edit;
+ btnSalvar.Enabled := True;
 end;
 
 procedure TfrmCadVeiculos.btnExcluirClick(Sender: TObject);
@@ -109,17 +112,25 @@ end;
 procedure TfrmCadVeiculos.lblVlrVeiculosClick(Sender: TObject);
 begin
  dmRentCar.ZTGerVal.Open;
- dmRentCar.ZTCadVeiculo.Open;
  Application.CreateForm(TfrmRentCarVlrVeiculos, frmRentCarVlrVeiculos);
+  if dmRentCar.ZTGerVal.IsEmpty then
+ Begin
+   dmRentCar.ZTGerVal.Insert;
+ end else
+ Begin
+   dmRentCar.ZTGerVal.Edit;
+   frmRentCarVlrVeiculos.btnCadastrar.Enabled := False;
+ end;
  frmRentCarVlrVeiculos.ShowModal;
  frmRentCarVlrVeiculos.Free;
- dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
 end;
 
-procedure TfrmCadVeiculos.Button1Click(Sender: TObject);
+procedure TfrmCadVeiculos.btnCadastrarClick(Sender: TObject);
 begin
  dmRentCar.ZTCadVeiculo.Insert;
+ btnSalvar.Enabled := True;
+ btnCadastrar.Enabled := False;
 end;
 
 procedure TfrmCadVeiculos.MakeThumbNail(aSource: TGraphic; aDest: TBitmap;

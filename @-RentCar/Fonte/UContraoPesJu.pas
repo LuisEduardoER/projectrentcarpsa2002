@@ -71,6 +71,11 @@ type
     QRLabel18: TQRLabel;
     QRLabel45: TQRLabel;
     QRLabel46: TQRLabel;
+    QRImage1: TQRImage;
+    QRRichText1: TQRRichText;
+    QRVecAlu: TQRLabel;
+    procedure QRVelContrLocPesJuBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
   private
     { Private declarations }
   public
@@ -82,6 +87,29 @@ var
 
 implementation
 
+uses UDMRentCar, ULocacao;
+
 {$R *.dfm}
+
+procedure TfrmContratoLocacaoPesJu.QRVelContrLocPesJuBeforePrint(
+  Sender: TCustomQuickRep; var PrintReport: Boolean);
+begin
+      With dmRentCar do
+      Begin
+        ZQAlugar.Close;
+        ZQAlugar.SQL.Clear;
+        ZQAlugar.SQL.Add('select PesJU_NmFantasia, PesJu_RazaoSocial, PesJu_CNPJ, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+        ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
+        ZQAlugar.SQL.Add('from rentcar_pessoa ');
+        ZQAlugar.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
+        ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
+        ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
+        ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
+        ZQAlugar.SQL.Add('where PesJu_NmFantasia = "'+frmLocacao.edtCliLoc.Text+'"');
+        ZQAlugar.Open;
+      end;
+
+
+end;
 
 end.
