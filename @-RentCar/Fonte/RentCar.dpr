@@ -21,7 +21,12 @@ uses
   UContraoPesJu in 'UContraoPesJu.pas' {frmContratoLocacaoPesJu},
   UPerfil in 'UPerfil.pas' {frmPerfil},
   UGerarPerfil in 'UGerarPerfil.pas' {frmGerarPerfil},
-  UListChamados in 'UListChamados.pas' {frmListChamados};
+  UListChamados in 'UListChamados.pas' {frmListChamados},
+  UConsultaVeiculos in 'UConsultaVeiculos.pas' {frmConsultaVeiculos},
+  URelCliPesFis in 'URelCliPesFis.pas' {frmRelCliPesFis},
+  URelCliPesJu in 'URelCliPesJu.pas' {frmRelCliPesJu},
+  UGerContratos in 'UGerContratos.pas' {frmGerContratos},
+  UConsulLoc in 'UConsulLoc.pas' {frmConsultarLocacoes};
 
 {$R *.res}
 
@@ -32,7 +37,6 @@ begin
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
-  Application.CreateForm(TfrmContratoLocacaoPesJu, frmContratoLocacaoPesJu);
-  Application.CreateForm(TfrmListChamados, frmListChamados);
+  Application.CreateForm(TfrmConsultarLocacoes, frmConsultarLocacoes);
   Application.Run;
 end.

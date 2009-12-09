@@ -1,8 +1,8 @@
 object frmRentCarVlrVeiculos: TfrmRentCarVlrVeiculos
   Left = 454
   Top = 300
-  Width = 301
-  Height = 163
+  Width = 293
+  Height = 178
   Caption = '@-RentCar - Valores Ve'#237'culos'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

@@ -12,7 +12,6 @@ type
     btnLimpar: TButton;
     btnCadastrar: TButton;
     GroupBox1: TGroupBox;
-    edtNome: TEdit;
     lblNome: TLabel;
     gbAberturaChamados: TGroupBox;
     lblSolicitacao: TLabel;
@@ -28,11 +27,13 @@ type
     DBRadioGroup1: TDBRadioGroup;
     btnBuscar: TButton;
     DBCBSolic: TDBComboBox;
+    DBLookupCliente: TDBLookupComboBox;
     procedure btnCadastrarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure brnSalvarClick(Sender: TObject);
     procedure btnBuscarClick(Sender: TObject);
     procedure btnLimparClick(Sender: TObject);
+    procedure DBLookupClienteClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -73,7 +74,7 @@ begin
       protocol := protocol +IntToStr(Rand);
     until(Length(protocol)= 10); //quantos números diferentes você desejar obter.
 
-dmRentCar.ZTChamadoRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_Id').AsInteger;
+//dmRentCar.ZTChamadoRentCar_Pessoa_Pes_id.Value := dmRentCar.ZQCliente.fieldbyname('Pes_Id').AsInteger;
 dmRentCar.ZTChamadoCh_HoraCh.Value := Now;
 dmRentCar.ZTChamadoCh_DataCh.Value := DataChamado.Date;
 dmRentCar.ZTChamadoCh_Protocol.AsString := protocol;
@@ -90,6 +91,13 @@ end;
 procedure TfrmRentCarAberturaChamado.btnLimparClick(Sender: TObject);
 begin
  dmRentCar.ZTChamado.ClearFields;
+end;
+
+procedure TfrmRentCarAberturaChamado.DBLookupClienteClick(Sender: TObject);
+begin
+ dmRentCar.ZTPessoa.Filtered := False;
+ dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.AsString);
+ dmRentCar.ZTPessoa.Filtered := True;
 end;
 
 end.

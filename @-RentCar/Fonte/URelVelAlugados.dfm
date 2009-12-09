@@ -973,7 +973,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
       Left = 38
       Top = 269
       Width = 718
-      Height = 27
+      Height = 35
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -984,35 +984,12 @@ object frmRelVelAlugados: TfrmRelVelAlugados
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        71.437500000000000000
+        92.604166666666680000
         1899.708333333333000000)
       BandType = rbSummary
-      object QRSysData1: TQRSysData
-        Left = 635
-        Top = 5
-        Width = 78
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1680.104166666667000000
-          13.229166666666670000
-          206.375000000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        Color = clWhite
-        Data = qrsDetailCount
-        Transparent = False
-        FontSize = 10
-      end
       object QRSysData2: TQRSysData
-        Left = 8
-        Top = 8
+        Left = 638
+        Top = 11
         Width = 68
         Height = 17
         Frame.Color = clBlack
@@ -1022,8 +999,8 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         Frame.DrawRight = False
         Size.Values = (
           44.979166666666670000
-          21.166666666666670000
-          21.166666666666670000
+          1688.041666666667000000
+          29.104166666666670000
           179.916666666666700000)
         Alignment = taLeftJustify
         AlignToBand = False

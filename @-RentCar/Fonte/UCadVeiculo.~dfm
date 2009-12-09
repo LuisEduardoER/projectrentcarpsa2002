@@ -121,6 +121,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       Height = 89
       DataField = 'Vel_Espec'
       DataSource = dmRentCar.dsCadVeiculo
+      Enabled = False
       TabOrder = 4
     end
     object btnCarregar: TButton
@@ -211,6 +212,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Height = 25
     Caption = 'Consultar'
     TabOrder = 6
+    OnClick = btnConsultarClick
   end
   object btnSair: TButton
     Left = 469

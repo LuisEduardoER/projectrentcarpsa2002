@@ -18,7 +18,7 @@ object frmPerfil: TfrmPerfil
   object DBTEspec: TDBText
     Left = 154
     Top = 78
-    Width = 65
+    Width = 311
     Height = 17
     DataField = 'Max(Vel_Espec)'
     DataSource = dsQFunctions
@@ -53,6 +53,20 @@ object frmPerfil: TfrmPerfil
     Connection = dmRentCar.ZRentCar
     CachedUpdates = False
     RequestLive = True
+    SQL.Strings = (
+      'select Vel_Img, Max(Vel_Espec) from rentcar_veiculo'
+      
+        'inner join rentcar_alugar on rentcar_veiculo.Vel_id = rentcar_al' +
+        'ugar.RentCar_Veiculo_Vel_id '
+      
+        'inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_alu' +
+        'gar.RentCar_Pessoa_Pes_id '
+      
+        'inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_i' +
+        'd = rentcar_pessoa.Pes_id'
+      
+        'where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel' +
+        '_StatusRes = "R"')
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]
@@ -60,10 +74,16 @@ object frmPerfil: TfrmPerfil
     WhereMode = wmWhereKeyOnly
     Options = [doCalcDefaults]
     Left = 200
+    object ZQFunctionsVel_Img: TBlobField
+      FieldName = 'Vel_Img'
+    end
+    object ZQFunctionsMaxVel_Espec: TStringField
+      FieldName = 'Max(Vel_Espec)'
+      Size = 60
+    end
   end
   object dsQFunctions: TDataSource
     DataSet = ZQFunctions
-    Left = 216
-    Top = 32
+    Left = 232
   end
 end

@@ -38,6 +38,7 @@ object frmCadClientes: TfrmCadClientes
     TabOrder = 0
     object tsDadosPF: TTabSheet
       Caption = 'Dados Pessoais'
+      Enabled = False
       object lblNome: TLabel
         Left = 5
         Top = 12
@@ -178,6 +179,7 @@ object frmCadClientes: TfrmCadClientes
     end
     object tsDadosPJ: TTabSheet
       Caption = 'Dados Pessoais'
+      Enabled = False
       ImageIndex = 3
       object Label2: TLabel
         Left = 5
@@ -244,6 +246,7 @@ object frmCadClientes: TfrmCadClientes
     end
     object tsEndereco: TTabSheet
       Caption = 'Endereco'
+      Enabled = False
       ImageIndex = 4
       object lblCEP: TLabel
         Left = 4
@@ -394,6 +397,7 @@ object frmCadClientes: TfrmCadClientes
     end
     object tsContato: TTabSheet
       Caption = 'Contato'
+      Enabled = False
       ImageIndex = 5
       object lblTelefone: TLabel
         Left = 8
@@ -484,9 +488,9 @@ object frmCadClientes: TfrmCadClientes
     OnClick = btnAlterarClick
   end
   object btnExcluir: TButton
-    Left = 303
+    Left = 304
     Top = 263
-    Width = 75
+    Width = 74
     Height = 25
     Caption = 'Excluir'
     TabOrder = 3

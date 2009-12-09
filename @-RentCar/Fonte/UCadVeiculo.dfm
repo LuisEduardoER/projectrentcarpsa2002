@@ -121,6 +121,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       Height = 89
       DataField = 'Vel_Espec'
       DataSource = dmRentCar.dsCadVeiculo
+      Enabled = False
       TabOrder = 4
     end
     object btnCarregar: TButton
@@ -211,6 +212,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Height = 25
     Caption = 'Consultar'
     TabOrder = 6
+    OnClick = btnConsultarClick
   end
   object btnSair: TButton
     Left = 469
@@ -231,6 +233,9 @@ object frmCadVeiculos: TfrmCadVeiculos
     OnClick = btnCadastrarClick
   end
   object OpenPicture: TOpenPictureDialog
+    InitialDir = 
+      'C:\Documents and Settings\Alan\Meus documentos\Alain\Projetos\@-' +
+      'rentcar\@-RentCar\Imagens'
     Left = 314
     Top = 24
   end

@@ -61,9 +61,9 @@ end;
 
 procedure TfrmRentCarVlrVeiculos.FormShow(Sender: TObject);
 begin
- dmRentCar.ZTGerVal.Filtered := False;
+{ dmRentCar.ZTGerVal.Filtered := False;
  dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
- dmRentCar.ZTGerVal.Filtered := True;
+ dmRentCar.ZTGerVal.Filtered := True;   }
 end;
 
 end.

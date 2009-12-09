@@ -14,7 +14,7 @@ object frmConsultaClientes: TfrmConsultaClientes
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object DBGrid1: TDBGrid
+  object DBGClientes: TDBGrid
     Left = 14
     Top = 125
     Width = 427
@@ -27,7 +27,7 @@ object frmConsultaClientes: TfrmConsultaClientes
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
-    OnCellClick = DBGrid1CellClick
+    OnCellClick = DBGClientesCellClick
   end
   object gbFiltros: TGroupBox
     Left = 13

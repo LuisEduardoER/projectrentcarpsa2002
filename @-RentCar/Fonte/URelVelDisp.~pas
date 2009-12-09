@@ -14,7 +14,6 @@ type
     QRBand2: TQRBand;
     QRDBImgVel: TQRDBImage;
     QRBand3: TQRBand;
-    QRSysData1: TQRSysData;
     QRSysData2: TQRSysData;
     QRDBText1: TQRDBText;
     QRImage1: TQRImage;

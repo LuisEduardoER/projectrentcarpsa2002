@@ -1,8 +1,8 @@
 object frmListChamados: TfrmListChamados
   Left = 275
   Top = 183
-  Width = 511
-  Height = 423
+  Width = 528
+  Height = 449
   Caption = '@-RentCar - Listagem de Chamados'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object frmListChamados: TfrmListChamados
   object DBGListChamados: TDBGrid
     Left = 10
     Top = 90
-    Width = 427
+    Width = 503
     Height = 289
     DataSource = dmRentCar.dsQFunctions
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -32,7 +32,7 @@ object frmListChamados: TfrmListChamados
   object gbFiltros: TGroupBox
     Left = 10
     Top = 7
-    Width = 425
+    Width = 503
     Height = 43
     TabOrder = 1
     object ckProtocolo: TCheckBox
@@ -53,31 +53,22 @@ object frmListChamados: TfrmListChamados
       TabOrder = 1
     end
   end
-  object btnAnterior: TButton
-    Left = 442
-    Top = 168
-    Width = 53
-    Height = 41
-    Caption = 'Anterior'
-    TabOrder = 2
-    OnClick = btnAnteriorClick
-  end
-  object btnProximo: TButton
-    Left = 443
-    Top = 248
-    Width = 53
-    Height = 41
-    Caption = 'Proximo'
-    TabOrder = 3
-    OnClick = btnProximoClick
-  end
   object btnBuscar: TButton
     Left = 11
     Top = 59
     Width = 90
     Height = 21
     Caption = 'Buscar'
-    TabOrder = 4
+    TabOrder = 2
     OnClick = btnBuscarClick
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 8
+    Top = 384
+    Width = 505
+    Height = 25
+    DataSource = dmRentCar.dsQFunctions
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    TabOrder = 3
   end
 end

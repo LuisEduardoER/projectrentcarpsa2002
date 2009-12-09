@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Grids, DBGrids;
+  Dialogs, StdCtrls, Grids, DBGrids, ExtCtrls, DBCtrls;
 
 type
   TfrmListChamados = class(TForm)
@@ -12,12 +12,10 @@ type
     gbFiltros: TGroupBox;
     ckProtocolo: TCheckBox;
     edtProtocol: TEdit;
-    btnAnterior: TButton;
-    btnProximo: TButton;
     btnBuscar: TButton;
+    DBNavigator1: TDBNavigator;
     procedure btnBuscarClick(Sender: TObject);
     procedure ckProtocoloClick(Sender: TObject);
-    procedure btnAnteriorClick(Sender: TObject);
     procedure btnProximoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure DBGListChamadosCellClick(Column: TColumn);
@@ -55,6 +53,12 @@ begin
       ZQFunctions.SQL.Add('where ch_Status = "F" and Ch_Protocol = "'+edtProtocol.Text+'"');
     end;
     ZQFunctions.Open;
+
+    if ZQFunctions.IsEmpty then
+    Begin
+      ShowMessage('Não Existem chamados finalizados');
+      ZQFunctions.Close;
+    end;
    end;
   end else
   if frmRentCarPrincipal.chamado = 'LE' then
@@ -74,6 +78,12 @@ begin
       ZQFunctions.SQL.Add('where ch_Status = "E" and Ch_Protocol = "'+edtProtocol.Text+'"');
     end;
     ZQFunctions.Open;
+    if ZQFunctions.IsEmpty then
+    Begin
+      ShowMessage('Não Existem chamados em espera');
+      ZQFunctions.Close;
+    end;
+
    end;
   end;
 end;
@@ -82,11 +92,6 @@ procedure TfrmListChamados.ckProtocoloClick(Sender: TObject);
 begin
   edtProtocol.Enabled := True;
   edtProtocol.SetFocus;
-end;
-
-procedure TfrmListChamados.btnAnteriorClick(Sender: TObject);
-begin
- dmRentCar.ZQFunctions.Prior;
 end;
 
 procedure TfrmListChamados.btnProximoClick(Sender: TObject);
