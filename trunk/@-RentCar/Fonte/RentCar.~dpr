@@ -21,18 +21,22 @@ uses
   UContraoPesJu in 'UContraoPesJu.pas' {frmContratoLocacaoPesJu},
   UPerfil in 'UPerfil.pas' {frmPerfil},
   UGerarPerfil in 'UGerarPerfil.pas' {frmGerarPerfil},
-  UListChamados in 'UListChamados.pas' {frmListChamados};
+  UListChamados in 'UListChamados.pas' {frmListChamados},
+  UConsultaVeiculos in 'UConsultaVeiculos.pas' {frmConsultaVeiculos},
+  URelCliPesFis in 'URelCliPesFis.pas' {frmRelCliPesFis},
+  URelCliPesJu in 'URelCliPesJu.pas' {frmRelCliPesJu},
+  UGerContratos in 'UGerContratos.pas' {frmGerContratos},
+  UConsulLoc in 'UConsulLoc.pas' {Form1};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   Application.CreateForm(TfrmAcesso, frmAcesso);
+  Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
-  Application.CreateForm(TfrmContratoLocacaoPesJu, frmContratoLocacaoPesJu);
-  Application.CreateForm(TfrmListChamados, frmListChamados);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

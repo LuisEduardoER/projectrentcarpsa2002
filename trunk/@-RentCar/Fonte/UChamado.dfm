@@ -55,22 +55,24 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 13
       Caption = 'Nome'
     end
-    object edtNome: TEdit
-      Left = 14
-      Top = 28
-      Width = 305
-      Height = 21
-      Enabled = False
-      TabOrder = 0
-    end
     object btnBuscar: TButton
       Left = 334
       Top = 25
       Width = 75
       Height = 25
       Caption = 'Buscar'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnBuscarClick
+    end
+    object DBLookupCliente: TDBLookupComboBox
+      Left = 14
+      Top = 29
+      Width = 309
+      Height = 21
+      DataField = 'RentCar_Pessoa_Pes_id'
+      DataSource = dmRentCar.dsTChamado
+      TabOrder = 1
+      OnClick = DBLookupClienteClick
     end
   end
   object gbAberturaChamados: TGroupBox

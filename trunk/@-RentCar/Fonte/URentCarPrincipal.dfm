@@ -2434,6 +2434,17 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
             OnClick = ReservadosClick
           end
         end
+        object RelClientes: TMenuItem
+          Caption = 'Clientes'
+          object RelCliPesFis: TMenuItem
+            Caption = 'Fisica'
+            OnClick = RelCliPesFisClick
+          end
+          object RelCliPesJu: TMenuItem
+            Caption = 'Juridica'
+            OnClick = RelCliPesJuClick
+          end
+        end
       end
     end
     object LocVeiculos: TMenuItem
@@ -2506,6 +2517,20 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         object PJuridica: TMenuItem
           Caption = 'Juridica'
           OnClick = PJuridicaClick
+        end
+      end
+      object Contratos: TMenuItem
+        Caption = 'Contratos'
+        object ContratoLoc: TMenuItem
+          Caption = 'Locacao'
+          object ContratoLocPesFis: TMenuItem
+            Caption = 'Fisica'
+            OnClick = ContratoLocPesFisClick
+          end
+          object ContratoLocPesJu: TMenuItem
+            Caption = 'Juridica'
+            OnClick = ContratoLocPesJuClick
+          end
         end
       end
     end

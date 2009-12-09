@@ -1,6 +1,6 @@
 object frmCadUsuarios: TfrmCadUsuarios
-  Left = 261
-  Top = 177
+  Left = 405
+  Top = 244
   Width = 363
   Height = 232
   Caption = '@-RentCar - Cadastro Usu'#225'rios'
@@ -91,6 +91,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 75
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 3
     OnClick = btnSalvarClick
   end

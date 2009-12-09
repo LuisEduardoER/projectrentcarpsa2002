@@ -8,7 +8,7 @@ uses
 
 type
   TfrmConsultaClientes = class(TForm)
-    DBGrid1: TDBGrid;
+    DBGClientes: TDBGrid;
     gbFiltros: TGroupBox;
     ckNome: TCheckBox;
     ckCPFCNPJ: TCheckBox;
@@ -18,7 +18,7 @@ type
     procedure ckNomeClick(Sender: TObject);
     procedure ckCPFCNPJClick(Sender: TObject);
     procedure btnBuscarClick(Sender: TObject);
-    procedure DBGrid1CellClick(Column: TColumn);
+    procedure DBGClientesCellClick(Column: TColumn);
   private
     { Private declarations }
   public
@@ -69,6 +69,10 @@ begin
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
       end;
       ZQCliente.Open;
+      if ZQCliente.IsEmpty then
+      Begin
+        ShowMessage('Cliente não existente');
+      end;
     end else
      if (frmRentCarPrincipal.tipo = 'PJ') or (frmRentCarPrincipal.veiculo = 'PJL') or (frmRentCarPrincipal.veiculo = 'PJR') or (frmRentCarPrincipal.perfil = 'J') or (frmRentCarPrincipal.chamado = 'J') then
       Begin
@@ -89,15 +93,20 @@ begin
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesju.RentCar_Pessoa_Pes_id');
      end;
      ZQCliente.Open;
+     if ZQCliente.IsEmpty then
+      Begin
+        ShowMessage('Cliente não existente');
+        DBGClientes.DataSource := dsQCliente;
+      end;
   end;
   end; 
 end;
 
-procedure TfrmConsultaClientes.DBGrid1CellClick(Column: TColumn);
+procedure TfrmConsultaClientes.DBGClientesCellClick(Column: TColumn);
 begin
   close;
 
-  if (frmRentCarPrincipal.tipo = 'PF') then
+  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
   Begin
     dmRentCar.ZTPessoa.Filtered := False;
     dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
@@ -121,39 +130,6 @@ begin
     dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
     dmRentCar.ZTEndereco.Filtered := True;
   end else
-  if (frmRentCarPrincipal.veiculo = 'PFR') then
-  Begin
-    frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
-  end else
-  if (frmRentCarPrincipal.veiculo = 'PJR') then
-  Begin
-    frmLocacao.edtCliRes.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
-  end else
-  if (frmRentCarPrincipal.veiculo = 'PJL') then
-  Begin
-    frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
-  end else
-  if (frmRentCarPrincipal.veiculo = 'PFL') then
-  Begin
-    frmLocacao.edtCliLoc.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
-  end else
-  if frmRentCarPrincipal.perfil = 'F' then
-  Begin
-    frmGerarPerfil.edtCli.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
-  end else
-  if frmRentCarPrincipal.perfil = 'J' then
-  Begin
-   frmGerarPerfil.edtCli.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
-  end else
-  if frmRentCarPrincipal.chamado = 'F' then
-  Begin
-   frmRentCarAberturaChamado.edtNome.Text := dmRentCar.ZQCliente.fieldbyname('PesFis_Nome').AsString;
-  end else
-  if frmRentCarPrincipal.chamado = 'J' then
-  Begin
-   frmRentCarAberturaChamado.edtNome.Text := dmRentCar.ZQCliente.fieldbyname('PesJu_NmFantasia').AsString;
-  end;
-
 end;
 
 end.

@@ -29,14 +29,14 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 80
     Top = 8
-    object ZTCadVeiculoVel_id: TLargeintField
+    object ZTCadVeiculoVel_id: TIntegerField
       FieldName = 'Vel_id'
       Visible = False
     end
     object ZTCadVeiculoVel_Placa: TStringField
       DisplayLabel = 'Placa'
       FieldName = 'Vel_Placa'
-      EditMask = 'LLL-9999;1;_'
+      EditMask = 'LLL\-999;1;_'
       Size = 8
     end
     object ZTCadVeiculoVel_Cor: TStringField
@@ -47,6 +47,11 @@ object dmRentCar: TdmRentCar
     object ZTCadVeiculoVel_Ano: TIntegerField
       DisplayLabel = 'Ano'
       FieldName = 'Vel_Ano'
+    end
+    object ZTCadVeiculoVel_Espec: TStringField
+      DisplayLabel = 'Espec'
+      FieldName = 'Vel_Espec'
+      Size = 60
     end
     object ZTCadVeiculoVel_Modelo: TStringField
       DisplayLabel = 'Modelo'
@@ -61,16 +66,14 @@ object dmRentCar: TdmRentCar
       DisplayLabel = 'Marca'
       FieldName = 'Vel_Marca'
     end
-    object ZTCadVeiculoVel_Espec: TStringField
-      FieldName = 'Vel_Espec'
-      Size = 60
-    end
     object ZTCadVeiculoVel_StatusLoc: TStringField
       FieldName = 'Vel_StatusLoc'
+      Visible = False
       Size = 1
     end
     object ZTCadVeiculoVel_StatusRes: TStringField
       FieldName = 'Vel_StatusRes'
+      Visible = False
       Size = 1
     end
   end
@@ -85,32 +88,39 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 128
     Top = 8
-    object ZTChamadoCh_id: TLargeintField
+    object ZTChamadoCh_id: TIntegerField
       FieldName = 'Ch_id'
+      Visible = False
     end
-    object ZTChamadoRentCar_Pessoa_Pes_id: TLargeintField
+    object ZTChamadoRentCar_Pessoa_Pes_id: TIntegerField
       FieldName = 'RentCar_Pessoa_Pes_id'
-      Required = True
+      Visible = False
     end
     object ZTChamadoCh_TipoCh: TStringField
+      DisplayLabel = 'TipoChamado'
       FieldName = 'Ch_TipoCh'
       Size = 30
     end
     object ZTChamadoCh_DescCh: TMemoField
+      DisplayLabel = 'DescChamado'
       FieldName = 'Ch_DescCh'
       BlobType = ftMemo
     end
-    object ZTChamadoCh_Protocol: TLargeintField
+    object ZTChamadoCh_Protocol: TIntegerField
+      DisplayLabel = 'Protocolo'
       FieldName = 'Ch_Protocol'
     end
     object ZTChamadoCh_HoraCh: TTimeField
+      DisplayLabel = 'HoraChamado'
       FieldName = 'Ch_HoraCh'
     end
     object ZTChamadoCh_DataCh: TDateField
+      DisplayLabel = 'DataChamado'
       FieldName = 'Ch_DataCh'
     end
     object ZTChamadoCh_Status: TStringField
       FieldName = 'Ch_Status'
+      Visible = False
       Size = 1
     end
   end
@@ -125,32 +135,30 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 192
     Top = 8
-    object ZTPessoaPes_id: TLargeintField
-      DisplayLabel = 'Id'
+    object ZTPessoaPes_id: TIntegerField
       FieldName = 'Pes_id'
       Visible = False
     end
-    object ZTPessoaRentCar_Enderecos_End_Id: TLargeintField
+    object ZTPessoaRentCar_Enderecos_End_Id: TIntegerField
       FieldName = 'RentCar_Enderecos_End_Id'
-      Required = True
       Visible = False
     end
     object ZTPessoaPes_TelRes: TStringField
-      DisplayLabel = 'TelRes'
+      DisplayLabel = 'TelRes.'
       FieldName = 'Pes_TelRes'
-      EditMask = '!\(999\)0000-0000;1;_'
+      EditMask = '!\(99\)0000-0000;1;_'
       Size = 15
     end
     object ZTPessoaPes_Cel: TStringField
-      DisplayLabel = 'TelCel'
+      DisplayLabel = 'Cel.'
       FieldName = 'Pes_Cel'
-      EditMask = '!\(999\)0000-0000;1;_'
+      EditMask = '!\(99\)0000-0000;1;_'
       Size = 15
     end
     object ZTPessoaPes_TelOp: TStringField
-      DisplayLabel = 'TelOp'
+      DisplayLabel = 'TelOp.'
       FieldName = 'Pes_TelOp'
-      EditMask = '!\(999\)0000-0000;1;_'
+      EditMask = '!\(99\)0000-0000;1;_'
       Size = 15
     end
     object ZTPessoaPes_Email: TStringField
@@ -185,50 +193,62 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 8
     Top = 88
-    object ZTPesFisPesFis_id: TLargeintField
+    object ZTPesFisPesFis_id: TIntegerField
       FieldName = 'PesFis_id'
+      Visible = False
     end
-    object ZTPesFisRentCar_Pessoa_Pes_id: TLargeintField
+    object ZTPesFisRentCar_Pessoa_Pes_id: TIntegerField
       FieldName = 'RentCar_Pessoa_Pes_id'
-      Required = True
+      Visible = False
     end
     object ZTPesFisPesFis_RG: TStringField
+      DisplayLabel = 'RG'
       FieldName = 'PesFis_RG'
       Size = 15
     end
     object ZTPesFisPesFis_CPF: TStringField
+      DisplayLabel = 'CPF'
       FieldName = 'PesFis_CPF'
       Size = 15
     end
+    object ZTPesFisPesFis_Sexo: TStringField
+      DisplayLabel = 'Sexo'
+      FieldName = 'PesFis_Sexo'
+      Size = 15
+    end
     object ZTPesFisPesFis_Tipo: TStringField
+      DisplayLabel = 'Tipo'
       FieldName = 'PesFis_Tipo'
+      Visible = False
       Size = 1
     end
+    object ZTPesFisPesFis_EstCivil: TStringField
+      DisplayLabel = 'Est.Civil'
+      FieldName = 'PesFis_EstCivil'
+      Size = 15
+    end
     object ZTPesFisPesFis_CNH: TStringField
+      DisplayLabel = 'CNH'
       FieldName = 'PesFis_CNH'
     end
     object ZTPesFisPesFis_Validade: TDateField
+      DisplayLabel = 'Validade'
       FieldName = 'PesFis_Validade'
+      Visible = False
     end
     object ZTPesFisPesFis_Login: TStringField
       FieldName = 'PesFis_Login'
+      Visible = False
       Size = 15
     end
     object ZTPesFisPesFis_Senha: TStringField
       FieldName = 'PesFis_Senha'
+      Visible = False
       Size = 10
     end
     object ZTPesFisPesFis_Nome: TStringField
       FieldName = 'PesFis_Nome'
       Size = 255
-    end
-    object ZTPesFisPesFis_Sexo: TStringField
-      FieldName = 'PesFis_Sexo'
-      Size = 15
-    end
-    object ZTPesFisPesFis_EstCivil: TStringField
-      FieldName = 'PesFis_EstCivil'
-      Size = 15
     end
   end
   object dsTPesFis: TDataSource
@@ -249,18 +269,23 @@ object dmRentCar: TdmRentCar
     Top = 88
     object ZTPesJuPesJu_id: TIntegerField
       FieldName = 'PesJu_id'
+      Visible = False
     end
     object ZTPesJuRentCar_Pessoa_Pes_id: TIntegerField
       FieldName = 'RentCar_Pessoa_Pes_id'
+      Visible = False
     end
     object ZTPesJuPesJu_CNPJ: TStringField
+      DisplayLabel = 'CNPJ'
       FieldName = 'PesJu_CNPJ'
     end
     object ZTPesJuPesJu_NmFantasia: TStringField
+      DisplayLabel = 'Nm.Fantasia'
       FieldName = 'PesJu_NmFantasia'
       Size = 30
     end
     object ZTPesJuPesJu_RazaoSocial: TStringField
+      DisplayLabel = 'RazaoSocial'
       FieldName = 'PesJu_RazaoSocial'
     end
   end
@@ -282,19 +307,24 @@ object dmRentCar: TdmRentCar
     Top = 88
     object ZTGerValGerVal_id: TIntegerField
       FieldName = 'GerVal_id'
+      Visible = False
     end
     object ZTGerValRentCar_Veiculo_Vel_id: TIntegerField
       FieldName = 'RentCar_Veiculo_Vel_id'
+      Visible = False
     end
     object ZTGerValGerVal_ValAlu: TLargeintField
+      DisplayLabel = 'Vlr.Aluguel'
       FieldName = 'GerVal_ValAlu'
       DisplayFormat = '0.00'
     end
     object ZTGerValGerVal_ValAPag: TLargeintField
+      DisplayLabel = 'Vlr.APagar'
       FieldName = 'GerVal_ValAPag'
       DisplayFormat = '0.00'
     end
     object ZTGerValGerVal_TipoPag: TStringField
+      DisplayLabel = 'Vlr.TipoPg'
       FieldName = 'GerVal_TipoPag'
       Size = 15
     end
@@ -317,27 +347,34 @@ object dmRentCar: TdmRentCar
     Top = 88
     object ZTEnderecoEnd_Id: TIntegerField
       FieldName = 'End_Id'
+      Visible = False
     end
     object ZTEnderecoEnd_Cidade: TStringField
+      DisplayLabel = 'Cidade'
       FieldName = 'End_Cidade'
       Size = 30
     end
     object ZTEnderecoEnd_Endereco: TStringField
+      DisplayLabel = 'Endereco'
       FieldName = 'End_Endereco'
       Size = 50
     end
     object ZTEnderecoEnd_Bairro: TStringField
+      DisplayLabel = 'Bairro'
       FieldName = 'End_Bairro'
     end
     object ZTEnderecoEnd_Estado: TStringField
+      DisplayLabel = 'Estado'
       FieldName = 'End_Estado'
       Size = 2
     end
     object ZTEnderecoEnd_CEP: TStringField
+      DisplayLabel = 'CEP'
       FieldName = 'End_CEP'
       Size = 15
     end
     object ZTEnderecoEnd_Num: TIntegerField
+      DisplayLabel = 'Num'
       FieldName = 'End_Num'
     end
   end
@@ -449,12 +486,11 @@ object dmRentCar: TdmRentCar
     Options = [doCalcDefaults]
     Left = 264
     Top = 88
-    object ZTAcessoAc_id: TLargeintField
+    object ZTAcessoAc_id: TIntegerField
       FieldName = 'Ac_id'
     end
-    object ZTAcessoRentCar_PesFis_PesFis_id: TLargeintField
+    object ZTAcessoRentCar_PesFis_PesFis_id: TIntegerField
       FieldName = 'RentCar_PesFis_PesFis_id'
-      Required = True
     end
     object ZTAcessoAc_Login: TStringField
       FieldName = 'Ac_Login'

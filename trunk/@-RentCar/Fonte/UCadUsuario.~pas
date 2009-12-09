@@ -67,6 +67,7 @@ procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
 begin
 // dmRentCar.ZTAcesso.Open;
  dmRentCar.ZTAcesso.Insert;
+ btnSalvar.Enabled := True;
 end;
 
 procedure TfrmCadUsuarios.btnAlterarClick(Sender: TObject);
@@ -79,9 +80,10 @@ begin
  With dmRentCar do
  Begin
   ZTAcesso.Filtered := False;
-  ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id like'+ QuotedStr('*' + DBLookupCBPessoa.KeyField  + '*');
+  ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+ QuotedStr(dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsString);
   ZTAcesso.Filtered := True;
   ZTAcesso.Open;
+  ShowMessage(ZTAcesso.Filter);
   if not ZTAcesso.IsEmpty then
    Begin
      btnCadastar.Enabled := False;

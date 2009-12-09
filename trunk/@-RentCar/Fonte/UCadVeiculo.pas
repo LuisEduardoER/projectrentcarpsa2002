@@ -43,6 +43,7 @@ type
     procedure lblVlrVeiculosClick(Sender: TObject);
     procedure btnCadastrarClick(Sender: TObject);
     procedure MakeThumbNail(aSource :TGraphic; aDest: TBitmap; iWidth, iHeight: Integer);
+    procedure btnConsultarClick(Sender: TObject);
 
 
   private
@@ -56,7 +57,7 @@ var
 
 implementation
 
-uses UDMRentCar, DateUtils, UGerVlrVeiculo;
+uses UDMRentCar, DateUtils, UGerVlrVeiculo, UConsultaVeiculos;
 
 {$R *.dfm}
 
@@ -70,20 +71,41 @@ var
   aDest :TBitmap;
   ano : word;
 begin
- ano := YearOf(DateAno.Date);
- 
- DBREspec.Text := 'Carro :  '+DBEModelo.Text +' Ano : '+ IntToStr(ano) +' Marca: '+DBEMarca.Text +' Cor : '+DBECor.Text;
-
- aDest := tbitmap.create;
- aDest.Width := 95;
- aDest.Height := 95;
- aDest.Canvas.StretchDraw(Rect(0, 0, aDest.width, aDest.Height), DBImgVeic.Picture.Graphic);
- DBImgVeic.Picture.Assign(aDest);
- dmRentCar.ZTCadVeiculoVel_Ano.Value := ano;
- dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
- dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
- dmRentCar.ZTCadVeiculo.post;
- lblVlrVeiculos.Enabled := True;
+  if (DBEModelo.Text = '') then
+  Begin
+    ShowMessage('Modelo é um campo obrigratório');
+    DBEModelo.SetFocus;
+  end else
+  if (DBEMarca.Text = '') then
+  Begin
+    ShowMessage('Marca é um campo obrigratório');
+    DBEMarca.SetFocus;
+  end else
+  if (DBECor.Text = '') then
+  Begin
+    ShowMessage('Cor é um campo obrigratório');
+    DBECor.SetFocus;
+  end else
+  if (DBEPlaca.Text = '') then
+  Begin
+    ShowMessage('Placa é um campo obrigratório');
+    DBEPlaca.SetFocus;
+  end else
+  Begin
+    ano := YearOf(DateAno.Date);
+    DBREspec.Text := 'Carro :  '+DBEModelo.Text +' Ano : '+ IntToStr(ano) +' Marca: '+DBEMarca.Text +' Cor : '+DBECor.Text;
+    aDest := tbitmap.create;
+    aDest.Width := 95;
+    aDest.Height := 95;
+    aDest.Canvas.StretchDraw(Rect(0, 0, aDest.width, aDest.Height), DBImgVeic.Picture.Graphic);
+    DBImgVeic.Picture.Assign(aDest);
+    dmRentCar.ZTCadVeiculoVel_Ano.Value := ano;
+    dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
+    dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
+    dmRentCar.ZTCadVeiculo.post;
+    btnSalvar.Enabled := False;
+    lblVlrVeiculos.Enabled := True;
+  end;
 end;
 
 procedure TfrmCadVeiculos.btnCarregarClick(Sender: TObject);
@@ -95,7 +117,14 @@ end;
 procedure TfrmCadVeiculos.btnAlterarClick(Sender: TObject);
 begin
  gbCadVeiculo.Enabled := True;
- dmRentCar.ZTCadVeiculo.Edit;
+ if dmRentCar.ZTCadVeiculo.IsEmpty then
+ Begin
+    ShowMessage('Não existe(m) veículo(s) para ser(m) alterado(s)');
+ end else
+ Begin
+    dmRentCar.ZTCadVeiculo.Edit;
+    btnSalvar.Enabled := True;
+ end;
  btnSalvar.Enabled := True;
 end;
 
@@ -111,8 +140,13 @@ end;
 
 procedure TfrmCadVeiculos.lblVlrVeiculosClick(Sender: TObject);
 begin
+ dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
  Application.CreateForm(TfrmRentCarVlrVeiculos, frmRentCarVlrVeiculos);
+ dmRentCar.ZTGerVal.Filtered := False;
+ dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZTGerVal.Filtered := True; 
+
   if dmRentCar.ZTGerVal.IsEmpty then
  Begin
    dmRentCar.ZTGerVal.Insert;
@@ -124,6 +158,7 @@ begin
  frmRentCarVlrVeiculos.ShowModal;
  frmRentCarVlrVeiculos.Free;
  dmRentCar.ZTGerVal.Close;
+ 
 end;
 
 procedure TfrmCadVeiculos.btnCadastrarClick(Sender: TObject);
@@ -155,5 +190,13 @@ begin
 end;
 
 
+
+procedure TfrmCadVeiculos.btnConsultarClick(Sender: TObject);
+begin
+ dmRentCar.ZTCadVeiculo.Open;
+ Application.CreateForm(TfrmConsultaVeiculos, frmConsultaVeiculos);
+ frmConsultaVeiculos.ShowModal;
+ frmConsultaVeiculos.Free;
+end;
 
 end.

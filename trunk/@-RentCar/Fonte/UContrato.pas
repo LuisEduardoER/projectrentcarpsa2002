@@ -14,41 +14,9 @@ type
     QRLabel1: TQRLabel;
     QRLabel2: TQRLabel;
     QRLabel3: TQRLabel;
-    QRDBNome: TQRDBText;
-    QRDBEstC: TQRDBText;
-    QRLabel4: TQRLabel;
-    QRDBRG: TQRDBText;
-    QRLabel5: TQRLabel;
-    QRDBCPF: TQRDBText;
-    QRLabel6: TQRLabel;
-    QRDBLogr: TQRDBText;
-    QRLabel7: TQRLabel;
-    QRDBN: TQRDBText;
-    QRLabel8: TQRLabel;
-    QRDBBairro: TQRDBText;
-    QRLabel9: TQRLabel;
-    QRDBCEP: TQRDBText;
-    QRLabel10: TQRLabel;
-    QRDBCid: TQRDBText;
-    QRLabel11: TQRLabel;
-    QRDBEst: TQRDBText;
     QRLabel12: TQRLabel;
     QRLabel13: TQRLabel;
     QRLabel14: TQRLabel;
-    QRLabel15: TQRLabel;
-    QRDBMarca: TQRDBText;
-    QRLabel16: TQRLabel;
-    QRDBModelo: TQRDBText;
-    QRLabel17: TQRLabel;
-    QRDBAno: TQRDBText;
-    QRLabel19: TQRLabel;
-    QRLabel20: TQRLabel;
-    QRLabel21: TQRLabel;
-    QRLabel22: TQRLabel;
-    QRDBCor: TQRDBText;
-    QRLabel23: TQRLabel;
-    QRDBPlaca: TQRDBText;
-    QRLabel24: TQRLabel;
     QRLabel25: TQRLabel;
     QRLabel26: TQRLabel;
     QRLabel27: TQRLabel;
@@ -74,9 +42,10 @@ type
     QRLabel45: TQRLabel;
     QRLabel46: TQRLabel;
     QRVecAlu: TQRLabel;
-    QRRichText1: TQRRichText;
+    QRRichCabecalho: TQRRichText;
     QRImage1: TQRImage;
-    QRLabel47: TQRLabel;
+    QRRichLoc: TQRRichText;
+    QRRichCl1: TQRRichText;
     procedure QRVelContrLocBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
   private
@@ -90,14 +59,14 @@ var
 
 implementation
 
-uses UDMRentCar, ULocacao;
+uses UDMRentCar, ULocacao, UGerContratos, URentCarPrincipal;
 
 {$R *.dfm}
 
 procedure TfrmContratoLocacao.QRVelContrLocBeforePrint(
   Sender: TCustomQuickRep; var PrintReport: Boolean);
 begin
-      With dmRentCar do
+    {  With dmRentCar do
       Begin
         ZQAlugar.Close;
         ZQAlugar.SQL.Clear;
@@ -108,9 +77,28 @@ begin
         ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
         ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
         ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
-        ZQAlugar.SQL.Add('where PesFis_Nome = "'+frmLocacao.edtCliLoc.Text+'"');
+        if (frmRentCarPrincipal.veiculo = 'PFL') then
+        Begin
+         ZQAlugar.SQL.Add('where PesFis_Nome = "'+frmLocacao.DBLookupCliente.Text+'"');
+        end else
+        Begin
+         ZQAlugar.SQL.Add('where PesFis_Nome = "'+frmGerContratos.DBLookupCliente.Text+'"');
+        end;
         ZQAlugar.Open;
       end;
+          }
+     QRRichLoc.Lines.Add(dmRentCar.ZQAlugar.FieldByName('PesFis_Nome').AsString + ',RG '+ dmRentCar.ZQAlugar.FieldByName('PesFis_RG').AsString
+                          +',CPF '+dmRentCar.ZQAlugar.FieldByName('PesFis_CPF').AsString+' residente e domiliciado na '+dmRentCar.ZQAlugar.FieldByName('End_Endereco').AsString
+                          +', nº '+dmRentCar.ZQAlugar.FieldByName('End_Num').AsString+', bairro '+dmRentCar.ZQAlugar.FieldByName('End_Bairro').AsString+', CEP '+dmRentCar.ZQAlugar.FieldByName('End_CEP').AsString
+                          +', cidade '+dmRentCar.ZQAlugar.FieldByName('End_Cidade').AsString+', Estado '+dmRentCar.ZQAlugar.FieldByName('End_Estado').AsString);
+
+     QRRichCl1.Lines.Add('O presente contrato tem como OBJETO a locação do automóvel marca  '+dmRentCar.ZQAlugar.FieldByName('Vel_Marca').AsString + ',modelo '+ dmRentCar.ZQAlugar.FieldByName('Vel_Modelo').AsString
+                          +',ano '+dmRentCar.ZQAlugar.FieldByName('Vel_Ano').AsString+', cor '+dmRentCar.ZQAlugar.FieldByName('Vel_Cor').AsString
+                          +', placa '+dmRentCar.ZQAlugar.FieldByName('Vel_Placa').AsString);
+
+
+
+      
 end;
 
 end.

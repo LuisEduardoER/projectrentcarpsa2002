@@ -126,6 +126,7 @@ end;
 
 procedure TfrmCadClientes.btnConsultarClick(Sender: TObject);
 begin
+  //rotina para a chamada do formulário de busca de clientes
   Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
   frmConsultaClientes.ShowModal;
   frmConsultaClientes.Free;
@@ -134,13 +135,19 @@ end;
 //Rotina para inserir um Cliente no Banco
 procedure TfrmCadClientes.btnSalvarClick(Sender: TObject);
 begin
+ //caso seja o cadastro de pessoa fisica ou funcionario
   if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
   Begin
    CadPF;
+   btnCadastar.Enabled := True;
+   btnSalvar.Enabled := False;
   end else
+  // caso seja cadastro de pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
     CadPJ;
+    btnCadastar.Enabled := True;
+    btnSalvar.Enabled := False;
   end;
 end;
 
@@ -222,6 +229,7 @@ begin
       Result := (State = STATE_SUBDOMAIN) and (subdomains >= 2);
 end;
 
+//rotina para efetuar cadastro
 procedure TfrmCadClientes.btnCadastarClick(Sender: TObject);
 begin
  op := 'C';
@@ -231,12 +239,19 @@ begin
  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
  Begin
    dmRentCar.ZTPesFis.Insert;
+   tsDadosPF.Enabled := True;
+   tsEndereco.Enabled := True;
+   tsContato.Enabled := True;
  end else
  if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
    dmRentCar.ZTPesJu.Insert;
+   tsDadosPJ.Enabled := True;
+   tsEndereco.Enabled := True;
+   tsContato.Enabled := True;
   end;
- btnSalvar.Enabled := True; 
+ btnSalvar.Enabled := True;
+ btnCadastar.Enabled := False; 
 end;
 
 procedure TfrmCadClientes.btnBuscarClick(Sender: TObject);
@@ -360,20 +375,47 @@ end;
 
 procedure TfrmCadClientes.btnAlterarClick(Sender: TObject);
 begin
- op := 'A';
- lblStatusCad.Visible := True;
- lblStatusCad.Caption := 'Alterando Cadastro...';
  dmRentCar.ZTEndereco.Edit;
  dmRentCar.ZTPessoa.Edit;
- if frmRentCarPrincipal.tipo = 'PF' then
+ //caso seja cadastro de pessoa fisica ou funcionario
+ if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
  Begin
-   dmRentCar.ZTPesFis.Edit;
+   if dmRentCar.ZTPesFis.IsEmpty then
+   Begin
+    ShowMessage('Não existe(m) cliente(s) para ser(m) alterado(s)');
+   end else
+   Begin
+    op := 'A';
+     //rotina de alteração de cadastro
+    lblStatusCad.Visible := True;
+    lblStatusCad.Caption := 'Alterando Cadastro...';
+    dmRentCar.ZTPesFis.Edit;
+    btnSalvar.Enabled := True;
+    gbEndereco.Enabled := True;
+    tsDadosPF.Enabled := True;
+    tsEndereco.Enabled := True;
+    tsContato.Enabled := True;
+   end;
  end else
+ //caso seja pessoa juridica
  Begin
-   dmRentCar.ZTPesJu.Edit;
+   if dmRentCar.ZTPesJu.IsEmpty then
+   Begin
+    ShowMessage('Não existe(m) cliente(s) para ser(m) alterado(s)');
+   end else
+   Begin
+     op := 'A';
+     //rotina de alteração de cadastro
+     lblStatusCad.Visible := True;
+     lblStatusCad.Caption := 'Alterando Cadastro...';
+     dmRentCar.ZTPesJu.Edit;
+     btnSalvar.Enabled := True;
+     gbEndereco.Enabled := True;
+     tsDadosPF.Enabled := True;
+     tsEndereco.Enabled := True;
+     tsContato.Enabled := True;
+   end;
  end;
- gbEndereco.Enabled := True;
- btnSalvar.Enabled := True;
 end;
 
 procedure TfrmCadClientes.DBENmFantKeyPress(Sender: TObject;
@@ -488,29 +530,71 @@ end;
 
 procedure TfrmCadClientes.btnExcluirClick(Sender: TObject);
 begin
-  if frmRentCarPrincipal.tipo = 'PF' then
+  if dmRentCar.ZQCliente.IsEmpty then
   Begin
-    dmRentCar.ZTEndereco.Delete;
-    dmRentCar.ZTPessoa.Delete;
-    dmRentCar.ZTPesFis.Delete;
-    dmRentCar.ZQCliente.Refresh;
+    ShowMessage('Não existem Clientes para serem excluídos');
   end else
+  Begin
+  // caso seja cadastro pessoa fisica ou funcioanario
+  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
+  Begin
+   dmRentCar.ZTPessoa.Filtered := False;
+   dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
+   dmRentCar.ZTPessoa.Filtered := True;
+   //dmRentCar.ZTPesFis.Filtered := False;;
+   dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+   dmRentCar.ZTPesFis.Filtered := True;
+
+   //dmRentCar.ZTAlugar.Filtered := False;
+   dmRentCar.ZTAlugar.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.AsString);
+   dmRentCar.ZTAlugar.Filtered := True;
+
+   dmRentCar.ZTEndereco.Delete;
+   dmRentCar.ZTPessoa.Delete;
+   dmRentCar.ZTPesFis.Delete;
+   dmRentCar.ZTAlugar.Delete;
+   //dmRentCar.ZQCliente.Refresh;
+  end else
+  //caso seja cadastro pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
-    dmRentCar.ZTEndereco.Delete;
-    dmRentCar.ZTPessoa.Delete;
-    dmRentCar.ZTPesJu.Delete;
-    dmRentCar.ZQCliente.Refresh;
+   dmRentCar.ZTPessoa.Filtered := False;
+   dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
+   dmRentCar.ZTPessoa.Filtered := True;
+   //dmRentCar.ZTPesFis.Filtered := False;;
+   dmRentCar.ZTPesJu.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+   dmRentCar.ZTPesJu.Filtered := True;
+
+   //dmRentCar.ZTAlugar.Filtered := False;
+   dmRentCar.ZTAlugar.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.AsString);
+   dmRentCar.ZTAlugar.Filtered := True;
+
+   dmRentCar.ZTEndereco.Delete;
+   dmRentCar.ZTPessoa.Delete;
+   dmRentCar.ZTPesFis.Delete;
+   dmRentCar.ZTAlugar.Delete;
   end;
+ end;
+ begin
+   Try
+     dmRentCar.ZQCliente.Refresh;
+   Except
+      ShowMessage('fílé');
+   end;
+ end;
+
 end;
 
 procedure TfrmCadClientes.btnLimparClick(Sender: TObject);
 begin
-  dmRentCar.ZTPessoa.ClearFields;
-   if frmRentCarPrincipal.tipo = 'PF' then
+
+ dmRentCar.ZTPessoa.ClearFields;
+ // caso seja cadastro pessoa fisica ou funcionario
+ if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
  Begin
    dmRentCar.ZTPesFis.ClearFields;
  end else
+ //caso seja cadastro de pessoa juridica
  if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
    dmRentCar.ZTPesJu.ClearFields;
@@ -525,17 +609,18 @@ begin
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_Id,rentcar_pesfis.PesFis_nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_Id, rentcar_pesfis.PesFis_nome as Nome, rentcar_pesfis.pesfis_Sexo as Sexo, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id and rentcar_pesfis.PesFis_Tipo = "C"');
       ZQCliente.Open;
+      ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
     end else
     if frmRentCarPrincipal.tipo = 'PJ' then
      Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pesju.PesJu_NmFantasia, rentcar_pesju.PesJu_CNPJ, rentcar_pessoa.pes_TelRes, rentcar_pessoa.pes_TelOP, rentcar_pessoa.pes_Cel');
+      ZQCliente.SQL.Add('Select rentcar_pesju.PesJu_NmFantasia as NmFantasia, rentcar_pesju.PesJu_CNPJ as CNPJ, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pessoa.pes_TelOP as TelOP, rentcar_pessoa.pes_Cel as CEL');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesju.RentCar_Pessoa_Pes_id');
@@ -545,11 +630,12 @@ begin
      Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pesfis.PesFis_nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_Id as Codigo,rentcar_pesfis.PesFis_nome as Nome, rentcar_pesfis.pesfis_Sexo as Sexo, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id and rentcar_pesfis.PesFis_Tipo = "F"');
       ZQCliente.Open;
+      ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
      end;
      ZQCliente.Open;
   end;
@@ -583,108 +669,181 @@ procedure TfrmCadClientes.CadPF;
 var
 cpf : string;
 begin
+  if (DBENome.Text = '') then
+  Begin
+    ShowMessage('Nome é um campo obrigratório');
+    DBENome.SetFocus;
+  end else
+  if (DBECPF.Text = '') then
+  Begin
+    ShowMessage('CPF é um campo obrigratório');
+    DBECPF.SetFocus;
+  end else
+  if (DBERG.Text = '') then
+  Begin
+    ShowMessage('RG é um campo obrigratório');
+    DBERG.SetFocus;
+  end else
+  if (dbrgSexo.ItemIndex = -1) then
+  Begin
+    ShowMessage('Sexo é um campo obrigratório');
+  end else
+  if (DBECNH.Text = '') then
+  Begin
+    ShowMessage('CNH é um campo obrigratório');
+    DBECNH.SetFocus;
+  end else
+  if (DBECEP.Text = '') then
+  Begin
+    ShowMessage('CEP é um campo obrigratório');
+    pgcClientes.ActivePage := tsEndereco;
+    DBECEP.SetFocus;
+  end else
+  if (DBENumero.Text = '') then
+  Begin
+    ShowMessage('Numero é um campo obrigratório');
+    pgcClientes.ActivePage := tsEndereco;
+    DBENumero.SetFocus;
+  end else
+  if (DBTelRes.Text = '') or (DBTelOp.Text = '') or (DBCel.Text = '') or (DBEmail.Text = '')  then
+  Begin
+    ShowMessage('Preencha pelo menos um tipo de contato');
+  end else
+  Begin
     cpf := DBECPF.Text;
     lblResCPFCNPJ.Caption := confereCPF(cpf);
     if lblResCPFCNPJ.Caption <> 'CPF Invalido' then
-      Begin
-       if ValidEmail(DBEmail.Text) then
-       Begin
-          //dmRentCar.ZTEnderecoEnd_Estado.Value := estado;
-          dmRentCar.ZTEndereco.Post;
-          dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
-          dmRentCar.ZTPessoa.Post;
-          dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
-          dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
-      if frmRentCarPrincipal.cli = 'FUN' then
-      Begin
-        dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
-      end else
-      if frmRentCarPrincipal.cli = 'cli' then
-      Begin
-        dmRentCar.ZTPesFisPesFis_Tipo.Value := 'C';
-      end;
-      if op = 'C' then
-      Begin
+    Begin
+    if ValidEmail(DBEmail.Text) then
+    Begin
+      dmRentCar.ZTEndereco.Post;
+      dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
+      dmRentCar.ZTPessoa.Post;
+      dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
+      dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
+    if frmRentCarPrincipal.cli = 'FUN' then
+    Begin
+      dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
+    end else
+    if frmRentCarPrincipal.cli = 'cli' then
+    Begin
+      dmRentCar.ZTPesFisPesFis_Tipo.Value := 'C';
+    end;
+    if op = 'C' then
+    Begin
       dmRentCar.ZQFunctions.Close;
       dmRentCar.ZQFunctions.SQL.Clear;
       dmRentCar.ZQFunctions.SQL.Add('select PesFis_CPF from rentcar_pesfis');
       dmRentCar.ZQFunctions.SQL.Add('where PesFis_CPF = "'+DBECPF.Text+'"');
       dmRentCar.ZQFunctions.Open;
-      if not dmRentCar.ZQFunctions.IsEmpty then
-      Begin
-        ShowMessage('CPF já cadastrado no sistema');
-        pgcClientes.ActivePage := tsDadosPF;
-        DBECPF.SetFocus;
-        dmRentCar.ZTPessoa.Edit;
-        dmRentCar.ZTEndereco.Edit;
-      end else
-      Begin
-        dmRentCar.ZTPesFis.Post;
-        lblStatusCad.Visible := True;
-        lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
-      end;
-      end else
-      Begin
-       dmRentCar.ZTPesFis.Post;
+    if not dmRentCar.ZQFunctions.IsEmpty then
+    Begin
+      ShowMessage('CPF já cadastrado no sistema');
+      pgcClientes.ActivePage := tsDadosPF;
+      DBECPF.SetFocus;
+      dmRentCar.ZTPessoa.Edit;
+      dmRentCar.ZTEndereco.Edit;
+    end else
+    Begin
+      dmRentCar.ZTPesFis.Post;
       lblStatusCad.Visible := True;
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
-      end;
+    end;
+    end else
+    Begin
+      dmRentCar.ZTPesFis.Post;
+      lblStatusCad.Visible := True;
+      lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
+    end;
       dmRentCar.ZQCliente.Refresh;
       gbEndereco.Enabled := False;
-      end else
-      Begin
-       ShowMessage('e-mail inválido');
-       DBEmail.SetFocus;
-      end;
+    end else
+    Begin
+      ShowMessage('e-mail inválido');
+      DBEmail.SetFocus;
+    end;
     end else
     Begin
       ShowMessage('invalido');
       DBECPF.SetFocus;
     end;
+  end;
 end;
 
 procedure TfrmCadClientes.CadPJ;
 var
 cnpj : string;
 begin
-   cnpj := DBECNPJ.Text;
+  if (DBENmFant.Text = '') then
+  Begin
+    ShowMessage('Nome Fantasia é um campo obrigratório');
+    DBENmFant.SetFocus;
+  end else
+  if (DBERzSocial.Text = '') then
+  Begin
+    ShowMessage('Razão Social é um campo obrigratório');
+    DBERzSocial.SetFocus;
+  end else
+  if (DBECNPJ.Text = '') then
+  Begin
+    ShowMessage('CNPJ é um campo obrigratório');
+    DBECNPJ.SetFocus;
+  end else
+  if (DBECEP.Text = '') then
+  Begin
+    ShowMessage('CEP é um campo obrigratório');
+    DBECEP.SetFocus;
+  end else
+  if (DBENumero.Text = '') then
+  Begin
+    ShowMessage('Numero é um campo obrigratório');
+    pgcClientes.ActivePage := tsEndereco;
+    DBENumero.SetFocus;
+  end else
+  if (DBTelRes.Text = '') or (DBTelOp.Text = '') or (DBCel.Text = '') or (DBEmail.Text = '')  then
+  Begin
+    ShowMessage('Preencha pelo menos um tipo de contato');
+  end else
+  Begin
+    cnpj := DBECNPJ.Text;
     lblResCNPJ.Caption := confereCNPJ(cnpj);
     if lblResCNPJ.Caption <> 'CNPJ Invalido' then
     Begin
-     //dmRentCar.ZTEnderecoEnd_Estado.Value := estado;
-    dmRentCar.ZTEndereco.Post;
-    dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
-    dmRentCar.ZTPessoa.Post;
-    dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
-    if op = 'C' then
-    Begin
-    dmRentCar.ZQFunctions.Close;
-    dmRentCar.ZQFunctions.SQL.Clear;
-    dmRentCar.ZQFunctions.SQL.Add('select PesJu_CNPJ from rentcar_pesju');
-    dmRentCar.ZQFunctions.SQL.Add('where PesJu_CNPJ = "'+DBECNPJ.Text+'"');
-    dmRentCar.ZQFunctions.Open;
-
-    if not dmRentCar.ZQFunctions.IsEmpty then
-    Begin
-     ShowMessage('CNPJ já cadastrado no sistema');
-     pgcClientes.ActivePage := tsDadosPJ;
-     DBECNPJ.SetFocus;
-    end else
-    Begin
-     dmRentCar.ZTPesJu.Post;
-    end;
-    end else
-    Begin
+      dmRentCar.ZTEndereco.Post;
+      dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
+      dmRentCar.ZTPessoa.Post;
+      dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
+      if op = 'C' then
+      Begin
+        dmRentCar.ZQFunctions.Close;
+        dmRentCar.ZQFunctions.SQL.Clear;
+        dmRentCar.ZQFunctions.SQL.Add('select PesJu_CNPJ from rentcar_pesju');
+        dmRentCar.ZQFunctions.SQL.Add('where PesJu_CNPJ = "'+DBECNPJ.Text+'"');
+        dmRentCar.ZQFunctions.Open;
+      if not dmRentCar.ZQFunctions.IsEmpty then
+      Begin
+        ShowMessage('CNPJ já cadastrado no sistema');
+        pgcClientes.ActivePage := tsDadosPJ;
+        DBECNPJ.SetFocus;
+        dmRentCar.ZTEndereco.Edit;
+        dmRentCar.ZTEndereco.Edit;
+      end else
+      Begin
         dmRentCar.ZTPesJu.Post;
+      end;
+      end else
+      Begin
+        dmRentCar.ZTPesJu.Post;
+      end;
+      lblStatusCad.Visible := True;
+      lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
+      gbEndereco.Enabled := False;
+      dmRentCar.ZQCliente.Refresh;
+      end else
+      Begin
+        DBECNPJ.SetFocus;
+      end;
     end;
-     lblStatusCad.Visible := True;
-     lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
-     gbEndereco.Enabled := False;
-     dmRentCar.ZQCliente.Refresh;
-     end else
-     Begin
-      DBECNPJ.SetFocus;
-     end;
 end;
 
 procedure TfrmCadClientes.DBGClientesCellClick(Column: TColumn);

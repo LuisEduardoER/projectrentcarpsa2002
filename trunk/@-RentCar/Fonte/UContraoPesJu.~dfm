@@ -3,6 +3,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
   Top = 155
   Width = 870
   Height = 500
+  VertScrollBar.Position = 50
   Caption = '@-RentCar - Contrato Loca'#231#227'o Pessoa Juridica'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +17,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
   TextHeight = 13
   object QRVelContrLocPesJu: TQuickRep
     Left = -5
-    Top = 0
+    Top = 6
     Width = 1123
     Height = 794
     Frame.Color = clBlack
@@ -849,20 +850,20 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       end
       object QRRichText1: TQRRichText
-        Left = 304
-        Top = 11
-        Width = 441
-        Height = 41
+        Left = 264
+        Top = 9
+        Width = 561
+        Height = 54
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          108.479166666666700000
-          804.333333333333200000
-          29.104166666666670000
-          1166.812500000000000000)
+          142.875000000000000000
+          698.500000000000000000
+          23.812500000000000000
+          1484.312500000000000000)
         Alignment = taLeftJustify
         AutoStretch = False
         Color = clWindow
@@ -872,13 +873,15 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         Lines.Strings = (
-          '                       @-RentCar - Locadora de Ve'#237'culos'
-          '                         Tambauzinho, Jo'#227'o Pessoa - PB')
+          
+            '                            @-RentCar - Locadora de Ve'#237'culos    ' +
+            '                     '
+          '                              Tambauzinho,  Jo'#227'o Pessoa - PB')
       end
       object QRVecAlu: TQRLabel
-        Left = 464
+        Left = 368
         Top = 75
-        Width = 138
+        Width = 273
         Height = 20
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -887,14 +890,14 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Frame.DrawRight = False
         Size.Values = (
           52.916666666666660000
-          1227.666666666667000000
+          973.666666666666900000
           198.437500000000000000
-          365.125000000000000000)
+          722.312500000000000000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'Contrato Locacao'
+        Caption = 'Contrato Locacao - Pessoa Jur'#237'dica'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -911,7 +914,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       Left = 38
       Top = 133
       Width = 1047
-      Height = 578
+      Height = 620
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -922,7 +925,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        1529.291666666667000000
+        1640.416666666667000000
         2770.187500000000000000)
       BandType = rbDetail
       object QRLabel1: TQRLabel
@@ -1011,415 +1014,6 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBNome: TQRDBText
-        Left = 105
-        Top = 108
-        Width = 114
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          277.812500000000000000
-          285.750000000000000000
-          301.625000000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'PesJu_NmFantasia'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBEstC: TQRDBText
-        Left = 227
-        Top = 108
-        Width = 117
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          600.604166666666800000
-          285.750000000000000000
-          309.562500000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'PesJu_RazaoSocial'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel4: TQRLabel
-        Left = 358
-        Top = 108
-        Width = 34
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          947.208333333333400000
-          285.750000000000000000
-          89.958333333333340000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = 'CNPJ'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBRG: TQRDBText
-        Left = 396
-        Top = 108
-        Width = 77
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1047.750000000000000000
-          285.750000000000000000
-          203.729166666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'PesJu_CNPJ'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel6: TQRLabel
-        Left = 485
-        Top = 107
-        Width = 104
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1283.229166666667000000
-          283.104166666666700000
-          275.166666666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = 'localizada na Rua'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBLogr: TQRDBText
-        Left = 593
-        Top = 107
-        Width = 86
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1568.979166666667000000
-          283.104166666666700000
-          227.541666666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'End_Endereco'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel7: TQRLabel
-        Left = 772
-        Top = 107
-        Width = 21
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2042.583333333333000000
-          283.104166666666700000
-          55.562500000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ', n'#186
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBN: TQRDBText
-        Left = 796
-        Top = 107
-        Width = 58
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2106.083333333333000000
-          283.104166666666700000
-          153.458333333333300000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'End_Num'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel8: TQRLabel
-        Left = 857
-        Top = 107
-        Width = 41
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2267.479166666667000000
-          283.104166666666700000
-          108.479166666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ', bairro'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBBairro: TQRDBText
-        Left = 901
-        Top = 107
-        Width = 65
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2383.895833333333000000
-          283.104166666666700000
-          171.979166666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'End_Bairro'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel9: TQRLabel
-        Left = 16
-        Top = 127
-        Width = 36
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          42.333333333333340000
-          336.020833333333400000
-          95.250000000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ', CEP'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBCEP: TQRDBText
-        Left = 54
-        Top = 127
-        Width = 58
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          142.875000000000000000
-          336.020833333333400000
-          153.458333333333300000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'End_CEP'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel10: TQRLabel
-        Left = 117
-        Top = 127
-        Width = 47
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          309.562500000000000000
-          336.020833333333400000
-          124.354166666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ', cidade'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBCid: TQRDBText
-        Left = 170
-        Top = 127
-        Width = 71
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          449.791666666666700000
-          336.020833333333400000
-          187.854166666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'End_Cidade'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel11: TQRLabel
-        Left = 253
-        Top = 127
-        Width = 50
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          669.395833333333400000
-          336.020833333333400000
-          132.291666666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ', Estado'
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRDBEst: TQRDBText
-        Left = 306
-        Top = 127
-        Width = 72
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          809.625000000000000000
-          336.020833333333400000
-          190.500000000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'End_Estado'
         Transparent = False
         WordWrap = True
         FontSize = 10
@@ -1519,402 +1113,9 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         WordWrap = True
         FontSize = 9
       end
-      object QRLabel15: TQRLabel
-        Left = 93
-        Top = 235
-        Width = 391
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          246.062500000000000000
-          621.770833333333400000
-          1034.520833333333000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = 
-          'O presente contrato tem como OBJETO a loca'#231#227'o do autom'#243'vel marca' +
-          ' '
-        Color = clWhite
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 9
-      end
-      object QRDBMarca: TQRDBText
-        Left = 486
-        Top = 235
-        Width = 63
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1285.875000000000000000
-          621.770833333333400000
-          166.687500000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'Vel_Marca'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel16: TQRLabel
-        Left = 552
-        Top = 235
-        Width = 46
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1460.500000000000000000
-          621.770833333333400000
-          121.708333333333300000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ',modelo'
-        Color = clWhite
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 9
-      end
-      object QRDBModelo: TQRDBText
-        Left = 600
-        Top = 235
-        Width = 69
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1587.500000000000000000
-          621.770833333333400000
-          182.562500000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'Vel_Modelo'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel17: TQRLabel
-        Left = 673
-        Top = 235
-        Width = 25
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1780.645833333333000000
-          621.770833333333400000
-          66.145833333333340000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ',ano'
-        Color = clWhite
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 9
-      end
-      object QRDBAno: TQRDBText
-        Left = 700
-        Top = 235
-        Width = 50
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1852.083333333333000000
-          621.770833333333400000
-          132.291666666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'Vel_Ano'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel19: TQRLabel
-        Left = 217
-        Top = 108
-        Width = 5
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          574.145833333333400000
-          285.750000000000000000
-          13.229166666666670000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ','
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel20: TQRLabel
-        Left = 347
-        Top = 108
-        Width = 5
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          918.104166666666800000
-          285.750000000000000000
-          13.229166666666670000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ','
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel21: TQRLabel
-        Left = 475
-        Top = 108
-        Width = 5
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1256.770833333333000000
-          285.750000000000000000
-          13.229166666666670000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ','
-        Color = clWhite
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel22: TQRLabel
-        Left = 754
-        Top = 235
-        Width = 21
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          1994.958333333334000000
-          621.770833333333400000
-          55.562500000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ',cor'
-        Color = clWhite
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 9
-      end
-      object QRDBCor: TQRDBText
-        Left = 779
-        Top = 235
-        Width = 47
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2061.104166666667000000
-          621.770833333333400000
-          124.354166666666700000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'Vel_Cor'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel23: TQRLabel
-        Left = 830
-        Top = 234
-        Width = 34
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2196.041666666667000000
-          619.125000000000000000
-          89.958333333333340000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ',placa'
-        Color = clWhite
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 9
-      end
-      object QRDBPlaca: TQRDBText
-        Left = 867
-        Top = 234
-        Width = 60
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          2293.937500000000000000
-          619.125000000000000000
-          158.750000000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'Vel_Placa'
-        Transparent = False
-        WordWrap = True
-        FontSize = 10
-      end
-      object QRLabel24: TQRLabel
-        Left = 23
-        Top = 251
-        Width = 180
-        Height = 17
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          44.979166666666670000
-          60.854166666666680000
-          664.104166666666800000
-          476.250000000000000000)
-        Alignment = taLeftJustify
-        AlignToBand = False
-        AutoSize = True
-        AutoStretch = False
-        Caption = ', de propriedade da LOCADORA.'
-        Color = clWhite
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        WordWrap = True
-        FontSize = 9
-      end
       object QRLabel25: TQRLabel
         Left = 260
-        Top = 260
+        Top = 276
         Width = 46
         Height = 17
         Frame.Color = clBlack
@@ -1925,7 +1126,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           687.916666666666800000
-          687.916666666666800000
+          730.250000000000000000
           121.708333333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -1945,7 +1146,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel26: TQRLabel
         Left = 96
-        Top = 283
+        Top = 299
         Width = 575
         Height = 17
         Frame.Color = clBlack
@@ -1956,7 +1157,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           254.000000000000000000
-          748.770833333333400000
+          791.104166666666800000
           1521.354166666667000000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -1978,7 +1179,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel27: TQRLabel
         Left = 24
-        Top = 299
+        Top = 315
         Width = 271
         Height = 17
         Frame.Color = clBlack
@@ -1989,7 +1190,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           63.500000000000000000
-          791.104166666666800000
+          833.437500000000000000
           717.020833333333400000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2009,7 +1210,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel28: TQRLabel
         Left = 258
-        Top = 324
+        Top = 340
         Width = 79
         Height = 17
         Frame.Color = clBlack
@@ -2020,7 +1221,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           682.625000000000000000
-          857.250000000000000000
+          899.583333333333400000
           209.020833333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2040,7 +1241,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel29: TQRLabel
         Left = 93
-        Top = 345
+        Top = 361
         Width = 598
         Height = 17
         Frame.Color = clBlack
@@ -2051,7 +1252,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           246.062500000000000000
-          912.812500000000100000
+          955.145833333333500000
           1582.208333333333000000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2073,7 +1274,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel30: TQRLabel
         Left = 693
-        Top = 345
+        Top = 361
         Width = 292
         Height = 17
         Frame.Color = clBlack
@@ -2084,7 +1285,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           1833.562500000000000000
-          912.812500000000100000
+          955.145833333333500000
           772.583333333333400000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2104,7 +1305,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel31: TQRLabel
         Left = 94
-        Top = 369
+        Top = 385
         Width = 520
         Height = 17
         Frame.Color = clBlack
@@ -2115,7 +1316,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           248.708333333333300000
-          976.312500000000000000
+          1018.645833333333000000
           1375.833333333333000000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2137,7 +1338,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel32: TQRLabel
         Left = 24
-        Top = 387
+        Top = 403
         Width = 202
         Height = 17
         Frame.Color = clBlack
@@ -2148,7 +1349,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           63.500000000000000000
-          1023.937500000000000000
+          1066.270833333333000000
           534.458333333333400000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2168,7 +1369,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel33: TQRLabel
         Left = 24
-        Top = 283
+        Top = 299
         Width = 67
         Height = 17
         Frame.Color = clBlack
@@ -2179,7 +1380,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           63.500000000000000000
-          748.770833333333400000
+          791.104166666666800000
           177.270833333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2230,7 +1431,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel35: TQRLabel
         Left = 24
-        Top = 345
+        Top = 361
         Width = 67
         Height = 17
         Frame.Color = clBlack
@@ -2241,7 +1442,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           63.500000000000000000
-          912.812500000000100000
+          955.145833333333500000
           177.270833333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2261,7 +1462,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel36: TQRLabel
         Left = 24
-        Top = 368
+        Top = 384
         Width = 67
         Height = 17
         Frame.Color = clBlack
@@ -2272,7 +1473,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           63.500000000000000000
-          973.666666666666900000
+          1016.000000000000000000
           177.270833333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2292,7 +1493,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel37: TQRLabel
         Left = 22
-        Top = 433
+        Top = 447
         Width = 77
         Height = 17
         Frame.Color = clBlack
@@ -2303,7 +1504,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           58.208333333333340000
-          1145.645833333333000000
+          1182.687500000000000000
           203.729166666666700000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2323,7 +1524,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRSysData3: TQRSysData
         Left = 104
-        Top = 433
+        Top = 447
         Width = 68
         Height = 17
         Frame.Color = clBlack
@@ -2334,7 +1535,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           275.166666666666700000
-          1145.645833333333000000
+          1182.687500000000000000
           179.916666666666700000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2346,7 +1547,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel38: TQRLabel
         Left = 406
-        Top = 495
+        Top = 524
         Width = 155
         Height = 17
         Frame.Color = clBlack
@@ -2357,7 +1558,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           1074.208333333333000000
-          1309.687500000000000000
+          1386.416666666667000000
           410.104166666666800000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2377,7 +1578,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel39: TQRLabel
         Left = 455
-        Top = 550
+        Top = 579
         Width = 52
         Height = 17
         Frame.Color = clBlack
@@ -2388,7 +1589,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           1203.854166666667000000
-          1455.208333333333000000
+          1531.937500000000000000
           137.583333333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2408,7 +1609,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel40: TQRLabel
         Left = 675
-        Top = 283
+        Top = 299
         Width = 308
         Height = 17
         Frame.Color = clBlack
@@ -2419,7 +1620,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           1785.937500000000000000
-          748.770833333333400000
+          791.104166666666800000
           814.916666666666800000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2439,7 +1640,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel41: TQRLabel
         Left = 618
-        Top = 368
+        Top = 384
         Width = 413
         Height = 17
         Frame.Color = clBlack
@@ -2450,7 +1651,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           1635.125000000000000000
-          973.666666666666900000
+          1016.000000000000000000
           1092.729166666667000000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2503,7 +1704,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel43: TQRLabel
         Left = 326
-        Top = 478
+        Top = 507
         Width = 330
         Height = 17
         Frame.Color = clBlack
@@ -2514,7 +1715,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           862.541666666666900000
-          1264.708333333333000000
+          1341.437500000000000000
           873.124999999999900000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2534,7 +1735,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       end
       object QRLabel44: TQRLabel
         Left = 326
-        Top = 533
+        Top = 562
         Width = 330
         Height = 17
         Frame.Color = clBlack
@@ -2545,7 +1746,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Size.Values = (
           44.979166666666670000
           862.541666666666900000
-          1410.229166666667000000
+          1486.958333333333000000
           873.124999999999900000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -2643,6 +1844,54 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
         Transparent = False
         WordWrap = True
         FontSize = 10
+      end
+      object QRRichLoc: TQRRichText
+        Left = 104
+        Top = 108
+        Width = 903
+        Height = 44
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          116.416666666666700000
+          275.166666666666700000
+          285.750000000000000000
+          2389.187500000000000000)
+        Alignment = taLeftJustify
+        AutoStretch = False
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+      end
+      object QRRichCl1: TQRRichText
+        Left = 96
+        Top = 232
+        Width = 903
+        Height = 38
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          100.541666666666700000
+          254.000000000000000000
+          613.833333333333400000
+          2389.187500000000000000)
+        Alignment = taLeftJustify
+        AutoStretch = False
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
       end
     end
   end

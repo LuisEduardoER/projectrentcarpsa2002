@@ -1,6 +1,6 @@
 object frmGerarPerfil: TfrmGerarPerfil
-  Left = 192
-  Top = 114
+  Left = 392
+  Top = 319
   Width = 397
   Height = 160
   Caption = '@-RentCar - Gerar Perfil'
@@ -27,21 +27,22 @@ object frmGerarPerfil: TfrmGerarPerfil
       Height = 13
       Caption = 'Cliente'
     end
-    object edtCli: TEdit
-      Left = 5
-      Top = 26
-      Width = 234
-      Height = 21
-      TabOrder = 0
-    end
     object btnB: TButton
       Left = 245
       Top = 22
       Width = 75
       Height = 25
       Caption = 'Buscar'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnBClick
+    end
+    object DBLookupCliente: TDBLookupComboBox
+      Left = 6
+      Top = 24
+      Width = 227
+      Height = 21
+      DataField = 'RentCar_Pessoa_Pes_id'
+      TabOrder = 1
     end
   end
   object btnGerarPerfil: TButton
