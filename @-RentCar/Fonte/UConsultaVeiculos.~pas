@@ -18,6 +18,7 @@ type
     procedure btnBuscarClick(Sender: TObject);
     procedure ckPlacaClick(Sender: TObject);
     procedure ckAnoClick(Sender: TObject);
+    procedure DBGBVecCellClick(Column: TColumn);
   private
     { Private declarations }
   public
@@ -63,6 +64,11 @@ end;
 procedure TfrmConsultaVeiculos.ckAnoClick(Sender: TObject);
 begin
  DateAno.Enabled := True;
+end;
+
+procedure TfrmConsultaVeiculos.DBGBVecCellClick(Column: TColumn);
+begin
+ close;
 end;
 
 end.

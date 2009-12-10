@@ -206,6 +206,19 @@ object frmLocacao: TfrmLocacao
           TabOrder = 5
           OnClick = DBLookupClienteClick
         end
+        object DBGrid1: TDBGrid
+          Left = 224
+          Top = 112
+          Width = 320
+          Height = 120
+          DataSource = dmRentCar.dsTAlugar
+          TabOrder = 6
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+        end
       end
     end
     object tsReserva: TTabSheet

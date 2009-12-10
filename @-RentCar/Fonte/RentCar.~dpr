@@ -26,7 +26,7 @@ uses
   URelCliPesFis in 'URelCliPesFis.pas' {frmRelCliPesFis},
   URelCliPesJu in 'URelCliPesJu.pas' {frmRelCliPesJu},
   UGerContratos in 'UGerContratos.pas' {frmGerContratos},
-  UConsulLoc in 'UConsulLoc.pas' {Form1};
+  UConsulLoc in 'UConsulLoc.pas' {frmConsultarLocacoes};
 
 {$R *.res}
 
@@ -37,6 +37,6 @@ begin
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmConsultarLocacoes, frmConsultarLocacoes);
   Application.Run;
 end.

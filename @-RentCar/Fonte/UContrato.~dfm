@@ -3,7 +3,6 @@ object frmContratoLocacao: TfrmContratoLocacao
   Top = 196
   Width = 870
   Height = 500
-  VertScrollBar.Position = 234
   Caption = '@-RentCar - Contrato Loca'#231#227'o - Pessoa Fisica'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +16,7 @@ object frmContratoLocacao: TfrmContratoLocacao
   TextHeight = 13
   object QRVelContrLoc: TQuickRep
     Left = 0
-    Top = -147
+    Top = 87
     Width = 1123
     Height = 794
     Frame.Color = clBlack
@@ -134,14 +133,10 @@ object frmContratoLocacao: TfrmContratoLocacao
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         Lines.Strings = (
-          '                       '
-          '@-RentCar - '
-          'Locadora '
-          'de Ve'#237'culos'
-          '                         '
-          'Tambauzinh'
-          'o, Jo'#227'o '
-          'Pessoa - PB')
+          
+            '                       @-RentCar - Locadora de Ve'#237'culos         ' +
+            '                '
+          '                          Tambauzinho, Jo'#227'o Pessoa - PB')
       end
       object QRImage1: TQRImage
         Left = 8

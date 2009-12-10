@@ -19,7 +19,7 @@ object frmPerfil: TfrmPerfil
     Top = 78
     Width = 311
     Height = 17
-    DataField = 'Max(Vel_Espec)'
+    DataField = 'Vel_Espec'
     DataSource = dsQFunctions
   end
   object Label1: TLabel
@@ -53,7 +53,7 @@ object frmPerfil: TfrmPerfil
     CachedUpdates = False
     RequestLive = True
     SQL.Strings = (
-      'select Vel_Img, Max(Vel_Espec) from rentcar_veiculo'
+      'select Vel_Img, Vel_Espec from rentcar_veiculo'
       
         'inner join rentcar_alugar on rentcar_veiculo.Vel_id = rentcar_al' +
         'ugar.RentCar_Veiculo_Vel_id '
@@ -62,10 +62,7 @@ object frmPerfil: TfrmPerfil
         'gar.RentCar_Pessoa_Pes_id '
       
         'inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_i' +
-        'd = rentcar_pessoa.Pes_id'
-      
-        'where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel' +
-        '_StatusRes = "R"')
+        'd = rentcar_pessoa.Pes_id')
     ParamCheck = True
     Params = <>
     ShowRecordTypes = [usUnmodified, usModified, usInserted]
@@ -76,8 +73,8 @@ object frmPerfil: TfrmPerfil
     object ZQFunctionsVel_Img: TBlobField
       FieldName = 'Vel_Img'
     end
-    object ZQFunctionsMaxVel_Espec: TStringField
-      FieldName = 'Max(Vel_Espec)'
+    object ZQFunctionsVel_Espec: TStringField
+      FieldName = 'Vel_Espec'
       Size = 60
     end
   end

@@ -54,6 +54,7 @@ type
     DBLookupCliente: TDBLookupComboBox;
     DBLookupClienteRes: TDBLookupComboBox;
     Label2: TLabel;
+    DBGrid1: TDBGrid;
     procedure btnSairClick(Sender: TObject);
     procedure btnCadastarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -108,7 +109,8 @@ begin
   Begin
     gbReserva.Enabled := True;
   end;
-  btnSalvar.Enabled := True;
+   btnCadastar.Enabled := False;
+   btnSalvar.Enabled := True;
 end;
 
 
@@ -127,7 +129,11 @@ begin
   Begin
     if DBLookupCliente.Text = '' then
     Begin
-      ShowMessage('Escolha o cliente'); 
+      ShowMessage('Escolha o cliente');
+    end else
+    if DBLookupCBVeiculo.Text = '' then
+    Begin
+      ShowMessage('Escolha o veiculo');
     end else
     Begin
       dmRentCar.ZTAlugarRentCar_Ger_Valores_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
@@ -142,6 +148,9 @@ begin
       dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'O';
       dmRentCar.ZTCadVeiculo.Post;
       ShowMessage('Locação confirmada com sucesso');
+      btnCadastar.Enabled := True;
+      btnSalvar.Enabled := False;
+
       if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmando a locação do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
       Begin
         EmailLocacao;
@@ -217,6 +226,8 @@ begin
         dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
         dmRentCar.ZTCadVeiculo.Post;
         ShowMessage('Reserva confirmada com sucesso');
+        btnCadastar.Enabled := True;
+        btnSalvar.Enabled := False;
       if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmar a reserva do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
       Begin
         EmailReserva;
@@ -225,7 +236,6 @@ begin
     end else
     if (frmRentCarPrincipal.veiculo = 'D') then
     Begin
-      ShowMessage('cu');
       dmRentCar.ZTAlugar.Edit;
       dmRentCar.ZTAlugar.Post;
       dmRentCar.ZTCadVeiculo.Edit;
@@ -272,6 +282,7 @@ begin
     dmRentCar.ZTGerVal.Filtered := False;
     dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
     dmRentCar.ZTGerVal.Filtered := True;
+    dmRentCar.ZTGerVal.Refresh;
     if dmRentCar.ZTGerVal.IsEmpty then
     Begin
       dmRentCar.ZTGerVal.Insert;
@@ -462,9 +473,19 @@ end;
 procedure TfrmLocacao.btnConsultarLocClick(Sender: TObject);
 begin
   Application.CreateForm(TfrmConsultarLocacoes, frmConsultarLocacoes);
-  frmConsultarLocacoes.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
-  frmConsultarLocacoes.DBLookupCliente.ListField := 'PesFis_Nome';
-  frmConsultarLocacoes.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+  if frmRentCarPrincipal.veiculo = 'PFL' then
+  Begin
+    frmConsultarLocacoes.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
+    frmConsultarLocacoes.DBLookupCliente.ListField := 'PesFis_Nome';
+    frmConsultarLocacoes.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+  end else
+  if frmRentCarPrincipal.veiculo = 'PFL' then
+  Begin
+    frmConsultarLocacoes.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+    frmConsultarLocacoes.DBLookupCliente.ListField := 'PesJu_NmFantasia';
+    frmConsultarLocacoes.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+
+  end;
   frmConsultarLocacoes.ShowModal;
   frmConsultarLocacoes.Free;
 end;

@@ -45,14 +45,20 @@ begin
     ZQFunctions.SQL.Add('select Ch_TipoCh, Ch_Protocol, Ch_HoraCh, Ch_DataCh, Ch_Status ');
     ZQFunctions.SQL.Add('from rentcar_chamado ');
     ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_chamado.RentCar_Pessoa_Pes_id ');
-    if edtProtocol.Text = '' then
-    Begin
-      ZQFunctions.SQL.Add('where ch_Status = "F" ');
-    end else
+    if ckProtocolo.Checked = True then
     Begin
       ZQFunctions.SQL.Add('where ch_Status = "F" and Ch_Protocol = "'+edtProtocol.Text+'"');
+    end else
+    Begin
+      ZQFunctions.SQL.Add('where ch_Status = "F" ');
     end;
     ZQFunctions.Open;
+
+    ZQFunctions.FieldByName('Ch_TipoCh').DisplayLabel := 'Tipo Chamado';
+    ZQFunctions.FieldByName('Ch_Protocol').DisplayLabel := 'Protocolo';
+    ZQFunctions.FieldByName('Ch_HoraCh').DisplayLabel := 'Hora';
+    ZQFunctions.FieldByName('Ch_DataCh').DisplayLabel := 'Data';
+    ZQFunctions.FieldByName('Ch_Status').DisplayLabel := 'Status';
 
     if ZQFunctions.IsEmpty then
     Begin
@@ -70,14 +76,23 @@ begin
     ZQFunctions.SQL.Add('select Ch_TipoCh, Ch_Protocol, Ch_HoraCh, Ch_DataCh, Ch_Status ');
     ZQFunctions.SQL.Add('from rentcar_chamado ');
     ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_chamado.RentCar_Pessoa_Pes_id ');
-    if edtProtocol.Text = '' then
-    Begin
-    ZQFunctions.SQL.Add('where ch_Status = "E" ');
-    end else
+    if ckProtocolo.Checked = True then
     Begin
       ZQFunctions.SQL.Add('where ch_Status = "E" and Ch_Protocol = "'+edtProtocol.Text+'"');
+    end else
+    Begin
+    ZQFunctions.SQL.Add('where ch_Status = "E" ');
     end;
+
     ZQFunctions.Open;
+
+    ZQFunctions.FieldByName('Ch_TipoCh').DisplayLabel := 'Tipo Chamado';
+    ZQFunctions.FieldByName('Ch_Protocol').DisplayLabel := 'Protocolo';
+    ZQFunctions.FieldByName('Ch_HoraCh').DisplayLabel := 'Hora';
+    ZQFunctions.FieldByName('Ch_DataCh').DisplayLabel := 'Data';
+    ZQFunctions.FieldByName('Ch_Status').DisplayLabel := 'Status';
+
+
     if ZQFunctions.IsEmpty then
     Begin
       ShowMessage('Não Existem chamados em espera');
@@ -86,6 +101,7 @@ begin
 
    end;
   end;
+
 end;
 
 procedure TfrmListChamados.ckProtocoloClick(Sender: TObject);

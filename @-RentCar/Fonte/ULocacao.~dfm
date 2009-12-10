@@ -1,7 +1,7 @@
 object frmLocacao: TfrmLocacao
-  Left = 169
-  Top = 215
-  Width = 974
+  Left = 345
+  Top = 209
+  Width = 487
   Height = 366
   Caption = '@-RentCar - Gerenciamento Loca'#231#227'o/Reserva Ve'#237'culos'
   Color = clBtnFace
@@ -206,6 +206,19 @@ object frmLocacao: TfrmLocacao
           TabOrder = 5
           OnClick = DBLookupClienteClick
         end
+        object DBGrid1: TDBGrid
+          Left = 224
+          Top = 112
+          Width = 320
+          Height = 120
+          DataSource = dmRentCar.dsTAlugar
+          TabOrder = 6
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+        end
       end
     end
     object tsReserva: TTabSheet
@@ -354,19 +367,6 @@ object frmLocacao: TfrmLocacao
         end
       end
     end
-  end
-  object DBGrid1: TDBGrid
-    Left = 544
-    Top = 88
-    Width = 320
-    Height = 120
-    DataSource = dmRentCar.dsTAlugar
-    TabOrder = 6
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = []
   end
   object SMTP: TIdSMTP
     MaxLineAction = maException

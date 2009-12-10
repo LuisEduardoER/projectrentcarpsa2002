@@ -16,7 +16,7 @@ type
     dsQFunctions: TDataSource;
     DBImgPerfil: TDBImage;
     ZQFunctionsVel_Img: TBlobField;
-    ZQFunctionsMaxVel_Espec: TStringField;
+    ZQFunctionsVel_Espec: TStringField;
   private
     { Private declarations }
   public

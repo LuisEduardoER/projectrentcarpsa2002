@@ -115,6 +115,7 @@ begin
  dmRentCar.ZTGerVal.Open;
  dmRentCar.ZTPesFis.Open;
  dmRentCar.ZTPessoa.Open;
+
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsLocacao.Destroy;
  frmLocacao.tsDevolucao.Destroy;
@@ -127,6 +128,7 @@ begin
  frmLocacao.btnConsultarLoc.Enabled := False;
  frmLocacao.ShowModal;
  frmLocacao.Free;
+
  dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
@@ -168,45 +170,31 @@ end;
 
 procedure TfrmRentCarPrincipal.PesFisicaClick(Sender: TObject);
 begin
-
  tipo := 'PF';
  cli := 'cli';
  //processo para a abrir as tebelas necessárias para o cadastro
- dmRentCar.ZTPesFis.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTEndereco.Open;
- dmRentCar.ZTAlugar.Open;
+
  //rotina que carrega o formulário para o cadastro de clientes pessoa fisica
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPJ.Destroy;
  frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPF;
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
+
  //fechando as tabelas para não evitar que fiquem sendo carregadas
- dmRentCar.ZTAlugar.Close;
- dmRentCar.ZTPesFis.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTEndereco.Close;
 end;
 
 procedure TfrmRentCarPrincipal.PesJuridicaClick(Sender: TObject);
 begin
  tipo := 'PJ';
  cli := 'cli';
- //processoro para abrir as tabelas necessárias para o cadastro
- dmRentCar.ZTPesJu.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTEndereco.Open;
- //rotina que carrega o formulário para o cadastro de clientes pessoa juridica
+  //rotina que carrega o formulário para o cadastro de clientes pessoa juridica
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPF.Destroy;
  frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPJ;
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
-  //fechando as tabelas para não evitar que fiquem sendo carregadas
- dmRentCar.ZTPesJu.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTEndereco.Close;
+
 end;
 
 procedure TfrmRentCarPrincipal.VeiculosClick(Sender: TObject);
@@ -278,16 +266,12 @@ begin
 //chamada do formulário para o cadastro de funcionario
  tipo := 'FUN';
  cli := 'FUN';
- dmRentCar.ZTPesFis.Open;
- dmRentCar.ZTPessoa.Open;
- dmRentCar.ZTEndereco.Open;
+
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
  frmCadClientes.tsDadosPJ.Destroy;
+ frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPF;
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
- dmRentCar.ZTPesFis.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTEndereco.Close;
 end;
 
 procedure TfrmRentCarPrincipal.Usurios1Click(Sender: TObject);
