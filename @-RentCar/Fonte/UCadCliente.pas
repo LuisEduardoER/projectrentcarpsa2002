@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, DBCtrls, Mask, ComCtrls, Grids, DBGrids,
-  WinSkinData, InvokeRegistry, Rio, SOAPHTTPClient;
+  WinSkinData, InvokeRegistry, Rio, SOAPHTTPClient, Buttons;
 
 type
   TfrmCadClientes = class(TForm)
@@ -96,6 +96,8 @@ type
     procedure DBECEPKeyPress(Sender: TObject; var Key: Char);
     procedure DBECPFKeyPress(Sender: TObject; var Key: Char);
     procedure DBECNPJKeyPress(Sender: TObject; var Key: Char);
+    procedure MaskEdit1Exit(Sender: TObject);
+    procedure DBTelOpExit(Sender: TObject);
 
 
 
@@ -124,6 +126,14 @@ uses UBCliente, UDMRentCar, UCadVeiculo, URentCarPrincipal, DB, cep;
 procedure TfrmCadClientes.btnSairClick(Sender: TObject);
 begin
  close;
+ dmRentCar.ZTPessoa.Filtered := False;
+ dmRentCar.ZTPesJu.Filtered := False;
+ dmRentCar.ZTPesFis.Filtered := False;
+ dmRentCar.ZTEndereco.Filtered := False;
+ dmRentCar.ZTPessoa.Close;
+ dmRentCar.ZTPesJu.Close;
+ dmRentCar.ZTPesFis.Close;
+ dmRentCar.ZTEndereco.Close;
 end;
 
 procedure TfrmCadClientes.btnConsultarClick(Sender: TObject);
@@ -756,6 +766,11 @@ end;
 
 procedure TfrmCadClientes.DBTelResKeyPress(Sender: TObject; var Key: Char);
 begin
+
+ if DBTelRes.Text = '' then
+ Begin
+   ShowMessage('cu');
+ end;
   if key = #13 then
     Begin
       DBTelOp.SetFocus;
@@ -764,7 +779,7 @@ end;
 
 procedure TfrmCadClientes.DBTelOpKeyPress(Sender: TObject; var Key: Char);
 begin
-  if key = #13 then
+ if key = #13 then
     Begin
       DBCel.SetFocus;
     end;
@@ -1031,5 +1046,24 @@ begin
    Key := #0;
 end;
 
+
+procedure TfrmCadClientes.MaskEdit1Exit(Sender: TObject);
+begin
+ try
+ ShowMessage('Ê');
+ except
+    ShowMessage('pega pora');
+ end;
+
+end;
+
+procedure TfrmCadClientes.DBTelOpExit(Sender: TObject);
+begin
+ if (DBTelOp.Text<>'(99)9999-9999;0;_') then
+ Begin
+    ShowMessage('pega pora');
+ end; 
+
+end;
 
 end.

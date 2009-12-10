@@ -47,6 +47,7 @@ type
     procedure DBECorKeyPress(Sender: TObject; var Key: Char);
     procedure DBEModeloKeyPress(Sender: TObject; var Key: Char);
     procedure DBEMarcaKeyPress(Sender: TObject; var Key: Char);
+    procedure DateAnoKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -166,6 +167,7 @@ begin
   if dmRentCar.ZTGerVal.IsEmpty then
  Begin
    dmRentCar.ZTGerVal.Insert;
+   frmRentCarVlrVeiculos.btnAlterar.Enabled:= False;
  end else
  Begin
    dmRentCar.ZTGerVal.Edit;
@@ -217,21 +219,48 @@ end;
 
 procedure TfrmCadVeiculos.DBECorKeyPress(Sender: TObject; var Key: Char);
 begin
-    if Not (key in ['a'..'z']) then
+    if Not (key in ['A'..'Z','a'..'z',#13,#8,#32]) then
     key := #0;
+
+    if key=#13 then
+    Begin
+      DBEPlaca.SetFocus;
+    end;
+
 end;
 
 procedure TfrmCadVeiculos.DBEModeloKeyPress(Sender: TObject;
   var Key: Char);
 begin
-    if Not (key in ['a'..'z']) then
+    if Not (key in ['A'..'Z','a'..'z',#13,#8,#32]) then
     key := #0;
+
+    if key=#13 then
+    Begin
+      DateAno.SetFocus;
+    end;
+
 end;
 
 procedure TfrmCadVeiculos.DBEMarcaKeyPress(Sender: TObject; var Key: Char);
 begin
-    if Not (key in ['a'..'z']) then
+    if Not (key in ['A'..'Z','a'..'z',#13,#8,#32]) then
     key := #0;
+
+    if key=#13 then
+    Begin
+      DBECor.SetFocus;
+    end;
+
+end;
+
+procedure TfrmCadVeiculos.DateAnoKeyPress(Sender: TObject; var Key: Char);
+begin
+    if key=#13 then
+    Begin
+      DBEMarca.SetFocus;
+    end;
+
 end;
 
 end.

@@ -156,6 +156,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       Time = 40149.664795277780000000
       DateMode = dmUpDown
       TabOrder = 7
+      OnKeyPress = DateAnoKeyPress
     end
   end
   object DBGrid1: TDBGrid

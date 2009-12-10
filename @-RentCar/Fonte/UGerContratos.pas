@@ -51,7 +51,7 @@ begin
       Begin
         ZQAlugar.Close;
         ZQAlugar.SQL.Clear;
-        ZQAlugar.SQL.Add('select PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+        ZQAlugar.SQL.Add('select distinct PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
         ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
         ZQAlugar.SQL.Add('from rentcar_pessoa ');
         ZQAlugar.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
@@ -65,7 +65,6 @@ begin
      Begin
       ShowMessage('Não existem dados de locação para o cliente escolhido');
      end else
-     if dmRentCar.ZQAlugar.RecordCount > 1 then
     Begin
     Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
     frmContratoLocacao.QRVelContrLoc.Preview;
@@ -78,7 +77,7 @@ begin
       Begin
         ZQAlugar.Close;
         ZQAlugar.SQL.Clear;
-        ZQAlugar.SQL.Add('select PesJU_NmFantasia, PesJu_RazaoSocial, PesJu_CNPJ, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+        ZQAlugar.SQL.Add('select DISTINCT PesJU_NmFantasia, PesJu_RazaoSocial, PesJu_CNPJ, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
         ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
         ZQAlugar.SQL.Add('from rentcar_pessoa ');
         ZQAlugar.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');

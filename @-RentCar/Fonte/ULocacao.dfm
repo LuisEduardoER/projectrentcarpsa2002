@@ -101,12 +101,18 @@ object frmLocacao: TfrmLocacao
         object Label1: TLabel
           Left = 280
           Top = 133
-          Width = 62
+          Width = 80
           Height = 13
-          Caption = 'Valor Aluguel'
+          Caption = 'Valor Aluguel:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
         end
         object DBTAluguel: TDBText
-          Left = 352
+          Left = 360
           Top = 133
           Width = 65
           Height = 17
@@ -205,19 +211,6 @@ object frmLocacao: TfrmLocacao
           DataSource = dmRentCar.dsTAlugar
           TabOrder = 5
           OnClick = DBLookupClienteClick
-        end
-        object DBGrid1: TDBGrid
-          Left = 224
-          Top = 112
-          Width = 320
-          Height = 120
-          DataSource = dmRentCar.dsTAlugar
-          TabOrder = 6
-          TitleFont.Charset = DEFAULT_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -11
-          TitleFont.Name = 'MS Sans Serif'
-          TitleFont.Style = []
         end
       end
     end

@@ -146,7 +146,7 @@ object dmRentCar: TdmRentCar
     object ZTPessoaPes_TelRes: TStringField
       DisplayLabel = 'TelRes.'
       FieldName = 'Pes_TelRes'
-      EditMask = '!\(99\)0000-0000;1;_'
+      EditMask = '!\(99\)9999-9999;0;_'
       Size = 15
     end
     object ZTPessoaPes_Cel: TStringField

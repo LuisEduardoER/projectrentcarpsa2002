@@ -36,7 +36,7 @@ object dmRentCar: TdmRentCar
     object ZTCadVeiculoVel_Placa: TStringField
       DisplayLabel = 'Placa'
       FieldName = 'Vel_Placa'
-      EditMask = 'LLL\-999;1;_'
+      EditMask = 'LLL\-9999;1;_'
       Size = 8
     end
     object ZTCadVeiculoVel_Cor: TStringField
@@ -146,7 +146,7 @@ object dmRentCar: TdmRentCar
     object ZTPessoaPes_TelRes: TStringField
       DisplayLabel = 'TelRes.'
       FieldName = 'Pes_TelRes'
-      EditMask = '!\(99\)0000-0000;1;_'
+      EditMask = '!\(99\)9999-9999;1;_'
       Size = 15
     end
     object ZTPessoaPes_Cel: TStringField

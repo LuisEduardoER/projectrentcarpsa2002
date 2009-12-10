@@ -37,6 +37,5 @@ begin
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
-  Application.CreateForm(TfrmConsultarLocacoes, frmConsultarLocacoes);
   Application.Run;
 end.

@@ -195,10 +195,6 @@ begin
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
 
-  //fechando as tabelas para não evitar que fiquem sendo carregadas
- dmRentCar.ZTPesJu.Close;
- dmRentCar.ZTPessoa.Close;
- dmRentCar.ZTEndereco.Close;
 end;
 
 procedure TfrmRentCarPrincipal.VeiculosClick(Sender: TObject);
