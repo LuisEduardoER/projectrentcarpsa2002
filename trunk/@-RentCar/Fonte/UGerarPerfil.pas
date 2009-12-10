@@ -56,25 +56,25 @@ begin
    Application.CreateForm(TfrmPerfil,frmPerfil);
    frmPerfil.ZQFunctions.Close;
    frmPerfil.ZQFunctions.SQL.Clear;
-   frmPerfil.ZQFunctions.SQL.Add('select Vel_Img, Max(Vel_Espec) from rentcar_veiculo');
+   frmPerfil.ZQFunctions.SQL.Add('select Vel_Img, Vel_Espec from rentcar_veiculo');
    frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_alugar on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
    frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
    if frmRentCarPrincipal.perfil = 'F' then
    Begin
      frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
-     frmPerfil.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel_StatusRes = "R" ');
-     frmPerfil.ZQFunctions.SQL.Add('and rentcar_pesfis.PesFis_Nome = "'+frmGerarPerfil.DBLookupCliente.Text+'"');
+     //frmPerfil.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel_StatusRes = "R" ');
+     frmPerfil.ZQFunctions.SQL.Add('where rentcar_pesfis.PesFis_Nome = "'+frmGerarPerfil.DBLookupCliente.Text+'"');
      frmPerfil.ZQFunctions.Open;
    end else
    if frmRentCarPrincipal.perfil = 'J' then
    Begin
      frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
-     frmPerfil.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel_StatusRes = "R" ');
-     frmPerfil.ZQFunctions.SQL.Add('and rentcar_pesju.PesJu_NmFantasia = "'+frmGerarPerfil.DBLookupCliente.Text+'"');
+     //frmPerfil.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel_StatusRes = "R" ');
+     frmPerfil.ZQFunctions.SQL.Add('where rentcar_pesju.PesJu_NmFantasia = "'+frmGerarPerfil.DBLookupCliente.Text+'"');
      frmPerfil.ZQFunctions.Open;
    end;
    
-   if (frmPerfil.ZQFunctions.fieldbyname('Max(Vel_Espec)').AsString = '') then
+   if (frmPerfil.ZQFunctions.fieldbyname('Vel_Espec').AsString = '') then
     Begin
       ShowMessage('O cliente '+frmGerarPerfil.DBLookupCliente.Text+ ' não alugou/reservou nenhum veículo');
       pbPerfil.Position:= 0;

@@ -8,16 +8,17 @@ uses
 
 type
   TfrmCadUsuarios = class(TForm)
-    DBLookupCBPessoa: TDBLookupComboBox;
-    DBESenha: TDBEdit;
     btnCadastar: TButton;
     btnSalvar: TButton;
     btnAlterar: TButton;
     btnSair: TButton;
-    lblPessoa: TLabel;
-    lblSenha: TLabel;
-    lblAdicionarPerfil: TLabel;
+    gbUsuarios: TGroupBox;
     DBRGPerfil: TDBRadioGroup;
+    lblAdicionarPerfil: TLabel;
+    DBESenha: TDBEdit;
+    lblSenha: TLabel;
+    DBLookupCBPessoa: TDBLookupComboBox;
+    lblPessoa: TLabel;
     procedure btnSairClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -52,15 +53,24 @@ begin
   ZQFunctions.SQL.Clear;
   ZQFunctions.SQL.Add('select Pes_id,PesFis_Nome from rentcar_pessoa, rentcar_pesfis ');
   ZQFunctions.SQL.Add('where rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+  ZQFunctions.SQL.Add('and rentcar_pesfis.PesFis_Tipo = "F"');
   ZQFunctions.Open;
  end;
 end;
 
 procedure TfrmCadUsuarios.btnSalvarClick(Sender: TObject);
 begin
- dmRentCar.ZTAcessoRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsInteger;
- dmRentCar.ZTAcessoAc_Login.Value := DBLookupCBPessoa.Text;
- dmRentCar.ZTAcesso.Post;
+ if DBLookupCBPessoa.Text = '' then
+ Begin
+   ShowMessage('Escolha o usuário');
+ end else
+ Begin
+   dmRentCar.ZTAcessoRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsInteger;
+   dmRentCar.ZTAcessoAc_Login.Value := DBLookupCBPessoa.Text;
+   dmRentCar.ZTAcesso.Post;
+   btnSalvar.Enabled := False;
+   btnCadastar.Enabled := True;
+ end;
 end;
 
 procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
@@ -68,6 +78,7 @@ begin
 // dmRentCar.ZTAcesso.Open;
  dmRentCar.ZTAcesso.Insert;
  btnSalvar.Enabled := True;
+ btnCadastar.Enabled := False;
 end;
 
 procedure TfrmCadUsuarios.btnAlterarClick(Sender: TObject);
@@ -80,10 +91,10 @@ begin
  With dmRentCar do
  Begin
   ZTAcesso.Filtered := False;
-  ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+ QuotedStr(dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsString);
+  ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+ QuotedStr(dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsString)+' and ;
   ZTAcesso.Filtered := True;
   ZTAcesso.Open;
-  ShowMessage(ZTAcesso.Filter);
+
   if not ZTAcesso.IsEmpty then
    Begin
      btnCadastar.Enabled := False;

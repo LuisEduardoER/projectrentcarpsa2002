@@ -17,7 +17,6 @@ type
     DBImgPerfil: TDBImage;
     ZQFunctionsVel_Img: TBlobField;
     ZQFunctionsMaxVel_Espec: TStringField;
-    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,16 +31,5 @@ implementation
 uses UDMRentCar, UGerarPerfil;
 
 {$R *.dfm}
-
-procedure TfrmPerfil.FormShow(Sender: TObject);
-begin
-
-   
-  if (ZQFunctions.fieldbyname('Max(Vel_Espec)').AsString = '') then
-    Begin
-      ShowMessage('O cliente '+frmGerarPerfil.DBLookupCliente.Text+ 'não alugou/reservou nenhum veículo');
-      frmPerfil.close;
-    end;  
-end;
 
 end.

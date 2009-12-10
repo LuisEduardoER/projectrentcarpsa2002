@@ -32,8 +32,8 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
+  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);

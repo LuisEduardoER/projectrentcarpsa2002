@@ -34,7 +34,7 @@ object frmCadClientes: TfrmCadClientes
     Top = 8
     Width = 697
     Height = 233
-    ActivePage = tsEndereco
+    ActivePage = tsDadosPF
     TabOrder = 0
     object tsDadosPF: TTabSheet
       Caption = 'Dados Pessoais'
@@ -106,7 +106,7 @@ object frmCadClientes: TfrmCadClientes
       object DBECPF: TDBEdit
         Left = 5
         Top = 66
-        Width = 124
+        Width = 108
         Height = 21
         DataField = 'PesFis_CPF'
         DataSource = dmRentCar.dsTPesFis
@@ -148,6 +148,7 @@ object frmCadClientes: TfrmCadClientes
         Height = 21
         DataField = 'PesFis_CNH'
         DataSource = dmRentCar.dsTPesFis
+        MaxLength = 12
         TabOrder = 4
         OnKeyPress = DBECNHKeyPress
       end
@@ -231,7 +232,9 @@ object frmCadClientes: TfrmCadClientes
         Height = 21
         DataField = 'PesJu_CNPJ'
         DataSource = dmRentCar.dsTPesJu
+        MaxLength = 14
         TabOrder = 1
+        OnKeyPress = DBECNPJKeyPress
       end
       object DBERzSocial: TDBEdit
         Left = 5
@@ -258,14 +261,16 @@ object frmCadClientes: TfrmCadClientes
       object DBECEP: TDBEdit
         Left = 4
         Top = 17
-        Width = 121
+        Width = 99
         Height = 21
         DataField = 'End_CEP'
         DataSource = dmRentCar.dsTEndereco
+        MaxLength = 8
         TabOrder = 0
+        OnKeyPress = DBECEPKeyPress
       end
       object btnBuscar: TButton
-        Left = 140
+        Left = 108
         Top = 15
         Width = 75
         Height = 25
@@ -470,9 +475,9 @@ object frmCadClientes: TfrmCadClientes
   end
   object btnSalvar: TButton
     Left = 127
-    Top = 263
+    Top = 264
     Width = 75
-    Height = 25
+    Height = 24
     Caption = 'Salvar'
     Enabled = False
     TabOrder = 1

@@ -44,6 +44,9 @@ type
     procedure btnCadastrarClick(Sender: TObject);
     procedure MakeThumbNail(aSource :TGraphic; aDest: TBitmap; iWidth, iHeight: Integer);
     procedure btnConsultarClick(Sender: TObject);
+    procedure DBECorKeyPress(Sender: TObject; var Key: Char);
+    procedure DBEModeloKeyPress(Sender: TObject; var Key: Char);
+    procedure DBEMarcaKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -104,6 +107,7 @@ begin
     dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
     dmRentCar.ZTCadVeiculo.post;
     btnSalvar.Enabled := False;
+    btnCadastrar.Enabled := True;
     lblVlrVeiculos.Enabled := True;
   end;
 end;
@@ -130,7 +134,19 @@ end;
 
 procedure TfrmCadVeiculos.btnExcluirClick(Sender: TObject);
 begin
- dmRentCar.ZTCadVeiculo.Delete;
+
+ dmRentCar.ZTGerVal.Filtered := False;
+ dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZTGerVal.Filtered := True;
+
+ if not dmRentCar.ZTGerVal.IsEmpty then
+ Begin
+   dmRentCar.ZTCadVeiculo.Delete;
+   dmRentCar.ZTGerVal.Delete;
+ end else
+ Begin
+   dmRentCar.ZTCadVeiculo.Delete;
+ end;
 end;
 
 procedure TfrmCadVeiculos.btnLimparClick(Sender: TObject);
@@ -197,6 +213,25 @@ begin
  Application.CreateForm(TfrmConsultaVeiculos, frmConsultaVeiculos);
  frmConsultaVeiculos.ShowModal;
  frmConsultaVeiculos.Free;
+end;
+
+procedure TfrmCadVeiculos.DBECorKeyPress(Sender: TObject; var Key: Char);
+begin
+    if Not (key in ['a'..'z']) then
+    key := #0;
+end;
+
+procedure TfrmCadVeiculos.DBEModeloKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+    if Not (key in ['a'..'z']) then
+    key := #0;
+end;
+
+procedure TfrmCadVeiculos.DBEMarcaKeyPress(Sender: TObject; var Key: Char);
+begin
+    if Not (key in ['a'..'z']) then
+    key := #0;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object frmCadVeiculos: TfrmCadVeiculos
-  Left = 164
-  Top = 203
+  Left = 249
+  Top = 234
   Width = 896
   Height = 371
   Caption = '@-RentCar - Cadastro de Ve'#237'culos'
@@ -90,11 +90,12 @@ object frmCadVeiculos: TfrmCadVeiculos
     object DBECor: TDBEdit
       Left = 155
       Top = 80
-      Width = 121
+      Width = 98
       Height = 21
       DataField = 'Vel_Cor'
       DataSource = dmRentCar.dsCadVeiculo
       TabOrder = 1
+      OnKeyPress = DBECorKeyPress
     end
     object DBEModelo: TDBEdit
       Left = 16
@@ -104,6 +105,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       DataField = 'Vel_Modelo'
       DataSource = dmRentCar.dsCadVeiculo
       TabOrder = 2
+      OnKeyPress = DBEModeloKeyPress
     end
     object DBEMarca: TDBEdit
       Left = 16
@@ -113,6 +115,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       DataField = 'Vel_Marca'
       DataSource = dmRentCar.dsCadVeiculo
       TabOrder = 3
+      OnKeyPress = DBEMarcaKeyPress
     end
     object DBREspec: TDBRichEdit
       Left = 14

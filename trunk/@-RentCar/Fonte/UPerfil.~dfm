@@ -12,7 +12,6 @@ object frmPerfil: TfrmPerfil
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object DBTEspec: TDBText
@@ -20,7 +19,7 @@ object frmPerfil: TfrmPerfil
     Top = 78
     Width = 311
     Height = 17
-    DataField = 'Max(Vel_Espec)'
+    DataField = 'Vel_Espec'
     DataSource = dsQFunctions
   end
   object Label1: TLabel

@@ -26,7 +26,7 @@ var
 
 implementation
 
-uses URentCarPrincipal, UContrato, UContraoPesJu, UDMRentCar;
+uses URentCarPrincipal, UContrato, UContraoPesJu, UDMRentCar, UConsulLoc;
 
 {$R *.dfm}
 
@@ -39,8 +39,8 @@ begin
     ShowMessage('Escolha o Cliente');
   end else
   Begin
-   pbPerfil.Max:= 5000;
-   for i:= 1 to 5000 do
+   pbPerfil.Max:= 2000;
+   for i:= 1 to 2000 do
    Begin
       pbPerfil.Position:=i;
    end;
@@ -65,8 +65,8 @@ begin
      Begin
       ShowMessage('Não existem dados de locação para o cliente escolhido');
      end else
-     Begin
-
+     if dmRentCar.ZQAlugar.RecordCount > 1 then
+    Begin
     Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
     frmContratoLocacao.QRVelContrLoc.Preview;
     frmContratoLocacao.Free;

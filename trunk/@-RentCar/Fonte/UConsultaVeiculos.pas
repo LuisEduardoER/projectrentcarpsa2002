@@ -19,6 +19,7 @@ type
     procedure ckPlacaClick(Sender: TObject);
     procedure ckAnoClick(Sender: TObject);
     procedure DBGBVecCellClick(Column: TColumn);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -69,6 +70,15 @@ end;
 procedure TfrmConsultaVeiculos.DBGBVecCellClick(Column: TColumn);
 begin
  close;
+end;
+
+procedure TfrmConsultaVeiculos.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+ if dmRentCar.ZTCadVeiculo.IsEmpty then
+  Begin
+    dmRentCar.ZTCadVeiculo.Filtered := False;
+  end;
 end;
 
 end.

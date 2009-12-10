@@ -76,7 +76,6 @@ type
     function sBreakApart(BaseString, BreakString: string; StringList: TStringList): TStringList;
     function CPF(num: string): boolean;
     procedure DBENomeKeyPress(Sender: TObject; var Key: Char);
-    procedure DBECPFKeyPress(Sender: TObject; var Key: Char);
     procedure DBERGKeyPress(Sender: TObject; var Key: Char);
     procedure DBCBEstCivilKeyPress(Sender: TObject; var Key: Char);
     procedure DBECNHKeyPress(Sender: TObject; var Key: Char);
@@ -94,6 +93,9 @@ type
     procedure CadPF;
     procedure CadPJ;
     procedure DBGClientesCellClick(Column: TColumn);
+    procedure DBECEPKeyPress(Sender: TObject; var Key: Char);
+    procedure DBECPFKeyPress(Sender: TObject; var Key: Char);
+    procedure DBECNPJKeyPress(Sender: TObject; var Key: Char);
 
 
 
@@ -139,16 +141,82 @@ begin
   if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
   Begin
    CadPF;
-   btnCadastar.Enabled := True;
-   btnSalvar.Enabled := False;
   end else
   // caso seja cadastro de pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
     CadPJ;
-    btnCadastar.Enabled := True;
-    btnSalvar.Enabled := False;
   end;
+end;
+
+
+
+function valida_new_cnh(cnh: String): Boolean;
+var
+Soma, Conta, Dv, Digito, i: Integer;
+CnhN: String;
+NumerosIguais: Boolean;
+begin
+  Result := False;
+  NumerosIguais := True;
+
+  CnhN := FormatFloat('00000000000', StrToFloat(trim(cnh)));
+  Soma := 0;
+
+  {Validando se todos o números são iguais}
+  for i := 1 to length(CnhN) - 1 do
+  if CnhN[1] <> CnhN[i] then
+  NumerosIguais := False;
+
+  if NumerosIguais then
+  Exit;
+
+  for i := 1 to length(CnhN) - 2 do
+  Soma := Soma + (StrtoInt(CnhN[i]) * (i + 1));
+
+  Conta := (Soma div 11) * 11;
+  if (Soma - Conta) < 2 then
+  Dv := 0
+  else
+  Dv := 11 - (Soma - Conta);
+
+  Digito := StrToInt(CnhN[10]);
+
+  if Digito = Dv then
+  Result := True;
+  end;
+
+function valida_old_cnh(cnh: String): Boolean;
+var
+Soma, Conta, Dv, Digito, i: Integer;
+CnhN: String;
+NumerosIguais: Boolean;
+begin
+Result := False;
+NumerosIguais := True;;
+
+CnhN := FormatFloat('000000000', StrToFloat(trim(cnh)));
+Soma := 0;
+
+{Validando se todos o números são iguais}
+for i := 1 to length(CnhN) - 1 do
+if CnhN[1] <> CnhN[i] then
+NumerosIguais := False;
+
+if NumerosIguais then
+Exit;
+
+for i := 1 to length(CnhN) - 1 do
+Soma := Soma + (StrtoInt(CnhN[i]) * (i + 1));
+
+Digito := StrToInt(CnhN[9]);
+Conta := Soma mod 11;
+
+if Conta = 10 then
+Conta := 0;
+
+if Digito = Conta then
+result := True;
 end;
 
 //Fuñção que verifica se o e-mail digitado pelo usuário é ou não válido
@@ -233,11 +301,14 @@ end;
 procedure TfrmCadClientes.btnCadastarClick(Sender: TObject);
 begin
  op := 'C';
+ dmRentCar.ZTPessoa.Open;
+ dmRentCar.ZTEndereco.Open;
  dmRentCar.ZTEndereco.Insert;
  dmRentCar.ZTPessoa.Insert;
 
  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
  Begin
+   dmRentCar.ZTPesFis.Open;
    dmRentCar.ZTPesFis.Insert;
    tsDadosPF.Enabled := True;
    tsEndereco.Enabled := True;
@@ -245,13 +316,15 @@ begin
  end else
  if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
+       dmRentCar.ZTPesJu.Open;
    dmRentCar.ZTPesJu.Insert;
    tsDadosPJ.Enabled := True;
    tsEndereco.Enabled := True;
    tsContato.Enabled := True;
   end;
  btnSalvar.Enabled := True;
- btnCadastar.Enabled := False; 
+ btnCadastar.Enabled := False;
+ btnAlterar.Enabled := False;
 end;
 
 procedure TfrmCadClientes.btnBuscarClick(Sender: TObject);
@@ -270,6 +343,15 @@ begin
   Num:= DBECEP.Text;
   texto := (ObjSoap.obterLogradouroAuth(Num, 'Alan','123456'));
 
+  if (texto = 'Cep '+Num+' não encontrado') then
+  Begin
+    ShowMessage('Cep '+Num+' não encontrado');
+  end else
+  if (texto = 'CEP não está no formato 00000-000 ou 00000000') then
+  Begin
+    ShowMessage('CEP não está no formato 00000-000 ou 00000000');
+  end else
+  Begin
   ListBox := TListBox.CreateParented(Self.Handle);
   t := TStringList.create;
   ListBox.Items.Assign(sBreakApart(texto, ', ', t));
@@ -280,6 +362,7 @@ begin
   dmRentCar.ZTEnderecoEnd_Estado.Value := estado;
   t.free;
   gbEndereco.Enabled := True;
+  end;
 end;
 
 function TfrmCadClientes.sBreakApart(BaseString, BreakString: string;
@@ -338,18 +421,13 @@ begin
     end;
 end;
 
-procedure TfrmCadClientes.DBECPFKeyPress(Sender: TObject; var Key: Char);
-begin
-  if key = #13 then
-    Begin
-      messagebox(Application.Handle, Pchar ('O CPF ' +DBECPF.Text+ ' não existe, deseja continuar assim mesmo?'), 'Atenção', MB_OK+MB_ICONWARNING+MB_DEFBUTTON1);
-      DBECPF.SetFocus;
-      DBERG.SetFocus;
-    end;
-end;
-
 procedure TfrmCadClientes.DBERGKeyPress(Sender: TObject; var Key: Char);
 begin
+ if not ( Key in ['0'..'9',#13,#8] ) then
+   Begin
+    Key := #0;
+   end;
+
    if key = #13 then
     Begin
       DBCBEstCivil.SetFocus;
@@ -367,6 +445,11 @@ end;
 
 procedure TfrmCadClientes.DBECNHKeyPress(Sender: TObject; var Key: Char);
 begin
+ if not ( Key in ['0'..'9',#13,#8] ) then
+  Begin
+   Key := #0;
+  end;
+
   if key = #13 then
     Begin
       DateValidade.SetFocus;
@@ -391,7 +474,6 @@ begin
     lblStatusCad.Caption := 'Alterando Cadastro...';
     dmRentCar.ZTPesFis.Edit;
     btnSalvar.Enabled := True;
-    gbEndereco.Enabled := True;
     tsDadosPF.Enabled := True;
     tsEndereco.Enabled := True;
     tsContato.Enabled := True;
@@ -410,7 +492,6 @@ begin
      lblStatusCad.Caption := 'Alterando Cadastro...';
      dmRentCar.ZTPesJu.Edit;
      btnSalvar.Enabled := True;
-     gbEndereco.Enabled := True;
      tsDadosPF.Enabled := True;
      tsEndereco.Enabled := True;
      tsContato.Enabled := True;
@@ -538,22 +619,44 @@ begin
   // caso seja cadastro pessoa fisica ou funcioanario
   if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
   Begin
+   dmRentCar.ZTAlugar.Open;
+   dmRentCar.ZTChamado.Open;
+
    dmRentCar.ZTPessoa.Filtered := False;
    dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
    dmRentCar.ZTPessoa.Filtered := True;
+
    //dmRentCar.ZTPesFis.Filtered := False;;
    dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
    dmRentCar.ZTPesFis.Filtered := True;
 
-   //dmRentCar.ZTAlugar.Filtered := False;
+      //dmRentCar.ZTAlugar.Filtered := False;
+   dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
+   dmRentCar.ZTEndereco.Filtered := True;
+
+    //dmRentCar.ZTAlugar.Filtered := False;
    dmRentCar.ZTAlugar.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.AsString);
    dmRentCar.ZTAlugar.Filtered := True;
+
+   //dmRentCar.ZTAlugar.Filtered := False;
+   dmRentCar.ZTChamado.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.AsString);
+   dmRentCar.ZTChamado.Filtered := True;
 
    dmRentCar.ZTEndereco.Delete;
    dmRentCar.ZTPessoa.Delete;
    dmRentCar.ZTPesFis.Delete;
-   dmRentCar.ZTAlugar.Delete;
-   //dmRentCar.ZQCliente.Refresh;
+
+   if not dmRentCar.ZTAlugar.IsEmpty then
+   Begin
+     dmRentCar.ZTAlugar.Delete;
+   end else
+   if not dmRentCar.ZTChamado.IsEmpty then
+   Begin
+       dmRentCar.ZTChamado.Delete;
+   end;
+
+
+   dmRentCar.ZQCliente.Refresh;
   end else
   //caso seja cadastro pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then
@@ -561,6 +664,7 @@ begin
    dmRentCar.ZTPessoa.Filtered := False;
    dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
    dmRentCar.ZTPessoa.Filtered := True;
+
    //dmRentCar.ZTPesFis.Filtered := False;;
    dmRentCar.ZTPesJu.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
    dmRentCar.ZTPesJu.Filtered := True;
@@ -569,20 +673,29 @@ begin
    dmRentCar.ZTAlugar.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.AsString);
    dmRentCar.ZTAlugar.Filtered := True;
 
+    //dmRentCar.ZTAlugar.Filtered := False;
+   dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
+   dmRentCar.ZTEndereco.Filtered := True;
+
+   //dmRentCar.ZTAlugar.Filtered := False;
+   dmRentCar.ZTChamado.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesJuRentCar_Pessoa_Pes_id.AsString);
+   dmRentCar.ZTChamado.Filtered := True;
+
    dmRentCar.ZTEndereco.Delete;
    dmRentCar.ZTPessoa.Delete;
    dmRentCar.ZTPesFis.Delete;
-   dmRentCar.ZTAlugar.Delete;
+
+   if not dmRentCar.ZTAlugar.IsEmpty then
+   Begin
+     dmRentCar.ZTAlugar.Delete;
+   end else
+   if dmRentCar.ZTChamado.IsEmpty then
+   Begin
+       dmRentCar.ZTChamado.Delete;
+   end;
+       dmRentCar.ZQCliente.Refresh;
   end;
  end;
- begin
-   Try
-     dmRentCar.ZQCliente.Refresh;
-   Except
-      ShowMessage('fílé');
-   end;
- end;
-
 end;
 
 procedure TfrmCadClientes.btnLimparClick(Sender: TObject);
@@ -630,10 +743,10 @@ begin
      Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_Id as Codigo,rentcar_pesfis.PesFis_nome as Nome, rentcar_pesfis.pesfis_Sexo as Sexo, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_Id,rentcar_pesfis.PesFis_nome as Nome, rentcar_pesfis.pesfis_Sexo as Sexo, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
-      ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id and rentcar_pesfis.PesFis_Tipo = "F"');
+      ZQCliente.SQL.Add('where rentcar_pesfis.PesFis_Tipo = "F"');
       ZQCliente.Open;
       ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
      end;
@@ -671,37 +784,37 @@ cpf : string;
 begin
   if (DBENome.Text = '') then
   Begin
-    ShowMessage('Nome é um campo obrigratório');
+    ShowMessage('Nome é um campo obrigatório');
     DBENome.SetFocus;
   end else
   if (DBECPF.Text = '') then
   Begin
-    ShowMessage('CPF é um campo obrigratório');
+    ShowMessage('CPF é um campo obrigatório');
     DBECPF.SetFocus;
   end else
   if (DBERG.Text = '') then
   Begin
-    ShowMessage('RG é um campo obrigratório');
+    ShowMessage('RG é um campo obrigatório');
     DBERG.SetFocus;
   end else
   if (dbrgSexo.ItemIndex = -1) then
   Begin
-    ShowMessage('Sexo é um campo obrigratório');
+    ShowMessage('Sexo é um campo obrigatório');
   end else
-  if (DBECNH.Text = '') then
+  if (DBECNH.Text = '') or (DBECNH.MaxLength < 11) then
   Begin
-    ShowMessage('CNH é um campo obrigratório');
+    ShowMessage('CNH é um campo obrigatório');
     DBECNH.SetFocus;
   end else
   if (DBECEP.Text = '') then
   Begin
-    ShowMessage('CEP é um campo obrigratório');
+    ShowMessage('CEP é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
     DBECEP.SetFocus;
   end else
   if (DBENumero.Text = '') then
   Begin
-    ShowMessage('Numero é um campo obrigratório');
+    ShowMessage('Numero é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
     DBENumero.SetFocus;
   end else
@@ -714,6 +827,9 @@ begin
     lblResCPFCNPJ.Caption := confereCPF(cpf);
     if lblResCPFCNPJ.Caption <> 'CPF Invalido' then
     Begin
+    if (valida_new_cnh(DBECNH.Text)) or (valida_old_cnh(DBECNH.Text)) then
+    Begin
+     ShowMessage('CNH Existente');
     if ValidEmail(DBEmail.Text) then
     Begin
       dmRentCar.ZTEndereco.Post;
@@ -748,6 +864,9 @@ begin
       dmRentCar.ZTPesFis.Post;
       lblStatusCad.Visible := True;
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
+      btnCadastar.Enabled := True;
+      btnSalvar.Enabled := False;
+      btnAlterar.Enabled := True;
     end;
     end else
     Begin
@@ -757,16 +876,17 @@ begin
     end;
       dmRentCar.ZQCliente.Refresh;
       gbEndereco.Enabled := False;
-    end else
-    Begin
-      ShowMessage('e-mail inválido');
-      DBEmail.SetFocus;
     end;
-    end else
-    Begin
-      ShowMessage('invalido');
-      DBECPF.SetFocus;
-    end;
+  end else
+  Begin
+   ShowMessage('CNH Inexistente');
+   DBECNH.SetFocus;
+  end
+  end else
+  Begin
+    ShowMessage('CPF Inválido');
+    DBECPF.SetFocus;
+  end;
   end;
 end;
 
@@ -776,27 +896,27 @@ cnpj : string;
 begin
   if (DBENmFant.Text = '') then
   Begin
-    ShowMessage('Nome Fantasia é um campo obrigratório');
+    ShowMessage('Nome Fantasia é um campo obrigatório');
     DBENmFant.SetFocus;
   end else
   if (DBERzSocial.Text = '') then
   Begin
-    ShowMessage('Razão Social é um campo obrigratório');
+    ShowMessage('Razão Social é um campo obrigatório');
     DBERzSocial.SetFocus;
   end else
   if (DBECNPJ.Text = '') then
   Begin
-    ShowMessage('CNPJ é um campo obrigratório');
+    ShowMessage('CNPJ é um campo obrigatório');
     DBECNPJ.SetFocus;
   end else
   if (DBECEP.Text = '') then
   Begin
-    ShowMessage('CEP é um campo obrigratório');
+    ShowMessage('CEP é um campo obrigatório');
     DBECEP.SetFocus;
   end else
   if (DBENumero.Text = '') then
   Begin
-    ShowMessage('Numero é um campo obrigratório');
+    ShowMessage('Numero é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
     DBENumero.SetFocus;
   end else
@@ -830,6 +950,9 @@ begin
       end else
       Begin
         dmRentCar.ZTPesJu.Post;
+        btnCadastar.Enabled := True;
+        btnSalvar.Enabled := False;
+        btnAlterar.Enabled := True;
       end;
       end else
       Begin
@@ -848,8 +971,12 @@ end;
 
 procedure TfrmCadClientes.DBGClientesCellClick(Column: TColumn);
 begin
- if frmRentCarPrincipal.tipo = 'PF' then
+ if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
  Begin
+  dmRentCar.ZTPesFis.Open;
+  dmRentCar.ZTPessoa.Open;
+  dmRentCar.ZTEndereco.Open;
+
   dmRentCar.ZTPessoa.Filtered := False;
   dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
   dmRentCar.ZTPessoa.Filtered := True;
@@ -862,6 +989,10 @@ begin
  end else
  if frmRentCarPrincipal.tipo = 'PJ' then
  Begin
+  dmRentCar.ZTPesJu.Open;
+  dmRentCar.ZTPessoa.Open;
+  dmRentCar.ZTEndereco.Open;
+
   dmRentCar.ZTPessoa.Filtered := False;
   dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
   dmRentCar.ZTPessoa.Filtered := True;
@@ -873,5 +1004,32 @@ begin
   dmRentCar.ZTEndereco.Filtered := True;
  end;
 end;
+
+procedure TfrmCadClientes.DBECEPKeyPress(Sender: TObject; var Key: Char);
+begin
+ if not ( Key in ['0'..'9',#13,#8] ) then
+   Key := #0;
+
+end;
+
+procedure TfrmCadClientes.DBECPFKeyPress(Sender: TObject; var Key: Char);
+begin
+ if not ( Key in ['0'..'9',#13,#8] ) then
+  Begin
+   Key := #0;
+  end;
+
+ if key = #13 then
+  Begin
+    DBERG.SetFocus;
+  end;
+end;
+
+procedure TfrmCadClientes.DBECNPJKeyPress(Sender: TObject; var Key: Char);
+begin
+ if not ( Key in ['0'..'9',#13,#8] ) then
+   Key := #0;
+end;
+
 
 end.
