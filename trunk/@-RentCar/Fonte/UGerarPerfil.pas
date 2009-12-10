@@ -56,7 +56,7 @@ begin
    Application.CreateForm(TfrmPerfil,frmPerfil);
    frmPerfil.ZQFunctions.Close;
    frmPerfil.ZQFunctions.SQL.Clear;
-   frmPerfil.ZQFunctions.SQL.Add('select Vel_Img, Vel_Espec from rentcar_veiculo');
+   frmPerfil.ZQFunctions.SQL.Add('select distinct Vel_Img, Vel_Espec from rentcar_veiculo');
    frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_alugar on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
    frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
    if frmRentCarPrincipal.perfil = 'F' then

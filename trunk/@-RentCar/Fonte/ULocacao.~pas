@@ -54,7 +54,6 @@ type
     DBLookupCliente: TDBLookupComboBox;
     DBLookupClienteRes: TDBLookupComboBox;
     Label2: TLabel;
-    DBGrid1: TDBGrid;
     procedure btnSairClick(Sender: TObject);
     procedure btnCadastarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -326,11 +325,11 @@ begin
 
   if frmRentCarPrincipal.veiculo = 'PFL' then
   Begin
-   mensagem := 'Srº '+dmRentCar.ZTPesFisPesFis_Nome.AsString+' informamos que a locação do veículo '+''+'foi realizada e computada no nosso sistema com sucesso';
+   mensagem := 'Srº '+dmRentCar.ZTPesFisPesFis_Nome.AsString+' informamos que a locação do veículo '+dmRentCar.ZTCadVeiculoVel_Espec.AsString+' foi realizada e computada no nosso sistema com sucesso';
  end else
   if frmRentCarPrincipal.veiculo = 'PJL' then
   Begin
-    mensagem := 'Srº '+dmRentCar.ZTPesJuPesJu_NmFantasia.AsString+' informamos que a locação do veículo '+''+'foi realizada e computada no nosso sistema com sucesso';
+    mensagem := 'Srº '+dmRentCar.ZTPesJuPesJu_NmFantasia.AsString+' informamos que a locação do veículo '+dmRentCar.ZTCadVeiculoVel_Espec.AsString+' foi realizada e computada no nosso sistema com sucesso';
   end;
 
  corpoMensagem :=  '--------------------------------'+
@@ -379,11 +378,11 @@ begin
 
  if frmRentCarPrincipal.veiculo = 'PFR' then
  Begin
-  mensagem := 'Srº '+dmRentCar.ZTPesFisPesFis_Nome.AsString+' informamos que a foi feita a reserva do veículo '+''+'com sucesso, em breve informaremos quando o veículo estiver disponível';
+  mensagem := 'Srº '+dmRentCar.ZTPesFisPesFis_Nome.AsString+' informamos que a foi feita a reserva do veículo '+ dmRentCar.ZTCadVeiculoVel_Espec.AsString +' com sucesso, em breve informaremos quando o veículo estiver disponível';
  end else
  if frmRentCarPrincipal.veiculo = 'PJR' then
  Begin
-  mensagem := 'Srº '+dmRentCar.ZTPesJuPesJu_NmFantasia.AsString+' informamos que a foi feita a reserva do veículo '+''+'com sucesso, em breve informaremos quando o veículo estiver disponível';
+  mensagem := 'Srº '+dmRentCar.ZTPesJuPesJu_NmFantasia.AsString+' informamos que a foi feita a reserva do veículo '+dmRentCar.ZTCadVeiculoVel_Espec.AsString+' com sucesso, em breve informaremos quando o veículo estiver disponível';
  end;
 
  corpoMensagem :=  '--------------------------------'+
@@ -481,9 +480,9 @@ begin
   end else
   if frmRentCarPrincipal.veiculo = 'PFL' then
   Begin
-    frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
-    frmLocacao.DBLookupCliente.ListField := 'PesJu_NmFantasia';
-    frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+    frmConsultarLocacoes.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+    frmConsultarLocacoes.DBLookupCliente.ListField := 'PesJu_NmFantasia';
+    frmConsultarLocacoes.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
 
   end;
   frmConsultarLocacoes.ShowModal;

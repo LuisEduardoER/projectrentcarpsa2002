@@ -39,8 +39,8 @@ begin
     ShowMessage('Escolha o Cliente');
   end else
   Begin
-   pbPerfil.Max:= 5000;
-   for i:= 1 to 5000 do
+   pbPerfil.Max:= 2000;
+   for i:= 1 to 2000 do
    Begin
       pbPerfil.Position:=i;
    end;
@@ -51,7 +51,7 @@ begin
       Begin
         ZQAlugar.Close;
         ZQAlugar.SQL.Clear;
-        ZQAlugar.SQL.Add('select PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+        ZQAlugar.SQL.Add('select distinct PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
         ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
         ZQAlugar.SQL.Add('from rentcar_pessoa ');
         ZQAlugar.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
@@ -78,7 +78,7 @@ begin
       Begin
         ZQAlugar.Close;
         ZQAlugar.SQL.Clear;
-        ZQAlugar.SQL.Add('select PesJU_NmFantasia, PesJu_RazaoSocial, PesJu_CNPJ, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+        ZQAlugar.SQL.Add('select DISTINCT PesJU_NmFantasia, PesJu_RazaoSocial, PesJu_CNPJ, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
         ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
         ZQAlugar.SQL.Add('from rentcar_pessoa ');
         ZQAlugar.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');

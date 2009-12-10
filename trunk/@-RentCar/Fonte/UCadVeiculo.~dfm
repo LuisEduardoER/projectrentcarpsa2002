@@ -115,6 +115,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       DataField = 'Vel_Marca'
       DataSource = dmRentCar.dsCadVeiculo
       TabOrder = 3
+      OnKeyPress = DBEMarcaKeyPress
     end
     object DBREspec: TDBRichEdit
       Left = 14
@@ -155,6 +156,7 @@ object frmCadVeiculos: TfrmCadVeiculos
       Time = 40149.664795277780000000
       DateMode = dmUpDown
       TabOrder = 7
+      OnKeyPress = DateAnoKeyPress
     end
   end
   object DBGrid1: TDBGrid

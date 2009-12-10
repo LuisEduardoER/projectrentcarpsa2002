@@ -469,6 +469,7 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_TelOp'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 3
+        OnExit = DBTelOpExit
         OnKeyPress = DBTelOpKeyPress
       end
     end
