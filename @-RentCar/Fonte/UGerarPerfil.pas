@@ -10,11 +10,9 @@ type
   TfrmGerarPerfil = class(TForm)
     gbFiltros: TGroupBox;
     btnGerarPerfil: TButton;
-    btnB: TButton;
     Label1: TLabel;
     pbPerfil: TProgressBar;
     DBLookupCliente: TDBLookupComboBox;
-    procedure btnBClick(Sender: TObject);
     procedure btnGerarPerfilClick(Sender: TObject);
   private
     { Private declarations }
@@ -31,13 +29,6 @@ implementation
 uses UBCliente, UPerfil, URentCarPrincipal;
 
 {$R *.dfm}
-
-procedure TfrmGerarPerfil.btnBClick(Sender: TObject);
-begin
- Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
- frmConsultaClientes.ShowModal;
- frmConsultaClientes.Free;
-end;
 
 procedure TfrmGerarPerfil.btnGerarPerfilClick(Sender: TObject);
 var

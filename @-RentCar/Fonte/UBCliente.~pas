@@ -54,40 +54,72 @@ begin
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome, rentcar_pesfis.pesfis_Sexo, rentcar_pessoa.pes_TelRes, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF, rentcar_pessoa.Pes_Email');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+      ZQCliente.SQL.Add('where rentcar_pesfis.PesFis_Tipo = "C"');
+
       if ckNome.Checked = True then
       Begin
-        ZQCliente.SQL.Add('where rentcar_pesfis.pesfis_Nome ="'+edtNome.Text+'"');
+        ZQCliente.SQL.Add('and rentcar_pesfis.pesfis_Nome LIKE "%'+edtNome.Text+'%"');
       end else
       if ckCPFCNPJ.Checked = True then
       Begin
-        ZQCliente.SQL.Add('where rentcar_pesfis.pesfis_CPF ="'+edtCPFCNPJ.Text+'"');
+        ZQCliente.SQL.Add('and rentcar_pesfis.pesfis_CPF LIKE "%'+edtCPFCNPJ.Text+'%"');
       end else
       Begin
-      ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
+      ZQCliente.SQL.Add('and rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
       end;
       ZQCliente.Open;
+
+
       if ZQCliente.IsEmpty then
       Begin
         ShowMessage('Cliente não existente');
       end;
     end else
+    if (frmRentCarPrincipal.tipo = 'FUN') then
+    Begin
+      ZQCliente.Close;
+      ZQCliente.SQL.Clear;
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome, rentcar_pesfis.pesfis_RG, rentcar_pesfis.pesfis_CPF');
+      ZQCliente.SQL.Add('from rentcar_pessoa');
+      ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+      ZQCliente.SQL.Add('where rentcar_pesfis.PesFis_Tipo = "F"');
+      if ckNome.Checked = True then
+      Begin
+        ZQCliente.SQL.Add('and rentcar_pesfis.pesfis_Nome LIKE "%'+edtNome.Text+'%"');
+      end else
+      if ckCPFCNPJ.Checked = True then
+      Begin
+        ZQCliente.SQL.Add('and rentcar_pesfis.pesfis_CPF LIKE "%'+edtCPFCNPJ.Text+'%"');
+      end else
+      Begin
+      ZQCliente.SQL.Add('and rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
+      end;
+      ZQCliente.Open;
+
+
+      if ZQCliente.IsEmpty then
+      Begin
+        ShowMessage('Cliente não existente');
+      end;
+
+    end else
      if (frmRentCarPrincipal.tipo = 'PJ') or (frmRentCarPrincipal.veiculo = 'PJL') or (frmRentCarPrincipal.veiculo = 'PJR') or (frmRentCarPrincipal.perfil = 'J') or (frmRentCarPrincipal.chamado = 'J') then
       Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id,rentcar_pesju.PesJu_NmFantasia, rentcar_pesju.PesJu_CNPJ, rentcar_pessoa.pes_TelRes, rentcar_pessoa.pes_TelOP, rentcar_pessoa.pes_Cel');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id,rentcar_pesju.PesJu_NmFantasia, rentcar_pesju.PesJu_CNPJ');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       if ckNome.Checked = True then
       Begin
-        ZQCliente.SQL.Add('where rentcar_pessoa.pes_Nome ="'+edtNome.Text+'"');
+        ZQCliente.SQL.Add('where rentcar_pessoa.pes_Nome LIKE "%'+edtNome.Text+'%"');
       end else
       if ckCPFCNPJ.Checked = True then
       Begin
-        ZQCliente.SQL.Add('where rentcar_pesju.pesju_CNPJ ="'+edtCPFCNPJ.Text+'"');
+        ZQCliente.SQL.Add('where rentcar_pesju.pesju_CNPJ LIKE "%'+edtCPFCNPJ.Text+'%"');
       end else
       Begin
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesju.RentCar_Pessoa_Pes_id');

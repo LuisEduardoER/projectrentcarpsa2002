@@ -15,9 +15,9 @@ object frmGerContratos: TfrmGerContratos
   PixelsPerInch = 96
   TextHeight = 13
   object gbFiltros: TGroupBox
-    Left = 24
+    Left = 56
     Top = 8
-    Width = 330
+    Width = 241
     Height = 54
     TabOrder = 0
     object Label1: TLabel
@@ -27,21 +27,13 @@ object frmGerContratos: TfrmGerContratos
       Height = 13
       Caption = 'Cliente'
     end
-    object btnB: TButton
-      Left = 245
-      Top = 22
-      Width = 75
-      Height = 25
-      Caption = 'Buscar'
-      TabOrder = 0
-    end
     object DBLookupCliente: TDBLookupComboBox
       Left = 6
       Top = 24
       Width = 227
       Height = 21
       DataField = 'RentCar_Pessoa_Pes_id'
-      TabOrder = 1
+      TabOrder = 0
     end
   end
   object btnGerarContrato: TButton

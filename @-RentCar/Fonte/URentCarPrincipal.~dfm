@@ -1,6 +1,6 @@
 object frmRentCarPrincipal: TfrmRentCarPrincipal
-  Left = 156
-  Top = 119
+  Left = 189
+  Top = 156
   Width = 870
   Height = 500
   Caption = '@-RentCar - Gerenciamento de Locadora de Ve'#237'culos'
@@ -2382,12 +2382,16 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
     Height = 19
     Panels = <
       item
+        Text = 'Login'
+        Width = 100
+      end
+      item
         Text = '@-RentCar - Gerencimanto de Locadora de Ve'#237'culos'
-        Width = 700
+        Width = 400
       end
       item
         Text = 'Hora'
-        Width = 80
+        Width = 50
       end
       item
         Text = 'Data'

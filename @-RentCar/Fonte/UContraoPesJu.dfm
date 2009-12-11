@@ -3,7 +3,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
   Top = 155
   Width = 870
   Height = 500
-  VertScrollBar.Position = 50
+  VertScrollBar.Position = 383
   Caption = '@-RentCar - Contrato Loca'#231#227'o Pessoa Juridica'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
   TextHeight = 13
   object QRVelContrLocPesJu: TQuickRep
     Left = -5
-    Top = 6
+    Top = -327
     Width = 1123
     Height = 794
     Frame.Color = clBlack
@@ -1275,7 +1275,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       object QRLabel30: TQRLabel
         Left = 693
         Top = 361
-        Width = 292
+        Width = 283
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1286,12 +1286,12 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
           44.979166666666670000
           1833.562500000000000000
           955.145833333333500000
-          772.583333333333400000)
+          748.770833333333400000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = #224' outra parte com anteced'#234'ncia m'#237'nima de (xxx) dias.'
+        Caption = #224' outra parte com anteced'#234'ncia m'#237'nima de 03 dias.'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -1339,7 +1339,7 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
       object QRLabel32: TQRLabel
         Left = 24
         Top = 403
-        Width = 202
+        Width = 218
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1350,12 +1350,12 @@ object frmContratoLocacaoPesJu: TfrmContratoLocacaoPesJu
           44.979166666666670000
           63.500000000000000000
           1066.270833333333000000
-          534.458333333333400000)
+          576.791666666666800000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'no valor de R$ (xxx) (Valor expresso).'
+        Caption = 'no valor de R$ 200,00 (Duzentos reais).'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText

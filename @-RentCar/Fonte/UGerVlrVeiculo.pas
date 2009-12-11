@@ -17,12 +17,10 @@ type
     btnCadastrar: TButton;
     btnSair: TButton;
     lblVlr: TLabel;
-    DBGrid1: TDBGrid;
     procedure btnCadastrarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure DBEVlrVeiculoKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
@@ -49,7 +47,8 @@ begin
   dmRentCar.ZTGerValRentCar_Veiculo_Vel_id.Value := dmRentCar.ZTCadVeiculoVel_id.Value;
   dmRentCar.ZTGerVal.Post;
   dmRentCar.ZTGerVal.Refresh;
-  btnAlterar.Enabled := True
+  btnAlterar.Enabled := True;
+  btnCadastrar.Enabled := False;
  end;
 end;
 
@@ -69,17 +68,10 @@ begin
  close;
 end;
 
-procedure TfrmRentCarVlrVeiculos.FormShow(Sender: TObject);
-begin
-{ dmRentCar.ZTGerVal.Filtered := False;
- dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
- dmRentCar.ZTGerVal.Filtered := True;   }
-end;
-
 procedure TfrmRentCarVlrVeiculos.DBEVlrVeiculoKeyPress(Sender: TObject;
   var Key: Char);
 begin
- if not ( Key in ['0'..'9',#13,#8] ) then
+   if not ( Key in ['0'..'9',#13,#8] ) then
   Begin
    Key := #0;
   end;

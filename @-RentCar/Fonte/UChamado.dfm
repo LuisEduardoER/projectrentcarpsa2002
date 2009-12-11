@@ -81,6 +81,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
     Width = 465
     Height = 287
     Caption = 'Abertura Chamados'
+    Enabled = False
     TabOrder = 4
     object lblSolicitacao: TLabel
       Left = 9
@@ -202,13 +203,13 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       TabOrder = 3
     end
   end
-  object brnSalvar: TButton
+  object btnSalvar: TButton
     Left = 144
     Top = 370
     Width = 73
     Height = 25
     Caption = 'Salvar'
     TabOrder = 5
-    OnClick = brnSalvarClick
+    OnClick = btnSalvarClick
   end
 end

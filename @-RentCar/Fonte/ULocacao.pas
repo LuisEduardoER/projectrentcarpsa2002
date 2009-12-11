@@ -117,6 +117,7 @@ procedure TfrmLocacao.btnAlterarClick(Sender: TObject);
 begin
  dmRentCar.ZTAlugar.Edit;
  dmRentCar.ZTGerVal.Edit;
+ btnSalvar.Enabled := True;
 end;
 
 procedure TfrmLocacao.btnSalvarClick(Sender: TObject);
@@ -439,9 +440,6 @@ end;
 
 procedure TfrmLocacao.DBLookupVecDevClick(Sender: TObject);
 begin
-{ dmRentCar.ZTPessoa.Filtered := False;
- dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.AsString);
- dmRentCar.ZTPessoa.Filtered := True; }
  dmRentCar.ZTCadVeiculo.Filtered := False;
  dmRentCar.ZTCadVeiculo.Filter := 'Vel_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Veiculo_Vel_id.AsString);
  dmRentCar.ZTCadVeiculo.Filtered := True;

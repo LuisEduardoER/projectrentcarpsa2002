@@ -90,13 +90,14 @@ implementation
 
 uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado, URelVelDisp,
   URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil, UListChamados,
-  URelCliPesFis, UContrato, UGerContratos, URelCliPesJu;
+  URelCliPesFis, UContrato, UGerContratos, URelCliPesJu, UAcesso;
 
 {$R *.dfm}
 
 procedure TfrmRentCarPrincipal.FormShow(Sender: TObject);
 begin
-sbRentCar.Panels[1].Text := DateToStr(date);
+sbRentCar.Panels[0].Text := 'Usuario : '+ frmAcesso.edtLogin.Text;
+sbRentCar.Panels[3].Text := DateToStr(date);
 sbRentCar.Panels[2].Text := TimeToStr(now);
 end;
 
@@ -129,6 +130,7 @@ begin
  frmLocacao.ShowModal;
  frmLocacao.Free;
 
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
  dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
@@ -160,6 +162,8 @@ begin
  frmLocacao.btnConsultarLoc.Enabled := False;
  frmLocacao.ShowModal;
  frmLocacao.Free;
+
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
  dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
@@ -172,24 +176,25 @@ procedure TfrmRentCarPrincipal.PesFisicaClick(Sender: TObject);
 begin
  tipo := 'PF';
  cli := 'cli';
- //processo para a abrir as tebelas necessárias para o cadastro
 
  //rotina que carrega o formulário para o cadastro de clientes pessoa fisica
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
+ frmCadClientes.Caption := '@-RentCar - Cadastro Clientes Pessoa Fisica';
  frmCadClientes.tsDadosPJ.Destroy;
  frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPF;
  frmCadClientes.ShowModal;
  frmCadClientes.Free;
 
- //fechando as tabelas para não evitar que fiquem sendo carregadas
 end;
 
 procedure TfrmRentCarPrincipal.PesJuridicaClick(Sender: TObject);
 begin
  tipo := 'PJ';
  cli := 'cli';
+
   //rotina que carrega o formulário para o cadastro de clientes pessoa juridica
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
+ frmCadClientes.Caption := '@-RentCar - Cadastro Clientes Pessoa Jurídica';
  frmCadClientes.tsDadosPF.Destroy;
  frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPJ;
  frmCadClientes.ShowModal;
@@ -268,9 +273,12 @@ begin
  cli := 'FUN';
 
  Application.CreateForm(TfrmCadClientes, frmCadClientes);
+ frmCadClientes.Caption := '@-RentCar - Cadastro de Funcionários';
  frmCadClientes.tsDadosPJ.Destroy;
  frmCadClientes.pgcClientes.ActivePage := frmCadClientes.tsDadosPF;
  frmCadClientes.ShowModal;
+
+  //fechar a tabela para evitar que fique sendo carregada na memória
  frmCadClientes.Free;
 end;
 
@@ -281,6 +289,8 @@ begin
   Application.CreateForm(TfrmCadUsuarios, frmCadUsuarios);
   frmCadUsuarios.ShowModal;
   frmCadUsuarios.Free;
+
+ //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTAcesso.Close;
 end;
 
@@ -305,6 +315,8 @@ begin
   frmLocacao.btnSalvar.Caption := 'Confirmar Locacao';
   frmLocacao.ShowModal;
   frmLocacao.Free;
+
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
   dmRentCar.ZTCadVeiculo.Open;
   dmRentCar.ZTAlugar.Close;
   dmRentCar.ZTGerVal.Close;
@@ -334,6 +346,8 @@ begin
  frmLocacao.btnSalvar.Caption := 'Confirmar Locacao';
  frmLocacao.ShowModal;
  frmLocacao.Free;
+
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
  dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
@@ -382,6 +396,8 @@ begin
   frmGerarPerfil.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
   frmGerarPerfil.ShowModal;
   frmGerarPerfil.Free;
+  
+ //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTPesFis.Close;
 end;
 
@@ -398,6 +414,8 @@ begin
   frmGerarPerfil.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
   frmGerarPerfil.ShowModal;
   frmGerarPerfil.Free;
+  
+   //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTPesJu.Close;
 end;
 
@@ -416,6 +434,8 @@ begin
  frmRentCarAberturaChamado.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
  frmRentCarAberturaChamado.ShowModal;
  frmRentCarAberturaChamado.Free;
+ 
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
  dmRentCar.ZTChamado.Close;
  dmRentCar.ZTPesFis.Close;
  dmRentCar.ZTPessoa.Close;
@@ -436,6 +456,8 @@ begin
  frmRentCarAberturaChamado.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
  frmRentCarAberturaChamado.ShowModal;
  frmRentCarAberturaChamado.Free;
+
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
  dmRentCar.ZTChamado.Close;
  dmRentCar.ZTPesJu.Open;
  dmRentCar.ZTPessoa.Open;
@@ -451,6 +473,8 @@ begin
  Application.CreateForm(TfrmListChamados, frmListChamados);
  frmListChamados.ShowModal;
  frmListChamados.Free;
+ 
+  //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTChamado.Close;
 end;
 
@@ -463,6 +487,8 @@ begin
  Application.CreateForm(TfrmListChamados, frmListChamados);
  frmListChamados.ShowModal;
  frmListChamados.Free;
+
+ //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTChamado.Close;
 end;
 
@@ -480,6 +506,8 @@ begin
   frmLocacao.btnSalvar.Caption := 'Confirmar Devolucao';
   frmLocacao.ShowModal;
   frmLocacao.Free;
+
+ //fechar as tabelas para evitar que fiquem sendo carregadas na memória
   dmRentCar.ZTAlugar.Close;
   dmRentCar.ZTGerVal.Close;  
 end;                         
@@ -551,6 +579,8 @@ begin
   frmGerContratos.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
   frmGerContratos.ShowModal;
   frmGerContratos.Free;
+  
+   //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTPesFis.Close;
 end;
 
@@ -567,6 +597,8 @@ contrato := 'ContLocPesJu';
  frmGerContratos.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
  frmGerContratos.ShowModal;
  frmGerContratos.Free;
+ 
+  //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTPesJu.Close;
 end;
 

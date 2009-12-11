@@ -19,7 +19,7 @@ type
     lblData: TLabel;
     DBREChamado: TDBRichEdit;
     lblDesc: TLabel;
-    brnSalvar: TButton;
+    btnSalvar: TButton;
     lblProtocol: TLabel;
     DBTProtocol: TDBText;
     DBTHora: TDBText;
@@ -30,7 +30,7 @@ type
     DBLookupCliente: TDBLookupComboBox;
     procedure btnCadastrarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
-    procedure brnSalvarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
     procedure btnBuscarClick(Sender: TObject);
     procedure btnLimparClick(Sender: TObject);
     procedure DBLookupClienteClick(Sender: TObject);
@@ -52,6 +52,8 @@ uses UDMRentCar, UBCliente;
 
 procedure TfrmRentCarAberturaChamado.btnCadastrarClick(Sender: TObject);
 begin
+ gbAberturaChamados.Enabled := True;
+ btnCadastrar.Enabled := False;
  dmRentCar.ZTChamado.Insert;
  DBTHora.Caption := TimeToStr(Time); 
 end;
@@ -61,7 +63,7 @@ begin
  close;
 end;
 
-procedure TfrmRentCarAberturaChamado.brnSalvarClick(Sender: TObject);
+procedure TfrmRentCarAberturaChamado.btnSalvarClick(Sender: TObject);
 Var
 Rand : integer;
 protocol : string;
@@ -76,8 +78,10 @@ begin
 
 dmRentCar.ZTChamadoCh_HoraCh.Value := Now;
 dmRentCar.ZTChamadoCh_DataCh.Value := DataChamado.Date;
-dmRentCar.ZTChamadoCh_Protocol.AsString := protocol;
+dmRentCar.ZTChamadoCh_Protocol.AsInteger := StrToInt(protocol);
 dmRentCar.ZTChamado.Post;
+btnCadastrar.Enabled := True;
+btnSalvar.Enabled := False;
 end;
 
 procedure TfrmRentCarAberturaChamado.btnBuscarClick(Sender: TObject);

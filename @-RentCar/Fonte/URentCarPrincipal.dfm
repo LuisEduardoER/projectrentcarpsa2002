@@ -2382,12 +2382,16 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
     Height = 19
     Panels = <
       item
+        Text = 'Login'
+        Width = 100
+      end
+      item
         Text = '@-RentCar - Gerencimanto de Locadora de Ve'#237'culos'
-        Width = 700
+        Width = 600
       end
       item
         Text = 'Hora'
-        Width = 80
+        Width = 50
       end
       item
         Text = 'Data'
