@@ -96,8 +96,6 @@ type
     procedure DBECEPKeyPress(Sender: TObject; var Key: Char);
     procedure DBECPFKeyPress(Sender: TObject; var Key: Char);
     procedure DBECNPJKeyPress(Sender: TObject; var Key: Char);
-    procedure MaskEdit1Exit(Sender: TObject);
-    procedure DBTelOpExit(Sender: TObject);
 
 
 
@@ -344,10 +342,6 @@ Num, texto: string;
 t: TStringList;
 ListBox: TListBox;
 begin
-{  dmRentCar.ZTEndereco.Filtered := False;
-  dmRentCar.ZTEndereco.Filter := 'End_CEP = '+QuotedStr(DBECEP.Text);
-  dmRentCar.ZTEndereco.Filtered := True;  }
-
   ObjSoap:=HTTCEP as CEPServicePort;
 
   Num:= DBECEP.Text;
@@ -502,7 +496,7 @@ begin
      lblStatusCad.Caption := 'Alterando Cadastro...';
      dmRentCar.ZTPesJu.Edit;
      btnSalvar.Enabled := True;
-     tsDadosPF.Enabled := True;
+     tsDadosPJ.Enabled := True;
      tsEndereco.Enabled := True;
      tsContato.Enabled := True;
    end;
@@ -631,6 +625,9 @@ begin
   Begin
    dmRentCar.ZTAlugar.Open;
    dmRentCar.ZTChamado.Open;
+   dmRentCar.ZTEndereco.Open;
+   dmRentCar.ZTPessoa.Open;
+   dmRentCar.ZTPesFis.Open;
 
    dmRentCar.ZTPessoa.Filtered := False;
    dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
@@ -649,7 +646,7 @@ begin
    dmRentCar.ZTAlugar.Filtered := True;
 
    //dmRentCar.ZTAlugar.Filtered := False;
-   dmRentCar.ZTChamado.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.AsString);
+   dmRentCar.ZTChamado.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
    dmRentCar.ZTChamado.Filtered := True;
 
    dmRentCar.ZTEndereco.Delete;
@@ -665,12 +662,18 @@ begin
        dmRentCar.ZTChamado.Delete;
    end;
 
-
+   ShowMessage('Exclusão executada com sucesso');
    dmRentCar.ZQCliente.Refresh;
   end else
   //caso seja cadastro pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
+   dmRentCar.ZTAlugar.Open;
+   dmRentCar.ZTChamado.Open;
+   dmRentCar.ZTEndereco.Open;
+   dmRentCar.ZTPessoa.Open;
+   dmRentCar.ZTPesJu.Open;
+
    dmRentCar.ZTPessoa.Filtered := False;
    dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
    dmRentCar.ZTPessoa.Filtered := True;
@@ -693,16 +696,17 @@ begin
 
    dmRentCar.ZTEndereco.Delete;
    dmRentCar.ZTPessoa.Delete;
-   dmRentCar.ZTPesFis.Delete;
+   dmRentCar.ZTPesJu.Delete;
 
    if not dmRentCar.ZTAlugar.IsEmpty then
    Begin
      dmRentCar.ZTAlugar.Delete;
    end else
-   if dmRentCar.ZTChamado.IsEmpty then
+   if not dmRentCar.ZTChamado.IsEmpty then
    Begin
        dmRentCar.ZTChamado.Delete;
    end;
+        ShowMessage('Exclusão executada com sucesso');
        dmRentCar.ZQCliente.Refresh;
   end;
  end;
@@ -715,11 +719,13 @@ begin
  // caso seja cadastro pessoa fisica ou funcionario
  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
  Begin
+   dmRentCar.ZTEndereco.ClearFields;
    dmRentCar.ZTPesFis.ClearFields;
  end else
  //caso seja cadastro de pessoa juridica
  if frmRentCarPrincipal.tipo = 'PJ' then
   Begin
+   dmRentCar.ZTEndereco.ClearFields;
    dmRentCar.ZTPesJu.ClearFields;
   end;
 end;
@@ -743,11 +749,12 @@ begin
      Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pesju.PesJu_NmFantasia as NmFantasia, rentcar_pesju.PesJu_CNPJ as CNPJ, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pessoa.pes_TelOP as TelOP, rentcar_pessoa.pes_Cel as CEL');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_Id, rentcar_pesju.PesJu_NmFantasia as NmFantasia, rentcar_pesju.PesJu_CNPJ as CNPJ, rentcar_pessoa.pes_TelRes as TelRes, rentcar_pessoa.pes_TelOP as TelOP, rentcar_pessoa.pes_Cel as CEL');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesju.RentCar_Pessoa_Pes_id');
       ZQCliente.Open;
+      ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
      end else
      if frmRentCarPrincipal.tipo = 'FUN' then
      Begin
@@ -767,10 +774,6 @@ end;
 procedure TfrmCadClientes.DBTelResKeyPress(Sender: TObject; var Key: Char);
 begin
 
- if DBTelRes.Text = '' then
- Begin
-   ShowMessage('cu');
- end;
   if key = #13 then
     Begin
       DBTelOp.SetFocus;
@@ -800,42 +803,43 @@ begin
   if (DBENome.Text = '') then
   Begin
     ShowMessage('Nome é um campo obrigatório');
-    DBENome.SetFocus;
+    pgcClientes.ActivePage := tsDadosPF;
   end else
-  if (DBECPF.Text = '') then
+  if (DBECPF.Text = '') or (DBECPF.MaxLength < 11) then
   Begin
     ShowMessage('CPF é um campo obrigatório');
-    DBECPF.SetFocus;
-  end else
+    pgcClientes.ActivePage := tsDadosPF;
+   end else
   if (DBERG.Text = '') then
   Begin
     ShowMessage('RG é um campo obrigatório');
-    DBERG.SetFocus;
-  end else
+     pgcClientes.ActivePage := tsDadosPF;
+   end else
   if (dbrgSexo.ItemIndex = -1) then
   Begin
     ShowMessage('Sexo é um campo obrigatório');
+    pgcClientes.ActivePage := tsDadosPF;
   end else
   if (DBECNH.Text = '') or (DBECNH.MaxLength < 11) then
   Begin
     ShowMessage('CNH é um campo obrigatório');
-    DBECNH.SetFocus;
+    pgcClientes.ActivePage := tsDadosPF;
   end else
   if (DBECEP.Text = '') then
   Begin
     ShowMessage('CEP é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
-    DBECEP.SetFocus;
+   // DBECEP.SetFocus;
   end else
   if (DBENumero.Text = '') then
   Begin
     ShowMessage('Numero é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
-    DBENumero.SetFocus;
   end else
   if (DBTelRes.Text = '') or (DBTelOp.Text = '') or (DBCel.Text = '') or (DBEmail.Text = '')  then
   Begin
     ShowMessage('Preencha pelo menos um tipo de contato');
+    pgcClientes.ActivePage := tsContato;
   end else
   Begin
     cpf := DBECPF.Text;
@@ -860,6 +864,7 @@ begin
     Begin
       dmRentCar.ZTPesFisPesFis_Tipo.Value := 'C';
     end;
+
     if op = 'C' then
     Begin
       dmRentCar.ZQFunctions.Close;
@@ -877,6 +882,9 @@ begin
     end else
     Begin
       dmRentCar.ZTPesFis.Post;
+      btnCadastar.Enabled := True;
+      btnSalvar.Enabled := False;
+      btnAlterar.Enabled := True;
       lblStatusCad.Visible := True;
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
       btnCadastar.Enabled := True;
@@ -886,6 +894,9 @@ begin
     end else
     Begin
       dmRentCar.ZTPesFis.Post;
+      btnCadastar.Enabled := True;
+      btnSalvar.Enabled := False;
+      btnAlterar.Enabled := True;
       lblStatusCad.Visible := True;
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
     end;
@@ -912,32 +923,32 @@ begin
   if (DBENmFant.Text = '') then
   Begin
     ShowMessage('Nome Fantasia é um campo obrigatório');
-    DBENmFant.SetFocus;
+    pgcClientes.ActivePage := tsDadosPJ;
   end else
   if (DBERzSocial.Text = '') then
   Begin
     ShowMessage('Razão Social é um campo obrigatório');
-    DBERzSocial.SetFocus;
+    pgcClientes.ActivePage := tsDadosPJ;
   end else
-  if (DBECNPJ.Text = '') then
+  if (DBECNPJ.Text = '') or (DBECNPJ.MaxLength < 14) then
   Begin
     ShowMessage('CNPJ é um campo obrigatório');
-    DBECNPJ.SetFocus;
+    pgcClientes.ActivePage := tsDadosPJ;
   end else
   if (DBECEP.Text = '') then
   Begin
     ShowMessage('CEP é um campo obrigatório');
-    DBECEP.SetFocus;
+    pgcClientes.ActivePage := tsEndereco;
   end else
   if (DBENumero.Text = '') then
   Begin
     ShowMessage('Numero é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
-    DBENumero.SetFocus;
   end else
   if (DBTelRes.Text = '') or (DBTelOp.Text = '') or (DBCel.Text = '') or (DBEmail.Text = '')  then
   Begin
     ShowMessage('Preencha pelo menos um tipo de contato');
+    pgcClientes.ActivePage := tsContato;
   end else
   Begin
     cnpj := DBECNPJ.Text;
@@ -972,6 +983,9 @@ begin
       end else
       Begin
         dmRentCar.ZTPesJu.Post;
+        btnCadastar.Enabled := True;
+        btnSalvar.Enabled := False;
+        btnAlterar.Enabled := True;
       end;
       lblStatusCad.Visible := True;
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
@@ -1046,24 +1060,5 @@ begin
    Key := #0;
 end;
 
-
-procedure TfrmCadClientes.MaskEdit1Exit(Sender: TObject);
-begin
- try
- ShowMessage('Ê');
- except
-    ShowMessage('pega pora');
- end;
-
-end;
-
-procedure TfrmCadClientes.DBTelOpExit(Sender: TObject);
-begin
- if (DBTelOp.Text<>'(99)9999-9999;0;_') then
- Begin
-    ShowMessage('pega pora');
- end; 
-
-end;
 
 end.

@@ -77,6 +77,7 @@ procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
 begin
 // dmRentCar.ZTAcesso.Open;
  dmRentCar.ZTAcesso.Insert;
+ gbUsuarios.Enabled := True;
  btnSalvar.Enabled := True;
  btnCadastar.Enabled := False;
 end;

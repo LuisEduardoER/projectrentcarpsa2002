@@ -91,7 +91,7 @@ begin
  With dmRentCar do
  Begin
   ZTAcesso.Filtered := False;
-  ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+ QuotedStr(dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsString)+' and ;
+  ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+ QuotedStr(dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsString);
   ZTAcesso.Filtered := True;
   ZTAcesso.Open;
 

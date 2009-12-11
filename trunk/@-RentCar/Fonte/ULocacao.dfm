@@ -233,11 +233,17 @@ object frmLocacao: TfrmLocacao
           Caption = 'Ve'#237'culo'
         end
         object Label6: TLabel
-          Left = 288
+          Left = 286
           Top = 141
-          Width = 62
+          Width = 80
           Height = 13
-          Caption = 'Valor Aluguel'
+          Caption = 'Valor Aluguel:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
         end
         object DBTVlr: TDBText
           Left = 368

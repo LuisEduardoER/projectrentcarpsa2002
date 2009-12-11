@@ -1,8 +1,8 @@
 object frmRentCarVlrVeiculos: TfrmRentCarVlrVeiculos
   Left = 454
   Top = 300
-  Width = 581
-  Height = 333
+  Width = 286
+  Height = 165
   Caption = '@-RentCar - Valores Ve'#237'culos'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,7 +12,6 @@ object frmRentCarVlrVeiculos: TfrmRentCarVlrVeiculos
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object DBTMarca: TDBText
@@ -88,18 +87,5 @@ object frmRentCarVlrVeiculos: TfrmRentCarVlrVeiculos
     Caption = 'Sair'
     TabOrder = 3
     OnClick = btnSairClick
-  end
-  object DBGrid1: TDBGrid
-    Left = 248
-    Top = 136
-    Width = 320
-    Height = 120
-    DataSource = dmRentCar.dsTGerVal
-    TabOrder = 4
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = []
   end
 end

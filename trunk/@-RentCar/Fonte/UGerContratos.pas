@@ -10,7 +10,6 @@ type
   TfrmGerContratos = class(TForm)
     gbFiltros: TGroupBox;
     Label1: TLabel;
-    btnB: TButton;
     DBLookupCliente: TDBLookupComboBox;
     btnGerarContrato: TButton;
     pbPerfil: TProgressBar;

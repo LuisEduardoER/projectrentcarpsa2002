@@ -65,7 +65,6 @@ begin
      Begin
       ShowMessage('Não existem dados de locação para o cliente escolhido');
      end else
-     if dmRentCar.ZQAlugar.RecordCount > 1 then
     Begin
     Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
     frmContratoLocacao.QRVelContrLoc.Preview;

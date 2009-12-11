@@ -16,7 +16,7 @@ object frmContratoLocacao: TfrmContratoLocacao
   TextHeight = 13
   object QRVelContrLoc: TQuickRep
     Left = 0
-    Top = 87
+    Top = -1
     Width = 1123
     Height = 794
     Frame.Color = clBlack
@@ -1274,7 +1274,7 @@ object frmContratoLocacao: TfrmContratoLocacao
       object QRLabel30: TQRLabel
         Left = 693
         Top = 371
-        Width = 292
+        Width = 283
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1285,12 +1285,12 @@ object frmContratoLocacao: TfrmContratoLocacao
           44.979166666666670000
           1833.562500000000000000
           981.604166666666800000
-          772.583333333333400000)
+          748.770833333333400000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = #224' outra parte com anteced'#234'ncia m'#237'nima de (xxx) dias.'
+        Caption = #224' outra parte com anteced'#234'ncia m'#237'nima de 03 dias.'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -1338,7 +1338,7 @@ object frmContratoLocacao: TfrmContratoLocacao
       object QRLabel32: TQRLabel
         Left = 24
         Top = 413
-        Width = 202
+        Width = 218
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -1349,12 +1349,12 @@ object frmContratoLocacao: TfrmContratoLocacao
           44.979166666666670000
           63.500000000000000000
           1092.729166666667000000
-          534.458333333333400000)
+          576.791666666666800000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
-        Caption = 'no valor de R$ (xxx) (Valor expresso).'
+        Caption = 'no valor de R$ 200,00 (Duzentos reais).'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText

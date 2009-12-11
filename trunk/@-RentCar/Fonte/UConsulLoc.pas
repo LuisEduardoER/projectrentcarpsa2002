@@ -49,7 +49,7 @@ dF := FormatDateTime('yyyy-MM-dd',DateF.date);
    Begin
      ZQFunctions.Close;
      ZQFunctions.SQL.Clear;
-     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome, rentcar_veiculo.Vel_Espec, rentcar_alugar.DataReserva from rentcar_alugar ');
+     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id , rentcar_pesfis.PesFis_Nome , rentcar_veiculo.Vel_Espec from rentcar_alugar ');
      ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
      ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
      ZQFunctions.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');
@@ -70,7 +70,7 @@ dF := FormatDateTime('yyyy-MM-dd',DateF.date);
    Begin
      ZQFunctions.Close;
      ZQFunctions.SQL.Clear;
-     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id, rentcar_pesju.PesJu_NmFantasia, rentcar_veiculo.Vel_Espec, rentcar_alugar.DataReserva from rentcar_alugar ');
+     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id, rentcar_pesju.PesJu_NmFantasia, rentcar_veiculo.Vel_Espec from rentcar_alugar ');
      ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
      ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
      ZQFunctions.SQL.Add('inner join rentcar_pesJu on rentcar_pesJu.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');

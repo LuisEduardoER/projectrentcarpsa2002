@@ -117,6 +117,7 @@ procedure TfrmLocacao.btnAlterarClick(Sender: TObject);
 begin
  dmRentCar.ZTAlugar.Edit;
  dmRentCar.ZTGerVal.Edit;
+ btnSalvar.Enabled := True;
 end;
 
 procedure TfrmLocacao.btnSalvarClick(Sender: TObject);
