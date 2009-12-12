@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, DBCtrls, Mask, Grids, DBGrids, ExtCtrls;
+  Dialogs, StdCtrls, DBCtrls, Mask, Grids, DBGrids, ExtCtrls, Buttons;
 
 type
   TfrmCadUsuarios = class(TForm)
@@ -77,6 +77,7 @@ procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
 begin
 // dmRentCar.ZTAcesso.Open;
  dmRentCar.ZTAcesso.Insert;
+ gbUsuarios.Enabled := True;
  btnSalvar.Enabled := True;
  btnCadastar.Enabled := False;
 end;

@@ -1,6 +1,6 @@
 object frmCadClientes: TfrmCadClientes
-  Left = 236
-  Top = 111
+  Left = 271
+  Top = 199
   Width = 733
   Height = 551
   Caption = '@-RentCar - Cadastro de Clientes'
@@ -112,6 +112,7 @@ object frmCadClientes: TfrmCadClientes
         DataSource = dmRentCar.dsTPesFis
         MaxLength = 11
         TabOrder = 1
+        OnExit = DBECPFExit
         OnKeyPress = DBECPFKeyPress
       end
       object DBERG: TDBEdit
@@ -150,6 +151,7 @@ object frmCadClientes: TfrmCadClientes
         DataSource = dmRentCar.dsTPesFis
         MaxLength = 12
         TabOrder = 4
+        OnExit = DBECNHExit
         OnKeyPress = DBECNHKeyPress
       end
       object DateValidade: TDateTimePicker
@@ -176,6 +178,69 @@ object frmCadClientes: TfrmCadClientes
           'Divorciado(a)')
         TabOrder = 6
         OnKeyPress = DBCBEstCivilKeyPress
+      end
+      object Panel2: TPanel
+        Left = 529
+        Top = 5
+        Width = 155
+        Height = 137
+        BevelInner = bvLowered
+        BevelWidth = 2
+        Caption = 'Panel2'
+        Color = clSilver
+        TabOrder = 7
+        object VideoCap1: TVideoCap
+          Left = 4
+          Top = 4
+          Width = 147
+          Height = 129
+          align = alClient
+          color = clSilver
+          DriverOpen = False
+          DriverIndex = 0
+          DriverName = 'Microsoft WDM Image Capture (Win32)'
+          VideoOverlay = False
+          VideoPreview = False
+          PreviewScaleToWindow = True
+          PreviewScaleProportional = True
+          PreviewRate = 30
+          MicroSecPerFrame = 33333
+          FrameRate = 30
+          CapAudio = False
+          VideoFileName = 'Video.avi'
+          SingleImageFile = 'C:\Foto.jpg'
+          CapTimeLimit = 0
+          CapIndexSize = 0
+          CapToFile = True
+          CapAudioFormat.Channels = Stereo
+          CapAudioFormat.Resolution = r16Bit
+          BufferFileSize = 0
+        end
+      end
+      object GroupBox1: TGroupBox
+        Left = 539
+        Top = 142
+        Width = 136
+        Height = 28
+        TabOrder = 8
+        object CheckPrev: TCheckBox
+          Left = 4
+          Top = 9
+          Width = 67
+          Height = 16
+          Caption = 'Visualizar'
+          TabOrder = 0
+          OnClick = CheckPrevClick
+        end
+      end
+      object BtSPict: TButton
+        Left = 538
+        Top = 175
+        Width = 138
+        Height = 25
+        Caption = 'Salvar Imagem'
+        TabOrder = 9
+        OnClick = BtSPictClick
       end
     end
     object tsDadosPJ: TTabSheet
@@ -234,6 +299,7 @@ object frmCadClientes: TfrmCadClientes
         DataSource = dmRentCar.dsTPesJu
         MaxLength = 14
         TabOrder = 1
+        OnExit = DBECNPJExit
         OnKeyPress = DBECNPJKeyPress
       end
       object DBERzSocial: TDBEdit
@@ -439,7 +505,9 @@ object frmCadClientes: TfrmCadClientes
         Height = 21
         DataField = 'Pes_TelRes'
         DataSource = dmRentCar.dsTPessoa
+        MaxLength = 14
         TabOrder = 0
+        OnExit = DBTelResExit
         OnKeyPress = DBTelResKeyPress
       end
       object DBCel: TDBEdit
@@ -450,6 +518,7 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_Cel'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 1
+        OnExit = DBCelExit
         OnKeyPress = DBCelKeyPress
       end
       object DBEmail: TDBEdit
@@ -460,6 +529,7 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_Email'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 2
+        OnExit = DBEmailExit
       end
       object DBTelOp: TDBEdit
         Left = 184
@@ -469,6 +539,7 @@ object frmCadClientes: TfrmCadClientes
         DataField = 'Pes_TelOp'
         DataSource = dmRentCar.dsTPessoa
         TabOrder = 3
+        OnExit = DBTelOpExit
         OnKeyPress = DBTelOpKeyPress
       end
     end

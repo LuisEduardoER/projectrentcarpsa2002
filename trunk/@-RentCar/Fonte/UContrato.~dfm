@@ -1,8 +1,8 @@
 object frmContratoLocacao: TfrmContratoLocacao
-  Left = -4
-  Top = -4
-  Width = 1288
-  Height = 778
+  Left = 132
+  Top = 196
+  Width = 870
+  Height = 500
   Caption = '@-RentCar - Contrato Loca'#231#227'o - Pessoa Fisica'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

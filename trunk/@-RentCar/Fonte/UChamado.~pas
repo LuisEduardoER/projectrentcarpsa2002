@@ -46,7 +46,7 @@ var
 
 implementation
 
-uses UDMRentCar, UBCliente;
+uses UDMRentCar;
 
 {$R *.dfm}
 
@@ -78,7 +78,7 @@ begin
 
 dmRentCar.ZTChamadoCh_HoraCh.Value := Now;
 dmRentCar.ZTChamadoCh_DataCh.Value := DataChamado.Date;
-dmRentCar.ZTChamadoCh_Protocol.Value := StrToInt(protocol);
+dmRentCar.ZTChamadoCh_Protocol.AsInteger := StrToInt(protocol);
 dmRentCar.ZTChamado.Post;
 btnCadastrar.Enabled := True;
 btnSalvar.Enabled := False;

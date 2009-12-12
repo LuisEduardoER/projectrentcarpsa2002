@@ -26,7 +26,7 @@ var
 
 implementation
 
-uses UBCliente, UPerfil, URentCarPrincipal;
+uses UPerfil, URentCarPrincipal;
 
 {$R *.dfm}
 

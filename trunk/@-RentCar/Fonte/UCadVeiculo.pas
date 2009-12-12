@@ -61,7 +61,7 @@ var
 
 implementation
 
-uses UDMRentCar, DateUtils, UGerVlrVeiculo, UConsultaVeiculos;
+uses UDMRentCar, DateUtils, UGerVlrVeiculo, UConsultas;
 
 {$R *.dfm}
 
@@ -212,9 +212,12 @@ end;
 procedure TfrmCadVeiculos.btnConsultarClick(Sender: TObject);
 begin
  dmRentCar.ZTCadVeiculo.Open;
- Application.CreateForm(TfrmConsultaVeiculos, frmConsultaVeiculos);
- frmConsultaVeiculos.ShowModal;
- frmConsultaVeiculos.Free;
+ Application.CreateForm(TfrmConsultas, frmConsultas);
+ frmConsultas.tsConsultClientes.Destroy;
+ frmConsultas.tsConsultLoc.Destroy;
+ frmConsultas.tsListagemChamados.Destroy;
+ frmConsultas.ShowModal;
+ frmConsultas.Free;
 end;
 
 procedure TfrmCadVeiculos.DBECorKeyPress(Sender: TObject; var Key: Char);

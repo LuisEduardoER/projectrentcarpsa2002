@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, DBCtrls, Mask, ComCtrls, Grids, DBGrids,
-  WinSkinData, InvokeRegistry, Rio, SOAPHTTPClient, Buttons;
+  WinSkinData, InvokeRegistry, Rio, SOAPHTTPClient, Buttons, Videocap, Jpeg,Clipbrd;
 
 type
   TfrmCadClientes = class(TForm)
@@ -67,6 +67,11 @@ type
     lblResCNPJ: TLabel;
     DBCBEstado: TDBComboBox;
     lblStatusCad: TLabel;
+    Panel2: TPanel;
+    VideoCap1: TVideoCap;
+    GroupBox1: TGroupBox;
+    CheckPrev: TCheckBox;
+    BtSPict: TButton;
     procedure btnSairClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -96,6 +101,15 @@ type
     procedure DBECEPKeyPress(Sender: TObject; var Key: Char);
     procedure DBECPFKeyPress(Sender: TObject; var Key: Char);
     procedure DBECNPJKeyPress(Sender: TObject; var Key: Char);
+    procedure BtSPictClick(Sender: TObject);
+    procedure CheckPrevClick(Sender: TObject);
+    procedure DBECPFExit(Sender: TObject);
+    procedure DBEmailExit(Sender: TObject);
+    procedure DBECNHExit(Sender: TObject);
+    procedure DBECNPJExit(Sender: TObject);
+    procedure DBTelResExit(Sender: TObject);
+    procedure DBTelOpExit(Sender: TObject);
+    procedure DBCelExit(Sender: TObject);
 
 
 
@@ -117,7 +131,7 @@ var
 
 implementation
 
-uses UBCliente, UDMRentCar, UCadVeiculo, URentCarPrincipal, DB, cep;
+uses UDMRentCar, UCadVeiculo, URentCarPrincipal, DB, cep, UConsultas;
 
 {$R *.dfm}
 
@@ -136,10 +150,12 @@ end;
 
 procedure TfrmCadClientes.btnConsultarClick(Sender: TObject);
 begin
-  //rotina para a chamada do formulário de busca de clientes
-  Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
-  frmConsultaClientes.ShowModal;
-  frmConsultaClientes.Free;
+ Application.CreateForm(TfrmConsultas, frmConsultas);
+ frmConsultas.tsConsultLoc.Destroy;
+ frmConsultas.tsConsultVeiculos.Destroy;
+ frmConsultas.tsListagemChamados.Destroy;
+ frmConsultas.ShowModal;
+ frmConsultas.Free;
 end;
 
 //Rotina para inserir um Cliente no Banco
@@ -797,8 +813,6 @@ begin
 end;
 
 procedure TfrmCadClientes.CadPF;
-var
-cpf : string;
 begin
   if (DBENome.Text = '') then
   Begin
@@ -842,20 +856,12 @@ begin
     pgcClientes.ActivePage := tsContato;
   end else
   Begin
-    cpf := DBECPF.Text;
-    lblResCPFCNPJ.Caption := confereCPF(cpf);
-    if lblResCPFCNPJ.Caption <> 'CPF Invalido' then
     Begin
-    if (valida_new_cnh(DBECNH.Text)) or (valida_old_cnh(DBECNH.Text)) then
-    Begin
-     ShowMessage('CNH Existente');
-    if ValidEmail(DBEmail.Text) then
-    Begin
-      dmRentCar.ZTEndereco.Post;
-      dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
-      dmRentCar.ZTPessoa.Post;
-      dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
-      dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
+     dmRentCar.ZTEndereco.Post;
+     dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
+     dmRentCar.ZTPessoa.Post;
+     dmRentCar.ZTPesFisRentCar_Pessoa_Pes_id.Value := dmRentCar.ZTPessoaPes_id.Value;
+     dmRentCar.ZTPesFisPesFis_Validade.Value :=  DateValidade.Date;
     if frmRentCarPrincipal.cli = 'FUN' then
     Begin
       dmRentCar.ZTPesFisPesFis_Tipo.Value := 'F';
@@ -903,22 +909,10 @@ begin
       dmRentCar.ZQCliente.Refresh;
       gbEndereco.Enabled := False;
     end;
-  end else
-  Begin
-   ShowMessage('CNH Inexistente');
-   DBECNH.SetFocus;
-  end
-  end else
-  Begin
-    ShowMessage('CPF Inválido');
-    DBECPF.SetFocus;
-  end;
   end;
 end;
 
 procedure TfrmCadClientes.CadPJ;
-var
-cnpj : string;
 begin
   if (DBENmFant.Text = '') then
   Begin
@@ -951,9 +945,6 @@ begin
     pgcClientes.ActivePage := tsContato;
   end else
   Begin
-    cnpj := DBECNPJ.Text;
-    lblResCNPJ.Caption := confereCNPJ(cnpj);
-    if lblResCNPJ.Caption <> 'CNPJ Invalido' then
     Begin
       dmRentCar.ZTEndereco.Post;
       dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.Value := dmRentCar.ZTEnderecoEnd_Id.Value;
@@ -991,10 +982,7 @@ begin
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
       gbEndereco.Enabled := False;
       dmRentCar.ZQCliente.Refresh;
-      end else
-      Begin
-        DBECNPJ.SetFocus;
-      end;
+    end;
     end;
 end;
 
@@ -1060,5 +1048,114 @@ begin
    Key := #0;
 end;
 
+
+procedure TfrmCadClientes.BtSPictClick(Sender: TObject);
+Var BMP : TBitMap;
+    JPG : TJpegImage;
+begin
+  VideoCap1.SaveToClipboard;
+  BMP := TBitMap.Create;
+  BMP.LoadFromClipboardFormat(cf_BitMap,ClipBoard.GetAsHandle(cf_Bitmap),0);
+  JPG := TJpegImage.Create;
+  JPG.Assign(BMP);
+  //JPG.SaveToFile(EditSPict.Text);
+//  BMP.SaveToFile(EditSPict.Text+'.bmp');
+  JPG.Free;
+//  BMP.Free;
+end;
+
+procedure TfrmCadClientes.CheckPrevClick(Sender: TObject);
+begin
+ VideoCap1.VideoPreview:=CheckPrev.Checked;
+end;
+
+procedure TfrmCadClientes.DBECPFExit(Sender: TObject);
+var
+cpf : string;
+begin
+   if Length(DBECPF.Text) < 11 then
+   Begin
+     DBECPF.SetFocus;
+   end else
+   Begin
+   cpf := DBECPF.Text;
+   lblResCPFCNPJ.Caption := confereCPF(cpf);
+   ShowMessage(lblResCPFCNPJ.Caption);
+   if lblResCPFCNPJ.Caption <> 'CPF Válido' then
+    Begin
+     DBECPF.SetFocus;
+    end;
+   end;
+end;
+
+procedure TfrmCadClientes.DBEmailExit(Sender: TObject);
+begin
+  if ValidEmail(DBEmail.Text) then
+  Begin
+    ShowMessage('Email Inválidado');
+    btnSalvar.Enabled := False;
+  end else
+  Begin
+    btnSalvar.Enabled := True;
+  end;
+end;
+
+procedure TfrmCadClientes.DBECNHExit(Sender: TObject);
+begin
+  if (valida_new_cnh(DBECNH.Text)) or (valida_old_cnh(DBECNH.Text)) then
+  Begin
+    
+  end else
+  Begin
+   ShowMessage('CNH Inexistente');
+   DBECNH.SetFocus; 
+  end;
+end;
+
+procedure TfrmCadClientes.DBECNPJExit(Sender: TObject);
+Var
+cnpj : string;
+begin
+   if Length(DBECNPJ.Text) < 11 then
+   Begin
+     DBECNPJ.SetFocus;
+   end else
+   Begin
+    cnpj := DBECNPJ.Text;
+    lblResCNPJ.Caption := confereCNPJ(cnpj);
+    if lblResCNPJ.Caption <> 'CNPJ Válido' then
+    Begin
+      DBECNPJ.SetFocus;
+    end;
+   end;
+end;
+
+
+procedure TfrmCadClientes.DBTelResExit(Sender: TObject);
+begin
+if pos(' ',DBTelRes.Text) > 0 Then
+begin 
+ showmessage('Campo com espaço(s) em brano digite novamente');
+ DBTelRes.SetFocus;
+ end;
+end;
+
+procedure TfrmCadClientes.DBTelOpExit(Sender: TObject);
+begin
+if pos(' ',DBTelOp.Text) > 0 Then 
+begin 
+ showmessage('Campo com espaço(s) em brano digite novamente');
+ DBTelOp.SetFocus;
+ end;
+end;
+
+procedure TfrmCadClientes.DBCelExit(Sender: TObject);
+begin
+if pos(' ',DBCel.Text) > 0 Then 
+begin 
+ showmessage('Campo com espaço(s) em brano digite novamente');
+ DBCel.SetFocus;
+ end;
+end;
 
 end.

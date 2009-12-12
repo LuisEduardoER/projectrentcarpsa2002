@@ -89,8 +89,9 @@ var
 implementation
 
 uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado, URelVelDisp,
-  URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil, UListChamados,
-  URelCliPesFis, UContrato, UGerContratos, URelCliPesJu, UAcesso;
+  URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil,
+  URelCliPesFis, UContrato, UGerContratos, URelCliPesJu, UAcesso,
+  UConsultas;
 
 {$R *.dfm}
 
@@ -470,9 +471,12 @@ begin
  //variavel que será usada para identificação na listagem dos chamados
  chamado := 'LE';
  dmRentCar.ZTChamado.Open;
- Application.CreateForm(TfrmListChamados, frmListChamados);
- frmListChamados.ShowModal;
- frmListChamados.Free;
+ Application.CreateForm(TfrmConsultas, frmConsultas);
+ frmConsultas.tsConsultClientes.Destroy;
+ frmConsultas.tsConsultLoc.Destroy;
+ frmConsultas.tsConsultVeiculos.Destroy;
+ frmConsultas.ShowModal;
+ frmConsultas.Free;
  
   //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTChamado.Close;
@@ -484,10 +488,12 @@ begin
  //variavel que será usada para identificação na listagem dos chamados
  chamado := 'LF';
  dmRentCar.ZTChamado.Open;
- Application.CreateForm(TfrmListChamados, frmListChamados);
- frmListChamados.ShowModal;
- frmListChamados.Free;
-
+ Application.CreateForm(TfrmConsultas, frmConsultas);
+ frmConsultas.tsConsultClientes.Destroy;
+ frmConsultas.tsConsultLoc.Destroy;
+ frmConsultas.tsConsultVeiculos.Destroy;
+ frmConsultas.ShowModal;
+ frmConsultas.Free;
  //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTChamado.Close;
 end;
