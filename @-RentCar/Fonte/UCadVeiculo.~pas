@@ -61,7 +61,7 @@ var
 
 implementation
 
-uses UDMRentCar, DateUtils, UGerVlrVeiculo, UConsultaVeiculos;
+uses UDMRentCar, DateUtils, UGerVlrVeiculo;
 
 {$R *.dfm}
 
@@ -167,7 +167,7 @@ begin
   if dmRentCar.ZTGerVal.IsEmpty then
  Begin
    dmRentCar.ZTGerVal.Insert;
-   frmRentCarVlrVeiculosbtnAlterar.Enabled:= False;
+   frmRentCarVlrVeiculos.btnAlterar.Enabled:= False;
  end else
  Begin
    dmRentCar.ZTGerVal.Edit;
@@ -212,9 +212,6 @@ end;
 procedure TfrmCadVeiculos.btnConsultarClick(Sender: TObject);
 begin
  dmRentCar.ZTCadVeiculo.Open;
- Application.CreateForm(TfrmConsultaVeiculos, frmConsultaVeiculos);
- frmConsultaVeiculos.ShowModal;
- frmConsultaVeiculos.Free;
 end;
 
 procedure TfrmCadVeiculos.DBECorKeyPress(Sender: TObject; var Key: Char);

@@ -31,7 +31,6 @@ type
     procedure btnCadastrarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
-    procedure btnBuscarClick(Sender: TObject);
     procedure btnLimparClick(Sender: TObject);
     procedure DBLookupClienteClick(Sender: TObject);
   private
@@ -46,7 +45,7 @@ var
 
 implementation
 
-uses UDMRentCar, UBCliente;
+uses UDMRentCar;
 
 {$R *.dfm}
 
@@ -82,13 +81,6 @@ dmRentCar.ZTChamadoCh_Protocol.AsInteger := StrToInt(protocol);
 dmRentCar.ZTChamado.Post;
 btnCadastrar.Enabled := True;
 btnSalvar.Enabled := False;
-end;
-
-procedure TfrmRentCarAberturaChamado.btnBuscarClick(Sender: TObject);
-begin
-  Application.CreateForm(TfrmConsultaClientes, frmConsultaClientes);
-  frmConsultaClientes.ShowModal;
-  frmConsultaClientes.Close;
 end;
 
 procedure TfrmRentCarAberturaChamado.btnLimparClick(Sender: TObject);

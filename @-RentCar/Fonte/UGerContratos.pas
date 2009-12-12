@@ -25,7 +25,7 @@ var
 
 implementation
 
-uses URentCarPrincipal, UContrato, UContraoPesJu, UDMRentCar, UConsulLoc;
+uses URentCarPrincipal, UContrato, UDMRentCar;
 
 {$R *.dfm}
 
@@ -94,9 +94,10 @@ begin
      Begin
 
 
-    Application.CreateForm(TfrmContratoLocacaoPesJu,frmContratoLocacaoPesJu);
-    frmContratoLocacaoPesJu.QRVelContrLocPesJu.Preview;
-    frmContratoLocacaoPesJu.Free;
+    Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+    frmContratoLocacao.QRVelContrLoc.Preview;
+    frmContratoLocacao.Free;
+
   end;
   end;
   end;

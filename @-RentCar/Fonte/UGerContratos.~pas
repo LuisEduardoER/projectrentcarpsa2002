@@ -10,7 +10,6 @@ type
   TfrmGerContratos = class(TForm)
     gbFiltros: TGroupBox;
     Label1: TLabel;
-    btnB: TButton;
     DBLookupCliente: TDBLookupComboBox;
     btnGerarContrato: TButton;
     pbPerfil: TProgressBar;
@@ -26,7 +25,7 @@ var
 
 implementation
 
-uses URentCarPrincipal, UContrato, UContraoPesJu, UDMRentCar, UConsulLoc;
+uses URentCarPrincipal, UContrato, UDMRentCar, UConsulLoc;
 
 {$R *.dfm}
 
@@ -95,9 +94,10 @@ begin
      Begin
 
 
-    Application.CreateForm(TfrmContratoLocacaoPesJu,frmContratoLocacaoPesJu);
-    frmContratoLocacaoPesJu.QRVelContrLocPesJu.Preview;
-    frmContratoLocacaoPesJu.Free;
+    Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+    frmContratoLocacao.QRVelContrLoc.Preview;
+    frmContratoLocacao.Free;
+
   end;
   end;
   end;

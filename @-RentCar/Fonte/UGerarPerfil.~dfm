@@ -15,7 +15,7 @@ object frmGerarPerfil: TfrmGerarPerfil
   PixelsPerInch = 96
   TextHeight = 13
   object gbFiltros: TGroupBox
-    Left = 24
+    Left = 64
     Top = 8
     Width = 250
     Height = 54

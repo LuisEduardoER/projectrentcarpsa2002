@@ -2,7 +2,7 @@ object frmCadUsuarios: TfrmCadUsuarios
   Left = 405
   Top = 244
   Width = 364
-  Height = 257
+  Height = 260
   Caption = '@-RentCar - Cadastro Usu'#225'rios'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

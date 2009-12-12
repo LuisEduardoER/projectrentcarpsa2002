@@ -2387,7 +2387,7 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       end
       item
         Text = '@-RentCar - Gerencimanto de Locadora de Ve'#237'culos'
-        Width = 400
+        Width = 600
       end
       item
         Text = 'Hora'

@@ -13,7 +13,7 @@ object dmRentCar: TdmRentCar
     AutoCommit = False
     ReadOnly = True
     TransactIsolationLevel = tiNone
-    Connected = True
+    Connected = False
     SQLHourGlass = False
     Left = 22
     Top = 8
@@ -146,19 +146,19 @@ object dmRentCar: TdmRentCar
     object ZTPessoaPes_TelRes: TStringField
       DisplayLabel = 'TelRes.'
       FieldName = 'Pes_TelRes'
-      EditMask = '!\(99\)9999-9999;0;_'
+      EditMask = '(99)9999-9999;0;'
       Size = 15
     end
     object ZTPessoaPes_Cel: TStringField
       DisplayLabel = 'Cel.'
       FieldName = 'Pes_Cel'
-      EditMask = '!\(99\)0000-0000;1;_'
+      EditMask = '(99)9999-9999;0;'
       Size = 15
     end
     object ZTPessoaPes_TelOp: TStringField
       DisplayLabel = 'TelOp.'
       FieldName = 'Pes_TelOp'
-      EditMask = '!\(99\)0000-0000;1;_'
+      EditMask = '(99)9999-9999;0;'
       Size = 15
     end
     object ZTPessoaPes_Email: TStringField

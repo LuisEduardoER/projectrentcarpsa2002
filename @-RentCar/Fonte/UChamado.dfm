@@ -62,7 +62,6 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Height = 25
       Caption = 'Buscar'
       TabOrder = 0
-      OnClick = btnBuscarClick
     end
     object DBLookupCliente: TDBLookupComboBox
       Left = 14

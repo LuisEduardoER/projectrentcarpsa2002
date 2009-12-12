@@ -82,9 +82,9 @@ var
   
 implementation
 
-uses UDMRentCar, URentCarPrincipal, UCadCliente, UBCliente,
-  StrUtils, DB, DateUtils, URelVelAlugados, UContrato, UContraoPesJu,
-  UGerVlrVeiculo, UConsulLoc;
+uses UDMRentCar, URentCarPrincipal, UCadCliente,
+  StrUtils, DB, DateUtils, URelVelAlugados, UContrato,
+  UGerVlrVeiculo, UConsultas;
 
 {$R *.dfm}
 
@@ -205,9 +205,9 @@ begin
         end else
         if Application.MessageBox('Deseja gerar o contrato de Locação?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
         Begin
-          Application.CreateForm(TfrmContratoLocacaoPesJu,frmContratoLocacaoPesJu);
-          frmContratoLocacaoPesJu.QRVelContrLocPesJu.Preview;
-          frmContratoLocacaoPesJu.Free;
+          Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+          frmContratoLocacao.QRVelContrLoc.Preview;
+          frmContratoLocacao.Free;
          end;
       end;
     end;
@@ -469,22 +469,26 @@ end;
 
 procedure TfrmLocacao.btnConsultarLocClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrmConsultarLocacoes, frmConsultarLocacoes);
+  Application.CreateForm(TfrmConsultas, frmConsultas);
   if frmRentCarPrincipal.veiculo = 'PFL' then
   Begin
-    frmConsultarLocacoes.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
-    frmConsultarLocacoes.DBLookupCliente.ListField := 'PesFis_Nome';
-    frmConsultarLocacoes.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+    frmConsultas.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
+    frmConsultas.DBLookupCliente.ListField := 'PesFis_Nome';
+    frmConsultas.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
   end else
   if frmRentCarPrincipal.veiculo = 'PFL' then
   Begin
-    frmConsultarLocacoes.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
-    frmConsultarLocacoes.DBLookupCliente.ListField := 'PesJu_NmFantasia';
-    frmConsultarLocacoes.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+    frmConsultas.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+    frmConsultas.DBLookupCliente.ListField := 'PesJu_NmFantasia';
+    frmConsultas.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
 
   end;
-  frmConsultarLocacoes.ShowModal;
-  frmConsultarLocacoes.Free;
+
+  frmConsultas.tsConsultClientes.Destroy;
+  frmConsultas.tsListagemChamados.Destroy;
+  frmConsultas.tsConsultVeiculos.Destroy;
+  frmConsultas.ShowModal;
+  frmConsultas.Free;
 end;
 
 end.
