@@ -8,23 +8,23 @@ uses
 
 type
   TfrmCadUsuarios = class(TForm)
-    btnCadastar: TButton;
-    btnSalvar: TButton;
-    btnAlterar: TButton;
-    btnSair: TButton;
     gbUsuarios: TGroupBox;
     DBRGPerfil: TDBRadioGroup;
     lblAdicionarPerfil: TLabel;
     DBESenha: TDBEdit;
     lblSenha: TLabel;
     DBLookupCBPessoa: TDBLookupComboBox;
-    lblPessoa: TLabel;
-    procedure btnSairClick(Sender: TObject);
+    lblUsuario: TLabel;
+    btnCadastrar: TBitBtn;
+    btnSalvar: TBitBtn;
+    btnFechar: TBitBtn;
+    btnAlterar: TBitBtn;
     procedure FormShow(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
-    procedure btnCadastarClick(Sender: TObject);
-    procedure btnAlterarClick(Sender: TObject);
     procedure DBLookupCBPessoaClick(Sender: TObject);
+    procedure btnCadastrarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,11 +40,6 @@ uses UDMRentCar, DB;
 
 {$R *.dfm}
 
-procedure TfrmCadUsuarios.btnSairClick(Sender: TObject);
-begin
- close;
-end;
-
 procedure TfrmCadUsuarios.FormShow(Sender: TObject);
 begin
  With dmRentCar do
@@ -58,35 +53,6 @@ begin
  end;
 end;
 
-procedure TfrmCadUsuarios.btnSalvarClick(Sender: TObject);
-begin
- if DBLookupCBPessoa.Text = '' then
- Begin
-   ShowMessage('Escolha o usuário');
- end else
- Begin
-   dmRentCar.ZTAcessoRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsInteger;
-   dmRentCar.ZTAcessoAc_Login.Value := DBLookupCBPessoa.Text;
-   dmRentCar.ZTAcesso.Post;
-   btnSalvar.Enabled := False;
-   btnCadastar.Enabled := True;
- end;
-end;
-
-procedure TfrmCadUsuarios.btnCadastarClick(Sender: TObject);
-begin
-// dmRentCar.ZTAcesso.Open;
- dmRentCar.ZTAcesso.Insert;
- gbUsuarios.Enabled := True;
- btnSalvar.Enabled := True;
- btnCadastar.Enabled := False;
-end;
-
-procedure TfrmCadUsuarios.btnAlterarClick(Sender: TObject);
-begin
- dmRentCar.ZTAcesso.Edit;
-end;
-
 procedure TfrmCadUsuarios.DBLookupCBPessoaClick(Sender: TObject);
 begin
  With dmRentCar do
@@ -98,9 +64,46 @@ begin
 
   if not ZTAcesso.IsEmpty then
    Begin
-     btnCadastar.Enabled := False;
+     btnCadastrar.Enabled := False;
    end;
  end;
+
+end;
+
+procedure TfrmCadUsuarios.btnCadastrarClick(Sender: TObject);
+begin
+// dmRentCar.ZTAcesso.Open;
+ dmRentCar.ZTAcesso.Insert;
+ gbUsuarios.Enabled := True;
+ btnSalvar.Enabled := True;
+ btnCadastrar.Enabled := False;
+
+end;
+
+procedure TfrmCadUsuarios.btnSalvarClick(Sender: TObject);
+begin
+ if DBLookupCBPessoa.Text = '' then
+ Begin
+   ShowMessage('Escolha o usuário');
+ end else
+ Begin
+   dmRentCar.ZTAcessoRentCar_PesFis_PesFis_id.Value := dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsInteger;
+   dmRentCar.ZTAcessoAc_Login.Value := DBLookupCBPessoa.Text;
+   dmRentCar.ZTAcesso.Post;
+   btnSalvar.Enabled := False;
+   btnCadastrar.Enabled := True;
+ end;
+
+end;
+
+procedure TfrmCadUsuarios.btnFecharClick(Sender: TObject);
+begin
+ close;
+end;
+
+procedure TfrmCadUsuarios.btnAlterarClick(Sender: TObject);
+begin
+ dmRentCar.ZTAcesso.Edit;
 
 end;
 

@@ -59,7 +59,7 @@ var
 
 implementation
 
-uses UDMRentCar, ULocacao, UGerContratos, URentCarPrincipal;
+uses UDMRentCar, ULocacao, URentCarPrincipal;
 
 {$R *.dfm}
 

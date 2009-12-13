@@ -33,18 +33,6 @@ type
     dsQFunctions: TDataSource;
     ZTAcesso: TZTable;
     dsAcesso: TDataSource;
-    ZTAlugarAlu_id: TIntegerField;
-    ZTAlugarRentCar_Pessoa_Pes_id: TIntegerField;
-    ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField;
-    ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField;
-    ZTGerValGerVal_id: TIntegerField;
-    ZTGerValRentCar_Veiculo_Vel_id: TIntegerField;
-    ZTGerValGerVal_ValAlu: TLargeintField;
-    ZTGerValGerVal_ValAPag: TLargeintField;
-    ZTAlugarPerInicialLoc: TDateField;
-    ZTAlugarPerFinalLoc: TDateField;
-    ZTAlugarDataReserva: TDateField;
-    ZTGerValGerVal_TipoPag: TStringField;
     ZTPesJuPesJu_id: TIntegerField;
     ZTPesJuRentCar_Pessoa_Pes_id: TIntegerField;
     ZTPesJuPesJu_CNPJ: TStringField;
@@ -76,7 +64,6 @@ type
     ZTChamadoCh_id: TIntegerField;
     ZTChamadoRentCar_Pessoa_Pes_id: TIntegerField;
     ZTChamadoCh_TipoCh: TStringField;
-    ZTChamadoCh_DescCh: TMemoField;
     ZTChamadoCh_Protocol: TIntegerField;
     ZTChamadoCh_HoraCh: TTimeField;
     ZTChamadoCh_DataCh: TDateField;
@@ -98,6 +85,32 @@ type
     ZTAcessoAc_Login: TStringField;
     ZTAcessoAc_Senha: TIntegerField;
     ZTAcessoAc_Perfil: TStringField;
+    ZTChamadoCh_DescCh: TMemoField;
+    ZTAcessorios: TZTable;
+    dsTAcessorios: TDataSource;
+    ZTTipoAcessorios: TZTable;
+    dsTTipoAcessorios: TDataSource;
+    ZTAcessoriosAcessorio_id: TIntegerField;
+    ZTAcessoriosRentCar_TipoAcessorios_TipoAcessorio_Id: TIntegerField;
+    ZTAcessoriosRentCar_Veiculo_Vel_id: TIntegerField;
+    ZTPesFisPesFis_DtNascimento: TDateField;
+    ZTAlugarAlu_id: TIntegerField;
+    ZTAlugarRentCar_Pessoa_Pes_id: TIntegerField;
+    ZTAlugarRentCar_TabelaPrecos_GerVal_id: TIntegerField;
+    ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField;
+    ZTAlugarAlu_PerInicialLoc: TDateField;
+    ZTAlugarAlu_PerFinalLoc: TDateField;
+    ZTAlugarAlu_DataReserva: TDateField;
+    ZTTipoAcessoriosTipoAcessorio_Id: TIntegerField;
+    ZTTipoAcessoriosAcessrio: TIntegerField;
+    ZTPessoaPes_Img: TBlobField;
+    ZTPesJuRentCar_PesFis_PesFis_id: TIntegerField;
+    ZTGerValGerVal_id: TIntegerField;
+    ZTGerValRentCar_Veiculo_Vel_id: TIntegerField;
+    ZTGerValGerVal_ValAluDiaria: TFloatField;
+    ZTGerValGerVal_ValAluMensal: TFloatField;
+    ZTGerValGerVal_TipoPg: TStringField;
+    ZTAlugarAlu_VlrTotalAPg: TFloatField;
   private
     { Private declarations }
   public

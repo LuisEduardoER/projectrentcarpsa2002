@@ -28,7 +28,7 @@ var
 
 implementation
 
-uses UDMRentCar, UGerarPerfil;
+uses UDMRentCar;
 
 {$R *.dfm}
 

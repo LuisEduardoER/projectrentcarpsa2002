@@ -18,13 +18,12 @@ uses
   MsgEditor in 'MsgEditor.pas' {frmMessageEditor},
   URelVelRes in 'URelVelRes.pas' {frmRelVelRes},
   UPerfil in 'UPerfil.pas' {frmPerfil},
-  UGerarPerfil in 'UGerarPerfil.pas' {frmGerarPerfil},
-  UListChamados in 'UListChamados.pas' {frmListChamados},
   URelCliPesFis in 'URelCliPesFis.pas' {frmRelCliPesFis},
   URelCliPesJu in 'URelCliPesJu.pas' {frmRelCliPesJu},
-  UGerContratos in 'UGerContratos.pas' {frmGerContratos},
-  UCadAcessorios in 'UCadAcessorios.pas' {Form1},
-  UConsultas in 'UConsultas.pas' {frmConsultas};
+  UCadAcessorios in 'UCadAcessorios.pas' {frmAcessorios},
+  UConsultas in 'UConsultas.pas' {frmConsultas},
+  UGerar in 'UGerar.pas' {frmGerar},
+  UCapImage in 'UCapImage.pas' {frmCapImage};
 
 {$R *.res}
 
@@ -36,7 +35,9 @@ begin
   Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmAcessorios, frmAcessorios);
   Application.CreateForm(TfrmConsultas, frmConsultas);
+  Application.CreateForm(TfrmGerar, frmGerar);
+  Application.CreateForm(TfrmCapImage, frmCapImage);
   Application.Run;
 end.

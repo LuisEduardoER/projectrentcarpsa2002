@@ -8,17 +8,27 @@ CREATE TABLE RentCar_Acesso (
   INDEX RentCar_Acesso_PesFis(RentCar_PesFis_PesFis_id)
 );
 
+CREATE TABLE RentCar_Acessorio (
+  Acessorio_id INTEGER NOT NULL AUTO_INCREMENT,
+  RentCar_TipoAcessorios_TipoAcessorio_Id INTEGER NOT NULL,
+  RentCar_Veiculo_Vel_id INTEGER NOT NULL,
+  PRIMARY KEY(Acessorio_id),
+  INDEX RentCar_Acessorio_Veiculo(RentCar_Veiculo_Vel_id),
+  INDEX RentCar_Acessorio_TipoAcessorio(RentCar_TipoAcessorios_TipoAcessorio_Id)
+);
+
 CREATE TABLE RentCar_Alugar (
   Alu_id INTEGER NOT NULL AUTO_INCREMENT,
   RentCar_Pessoa_Pes_id INTEGER NOT NULL,
-  RentCar_Ger_Valores_GerVal_id INTEGER NOT NULL,
+  RentCar_TabelaPrecos_GerVal_id INTEGER NOT NULL,
   RentCar_Veiculo_Vel_id INTEGER NOT NULL,
-  PerInicialLoc DATE NULL,
-  PerFinalLoc DATE NULL,
-  DataReserva DATE NULL,
+  Alu_PerInicialLoc DATE NULL,
+  Alu_PerFinalLoc DATE NULL,
+  Alu_DataReserva DATE NULL,
+  Alu_VlrTotalAPg INTEGER NULL,
   PRIMARY KEY(Alu_id),
   INDEX RentCar_Alugar_Veiculo(RentCar_Veiculo_Vel_id),
-  INDEX RentCar_Alugar_Valores(RentCar_Ger_Valores_GerVal_id),
+  INDEX RentCar_Alugar_Valores(RentCar_TabelaPrecos_GerVal_id),
   INDEX RentCar_Alugar_Pessoa(RentCar_Pessoa_Pes_id)
 );
 
@@ -46,16 +56,6 @@ CREATE TABLE RentCar_Enderecos (
   PRIMARY KEY(End_Id)
 );
 
-CREATE TABLE RentCar_Ger_Valores (
-  GerVal_id INTEGER NOT NULL AUTO_INCREMENT,
-  RentCar_Veiculo_Vel_id INTEGER NOT NULL,
-  GerVal_ValAlu DECIMAL(10,2) NULL,
-  GerVal_ValAPag DECIMAL(10,2) NULL,
-  GerVal_TipoPag CHAR(15) NULL,
-  PRIMARY KEY(GerVal_id),
-  INDEX RentCar_Ger_Valores_Veiculo(RentCar_Veiculo_Vel_id)
-);
-
 CREATE TABLE RentCar_PesFis (
   PesFis_id INTEGER NOT NULL AUTO_INCREMENT,
   RentCar_Pessoa_Pes_id INTEGER NOT NULL,
@@ -69,18 +69,21 @@ CREATE TABLE RentCar_PesFis (
   PesFis_Login CHAR(15) NULL,
   PesFis_Senha VARCHAR(10) NULL,
   PesFis_Nome VARCHAR(100) NULL,
+  PesFis_DtNascimento DATE NULL,
   PRIMARY KEY(PesFis_id),
   INDEX RentCar_PesFis_Pessoa(RentCar_Pessoa_Pes_id)
 );
 
 CREATE TABLE RentCar_PesJu (
   PesJu_id INTEGER NOT NULL AUTO_INCREMENT,
+  RentCar_PesFis_PesFis_id INTEGER NOT NULL,
   RentCar_Pessoa_Pes_id INTEGER NOT NULL,
   PesJu_CNPJ VARCHAR(20) NULL,
   PesJu_NmFantasia VARCHAR(30) NULL,
   PesJu_RazaoSocial VARCHAR(20) NULL,
   PRIMARY KEY(PesJu_id),
-  INDEX RentCar_PesJu_Pessoa(RentCar_Pessoa_Pes_id)
+  INDEX RentCar_PesJu_Pessoa(RentCar_Pessoa_Pes_id),
+  INDEX RentCar_PesJu_CondResp(RentCar_PesFis_PesFis_id)
 );
 
 CREATE TABLE RentCar_Pessoa (
@@ -90,8 +93,25 @@ CREATE TABLE RentCar_Pessoa (
   Pes_Cel VARCHAR(15) NULL,
   Pes_TelOp VARCHAR(15) NULL,
   Pes_Email VARCHAR(30) NULL,
+  Pes_Img BLOB NULL,
   PRIMARY KEY(Pes_id),
   INDEX RentCar_Pessoa_Endereco(RentCar_Enderecos_End_Id)
+);
+
+CREATE TABLE RentCar_TabelaPrecos (
+  GerVal_id INTEGER NOT NULL AUTO_INCREMENT,
+  RentCar_Veiculo_Vel_id INTEGER NOT NULL,
+  GerVal_ValAluDiaria DECIMAL(10,2) NULL,
+  GerVal_ValAluMensal DECIMAL(10,2) NULL,
+  GerVal_TipoPg CHAR(15) NULL,
+  PRIMARY KEY(GerVal_id),
+  INDEX RentCar_Ger_Valores_Veiculo(RentCar_Veiculo_Vel_id)
+);
+
+CREATE TABLE RentCar_TipoAcessorios (
+  TipoAcessorio_Id INTEGER NOT NULL AUTO_INCREMENT,
+  Acessório INTEGER NULL,
+  PRIMARY KEY(TipoAcessorio_Id)
 );
 
 CREATE TABLE RentCar_Veiculo (

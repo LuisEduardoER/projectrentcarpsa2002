@@ -1,9 +1,11 @@
 object frmPerfil: TfrmPerfil
   Left = 353
   Top = 293
-  Width = 487
-  Height = 211
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = '@-RentCar - Perfil'
+  ClientHeight = 177
+  ClientWidth = 479
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

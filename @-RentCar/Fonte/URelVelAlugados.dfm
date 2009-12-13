@@ -910,7 +910,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
       Left = 38
       Top = 143
       Width = 718
-      Height = 126
+      Height = 112
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -921,29 +921,29 @@ object frmRelVelAlugados: TfrmRelVelAlugados
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        333.375000000000000000
+        296.333333333333400000
         1899.708333333333000000)
       BandType = rbDetail
       object QRDBImgVel: TQRDBImage
-        Left = 40
+        Left = 8
         Top = 10
-        Width = 105
-        Height = 105
+        Width = 95
+        Height = 95
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
         Size.Values = (
-          277.812500000000000000
-          105.833333333333300000
+          251.354166666666700000
+          21.166666666666670000
           26.458333333333330000
-          277.812500000000000000)
+          251.354166666666700000)
         DataField = 'Vel_Img'
         DataSet = dmRentCar.ZQAlugar
       end
       object QRDBText1: TQRDBText
-        Left = 152
+        Left = 112
         Top = 39
         Width = 64
         Height = 17
@@ -954,7 +954,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         Frame.DrawRight = False
         Size.Values = (
           44.979166666666670000
-          402.166666666666600000
+          296.333333333333400000
           103.187500000000000000
           169.333333333333300000)
         Alignment = taLeftJustify
@@ -971,7 +971,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
     end
     object QRBand3: TQRBand
       Left = 38
-      Top = 269
+      Top = 255
       Width = 718
       Height = 35
       Frame.Color = clBlack
@@ -988,7 +988,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         1899.708333333333000000)
       BandType = rbSummary
       object QRSysData2: TQRSysData
-        Left = 638
+        Left = 618
         Top = 11
         Width = 68
         Height = 17
@@ -999,7 +999,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         Frame.DrawRight = False
         Size.Values = (
           44.979166666666670000
-          1688.041666666667000000
+          1635.125000000000000000
           29.104166666666670000
           179.916666666666700000)
         Alignment = taLeftJustify
