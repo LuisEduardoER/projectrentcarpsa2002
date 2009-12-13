@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, DBCtrls, Mask, Grids, DBGrids, ExtDlgs,
-  ExtCtrls;
+  ExtCtrls, Menus, Buttons;
 
 type
   TfrmCadVeiculos = class(TForm)
@@ -23,31 +23,35 @@ type
     lblPlaca: TLabel;
     lblEspec: TLabel;
     DBGrid1: TDBGrid;
-    btnSalvar: TButton;
-    btnAlterar: TButton;
-    btnExcluir: TButton;
-    btnLimpar: TButton;
-    btnConsultar: TButton;
-    btnSair: TButton;
-    lblVlrVeiculos: TLabel;
     OpenPicture: TOpenPictureDialog;
     DBImgVeic: TDBImage;
-    btnCadastrar: TButton;
     DateAno: TDateTimePicker;
-    procedure btnSairClick(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
+    MenuVec: TMainMenu;
+    Opcoes: TMenuItem;
+    ValoresVeiculos: TMenuItem;
+    AdicionarAcessorios: TMenuItem;
+    btnFechar: TBitBtn;
+    btnProcurar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnExcluir: TBitBtn;
+    btnSalvar: TBitBtn;
+    btnCadastrar: TBitBtn;
+    btnAlterar: TBitBtn;
     procedure btnCarregarClick(Sender: TObject);
-    procedure btnAlterarClick(Sender: TObject);
-    procedure btnExcluirClick(Sender: TObject);
-    procedure btnLimparClick(Sender: TObject);
-    procedure lblVlrVeiculosClick(Sender: TObject);
-    procedure btnCadastrarClick(Sender: TObject);
     procedure MakeThumbNail(aSource :TGraphic; aDest: TBitmap; iWidth, iHeight: Integer);
-    procedure btnConsultarClick(Sender: TObject);
     procedure DBECorKeyPress(Sender: TObject; var Key: Char);
     procedure DBEModeloKeyPress(Sender: TObject; var Key: Char);
     procedure DBEMarcaKeyPress(Sender: TObject; var Key: Char);
     procedure DateAnoKeyPress(Sender: TObject; var Key: Char);
+    procedure ValoresVeiculosClick(Sender: TObject);
+    procedure AdicionarAcessoriosClick(Sender: TObject);
+    procedure btnCadastrarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure btnProcurarClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
 
 
   private
@@ -61,129 +65,14 @@ var
 
 implementation
 
-uses UDMRentCar, DateUtils, UGerVlrVeiculo;
+uses UDMRentCar, DateUtils, UGerVlrVeiculo, UConsultas, UCadAcessorios;
 
 {$R *.dfm}
-
-procedure TfrmCadVeiculos.btnSairClick(Sender: TObject);
-begin
- close;
-end;
-
-procedure TfrmCadVeiculos.btnSalvarClick(Sender: TObject);
-var
-  aDest :TBitmap;
-  ano : word;
-begin
-  if (DBEModelo.Text = '') then
-  Begin
-    ShowMessage('Modelo é um campo obrigratório');
-    DBEModelo.SetFocus;
-  end else
-  if (DBEMarca.Text = '') then
-  Begin
-    ShowMessage('Marca é um campo obrigratório');
-    DBEMarca.SetFocus;
-  end else
-  if (DBECor.Text = '') then
-  Begin
-    ShowMessage('Cor é um campo obrigratório');
-    DBECor.SetFocus;
-  end else
-  if (DBEPlaca.Text = '') then
-  Begin
-    ShowMessage('Placa é um campo obrigratório');
-    DBEPlaca.SetFocus;
-  end else
-  Begin
-    ano := YearOf(DateAno.Date);
-    DBREspec.Text := 'Carro :  '+DBEModelo.Text +' Ano : '+ IntToStr(ano) +' Marca: '+DBEMarca.Text +' Cor : '+DBECor.Text;
-    aDest := tbitmap.create;
-    aDest.Width := 95;
-    aDest.Height := 95;
-    aDest.Canvas.StretchDraw(Rect(0, 0, aDest.width, aDest.Height), DBImgVeic.Picture.Graphic);
-    DBImgVeic.Picture.Assign(aDest);
-    dmRentCar.ZTCadVeiculoVel_Ano.Value := ano;
-    dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
-    dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
-    dmRentCar.ZTCadVeiculo.post;
-    btnSalvar.Enabled := False;
-    btnCadastrar.Enabled := True;
-    lblVlrVeiculos.Enabled := True;
-  end;
-end;
 
 procedure TfrmCadVeiculos.btnCarregarClick(Sender: TObject);
 begin
  if OpenPicture.Execute then
   DBImgVeic.Picture.LoadFromFile(OpenPicture.Filename);
-end;
-
-procedure TfrmCadVeiculos.btnAlterarClick(Sender: TObject);
-begin
- gbCadVeiculo.Enabled := True;
- if dmRentCar.ZTCadVeiculo.IsEmpty then
- Begin
-    ShowMessage('Não existe(m) veículo(s) para ser(m) alterado(s)');
- end else
- Begin
-    dmRentCar.ZTCadVeiculo.Edit;
-    btnSalvar.Enabled := True;
- end;
- btnSalvar.Enabled := True;
-end;
-
-procedure TfrmCadVeiculos.btnExcluirClick(Sender: TObject);
-begin
-
- dmRentCar.ZTGerVal.Filtered := False;
- dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
- dmRentCar.ZTGerVal.Filtered := True;
-
- if not dmRentCar.ZTGerVal.IsEmpty then
- Begin
-   dmRentCar.ZTCadVeiculo.Delete;
-   dmRentCar.ZTGerVal.Delete;
- end else
- Begin
-   dmRentCar.ZTCadVeiculo.Delete;
- end;
-end;
-
-procedure TfrmCadVeiculos.btnLimparClick(Sender: TObject);
-begin
- dmRentCar.ZTCadVeiculo.ClearFields;
-end;
-
-procedure TfrmCadVeiculos.lblVlrVeiculosClick(Sender: TObject);
-begin
- dmRentCar.ZTCadVeiculo.Open;
- dmRentCar.ZTGerVal.Open;
- Application.CreateForm(TfrmRentCarVlrVeiculos, frmRentCarVlrVeiculos);
- dmRentCar.ZTGerVal.Filtered := False;
- dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
- dmRentCar.ZTGerVal.Filtered := True; 
-
-  if dmRentCar.ZTGerVal.IsEmpty then
- Begin
-   dmRentCar.ZTGerVal.Insert;
-   frmRentCarVlrVeiculos.btnAlterar.Enabled:= False;
- end else
- Begin
-   dmRentCar.ZTGerVal.Edit;
-   frmRentCarVlrVeiculos.btnCadastrar.Enabled := False;
- end;
- frmRentCarVlrVeiculos.ShowModal;
- frmRentCarVlrVeiculos.Free;
- dmRentCar.ZTGerVal.Close;
- 
-end;
-
-procedure TfrmCadVeiculos.btnCadastrarClick(Sender: TObject);
-begin
- dmRentCar.ZTCadVeiculo.Insert;
- btnSalvar.Enabled := True;
- btnCadastrar.Enabled := False;
 end;
 
 procedure TfrmCadVeiculos.MakeThumbNail(aSource: TGraphic; aDest: TBitmap;
@@ -208,11 +97,6 @@ begin
 end;
 
 
-
-procedure TfrmCadVeiculos.btnConsultarClick(Sender: TObject);
-begin
- dmRentCar.ZTCadVeiculo.Open;
-end;
 
 procedure TfrmCadVeiculos.DBECorKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -257,6 +141,148 @@ begin
     Begin
       DBEMarca.SetFocus;
     end;
+
+end;
+
+procedure TfrmCadVeiculos.ValoresVeiculosClick(Sender: TObject);
+begin
+ dmRentCar.ZTCadVeiculo.Open;
+ dmRentCar.ZTGerVal.Open;
+ Application.CreateForm(TfrmRentCarVlrVeiculos, frmRentCarVlrVeiculos);
+ dmRentCar.ZTGerVal.Filtered := False;
+ dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZTGerVal.Filtered := True;
+
+  if dmRentCar.ZTGerVal.IsEmpty then
+ Begin
+   dmRentCar.ZTGerVal.Insert;
+   frmRentCarVlrVeiculos.btnAlterar.Enabled:= False;
+ end else
+ Begin
+   dmRentCar.ZTGerVal.Edit;
+   frmRentCarVlrVeiculos.btnCadastrar.Enabled := False;
+ end;
+ frmRentCarVlrVeiculos.ShowModal;
+ frmRentCarVlrVeiculos.Free;
+ dmRentCar.ZTGerVal.Close;
+
+end;
+
+procedure TfrmCadVeiculos.AdicionarAcessoriosClick(Sender: TObject);
+begin
+ dmRentCar.ZTAcessorios.Open;
+ Application.CreateForm(TfrmAcessorios, frmAcessorios);
+ frmAcessorios.tsTipoAcessorios.Destroy;
+ frmAcessorios.ShowModal;
+ frmAcessorios.Free;
+ dmRentCar.ZTAcessorios.Close;
+end;
+
+procedure TfrmCadVeiculos.btnCadastrarClick(Sender: TObject);
+begin
+ dmRentCar.ZTCadVeiculo.Insert;
+ btnSalvar.Enabled := True;
+ btnCadastrar.Enabled := False;
+
+end;
+
+procedure TfrmCadVeiculos.btnSalvarClick(Sender: TObject);
+var
+  aDest :TBitmap;
+  ano : word;
+begin
+  if (DBEModelo.Text = '') then
+  Begin
+    ShowMessage('Modelo é um campo obrigratório');
+    DBEModelo.SetFocus;
+  end else
+  if (DBEMarca.Text = '') then
+  Begin
+    ShowMessage('Marca é um campo obrigratório');
+    DBEMarca.SetFocus;
+  end else
+  if (DBECor.Text = '') then
+  Begin
+    ShowMessage('Cor é um campo obrigratório');
+    DBECor.SetFocus;
+  end else
+  if (DBEPlaca.Text = '') then
+  Begin
+    ShowMessage('Placa é um campo obrigratório');
+    DBEPlaca.SetFocus;
+  end else
+  Begin
+    ano := YearOf(DateAno.Date);
+    DBREspec.Text := 'Carro :  '+DBEModelo.Text +' Ano : '+ IntToStr(ano) +' Marca: '+DBEMarca.Text +' Cor : '+DBECor.Text;
+    aDest := tbitmap.create;
+    aDest.Width := 95;
+    aDest.Height := 95;
+    aDest.Canvas.StretchDraw(Rect(0, 0, aDest.width, aDest.Height), DBImgVeic.Picture.Graphic);
+    DBImgVeic.Picture.Assign(aDest);
+    dmRentCar.ZTCadVeiculoVel_Ano.Value := ano;
+    dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
+    dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
+    dmRentCar.ZTCadVeiculo.post;
+    btnSalvar.Enabled := False;
+    btnCadastrar.Enabled := True;
+    frmCadVeiculos.AdicionarAcessorios.Enabled := True;
+    frmCadVeiculos.ValoresVeiculos.Enabled := True;
+ end;
+end;
+
+procedure TfrmCadVeiculos.btnExcluirClick(Sender: TObject);
+begin
+
+ dmRentCar.ZTGerVal.Filtered := False;
+ dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZTGerVal.Filtered := True;
+
+ if not dmRentCar.ZTGerVal.IsEmpty then
+ Begin
+   dmRentCar.ZTCadVeiculo.Delete;
+   dmRentCar.ZTGerVal.Delete;
+ end else
+ Begin
+   dmRentCar.ZTCadVeiculo.Delete;
+ end;
+
+end;
+
+procedure TfrmCadVeiculos.btnProcurarClick(Sender: TObject);
+begin
+ dmRentCar.ZTCadVeiculo.Open;
+ Application.CreateForm(TfrmConsultas, frmConsultas);
+ frmConsultas.tsConsultClientes.Destroy;
+ frmConsultas.tsConsultLoc.Destroy;
+ frmConsultas.tsListagemChamados.Destroy;
+ frmConsultas.ShowModal;
+ frmConsultas.Free;
+
+end;
+
+procedure TfrmCadVeiculos.btnFecharClick(Sender: TObject);
+begin
+ close;
+
+end;
+
+procedure TfrmCadVeiculos.btnCancelarClick(Sender: TObject);
+begin
+ dmRentCar.ZTCadVeiculo.Cancel;
+end;
+
+procedure TfrmCadVeiculos.btnAlterarClick(Sender: TObject);
+begin
+ gbCadVeiculo.Enabled := True;
+ if dmRentCar.ZTCadVeiculo.IsEmpty then
+ Begin
+    ShowMessage('Não existe(m) veículo(s) para ser(m) alterado(s)');
+ end else
+ Begin
+    dmRentCar.ZTCadVeiculo.Edit;
+    btnSalvar.Enabled := True;
+ end;
+ btnSalvar.Enabled := True;
 
 end;
 

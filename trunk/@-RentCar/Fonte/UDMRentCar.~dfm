@@ -2,8 +2,8 @@ object dmRentCar: TdmRentCar
   OldCreateOrder = False
   Left = 200
   Top = 169
-  Height = 334
-  Width = 325
+  Height = 389
+  Width = 397
   object ZRentCar: TZConnection
     Protocol = 'mysql-4.1'
     HostName = 'localhost'
@@ -13,7 +13,7 @@ object dmRentCar: TdmRentCar
     AutoCommit = False
     ReadOnly = True
     TransactIsolationLevel = tiNone
-    Connected = False
+    Connected = True
     SQLHourGlass = False
     Left = 22
     Top = 8
@@ -101,11 +101,6 @@ object dmRentCar: TdmRentCar
       FieldName = 'Ch_TipoCh'
       Size = 30
     end
-    object ZTChamadoCh_DescCh: TMemoField
-      DisplayLabel = 'DescChamado'
-      FieldName = 'Ch_DescCh'
-      BlobType = ftMemo
-    end
     object ZTChamadoCh_Protocol: TIntegerField
       DisplayLabel = 'Protocolo'
       FieldName = 'Ch_Protocol'
@@ -122,6 +117,10 @@ object dmRentCar: TdmRentCar
       FieldName = 'Ch_Status'
       Visible = False
       Size = 1
+    end
+    object ZTChamadoCh_DescCh: TMemoField
+      FieldName = 'Ch_DescCh'
+      BlobType = ftMemo
     end
   end
   object ZTPessoa: TZTable
@@ -152,19 +151,22 @@ object dmRentCar: TdmRentCar
     object ZTPessoaPes_Cel: TStringField
       DisplayLabel = 'Cel.'
       FieldName = 'Pes_Cel'
-      EditMask = '!\(99\)0000-0000;1;_'
+      EditMask = '(99)9999-9999;0;'
       Size = 15
     end
     object ZTPessoaPes_TelOp: TStringField
       DisplayLabel = 'TelOp.'
       FieldName = 'Pes_TelOp'
-      EditMask = '!\(99\)0000-0000;1;_'
+      EditMask = '(99)9999-9999;0;'
       Size = 15
     end
     object ZTPessoaPes_Email: TStringField
       DisplayLabel = 'Email'
       FieldName = 'Pes_Email'
       Size = 30
+    end
+    object ZTPessoaPes_Img: TBlobField
+      FieldName = 'Pes_Img'
     end
   end
   object dsCadVeiculo: TDataSource
@@ -250,6 +252,9 @@ object dmRentCar: TdmRentCar
       FieldName = 'PesFis_Nome'
       Size = 255
     end
+    object ZTPesFisPesFis_DtNascimento: TDateField
+      FieldName = 'PesFis_DtNascimento'
+    end
   end
   object dsTPesFis: TDataSource
     DataSet = ZTPesFis
@@ -288,6 +293,10 @@ object dmRentCar: TdmRentCar
       DisplayLabel = 'RazaoSocial'
       FieldName = 'PesJu_RazaoSocial'
     end
+    object ZTPesJuRentCar_PesFis_PesFis_id: TIntegerField
+      FieldName = 'RentCar_PesFis_PesFis_id'
+      Required = True
+    end
   end
   object dsTPesJu: TDataSource
     DataSet = ZTPesJu
@@ -298,7 +307,7 @@ object dmRentCar: TdmRentCar
     Connection = ZRentCar
     CachedUpdates = False
     ReadOnly = False
-    TableName = 'rentcar_ger_valores'
+    TableName = 'rentcar_tabelaprecos'
     ShowRecordTypes = [usUnmodified, usModified, usInserted]
     UpdateMode = umUpdateChanged
     WhereMode = wmWhereKeyOnly
@@ -307,25 +316,19 @@ object dmRentCar: TdmRentCar
     Top = 88
     object ZTGerValGerVal_id: TIntegerField
       FieldName = 'GerVal_id'
-      Visible = False
     end
     object ZTGerValRentCar_Veiculo_Vel_id: TIntegerField
       FieldName = 'RentCar_Veiculo_Vel_id'
-      Visible = False
+      Required = True
     end
-    object ZTGerValGerVal_ValAlu: TLargeintField
-      DisplayLabel = 'Vlr.Aluguel'
-      FieldName = 'GerVal_ValAlu'
-      DisplayFormat = '0.00'
+    object ZTGerValGerVal_ValAluDiaria: TFloatField
+      FieldName = 'GerVal_ValAluDiaria'
     end
-    object ZTGerValGerVal_ValAPag: TLargeintField
-      DisplayLabel = 'Vlr.APagar'
-      FieldName = 'GerVal_ValAPag'
-      DisplayFormat = '0.00'
+    object ZTGerValGerVal_ValAluMensal: TFloatField
+      FieldName = 'GerVal_ValAluMensal'
     end
-    object ZTGerValGerVal_TipoPag: TStringField
-      DisplayLabel = 'Vlr.TipoPg'
-      FieldName = 'GerVal_TipoPag'
+    object ZTGerValGerVal_TipoPg: TStringField
+      FieldName = 'GerVal_TipoPg'
       Size = 15
     end
   end
@@ -417,21 +420,28 @@ object dmRentCar: TdmRentCar
     end
     object ZTAlugarRentCar_Pessoa_Pes_id: TIntegerField
       FieldName = 'RentCar_Pessoa_Pes_id'
+      Required = True
     end
-    object ZTAlugarRentCar_Ger_Valores_GerVal_id: TIntegerField
-      FieldName = 'RentCar_Ger_Valores_GerVal_id'
+    object ZTAlugarRentCar_TabelaPrecos_GerVal_id: TIntegerField
+      FieldName = 'RentCar_TabelaPrecos_GerVal_id'
+      Required = True
     end
     object ZTAlugarRentCar_Veiculo_Vel_id: TIntegerField
       FieldName = 'RentCar_Veiculo_Vel_id'
+      Required = True
     end
-    object ZTAlugarPerInicialLoc: TDateField
-      FieldName = 'PerInicialLoc'
+    object ZTAlugarAlu_PerInicialLoc: TDateField
+      FieldName = 'Alu_PerInicialLoc'
     end
-    object ZTAlugarPerFinalLoc: TDateField
-      FieldName = 'PerFinalLoc'
+    object ZTAlugarAlu_PerFinalLoc: TDateField
+      FieldName = 'Alu_PerFinalLoc'
     end
-    object ZTAlugarDataReserva: TDateField
-      FieldName = 'DataReserva'
+    object ZTAlugarAlu_DataReserva: TDateField
+      FieldName = 'Alu_DataReserva'
+    end
+    object ZTAlugarAlu_VlrTotalAPg: TFloatField
+      FieldName = 'Alu_VlrTotalAPg'
+      currency = True
     end
   end
   object dsTAlugar: TDataSource
@@ -508,5 +518,56 @@ object dmRentCar: TdmRentCar
     DataSet = ZTAcesso
     Left = 280
     Top = 104
+  end
+  object ZTAcessorios: TZTable
+    Connection = ZRentCar
+    CachedUpdates = False
+    ReadOnly = False
+    TableName = 'rentcar_acessorio'
+    ShowRecordTypes = [usUnmodified, usModified, usInserted]
+    UpdateMode = umUpdateChanged
+    WhereMode = wmWhereKeyOnly
+    Options = [doCalcDefaults]
+    Left = 272
+    Top = 8
+    object ZTAcessoriosAcessorio_id: TIntegerField
+      FieldName = 'Acessorio_id'
+    end
+    object ZTAcessoriosRentCar_TipoAcessorios_TipoAcessorio_Id: TIntegerField
+      FieldName = 'RentCar_TipoAcessorios_TipoAcessorio_Id'
+      Required = True
+    end
+    object ZTAcessoriosRentCar_Veiculo_Vel_id: TIntegerField
+      FieldName = 'RentCar_Veiculo_Vel_id'
+      Required = True
+    end
+  end
+  object dsTAcessorios: TDataSource
+    DataSet = ZTAcessorios
+    Left = 288
+    Top = 24
+  end
+  object ZTTipoAcessorios: TZTable
+    Connection = ZRentCar
+    CachedUpdates = False
+    ReadOnly = False
+    TableName = 'rentcar_tipoacessorios'
+    ShowRecordTypes = [usUnmodified, usModified, usInserted]
+    UpdateMode = umUpdateChanged
+    WhereMode = wmWhereKeyOnly
+    Options = [doCalcDefaults]
+    Left = 280
+    Top = 168
+    object ZTTipoAcessoriosTipoAcessorio_Id: TIntegerField
+      FieldName = 'TipoAcessorio_Id'
+    end
+    object ZTTipoAcessoriosAcessrio: TIntegerField
+      FieldName = 'Acess'#243'rio'
+    end
+  end
+  object dsTTipoAcessorios: TDataSource
+    DataSet = ZTTipoAcessorios
+    Left = 296
+    Top = 184
   end
 end

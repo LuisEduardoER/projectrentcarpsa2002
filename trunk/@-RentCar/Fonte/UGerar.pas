@@ -1,19 +1,19 @@
-unit UGerContratos;
+unit UGerar;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, DBCtrls, StdCtrls;
+  Dialogs, ComCtrls, StdCtrls, DBCtrls;
 
 type
-  TfrmGerContratos = class(TForm)
+  TfrmGerar = class(TForm)
     gbFiltros: TGroupBox;
     Label1: TLabel;
     DBLookupCliente: TDBLookupComboBox;
-    btnGerarContrato: TButton;
+    btnGerar: TButton;
     pbPerfil: TProgressBar;
-    procedure btnGerarContratoClick(Sender: TObject);
+    procedure btnGerarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -21,19 +21,66 @@ type
   end;
 
 var
-  frmGerContratos: TfrmGerContratos;
+  frmGerar: TfrmGerar;
 
 implementation
 
-uses URentCarPrincipal, UContrato, UDMRentCar;
+uses URentCarPrincipal, UPerfil, UDMRentCar, UContrato;
 
 {$R *.dfm}
 
-procedure TfrmGerContratos.btnGerarContratoClick(Sender: TObject);
-var
- i : integer;
+procedure TfrmGerar.btnGerarClick(Sender: TObject);
+Var
+i : integer;
 begin
+ if frmRentCarPrincipal.gerar = 'P' then
+ Begin
   if DBLookupCliente.Text = '' then
+  Begin
+    ShowMessage('Escolha o Cliente');
+  end else
+  Begin
+   pbPerfil.Max:= 2000;
+   for i:= 1 to 2000 do
+   Begin
+      pbPerfil.Position:=i;
+   end;
+   Application.CreateForm(TfrmPerfil,frmPerfil);
+   frmPerfil.ZQFunctions.Close;
+   frmPerfil.ZQFunctions.SQL.Clear;
+   frmPerfil.ZQFunctions.SQL.Add('select distinct Vel_Img, Vel_Espec from rentcar_veiculo');
+   frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_alugar on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
+   frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
+   if frmRentCarPrincipal.perfil = 'F' then
+   Begin
+     frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+     //frmPerfil.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel_StatusRes = "R" ');
+     frmPerfil.ZQFunctions.SQL.Add('where rentcar_pesfis.PesFis_Nome = "'+frmGerar.DBLookupCliente.Text+'"');
+     frmPerfil.ZQFunctions.Open;
+   end else
+   if frmRentCarPrincipal.perfil = 'J' then
+   Begin
+     frmPerfil.ZQFunctions.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
+     //frmPerfil.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_StatusLoc = "L" or rentcar_veiculo.Vel_StatusRes = "R" ');
+     frmPerfil.ZQFunctions.SQL.Add('where rentcar_pesju.PesJu_NmFantasia = "'+frmGerar.DBLookupCliente.Text+'"');
+     frmPerfil.ZQFunctions.Open;
+   end;
+   
+   if (frmPerfil.ZQFunctions.fieldbyname('Vel_Espec').AsString = '') then
+    Begin
+      ShowMessage('O cliente '+frmGerar.DBLookupCliente.Text+ ' não alugou/reservou nenhum veículo');
+      pbPerfil.Position:= 0;
+    end else
+    Begin
+    close;
+    frmPerfil.ShowModal;
+    frmPerfil.Free;
+   end;
+  end;
+ end else
+ if frmRentCarPrincipal.gerar = 'C' then
+ Begin
+     if DBLookupCliente.Text = '' then
   Begin
     ShowMessage('Escolha o Cliente');
   end else
@@ -57,7 +104,7 @@ begin
         ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
         ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
         ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
-        ZQAlugar.SQL.Add('where PesFis_Nome = "'+frmGerContratos.DBLookupCliente.Text+'"');
+        ZQAlugar.SQL.Add('where PesFis_Nome = "'+frmGerar.DBLookupCliente.Text+'"');
         ZQAlugar.Open;
       end;
      if dmRentCar.ZQAlugar.IsEmpty then
@@ -83,7 +130,7 @@ begin
         ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
         ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
         ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
-        ZQAlugar.SQL.Add('where PesJu_NmFantasia = "'+frmGerContratos.DBLookupCliente.Text+'"');
+        ZQAlugar.SQL.Add('where PesJu_NmFantasia = "'+frmGerar.DBLookupCliente.Text+'"');
         ZQAlugar.Open;
      end;
      
@@ -101,7 +148,8 @@ begin
   end;
   end;
   end;
+
+ end;
 end;
 
 end.
-

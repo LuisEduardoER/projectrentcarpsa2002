@@ -51,13 +51,14 @@ type
     ContratoLoc: TMenuItem;
     ContratoLocPesFis: TMenuItem;
     ContratoLocPesJu: TMenuItem;
+    CadVec: TMenuItem;
+    TipoAcessorios: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
     procedure JuridicaClick(Sender: TObject);
     procedure PesFisicaClick(Sender: TObject);
     procedure PesJuridicaClick(Sender: TObject);
-    procedure VeiculosClick(Sender: TObject);
     procedure AlugadosClick(Sender: TObject);
     procedure DisponveisClick(Sender: TObject);
     procedure Funcionarios1Click(Sender: TObject);
@@ -76,10 +77,12 @@ type
     procedure RelCliPesJuClick(Sender: TObject);
     procedure ContratoLocPesFisClick(Sender: TObject);
     procedure ContratoLocPesJuClick(Sender: TObject);
+    procedure CadVecClick(Sender: TObject);
+    procedure TipoAcessoriosClick(Sender: TObject);
   private
     { Private declarations }
   public
-     tipo, veiculo, cli, perfil, chamado, contrato : string;
+     tipo, veiculo, cli, perfil, chamado, contrato, gerar : string;
     { Public declarations }
   end;
 
@@ -89,9 +92,9 @@ var
 implementation
 
 uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado, URelVelDisp,
-  URelVelAlugados, UCadUsuario, URelVelRes, UGerarPerfil,
-  URelCliPesFis, UContrato, UGerContratos, URelCliPesJu, UAcesso,
-  UConsultas;
+  URelVelAlugados, UCadUsuario, URelVelRes,
+  URelCliPesFis, UContrato, URelCliPesJu, UAcesso,
+  UConsultas, UGerar, UCadAcessorios;
 
 {$R *.dfm}
 
@@ -125,9 +128,9 @@ begin
  frmLocacao.DBLookupClienteRes.ListSource := dmRentCar.dsTPesFis;
  frmLocacao.DBLookupClienteRes.ListField := 'PesFis_Nome';
  frmLocacao.DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';
- frmLocacao.btnCadastar.Caption := 'Nova Reserva';
+ frmLocacao.btnCadastrar.Caption := 'Nova Reserva';
  frmLocacao.btnSalvar.Caption := 'Confirmar Reserva';
- frmLocacao.btnConsultarLoc.Enabled := False;
+ frmLocacao.btnProcurar.Enabled := False;
  frmLocacao.ShowModal;
  frmLocacao.Free;
 
@@ -158,9 +161,9 @@ begin
  frmLocacao.DBLookupClienteRes.ListSource := dmRentCar.dsTPesJu;
  frmLocacao.DBLookupClienteRes.ListField := 'PesJu_NmFantasia';
  frmLocacao.DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';
- frmLocacao.btnCadastar.Caption := 'Nova Reserva';
+ frmLocacao.btnCadastrar.Caption := 'Nova Reserva';
  frmLocacao.btnSalvar.Caption := 'Confirmar Reserva';
- frmLocacao.btnConsultarLoc.Enabled := False;
+ frmLocacao.btnProcurar.Enabled := False;
  frmLocacao.ShowModal;
  frmLocacao.Free;
 
@@ -203,18 +206,6 @@ begin
 
 end;
 
-procedure TfrmRentCarPrincipal.VeiculosClick(Sender: TObject);
-begin
- //processoro para abrir a tabela necessária para o cadastro
- dmRentCar.ZTCadVeiculo.Open;
- //rotina que carrega o formulário para o cadastro de veiculos
- Application.CreateForm(TfrmCadVeiculos, frmCadVeiculos);
- frmCadVeiculos.ShowModal;
- frmCadVeiculos.Free;
-  //fechando a tabela para não evitar que fique senddo carregada
- dmRentCar.ZTCadVeiculo.Close;
-end;
-
 procedure TfrmRentCarPrincipal.AlugadosClick(Sender: TObject);
 begin
 //rotina que executa a instrução sql para carregar o relatorio de veículos alugados
@@ -250,8 +241,8 @@ begin
     ZQAlugar.SQL.Clear;
     ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
     ZQAlugar.SQL.Add('from rentcar_veiculo ');
-    ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
-    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusLoc ="L" or rentcar_veiculo.Vel_StatusRes ="R"');
+   // ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
+    ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_StatusLoc ="L" and rentcar_veiculo.Vel_StatusRes ="R"');
     ZQAlugar.Open;
 
   if ZQAlugar.IsEmpty then
@@ -300,26 +291,28 @@ begin
 //chamada do formulário para a locação de veículos - pessoa fisica
  //variavel que será usada para identificação na locação do veículo
   veiculo := 'PFL';
-  dmRentCar.ZTAlugar.Open;
+//  dmRentCar.ZTAlugar.Open;
   dmRentCar.ZTCadVeiculo.Open;
   dmRentCar.ZTGerVal.Open;
   dmRentCar.ZTPesFis.Open;
   dmRentCar.ZTPessoa.Open;
   Application.CreateForm(TfrmLocacao, frmLocacao);
+  frmLocacao.DateLocI.Date := dmRentCar.ZTAlugarAlu_PerInicialLoc.Value;
+  frmLocacao.DateLocF.Date := dmRentCar.ZTAlugarAlu_PerFinalLoc.Value;
   frmLocacao.tsReserva.Destroy;
   frmLocacao.tsDevolucao.Destroy;
   // o lookup irá receber os dados do cadastro de pessoa fisica
   frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
   frmLocacao.DBLookupCliente.ListField := 'PesFis_Nome';
   frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
-  frmLocacao.btnCadastar.Caption := 'Nova Locacao';
+  frmLocacao.btnCadastrar.Caption := 'Nova Locacao';
   frmLocacao.btnSalvar.Caption := 'Confirmar Locacao';
   frmLocacao.ShowModal;
   frmLocacao.Free;
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
   dmRentCar.ZTCadVeiculo.Open;
-  dmRentCar.ZTAlugar.Close;
+//  dmRentCar.ZTAlugar.Close;
   dmRentCar.ZTGerVal.Close;
   dmRentCar.ZTPesFis.Close;
   dmRentCar.ZTPessoa.Close;  
@@ -331,25 +324,27 @@ begin
  //variavel que será usada para identificação na locação do veículo
 
  veiculo := 'PJL';
- dmRentCar.ZTAlugar.Open;
+// dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
  dmRentCar.ZTPesJu.Open;
  dmRentCar.ZTPessoa.Open;
  Application.CreateForm(TfrmLocacao, frmLocacao);
+ frmLocacao.DateLocI.Date := dmRentCar.ZTAlugarAlu_PerInicialLoc.Value;
+ frmLocacao.DateLocF.Date := dmRentCar.ZTAlugarAlu_PerFinalLoc.Value;
  frmLocacao.tsReserva.Destroy;
  frmLocacao.tsDevolucao.Destroy;
  //o lookup irá receber os dados do cadastro de pessoa juridica
  frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
  frmLocacao.DBLookupCliente.ListField := 'PesJu_NmFantasia';
  frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
- frmLocacao.btnCadastar.Caption := 'Nova Locacao';
+ frmLocacao.btnCadastrar.Caption := 'Nova Locacao';
  frmLocacao.btnSalvar.Caption := 'Confirmar Locacao';
  frmLocacao.ShowModal;
  frmLocacao.Free;
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
- dmRentCar.ZTAlugar.Close;
+// dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
  dmRentCar.ZTPesJu.Close;
@@ -390,13 +385,15 @@ begin
 //mais locados e reservados de determinado cliente pessoa fisica
  //variavel que será usada para identificação na geração do perfil
   perfil := 'F';
+  gerar := 'P';
   dmRentCar.ZTPesFis.Open;
-  Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
-  frmGerarPerfil.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
-  frmGerarPerfil.DBLookupCliente.ListField := 'PesFis_Nome';
-  frmGerarPerfil.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
-  frmGerarPerfil.ShowModal;
-  frmGerarPerfil.Free;
+  Application.CreateForm(TfrmGerar, frmGerar);
+  frmGerar.btnGerar.Caption := 'Gerar Perfil';
+  frmGerar.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
+  frmGerar.DBLookupCliente.ListField := 'PesFis_Nome';
+  frmGerar.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+  frmGerar.ShowModal;
+  frmGerar.Free;
   
  //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTPesFis.Close;
@@ -408,13 +405,15 @@ begin
 //mais locados e reservados de determinado cliente pessoa juridica
  //variavel que será usada para identificação na geração do perfil
   perfil := 'J';
+  gerar := 'P';
   dmRentCar.ZTPesJu.Open;
-  Application.CreateForm(TfrmGerarPerfil, frmGerarPerfil);
-  frmGerarPerfil.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
-  frmGerarPerfil.DBLookupCliente.ListField := 'PesJu_NmFantasia';
-  frmGerarPerfil.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
-  frmGerarPerfil.ShowModal;
-  frmGerarPerfil.Free;
+  Application.CreateForm(TfrmGerar, frmGerar);
+  frmGerar.btnGerar.Caption := 'Gerar Perfil';
+  frmGerar.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+  frmGerar.DBLookupCliente.ListField := 'PesJu_NmFantasia';
+  frmGerar.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+  frmGerar.ShowModal;
+  frmGerar.Free;
   
    //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTPesJu.Close;
@@ -487,11 +486,13 @@ begin
 //chamada do formulário com a listagem dos chamados finalizados
  //variavel que será usada para identificação na listagem dos chamados
  chamado := 'LF';
- {dmRentCar.ZTChamado.Open;
- Application.CreateForm(TfrmListChamados, frmListChamados);
- frmListChamados.ShowModal;
- frmListChamados.Free;}
-
+ dmRentCar.ZTChamado.Open;
+ Application.CreateForm(TfrmConsultas, frmConsultas);
+ frmConsultas.tsConsultClientes.Destroy;
+ frmConsultas.tsConsultLoc.Destroy;
+ frmConsultas.tsConsultVeiculos.Destroy;
+ frmConsultas.ShowModal;
+ frmConsultas.Free;
  //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTChamado.Close;
 end;
@@ -505,7 +506,7 @@ begin
   Application.CreateForm(TfrmLocacao, frmLocacao);
   frmLocacao.tsReserva.Destroy;
   frmLocacao.tsLocacao.Destroy;
-  frmLocacao.btnCadastar.Enabled := False;
+  frmLocacao.btnCadastrar.Enabled := False;
   frmLocacao.btnAlterar.Enabled := False;
   frmLocacao.btnSalvar.Caption := 'Confirmar Devolucao';
   frmLocacao.ShowModal;
@@ -576,13 +577,15 @@ begin
 //do cliente pessoa fisica
  //variavel que será usada para identificação na geração do contrato
   contrato := 'ContLocPesFis';
+  gerar := 'C';
   dmRentCar.ZTPesFis.Open;
-  Application.CreateForm(TfrmGerContratos, frmGerContratos);
-  frmGerContratos.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
-  frmGerContratos.DBLookupCliente.ListField := 'PesFis_Nome';
-  frmGerContratos.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
-  frmGerContratos.ShowModal;
-  frmGerContratos.Free;
+  Application.CreateForm(TfrmGerar, frmGerar);
+  frmGerar.btnGerar.Caption := 'Gerar Contatro';
+  frmGerar.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
+  frmGerar.DBLookupCliente.ListField := 'PesFis_Nome';
+  frmGerar.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+  frmGerar.ShowModal;
+  frmGerar.Free;
   
    //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTPesFis.Close;
@@ -593,17 +596,46 @@ begin
 //chamada do formulário para a geração do contrato de locacao
 //do cliente pessoa juridica
  //variavel que será usada para identificação na geração do contrato
-contrato := 'ContLocPesJu';
+ contrato := 'ContLocPesJu';
+ gerar := 'C';
  dmRentCar.ZTPesJu.Open;
- Application.CreateForm(TfrmGerContratos, frmGerContratos);
- frmGerContratos.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
- frmGerContratos.DBLookupCliente.ListField := 'PesJu_NmFantasia';
- frmGerContratos.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
- frmGerContratos.ShowModal;
- frmGerContratos.Free;
+ Application.CreateForm(TfrmGerar, frmGerar);
+ frmGerar.btnGerar.Caption := 'Gerar Contrato';
+ frmGerar.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+ frmGerar.DBLookupCliente.ListField := 'PesJu_NmFantasia';
+ frmGerar.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+ frmGerar.ShowModal;
+ frmGerar.Free;
  
   //fechar a tabela para evitar que fique sendo carregada na memória
  dmRentCar.ZTPesJu.Close;
+end;
+
+procedure TfrmRentCarPrincipal.CadVecClick(Sender: TObject);
+begin
+ //processoro para abrir a tabela necessária para o cadastro
+ dmRentCar.ZTCadVeiculo.Open;
+ //rotina que carrega o formulário para o cadastro de veiculos
+ Application.CreateForm(TfrmCadVeiculos, frmCadVeiculos);
+ if dmRentCar.ZTCadVeiculo.IsEmpty then
+ Begin
+  frmCadVeiculos.AdicionarAcessorios.Enabled := False;
+  frmCadVeiculos.ValoresVeiculos.Enabled := False;
+ end;
+ frmCadVeiculos.ShowModal;
+ frmCadVeiculos.Free;
+  //fechando a tabela para não evitar que fique senddo carregada
+ dmRentCar.ZTCadVeiculo.Close;
+end;
+
+procedure TfrmRentCarPrincipal.TipoAcessoriosClick(Sender: TObject);
+begin
+ dmRentCar.ZTTipoAcessorios.Open;
+ Application.CreateForm(TfrmAcessorios, frmAcessorios);
+ frmAcessorios.tsAddAcessorios.Destroy;
+ frmAcessorios.ShowModal;
+ frmAcessorios.Free;
+ dmRentCar.ZTTipoAcessorios.Open;
 end;
 
 end.

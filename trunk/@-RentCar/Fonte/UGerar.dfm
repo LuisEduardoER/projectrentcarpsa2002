@@ -1,9 +1,11 @@
-object frmGerContratos: TfrmGerContratos
-  Left = 192
-  Top = 114
-  Width = 398
-  Height = 161
-  Caption = '@-RentCar - Gera'#231#227'o Contratos'
+object frmGerar: TfrmGerar
+  Left = 447
+  Top = 236
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = '@-RentCar'
+  ClientHeight = 112
+  ClientWidth = 315
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,13 +13,12 @@ object frmGerContratos: TfrmGerContratos
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
-  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   object gbFiltros: TGroupBox
-    Left = 56
-    Top = 8
-    Width = 241
+    Left = 20
+    Top = 2
+    Width = 277
     Height = 54
     TabOrder = 0
     object Label1: TLabel
@@ -30,25 +31,24 @@ object frmGerContratos: TfrmGerContratos
     object DBLookupCliente: TDBLookupComboBox
       Left = 6
       Top = 24
-      Width = 227
+      Width = 235
       Height = 21
       DataField = 'RentCar_Pessoa_Pes_id'
       TabOrder = 0
     end
   end
-  object btnGerarContrato: TButton
-    Left = 109
-    Top = 70
+  object btnGerar: TButton
+    Left = 81
+    Top = 62
     Width = 131
     Height = 22
-    Caption = 'Gerar Contrato'
     TabOrder = 1
-    OnClick = btnGerarContratoClick
+    OnClick = btnGerarClick
   end
   object pbPerfil: TProgressBar
-    Left = 3
-    Top = 104
-    Width = 385
+    Left = 1
+    Top = 90
+    Width = 312
     Height = 17
     Step = 1
     TabOrder = 2

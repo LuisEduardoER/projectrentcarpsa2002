@@ -1,8 +1,8 @@
-object Form1: TForm1
-  Left = 294
-  Top = 296
+object frmAcessorios: TfrmAcessorios
+  Left = 298
+  Top = 215
   Width = 651
-  Height = 351
+  Height = 240
   Caption = '@-RentCar - Cadastro de Acess'#243'rios'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,11 +17,11 @@ object Form1: TForm1
     Left = 0
     Top = 1
     Width = 641
-    Height = 228
+    Height = 205
     ActivePage = tsAddAcessorios
     Align = alCustom
     TabOrder = 0
-    object Ficha: TTabSheet
+    object tsTipoAcessorios: TTabSheet
       Caption = 'Acessorios'
       ImageIndex = 4
       object Label1: TLabel
@@ -36,13 +36,16 @@ object Form1: TForm1
         Top = 38
         Width = 201
         Height = 21
+        DataField = 'Acess'#243'rio'
+        DataSource = dmRentCar.dsTTipoAcessorios
         TabOrder = 0
       end
-      object DBGrid1: TDBGrid
+      object DBGTipoAcessorio: TDBGrid
         Left = 236
         Top = 35
         Width = 378
         Height = 126
+        DataSource = dmRentCar.dsTTipoAcessorios
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -58,6 +61,7 @@ object Form1: TForm1
         Hint = 'Incluir um novo registro'
         Caption = 'Incluir'
         TabOrder = 2
+        OnClick = btnIncluirClick
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
@@ -95,6 +99,7 @@ object Form1: TForm1
         Caption = 'Gravar'
         Enabled = False
         TabOrder = 3
+        OnClick = btnGravarClick
         Glyph.Data = {
           06030000424D06030000000000003600000028000000100000000F0000000100
           180000000000D0020000120B0000120B00000000000000000000D8E9ECD8E9EC
@@ -131,6 +136,7 @@ object Form1: TForm1
         Caption = 'Excluir'
         Enabled = False
         TabOrder = 4
+        OnClick = btnExcluirClick
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           18000000000000030000120B0000120B00000000000000000000A8A8A8666666
@@ -168,6 +174,7 @@ object Form1: TForm1
         Caption = 'Cancelar'
         Enabled = False
         TabOrder = 5
+        OnClick = btnCancelarClick
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           18000000000000030000120B0000120B00000000000000000000F800F8F800F8
@@ -203,6 +210,7 @@ object Form1: TForm1
         Height = 25
         Caption = 'Fechar'
         TabOrder = 6
+        OnClick = BitBtn4Click
         Glyph.Data = {
           EE030000424DEE03000000000000360000002800000012000000110000000100
           180000000000B8030000120B0000120B00000000000000000000D8E9ECD8E9EC
@@ -241,36 +249,72 @@ object Form1: TForm1
     object tsAddAcessorios: TTabSheet
       Caption = 'Adicionar Acessorios'
       ImageIndex = 1
+      object DBTEspec: TDBText
+        Left = 170
+        Top = 3
+        Width = 65
+        Height = 17
+        DataField = 'Vel_Espec'
+        DataSource = dmRentCar.dsCadVeiculo
+      end
+      object lblEspec: TLabel
+        Left = 2
+        Top = 2
+        Width = 161
+        Height = 13
+        Caption = 'Especifica'#231#245'es do Ve'#237'culo :'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
       object DBListBox1: TDBListBox
-        Left = 8
+        Left = 112
         Top = 28
         Width = 121
-        Height = 166
+        Height = 143
         ItemHeight = 13
         TabOrder = 0
       end
       object DBListBox2: TDBListBox
-        Left = 240
-        Top = 30
+        Left = 280
+        Top = 27
         Width = 121
-        Height = 164
+        Height = 145
         ItemHeight = 13
         TabOrder = 1
       end
-    end
-  end
-  object StsBr: TStatusBar
-    Left = 0
-    Top = 298
-    Width = 643
-    Height = 19
-    Panels = <
-      item
-        Text = 'Estado do DataSet'
-        Width = 150
+      object btnAdd: TButton
+        Left = 236
+        Top = 60
+        Width = 41
+        Height = 25
+        Caption = '>'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+        OnClick = btnAddClick
       end
-      item
-        Width = 50
-      end>
+      object btnDel: TButton
+        Left = 236
+        Top = 108
+        Width = 41
+        Height = 25
+        Caption = '<'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 3
+      end
+    end
   end
 end

@@ -2418,7 +2418,14 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         end
         object Veiculos: TMenuItem
           Caption = 'Veiculos'
-          OnClick = VeiculosClick
+          object CadVec: TMenuItem
+            Caption = 'Cadastro'
+            OnClick = CadVecClick
+          end
+          object TipoAcessorios: TMenuItem
+            Caption = 'Tipo Acessorios'
+            OnClick = TipoAcessoriosClick
+          end
         end
       end
       object Relatorios: TMenuItem
