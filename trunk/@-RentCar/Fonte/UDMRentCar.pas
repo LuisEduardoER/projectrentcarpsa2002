@@ -102,7 +102,6 @@ type
     ZTAlugarAlu_PerFinalLoc: TDateField;
     ZTAlugarAlu_DataReserva: TDateField;
     ZTTipoAcessoriosTipoAcessorio_Id: TIntegerField;
-    ZTTipoAcessoriosAcessrio: TIntegerField;
     ZTPessoaPes_Img: TBlobField;
     ZTPesJuRentCar_PesFis_PesFis_id: TIntegerField;
     ZTGerValGerVal_id: TIntegerField;
@@ -111,6 +110,7 @@ type
     ZTGerValGerVal_ValAluMensal: TFloatField;
     ZTGerValGerVal_TipoPg: TStringField;
     ZTAlugarAlu_VlrTotalAPg: TFloatField;
+    ZTTipoAcessoriosAcessrio: TStringField;
   private
     { Private declarations }
   public

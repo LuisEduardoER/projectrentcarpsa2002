@@ -110,7 +110,7 @@ CREATE TABLE RentCar_TabelaPrecos (
 
 CREATE TABLE RentCar_TipoAcessorios (
   TipoAcessorio_Id INTEGER NOT NULL AUTO_INCREMENT,
-  Acessório INTEGER NULL,
+  Acessório CHAR(50) NULL,
   PRIMARY KEY(TipoAcessorio_Id)
 );
 

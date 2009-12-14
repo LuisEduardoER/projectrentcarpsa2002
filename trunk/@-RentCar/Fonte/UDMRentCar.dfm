@@ -563,8 +563,9 @@ object dmRentCar: TdmRentCar
     object ZTTipoAcessoriosTipoAcessorio_Id: TIntegerField
       FieldName = 'TipoAcessorio_Id'
     end
-    object ZTTipoAcessoriosAcessrio: TIntegerField
+    object ZTTipoAcessoriosAcessrio: TStringField
       FieldName = 'Acess'#243'rio'
+      Size = 50
     end
   end
   object dsTTipoAcessorios: TDataSource

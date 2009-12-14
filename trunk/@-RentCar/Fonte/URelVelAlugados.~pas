@@ -7,17 +7,17 @@ uses
   Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage;
 
 type
-  TfrmRelVelAlugados = class(TForm)
-    QRVelAlugados: TQuickRep;
+  TfrmRelVel = class(TForm)
+    QRVel: TQuickRep;
     QRBand1: TQRBand;
+    QRCabecalho: TQRRichText;
+    QRlblVec: TQRLabel;
+    QRLogo: TQRImage;
     QRBand2: TQRBand;
-    QRDBImgVel: TQRDBImage;
+    QRDBImg: TQRDBImage;
+    QRDBTEspec: TQRDBText;
     QRBand3: TQRBand;
     QRSysData2: TQRSysData;
-    QRDBText1: TQRDBText;
-    QRRichText1: TQRRichText;
-    QRVecAlu: TQRLabel;
-    QRImage1: TQRImage;
   private
     { Private declarations }
   public
@@ -25,7 +25,7 @@ type
   end;
 
 var
-  frmRelVelAlugados: TfrmRelVelAlugados;
+  frmRelVel: TfrmRelVel;
 
 implementation
 

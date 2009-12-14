@@ -1,6 +1,7 @@
 object frmAcesso: TfrmAcesso
   Left = 219
   Top = 170
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = '@-RentCar - Acesso'
   ClientHeight = 159

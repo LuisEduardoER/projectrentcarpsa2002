@@ -323,9 +323,11 @@ object dmRentCar: TdmRentCar
     end
     object ZTGerValGerVal_ValAluDiaria: TFloatField
       FieldName = 'GerVal_ValAluDiaria'
+      currency = True
     end
     object ZTGerValGerVal_ValAluMensal: TFloatField
       FieldName = 'GerVal_ValAluMensal'
+      currency = True
     end
     object ZTGerValGerVal_TipoPg: TStringField
       FieldName = 'GerVal_TipoPg'

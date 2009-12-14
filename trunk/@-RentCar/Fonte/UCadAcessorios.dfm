@@ -11,6 +11,7 @@ object frmAcessorios: TfrmAcessorios
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object pgcAcessorio: TPageControl
@@ -18,7 +19,7 @@ object frmAcessorios: TfrmAcessorios
     Top = 1
     Width = 641
     Height = 205
-    ActivePage = tsTipoAcessorios
+    ActivePage = tsAddAcessorios
     Align = alCustom
     TabOrder = 0
     object tsTipoAcessorios: TTabSheet
@@ -270,22 +271,6 @@ object frmAcessorios: TfrmAcessorios
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object DBListBox1: TDBListBox
-        Left = 112
-        Top = 28
-        Width = 121
-        Height = 143
-        ItemHeight = 13
-        TabOrder = 0
-      end
-      object DBListBox2: TDBListBox
-        Left = 280
-        Top = 27
-        Width = 121
-        Height = 145
-        ItemHeight = 13
-        TabOrder = 1
-      end
       object btnAdd: TButton
         Left = 236
         Top = 60
@@ -298,7 +283,7 @@ object frmAcessorios: TfrmAcessorios
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 0
         OnClick = btnAddClick
       end
       object btnDel: TButton
@@ -313,6 +298,27 @@ object frmAcessorios: TfrmAcessorios
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
+        TabOrder = 1
+        OnClick = btnDelClick
+      end
+      object DBLookupTipoAcessorios: TDBLookupListBox
+        Left = 88
+        Top = 27
+        Width = 121
+        Height = 147
+        KeyField = 'TipoAcessorio_Id'
+        ListField = 'Acess'#243'rio'
+        ListSource = dmRentCar.dsTTipoAcessorios
+        TabOrder = 2
+      end
+      object DBLookupAcessorios: TDBLookupListBox
+        Left = 312
+        Top = 25
+        Width = 121
+        Height = 147
+        KeyField = 'TipoAcessorio_Id'
+        ListField = 'Acess'#243'rio'
+        ListSource = dmRentCar.dsQFunctions
         TabOrder = 3
       end
     end

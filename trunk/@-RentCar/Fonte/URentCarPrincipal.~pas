@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, Menus, WinSkinData, StdCtrls, Buttons, pngimage,
-  ExtCtrls;
+  ExtCtrls, Grids, DBGrids;
 
 type
   TfrmRentCarPrincipal = class(TForm)
@@ -53,6 +53,8 @@ type
     ContratoLocPesJu: TMenuItem;
     CadVec: TMenuItem;
     TipoAcessorios: TMenuItem;
+    abelaPrecosAluguel1: TMenuItem;
+    Cadastrados: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
@@ -79,6 +81,7 @@ type
     procedure ContratoLocPesJuClick(Sender: TObject);
     procedure CadVecClick(Sender: TObject);
     procedure TipoAcessoriosClick(Sender: TObject);
+    procedure CadastradosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -91,8 +94,8 @@ var
 
 implementation
 
-uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado, URelVelDisp,
-  URelVelAlugados, UCadUsuario, URelVelRes,
+uses UCadVeiculo, UDMRentCar, UCadCliente, ULocacao, UChamado,
+  URelVelAlugados, UCadUsuario, 
   URelCliPesFis, UContrato, URelCliPesJu, UAcesso,
   UConsultas, UGerar, UCadAcessorios;
 
@@ -224,9 +227,10 @@ begin
     ShowMessage('Não Existem Veiculos Alugados');
   end else
   Begin
-    Application.CreateForm(TfrmRelVelAlugados, frmRelVelAlugados);
-    frmRelVelAlugados.QRVelAlugados.Preview;
-    frmRelVelAlugados.Free;
+    Application.CreateForm(TfrmRelVel, frmRelVel);
+    frmRelVel.QRlblVec.Caption := 'Veículos Alugados';
+    frmRelVel.QRVel.Preview;
+    frmRelVel.Free;
     dmRentCar.ZQAlugar.Close;
   end;
   end;
@@ -241,7 +245,6 @@ begin
     ZQAlugar.SQL.Clear;
     ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
     ZQAlugar.SQL.Add('from rentcar_veiculo ');
-   // ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
     ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_StatusLoc ="L" and rentcar_veiculo.Vel_StatusRes ="R"');
     ZQAlugar.Open;
 
@@ -250,9 +253,10 @@ begin
     ShowMessage('Não Existem Veiculos Disponíveis');
   end else
   Begin
-    Application.CreateForm(TfrmRelVelDisp, frmRelVelDisp);
-    frmRelVelDisp.QRVelDisp.Preview;
-    frmRelVelDisp.Free;
+    Application.CreateForm(TfrmRelVel, frmRelVel);
+    frmRelVel.QRlblVec.Caption := 'Veículos Disponíveis';
+    frmRelVel.QRVel.Preview;
+    frmRelVel.Free;
     dmRentCar.ZQAlugar.Close;
   end;
   end;
@@ -359,20 +363,22 @@ begin
   Begin
     ZQAlugar.Close;
     ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
+    ZQAlugar.SQL.Add('Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
     ZQAlugar.SQL.Add('from rentcar_veiculo ');
     ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
-    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusRes="R" and rentcar_alugar.DataReserva <> ""');
+    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusRes="R" and rentcar_alugar.Alu_DataReserva <> ""');
     ZQAlugar.Open;
 
-  if ZQAlugar.IsEmpty then
+
+ if ZQAlugar.IsEmpty then
   Begin
     ShowMessage('Não Existem Veiculos Reservados');
   end else
   Begin
-    Application.CreateForm(TfrmRelVelRes, frmRelVelRes);
-    frmRelVelRes.QRVelRes.Preview;
-    frmRelVelRes.Free;
+    Application.CreateForm(TfrmRelVel, frmRelVel);
+    frmRelVel.QRlblVec.Caption := 'Veículos Reservados';
+    frmRelVel.QRVel.Preview;
+    frmRelVel.Free;
     dmRentCar.ZQAlugar.Close;
   end;
   end;
@@ -636,6 +642,42 @@ begin
  frmAcessorios.ShowModal;
  frmAcessorios.Free;
  dmRentCar.ZTTipoAcessorios.Open;
+end;
+
+procedure TfrmRentCarPrincipal.CadastradosClick(Sender: TObject);
+begin
+//rotina que executa a instrução sql para carregar o relatorio de veículos alugados
+ with dmRentCar do
+  Begin
+    ZQAlugar.Close;
+    ZQAlugar.SQL.Clear;
+    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório');
+    ZQAlugar.SQL.Add('from rentcar_veiculo ');
+    ZQAlugar.SQL.Add('inner join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
+    ZQAlugar.SQL.Add('inner join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ');
+    ZQAlugar.Open;
+
+        ZQFunctions.Close;
+    ZQFunctions.SQL.Clear;
+    ZQFunctions.SQL.Add('Select Acessório, Vel_Espec');
+    ZQFunctions.SQL.Add('from rentcar_veiculo ');
+    ZQFunctions.SQL.Add('inner join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = "'+dmRentCar.ZQAlugar.FieldByName('Vel_Id').AsString+'"');
+    ZQFunctions.SQL.Add('inner join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ');
+    ZQFunctions.Open;
+
+  if ZQAlugar.IsEmpty then
+  Begin
+    ShowMessage('Não Existem Veiculos Cadastrados');
+  end else
+  Begin
+    Application.CreateForm(TfrmRelVel, frmRelVel);
+    frmRelVel.QRlblVec.Caption := 'Veículos Cadastrados';
+    frmRelVel.QRVel.Preview;
+    frmRelVel.Free;
+    ZQAlugar.Close;
+ end;
+ end;
+
 end;
 
 end.
