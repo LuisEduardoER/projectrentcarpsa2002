@@ -52,7 +52,7 @@ begin
  dmRentCar.ZTAcesso.Filtered := False;
  dmRentCar.ZTAcesso.Filter := 'Ac_Login = '+QuotedStr(edtLogin.Text)+' and Ac_Senha = '+QuotedStr(edtSenha.Text)+' and Ac_Perfil = '+ QuotedStr(sperfil);
  dmRentCar.ZTAcesso.Filtered := True;
- if (not dmRentCar.ZTAcesso.IsEmpty) or (edtLogin.Text = 'admin') and (edtSenha.Text = 'adminrentcar') and (cbPerfil.Text = 'Administrador') then
+ if (not dmRentCar.ZTAcesso.IsEmpty) or (edtLogin.Text = 'admin') and (edtSenha.Text = 'admin') and (cbPerfil.Text = 'Administrador') then
  Begin
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   if dmRentCar.ZTAcessoAc_Perfil.Value = 'F' then

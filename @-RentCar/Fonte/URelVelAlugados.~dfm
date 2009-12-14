@@ -1,9 +1,9 @@
-object frmRelVelAlugados: TfrmRelVelAlugados
+object frmRelVel: TfrmRelVel
   Left = 210
   Top = 251
   Width = 870
   Height = 500
-  Caption = '@-RentCar - Veiculos Alugados'
+  Caption = '@-RentCar - Veiculos '
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,7 +14,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
   Scaled = False
   PixelsPerInch = 96
   TextHeight = 13
-  object QRVelAlugados: TQuickRep
+  object QRVel: TQuickRep
     Left = 0
     Top = -1
     Width = 794
@@ -24,7 +24,6 @@ object frmRelVelAlugados: TfrmRelVelAlugados
     Frame.DrawBottom = False
     Frame.DrawLeft = False
     Frame.DrawRight = False
-    DataSet = dmRentCar.ZQAlugar
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -33,10 +32,12 @@ object frmRelVelAlugados: TfrmRelVelAlugados
     Functions.Strings = (
       'PAGENUMBER'
       'COLUMNNUMBER'
-      'REPORTTITLE')
+      'REPORTTITLE'
+      'QRSTRINGSBAND1')
     Functions.DATA = (
       '0'
       '0'
+      #39#39
       #39#39)
     Options = [FirstPageHeader, LastPageFooter]
     Page.Columns = 1
@@ -77,7 +78,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         277.812500000000000000
         1899.708333333333000000)
       BandType = rbPageHeader
-      object QRRichText1: TQRRichText
+      object QRCabecalho: TQRRichText
         Left = 184
         Top = 19
         Width = 441
@@ -104,7 +105,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
           '                       @-RentCar - Locadora de Ve'#237'culos'
           '                         Tambauzinho, Jo'#227'o Pessoa - PB')
       end
-      object QRVecAlu: TQRLabel
+      object QRlblVec: TQRLabel
         Left = 328
         Top = 83
         Width = 144
@@ -135,7 +136,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         WordWrap = True
         FontSize = 12
       end
-      object QRImage1: TQRImage
+      object QRLogo: TQRImage
         Left = 8
         Top = 12
         Width = 150
@@ -910,7 +911,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
       Left = 38
       Top = 143
       Width = 718
-      Height = 112
+      Height = 120
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -921,10 +922,10 @@ object frmRelVelAlugados: TfrmRelVelAlugados
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        296.333333333333400000
+        317.500000000000000000
         1899.708333333333000000)
       BandType = rbDetail
-      object QRDBImgVel: TQRDBImage
+      object QRDBImg: TQRDBImage
         Left = 8
         Top = 10
         Width = 95
@@ -942,9 +943,9 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         DataField = 'Vel_Img'
         DataSet = dmRentCar.ZQAlugar
       end
-      object QRDBText1: TQRDBText
+      object QRDBTEspec: TQRDBText
         Left = 112
-        Top = 39
+        Top = 7
         Width = 64
         Height = 17
         Frame.Color = clBlack
@@ -955,7 +956,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         Size.Values = (
           44.979166666666670000
           296.333333333333400000
-          103.187500000000000000
+          18.520833333333330000
           169.333333333333300000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -971,7 +972,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
     end
     object QRBand3: TQRBand
       Left = 38
-      Top = 255
+      Top = 263
       Width = 718
       Height = 35
       Frame.Color = clBlack
@@ -988,7 +989,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         1899.708333333333000000)
       BandType = rbSummary
       object QRSysData2: TQRSysData
-        Left = 638
+        Left = 618
         Top = 11
         Width = 68
         Height = 17
@@ -999,7 +1000,7 @@ object frmRelVelAlugados: TfrmRelVelAlugados
         Frame.DrawRight = False
         Size.Values = (
           44.979166666666670000
-          1688.041666666667000000
+          1635.125000000000000000
           29.104166666666670000
           179.916666666666700000)
         Alignment = taLeftJustify

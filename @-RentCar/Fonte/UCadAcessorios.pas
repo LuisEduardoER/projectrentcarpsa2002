@@ -19,18 +19,20 @@ type
     btnCancelar: TBitBtn;
     BitBtn4: TBitBtn;
     tsAddAcessorios: TTabSheet;
-    DBListBox1: TDBListBox;
-    DBListBox2: TDBListBox;
     DBTEspec: TDBText;
     lblEspec: TLabel;
     btnAdd: TButton;
     btnDel: TButton;
+    DBLookupTipoAcessorios: TDBLookupListBox;
+    DBLookupAcessorios: TDBLookupListBox;
     procedure btnIncluirClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
+    procedure btnDelClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -49,6 +51,9 @@ uses UDMRentCar, DB;
 procedure TfrmAcessorios.btnIncluirClick(Sender: TObject);
 begin
  dmRentCar.ZTTipoAcessorios.Insert;
+ btnGravar.Enabled := True;
+ btnIncluir.Enabled := False;
+ btnCancelar.Enabled := True;
 end;
 
 procedure TfrmAcessorios.btnExcluirClick(Sender: TObject);
@@ -59,6 +64,9 @@ end;
 procedure TfrmAcessorios.btnGravarClick(Sender: TObject);
 begin
  dmRentCar.ZTTipoAcessorios.Post;
+ btnGravar.Enabled := False;
+ btnIncluir.Enabled := True;
+ btnExcluir.Enabled := True;
 end;
 
 procedure TfrmAcessorios.BitBtn4Click(Sender: TObject);
@@ -82,8 +90,21 @@ begin
     dmRentCar.ZTAcessoriosRentCar_Veiculo_Vel_id.Value := dmRentCar.ZTCadVeiculoVel_id.Value;
     dmRentCar.ZTAcessoriosRentCar_TipoAcessorios_TipoAcessorio_Id.Value := dmRentCar.ZTTipoAcessoriosTipoAcessorio_Id.Value;
     dmRentCar.ZTAcessorios.Post;
+    dmRentCar.ZQFunctions.Refresh;
   end;
 
+end;
+
+procedure TfrmAcessorios.btnDelClick(Sender: TObject);
+begin
+ dmRentCar.ZTAcessorios.Delete;
+ dmRentCar.ZQFunctions.Refresh;
+end;
+
+procedure TfrmAcessorios.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+ dmRentCar.ZQFunctions.Close;
 end;
 
 end.

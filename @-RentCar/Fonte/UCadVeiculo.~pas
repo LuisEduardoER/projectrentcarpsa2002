@@ -171,11 +171,19 @@ end;
 procedure TfrmCadVeiculos.AdicionarAcessoriosClick(Sender: TObject);
 begin
  dmRentCar.ZTAcessorios.Open;
+ dmRentCar.ZTTipoAcessorios.Open;
  Application.CreateForm(TfrmAcessorios, frmAcessorios);
+ dmRentCar.ZQFunctions.Close;
+ dmRentCar.ZQFunctions.SQL.Clear;
+ dmRentCar.ZQFunctions.SQL.Add('Select TipoAcessorio_Id, Acessório from rentcar_tipoacessorios ');
+ dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_acessorio on rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id = rentcar_tipoacessorios.TipoAcessorio_Id ');
+ dmRentCar.ZQFunctions.SQL.Add('where rentcar_acessorio.RentCar_Veiculo_Vel_id = "'+dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZQFunctions.Open;
  frmAcessorios.tsTipoAcessorios.Destroy;
  frmAcessorios.ShowModal;
  frmAcessorios.Free;
  dmRentCar.ZTAcessorios.Close;
+ dmRentCar.ZTTipoAcessorios.Close;
 end;
 
 procedure TfrmCadVeiculos.btnCadastrarClick(Sender: TObject);

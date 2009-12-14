@@ -4,7 +4,7 @@ object frmCadVeiculos: TfrmCadVeiculos
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = '@-RentCar - Cadastro de Ve'#237'culos'
-  ClientHeight = 328
+  ClientHeight = 286
   ClientWidth = 890
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

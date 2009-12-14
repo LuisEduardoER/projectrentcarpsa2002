@@ -2432,6 +2432,10 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         Caption = 'Relatorios'
         object RelVeiculos: TMenuItem
           Caption = 'Ve'#237'culos'
+          object Cadastrados: TMenuItem
+            Caption = 'Cadastrados'
+            OnClick = CadastradosClick
+          end
           object Alugados: TMenuItem
             Caption = 'Alugados'
             OnClick = AlugadosClick
