@@ -95,9 +95,6 @@ object frmCadUsuarios: TfrmCadUsuarios
       Height = 21
       DataField = 'RentCar_PesFis_PesFis_id'
       DataSource = dmRentCar.dsAcesso
-      KeyField = 'Pes_id'
-      ListField = 'PesFis_nome'
-      ListSource = dmRentCar.dsQFunctions
       TabOrder = 2
       OnClick = DBLookupCBPessoaClick
     end
@@ -144,6 +141,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 73
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 2
     OnClick = btnSalvarClick
     Glyph.Data = {
@@ -221,6 +219,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 75
     Height = 25
     Caption = 'Alterar'
+    Enabled = False
     TabOrder = 4
     OnClick = btnAlterarClick
     Glyph.Data = {

@@ -7,7 +7,7 @@ uses
   Dialogs, DBCtrls, StdCtrls, Mask, ComCtrls, Grids, DBGrids, IdMessage,
   IdIOHandler, IdIOHandlerSocket, IdSSLOpenSSL, IdBaseComponent,
   IdComponent, IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
-  Buttons, Menus;
+  Buttons, Menus, ExtCtrls;
 
 type
   TfrmLocacao = class(TForm)
@@ -58,9 +58,11 @@ type
     sbCondutor: TStatusBar;
     btnProcuraCond: TBitBtn;
     DBTVlrPg: TDBText;
-    MSimular: TMainMenu;
-    SimularLocacao: TMenuItem;
-    DBGrid1: TDBGrid;
+    tsListaEspera: TTabSheet;
+    DBGListReservas: TDBGrid;
+    DBLookupVeiculo: TDBLookupComboBox;
+    Label6: TLabel;
+    DBNvListEspera: TDBNavigator;
     procedure DBLCBVClick(Sender: TObject);
     procedure DBLookupCBVeiculoClick(Sender: TObject);
     procedure ConeccaoEmail;
@@ -78,11 +80,13 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure btnProcuraCondClick(Sender: TObject);
     procedure CalcDate;
-    procedure SimularLocacaoClick(Sender: TObject);
+    procedure tsListaEsperaShow(Sender: TObject);
+    procedure DBGListReservasCellClick(Column: TColumn);
+    procedure DBLookupVeiculoClick(Sender: TObject);
   private
     { Private declarations }
   public
-     email, loc: string;
+     email, loc, viaContrato : string;
     { Public declarations }
   end;
 
@@ -275,10 +279,10 @@ begin
    dmRentCar.ZTAlugar.Open;
    dmRentCar.ZTGerVal.Open;
    opVec := 'D';
+   dmRentCar.ZTCadVeiculo.Open;
    dmRentCar.ZTCadVeiculo.Filtered := False;
    dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc = '+QuotedStr('O');
    dmRentCar.ZTCadVeiculo.Filtered := True;
-   dmRentCar.ZTCadVeiculo.Open;
    dmRentCar.ZTGerVal.Filtered := False;
    dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
    dmRentCar.ZTGerVal.Filtered := True;
@@ -286,6 +290,12 @@ end;
 
 procedure TfrmLocacao.DBLookupVecDevClick(Sender: TObject);
 begin
+ dmRentCar.ZTCadVeiculo.Open;
+ dmRentCar.ZTPesFis.Open;
+ dmRentCar.ZTPessoa.Open;
+ dmRentCar.ZTGerVal.Open;
+ dmRentCar.ZTAlugar.Open;
+
  dmRentCar.ZTCadVeiculo.Filtered := False;
  dmRentCar.ZTCadVeiculo.Filter := 'Vel_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Veiculo_Vel_id.AsString);
  dmRentCar.ZTCadVeiculo.Filtered := True;
@@ -294,11 +304,13 @@ begin
  dmRentCar.ZTAlugar.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
  dmRentCar.ZTAlugar.Filtered := True;
 
- dmRentCar.ZTPesFis.Open;
- dmRentCar.ZTPesFis.Filtered := False;
- dmRentCar.ZTPesFis.Filter := 'PesFis_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.AsString);
- dmRentCar.ZTPesFis.Filtered := True;
+ dmRentCar.ZTPessoa.Filtered := False;
+ dmRentCar.ZTPessoa.Filter := 'Pes_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.AsString);
+ dmRentCar.ZTPessoa.Filtered := True;
 
+ dmRentCar.ZTPesFis.Filtered := False;
+ dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Pessoa_Pes_id.AsString);
+ dmRentCar.ZTPesFis.Filtered := True;
 
  if not dmRentCar.ZTCadVeiculo.IsEmpty then
   Begin
@@ -320,6 +332,9 @@ begin
    dmRentCar.ZTPesFis.Filter := 'PesFis_id = '+QuotedStr(dmRentCar.ZTPesJuRentCar_PesFis_PesFis_id.AsString);
    dmRentCar.ZTPesFis.Filtered:= True;
    sbCondutor.Panels[1].Text := dmRentCar.ZTPesFisPesFis_Nome.Value;
+ end else
+ Begin
+   sbCondutor.Panels[1].Text := dmRentCar.ZTPesFisPesFis_Nome.Value;
  end;
 
   if frmRentCarPrincipal.veiculo = 'PFL' then
@@ -331,8 +346,6 @@ begin
          btnCadastrar.Enabled := True;
       end;
   end;
-
-
 
 if (frmRentCarPrincipal.veiculo = 'PJL') then
  Begin
@@ -348,108 +361,162 @@ end;
 procedure TfrmLocacao.tsLocacaoShow(Sender: TObject);
 begin
  opVec := 'L';
+ DateLocI.Date := Date;
+ DateLocF.Date := Date;
+
+ dmRentCar.ZTCadVeiculo.Filtered := False;
+ dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc = '+QuotedStr('N');
+ dmRentCar.ZTCadVeiculo.Filtered := True;
+
 end;
 
 procedure TfrmLocacao.tsReservaShow(Sender: TObject);
 begin
 opVec := 'R';
+ dmRentCar.ZTCadVeiculo.Filtered := False;
+ dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusRes = '+QuotedStr('R');
+ dmRentCar.ZTCadVeiculo.Filtered := True;
 end;
 
 procedure TfrmLocacao.btnCadastrarClick(Sender: TObject);
 begin
+  lblVlrAluguel.Caption := '';
+  dmRentCar.ZTCadVeiculo.Open;
+  dmRentCar.ZTGerVal.Open;
+  dmRentCar.ZTPesFis.Open;
+  dmRentCar.ZTPesJu.Open;
+  dmRentCar.ZTPessoa.Open;
+
   dmRentCar.ZTAlugar.Open;
   dmRentCar.ZTAlugar.Insert;
-  if (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.veiculo = 'PJL')  then
+
+  if (frmRentCarPrincipal.veiculo = 'PFL')  then
   Begin
-   dmRentCar.ZTCadVeiculo.Filtered := False;
-   dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc = '+QuotedStr('L');
-   dmRentCar.ZTCadVeiculo.Filtered := True;
-   gbLocacao.Enabled := True;
+    DateLocI.Date := Date;
+    DateLocF.Date := Date;
+    DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
+    DBLookupCliente.ListField := 'PesFis_Nome';
+    DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+
+    dmRentCar.ZTCadVeiculo.Filtered := False;
+    dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc = '+QuotedStr('L');
+    dmRentCar.ZTCadVeiculo.Filtered := True;
+    gbLocacao.Enabled := True;
   end else
-  if (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PJR')  then
+  if  (frmRentCarPrincipal.veiculo = 'PJL') then
   Begin
+    DateLocI.Date := Date;
+    DateLocF.Date := Date;
+    DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+    DBLookupCliente.ListField := 'PesJu_NmFantasia';
+    DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+
+    dmRentCar.ZTCadVeiculo.Filtered := False;
+    dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc = '+QuotedStr('L');
+    dmRentCar.ZTCadVeiculo.Filtered := True;
+    gbLocacao.Enabled := True;
+  end;
+
+  if (frmRentCarPrincipal.veiculo = 'PFR')  then
+  Begin
+    DBLookupClienteRes.ListSource := dmRentCar.dsTPesFis;
+    DBLookupClienteRes.ListField := 'PesFis_Nome';
+    DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';
+
+    dmRentCar.ZTCadVeiculo.Filtered := False;
+    dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc <> '+QuotedStr('O');
+    dmRentCar.ZTCadVeiculo.Filtered := True;
+    gbReserva.Enabled := True;
+    tsReserva.OnShow(Sender);
+  end else
+  if (frmRentCarPrincipal.veiculo = 'PJR') then
+  Begin
+    DBLookupClienteRes.ListSource := dmRentCar.dsTPesJu;
+    DBLookupClienteRes.ListField := 'PesJu_NmFantasia';
+    DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';
+
+    dmRentCar.ZTCadVeiculo.Filtered := False;
+    dmRentCar.ZTCadVeiculo.Filter := 'Vel_StatusLoc <> '+QuotedStr('O');
+    dmRentCar.ZTCadVeiculo.Filtered := True;
     gbReserva.Enabled := True;
   end;
+
    btnCadastrar.Enabled := False;
    btnSalvar.Enabled := True;
+
 
 end;
 
 procedure TfrmLocacao.btnSalvarClick(Sender: TObject);
 begin
-  if DBLookupCliente.Text = '' then
-  Begin
-   ShowMessage('Escolha o cliente');
-  end else
-  if DBLookupCBVeiculo.Text = '' then
-  Begin
-   ShowMessage('Escolha o veiculo');
-  end else
-  Begin
-   dmRentCar.ZTGerVal.Edit;
-   dmRentCar.ZTGerVal.Post;
-   CalcDate;
-
+  dmRentCar.ZTGerVal.Edit;
+  dmRentCar.ZTGerVal.Post;
   if (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.veiculo = 'PJL')  then
   Begin
-      dmRentCar.ZTAlugarRentCar_TabelaPrecos_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
-      dmRentCar.ZTAlugarAlu_PerInicialLoc.Value := DateLocI.Date;
-      dmRentCar.ZTAlugarAlu_PerFinalLoc.Value := DateLocF.Date;
-      dmRentCar.ZTAlugar.Post;
-      dmRentCar.ZTCadVeiculo.Filtered := False;
-      dmRentCar.ZTCadVeiculo.Filter := 'Vel_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Veiculo_Vel_id.AsString);
-      dmRentCar.ZTCadVeiculo.Filtered := True;
-
-      dmRentCar.ZTCadVeiculo.Edit;
-      dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'O';
-      dmRentCar.ZTCadVeiculo.Post;
-      ShowMessage('Locação confirmada com sucesso');
-      btnCadastrar.Enabled := True;
-      btnSalvar.Enabled := False;
-
-      if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmando a locação do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+   if (sbCondutor.Panels[1].Text = '') then
+   Begin
+    ShowMessage('Deve ser informado qual o condutor do veículo');
+   end else
+   Begin;
+    CalcDate;
+    dmRentCar.ZTAlugarRentCar_TabelaPrecos_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
+    dmRentCar.ZTAlugarAlu_PerInicialLoc.Value := DateLocI.Date;
+    dmRentCar.ZTAlugarAlu_PerFinalLoc.Value := DateLocF.Date;
+    dmRentCar.ZTAlugar.Post;
+    dmRentCar.ZTCadVeiculo.Filtered := False;
+    dmRentCar.ZTCadVeiculo.Filter := 'Vel_id = '+QuotedStr(dmRentCar.ZTAlugarRentCar_Veiculo_Vel_id.AsString);
+    dmRentCar.ZTCadVeiculo.Filtered := True;
+    dmRentCar.ZTCadVeiculo.Edit;
+    dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'O';
+    dmRentCar.ZTCadVeiculo.Post;
+    ShowMessage('Locação confirmada com sucesso');
+    btnCadastrar.Enabled := True;
+    btnSalvar.Enabled := False;
+    btnAlterar.Enabled := True;
+   end;
+   if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmando a locação do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+   Begin
+    EmailLocacao;
+   end;
+   if (frmRentCarPrincipal.veiculo = 'PFL') then
+   Begin
+   With dmRentCar do
+    Begin
+      ZQAlugar.Close;
+      ZQAlugar.SQL.Clear;
+      ZQAlugar.SQL.Add('select PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+      ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
+      ZQAlugar.SQL.Add('from rentcar_pessoa ');
+      ZQAlugar.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
+      ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
+      ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
+      ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
+      ZQAlugar.SQL.Add('where PesFis_Nome = "'+DBLookupCliente.Text+'"');
+      ZQAlugar.Open;
+    end;
+    if dmRentCar.ZQAlugar.IsEmpty then
+    Begin
+      ShowMessage('Não existem dados de locação para o cliente escolhido');
+    end else
+    if Application.MessageBox('Deseja gerar o contrato de Locação?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+    Begin
+      Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+      frmContratoLocacao.QRVelContrLoc.Preview;
+      frmContratoLocacao.Free;
+    end;
+    end else
+    if (frmRentCarPrincipal.veiculo = 'PJL') then
+    Begin
+      if DBLookupCliente.Text = '' then
       Begin
-        EmailLocacao;
-      end;
-      if (frmRentCarPrincipal.veiculo = 'PFL') then
-      Begin
-        With dmRentCar do
-      Begin
-        ZQAlugar.Close;
-        ZQAlugar.SQL.Clear;
-        ZQAlugar.SQL.Add('select PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
-        ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
-        ZQAlugar.SQL.Add('from rentcar_pessoa ');
-        ZQAlugar.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
-        ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
-        ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
-        ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
-        ZQAlugar.SQL.Add('where PesFis_Nome = "'+DBLookupCliente.Text+'"');
-        ZQAlugar.Open;
-      end;
-      if dmRentCar.ZQAlugar.IsEmpty then
-      Begin
-        ShowMessage('Não existem dados de locação para o cliente escolhido');
+        ShowMessage('Escolha o cliente');
       end else
-      if Application.MessageBox('Deseja gerar o contrato de Locação?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+      if DBLookupCBVeiculo.Text = '' then
       Begin
-        Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
-        frmContratoLocacao.QRVelContrLoc.Preview;
-        frmContratoLocacao.Free;
-      end;
+        ShowMessage('Escolha o veiculo');
       end else
-      if (frmRentCarPrincipal.veiculo = 'PJL') then
       Begin
-        if DBLookupCliente.Text = '' then
-        Begin
-          ShowMessage('Escolha o cliente');
-        end else
-        if DBLookupCBVeiculo.Text = '' then
-        Begin
-         ShowMessage('Escolha o veiculo');
-        end else
-       Begin
-        With dmRentCar do
+      With dmRentCar do
         Begin
           ZQAlugar.Close;
           ZQAlugar.SQL.Clear;
@@ -463,52 +530,95 @@ begin
           ZQAlugar.SQL.Add('where PesJu_NmFantasia = "'+DBLookupCliente.Text+'"');
           ZQAlugar.Open;
         end;
-
-        if dmRentCar.ZQAlugar.IsEmpty then
-        Begin
-          ShowMessage('Não existem dados de locação para o cliente escolhido');
-        end else
-        if Application.MessageBox('Deseja gerar o contrato de Locação?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
-        Begin
-          Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
-          frmContratoLocacao.QRVelContrLoc.Preview;
-          frmContratoLocacao.Free;
-         end;
+      if dmRentCar.ZQAlugar.IsEmpty then
+      Begin
+        ShowMessage('Não existem dados de locação para o cliente escolhido');
+      end else
+      if Application.MessageBox('Deseja gerar o contrato de Locação?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+      Begin
+        Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+        frmContratoLocacao.QRVelContrLoc.Preview;
+        frmContratoLocacao.Free;
       end;
     end;
+   end;
+  end else
+  if (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PJR') then
+   Begin
+    dmRentCar.ZQFunctions.Close;
+    dmRentCar.ZQFunctions.SQL.Clear;
+    dmRentCar.ZQFunctions.SQL.Add('select rentcar_veiculo.Vel_Espec from rentcar_alugar ');
+    dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
+    dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
+    if (frmRentCarPrincipal.veiculo = 'PFR') then
+    Begin
+    dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');
+    dmRentCar.ZQFunctions.SQL.Add('where PesFis_Nome = "'+DBLookupClienteRes.Text+'" and Alu_DataReserva is not null');
     end else
-    if (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PJR') then
-      Begin
-        dmRentCar.ZTAlugarRentCar_TabelaPrecos_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
-        dmRentCar.ZTAlugarAlu_DataReserva.Value := DateReserva.Date;
-        dmRentCar.ZTAlugar.Post;
-        dmRentCar.ZTCadVeiculo.Edit;
-        dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
-        dmRentCar.ZTCadVeiculo.Post;
-        ShowMessage('Reserva confirmada com sucesso');
-        btnCadastrar.Enabled := True;
-        btnSalvar.Enabled := False;
-      if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmar a reserva do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
-      Begin
-        EmailReserva;
-      end;
+    if (frmRentCarPrincipal.veiculo = 'PJR') then
+    Begin
+    dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');
+    dmRentCar.ZQFunctions.SQL.Add('where PesFis_Nome = "'+DBLookupClienteRes.Text+'" and Alu_DataReserva is not null');
+    end;
+    dmRentCar.ZQFunctions.Open;
+
+      if dmRentCar.ZQFunctions.IsEmpty then
+    Begin
+      dmRentCar.ZTAlugarRentCar_TabelaPrecos_GerVal_id.Value := dmRentCar.ZTGerValGerVal_id.Value;
+      dmRentCar.ZTAlugarAlu_DataReserva.Value := DateReserva.Date;
+      dmRentCar.ZTAlugar.Post;
+      dmRentCar.ZTCadVeiculo.Edit;
+      dmRentCar.ZTCadVeiculoVel_StatusRes.Value := 'R';
+      dmRentCar.ZTCadVeiculo.Post;
+      ShowMessage('Reserva confirmada com sucesso');
+      btnCadastrar.Enabled := True;
+      btnSalvar.Enabled := False;
+      btnAlterar.Enabled := True;
+
+    if Application.MessageBox('Deseja enviar um e-mail para o cliente confirmar a reserva do veículo?', 'Aviso', mb_yesno + mb_defbutton2) = idYes then
+    Begin
+      EmailReserva;
+    end;
+    end else
+    Begin
+      ShowMessage('O cliente '+DBLookupClienteRes.Text+' já fez uma reserva desse veículo');
+    end;
     end else
     if (frmRentCarPrincipal.veiculo = 'D') then
     Begin
-      dmRentCar.ZTAlugar.Edit;
-      dmRentCar.ZTAlugar.Post;
-      dmRentCar.ZTCadVeiculo.Edit;
+     dmRentCar.ZTAlugar.Edit;
+     dmRentCar.ZTAlugar.Post;
+     dmRentCar.ZTCadVeiculo.Edit;
+
+     dmRentCar.ZQFunctions.Close;
+     dmRentCar.ZQFunctions.SQL.Clear;
+     dmRentCar.ZQFunctions.SQL.Add('select rentcar_veiculo.Vel_Espec from rentcar_alugar ');
+     dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
+     dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
+     dmRentCar.ZQFunctions.SQL.Add('where rentcar_alugar.RentCar_Veiculo_Vel_id = "'+dmRentCar.ZTCadVeiculoVel_id.AsString+'" and Alu_DataReserva is not null');
+     dmRentCar.ZQFunctions.Open;
+
+     if dmRentCar.ZQFunctions.IsEmpty then
+     Begin
       dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
-      dmRentCar.ZTCadVeiculo.Post;
-      dmRentCar.ZTCadVeiculo.Refresh;
-      tsDevolucao.OnShow(Self);
-      ShowMessage('Devolucao confirmada com sucesso');
+     end else
+     Begin
+      dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'O';
+     end;
+     dmRentCar.ZTCadVeiculo.Post;
+     dmRentCar.ZTCadVeiculo.Refresh;
+     tsDevolucao.OnShow(Self);
+     ShowMessage('Devolucao confirmada com sucesso');
     end;
- end;
 end;
 
 procedure TfrmLocacao.btnProcurarClick(Sender: TObject);
 begin
+  dmRentCar.ZTPessoa.Open;
+  dmRentCar.ZTPesFis.Open;
+  dmRentCar.ZTPesJu.Open;
+  dmRentCar.ZTCadVeiculo.Open;
+
   Application.CreateForm(TfrmConsultas, frmConsultas);
   if frmRentCarPrincipal.veiculo = 'PFL' then
   Begin
@@ -534,6 +644,12 @@ end;
 
 procedure TfrmLocacao.btnFecharClick(Sender: TObject);
 begin
+ dmRentCar.ZTCadVeiculo.Close;
+ dmRentCar.ZTGerVal.Close;
+ dmRentCar.ZTPesFis.Close;
+ dmRentCar.ZTPesJu.Close;
+ dmRentCar.ZTPessoa.Close;
+ dmRentCar.ZTAlugar.Cancel;
  Close;
  dmRentCar.ZTCadVeiculo.Filtered := False;
 end;
@@ -575,28 +691,77 @@ begin
  calcDias := dmRentCar.ZTGerValGerVal_ValAluDiaria.AsInteger * dias;
  calcMeses := dmRentCar.ZTGerValGerVal_ValAluMensal.AsInteger * meses;
 
+ if dias <= 1 then
+ Begin
+   lblVlrAluguel.Caption := 'R$ ' +FormatFloat('###,###,##0.00',StrToFloat(IntToStr(dmRentCar.ZTGerValGerVal_ValAluDiaria.AsInteger)));
+   dmRentCar.ZTAlugarAlu_VlrTotalAPg.Value := dmRentCar.ZTGerValGerVal_ValAluDiaria.AsInteger;
+ end else
+ Begin
  if dias >= 1 then
  Begin
-   lblVlrAluguel.Caption := IntToStr(calcDias);
+   lblVlrAluguel.Caption := 'R$ ' +FormatFloat('###,###,##0.00',StrToFloat(IntToStr(calcDias)));
    dmRentCar.ZTAlugarAlu_VlrTotalAPg.Value := calcDias;
  end else
  if dias >= 30 then
  Begin
-   lblVlrAluguel.Caption := IntToStr(calcMeses);
+   lblVlrAluguel.Caption := 'R$ ' +FormatFloat('###,###,##0.00',StrToFloat(IntToStr(calcMeses)));
    dmRentCar.ZTAlugarAlu_VlrTotalAPg.Value := calcMeses;
  end;
+end;
+end;
+
+procedure TfrmLocacao.tsListaEsperaShow(Sender: TObject);
+begin
+     dmRentCar.ZTAlugar.Open;
+     dmRentCar.ZTCadVeiculo.Open;
+     dmRentCar.ZQFunctions.Close;
+     dmRentCar.ZQFunctions.SQL.Clear;
+     dmRentCar.ZQFunctions.SQL.Add('select rentcar_veiculo.Vel_Espec from rentcar_alugar ');
+     dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
+     dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
+//     dmRentCar.ZQFunctions.SQL.Add('where rentcar_alugar.RentCar_Veiculo_Vel_id = "'+dmRentCar.ZTCadVeiculoVel_id.AsString+'" and Alu_DataReserva is not null and Alu_PerInicialLoc is null and Alu_PerFinalLoc is null');
+     dmRentCar.ZQFunctions.SQL.Add('and Alu_DataReserva is not null and Alu_PerInicialLoc is null and Alu_PerFinalLoc is null');
+     dmRentCar.ZQFunctions.SQL.Add('order by Alu_DataReserva ASC');
+     dmRentCar.ZQFunctions.Open;
 
 end;
 
-procedure TfrmLocacao.SimularLocacaoClick(Sender: TObject);
+procedure TfrmLocacao.DBGListReservasCellClick(Column: TColumn);
 begin
- if DBLookupCBVeiculo.Text = '' then
+ if dmRentCar.ZQFunctions.RecordCount <= 1 then
  Begin
-   ShowMessage('Selecione o Veículo');
+  dmRentCar.ZTAlugar.Filtered := False;
+  dmRentCar.ZTAlugar.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZQFunctions.FieldByName('Vel_Id').AsString);
+  dmRentCar.ZTAlugar.Filtered := True;
+  dmRentCar.ZTAlugar.Delete;
+
+  dmRentCar.ZTCadVeiculo.Edit;
+  dmRentCar.ZTCadVeiculoVel_StatusLoc.Value := 'L';
+  dmRentCar.ZTCadVeiculo.Post;
  end else
  Begin
-  CalcDate;
+  dmRentCar.ZTAlugar.Filtered := False;
+  dmRentCar.ZTAlugar.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZQFunctions.FieldByName('Vel_Id').AsString);
+  dmRentCar.ZTAlugar.Filtered := True;
+  dmRentCar.ZTAlugar.Delete;
  end;
+ Application.MessageBox('Locação Confirmada com Sucesso!','@RentCar',Mb_OK + Mb_IconInformation);
+ dmRentCar.ZQFunctions.Refresh;
+end;
+
+procedure TfrmLocacao.DBLookupVeiculoClick(Sender: TObject);
+begin
+  DBGListReservas.Enabled := True;
+  dmRentCar.ZQFunctions.Close;
+  dmRentCar.ZQFunctions.SQL.Clear;
+  dmRentCar.ZQFunctions.SQL.Add('select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_id from rentcar_alugar ');
+  dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
+  dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
+  dmRentCar.ZQFunctions.SQL.Add('where rentcar_veiculo.Vel_Espec = "'+DBLookupVeiculo.Text+'" and Alu_DataReserva is not null and Alu_PerInicialLoc is null and Alu_PerFinalLoc is null');
+  // dmRentCar.ZQFunctions.SQL.Add('and Alu_DataReserva is not null and Alu_PerInicialLoc is null and Alu_PerFinalLoc is null');
+  dmRentCar.ZQFunctions.SQL.Add('order by Alu_DataReserva ASC');
+  dmRentCar.ZQFunctions.Open;
+  dmRentCar.ZQFunctions.FieldByName('Vel_id').Visible := False;
 end;
 
 end.

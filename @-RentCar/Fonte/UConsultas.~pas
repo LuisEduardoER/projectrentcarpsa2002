@@ -48,8 +48,7 @@ type
     btnProcurarVec: TBitBtn;
     btnProcurarLoc: TBitBtn;
     btnProcurarCli: TBitBtn;
-    DBText1: TDBText;
-    DBGrid1: TDBGrid;
+    btnCopiaContrato: TBitBtn;
     procedure DBGClientesCellClick(Column: TColumn);
     procedure ckNomeClick(Sender: TObject);
     procedure ckCPFCNPJClick(Sender: TObject);
@@ -58,14 +57,16 @@ type
     procedure DBGVecCellClick(Column: TColumn);
     procedure ckProtocoloClick(Sender: TObject);
     procedure DBGListChamadosCellClick(Column: TColumn);
-    procedure DBGLocCellClick(Column: TColumn);
     procedure btnProcurarChamadoClick(Sender: TObject);
     procedure btnProcurarVecClick(Sender: TObject);
     procedure btnProcurarLocClick(Sender: TObject);
     procedure btnProcurarCliClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCopiaContratoClick(Sender: TObject);
   private
     { Private declarations }
   public
+   viaContrato : string;
     { Public declarations }
   end;
 
@@ -74,7 +75,7 @@ var
 
 implementation
 
-uses UDMRentCar, URentCarPrincipal, DateUtils, ULocacao;
+uses UDMRentCar, URentCarPrincipal, DateUtils, ULocacao, UContrato;
 
 {$R *.dfm}
 
@@ -97,7 +98,6 @@ begin
     Begin
      dmRentCar.ZTPesJu.Open;
      dmRentCar.ZTPesJu.Edit;
-     ShowMessage(dmRentCar.ZTPesFisPesFis_id.AsString);
      dmRentCar.ZTPesJuRentCar_PesFis_PesFis_id.Value := dmRentCar.ZTPesFisPesFis_id.Value;
      dmRentCar.ZTPesJu.Post;
      frmLocacao.sbCondutor.Panels[1].Text := dmRentCar.ZTPesFisPesFis_Nome.Value;
@@ -186,18 +186,6 @@ begin
  dmRentCar.ZQFunctions.Refresh;
  end;
  end;
-
-end;
-
-procedure TfrmConsultas.DBGLocCellClick(Column: TColumn);
-begin
-  close;
-  with dmRentCar do
-  Begin
-    ZTAlugar.Filtered := False;
-    ZTAlugar.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(ZQFunctions.fieldbyname('Pes_Id').AsString);
-    ZTAlugar.Filtered := True;
-  end;
 
 end;
 
@@ -307,7 +295,7 @@ dF := FormatDateTime('yyyy-MM-dd',DateF.date);
    Begin
      ZQFunctions.Close;
      ZQFunctions.SQL.Clear;
-     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id as Codigo, rentcar_pesfis.PesFis_Nome as Codigo, rentcar_veiculo.Vel_Espec as Espec from rentcar_alugar ');
+     ZQFunctions.SQL.Add('select distinct rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome as Nome, rentcar_veiculo.Vel_Espec as Espec from rentcar_alugar ');
      ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
      ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
      ZQFunctions.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');
@@ -321,14 +309,14 @@ dF := FormatDateTime('yyyy-MM-dd',DateF.date);
      end else
      if ckPeriodo.Checked = True then
      Begin
-     ZQFunctions.SQL.Add('where rentcar_alugar.PerInicialLoc = "'+dI+'" or rentcar_alugar.PerInicialLoc = "'+dF+'"');
+     ZQFunctions.SQL.Add('where rentcar_alugar.Alu_PerInicialLoc = "'+dI+'" or rentcar_alugar.Alu_PerInicialLoc = "'+dF+'"');
      end;
    end else
    if frmRentCarPrincipal.veiculo = 'PFL' then
    Begin
      ZQFunctions.Close;
      ZQFunctions.SQL.Clear;
-     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id as Codigo, rentcar_pesju.PesJu_NmFantasia as Nome, rentcar_veiculo.Vel_Espec as Espec from rentcar_alugar ');
+     ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id, rentcar_pesju.PesJu_NmFantasia as Nome, rentcar_veiculo.Vel_Espec as Espec from rentcar_alugar ');
      ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
      ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
      ZQFunctions.SQL.Add('inner join rentcar_pesJu on rentcar_pesJu.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');
@@ -346,6 +334,7 @@ dF := FormatDateTime('yyyy-MM-dd',DateF.date);
      end;
    end;
    ZQFunctions.Open;
+   ZQFunctions.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
   end;
 end;
 
@@ -437,6 +426,68 @@ Begin
   end; 
 
 
+end;
+
+procedure TfrmConsultas.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+{  if dmRentCar.ZTCadVeiculo.IsEmpty then
+  Begin
+   dmRentCar.ZTCadVeiculo.Filtered := False;
+  end;}
+end;
+
+procedure TfrmConsultas.btnCopiaContratoClick(Sender: TObject);
+begin
+ if dmRentCar.ZQFunctions.IsEmpty then
+ Begin
+  ShowMessage('Selecione pelo menos um filtro para a pesquisa');
+ end else
+ Begin
+
+   if (frmRentCarPrincipal.veiculo = 'PFL') then
+   Begin
+   viaContrato := 'F';
+   With dmRentCar do
+    Begin
+      ZQAlugar.Close;
+      ZQAlugar.SQL.Clear;
+      ZQAlugar.SQL.Add('select PesFis_Nome, PesFis_EstCivil, PesFis_RG, PesFis_CPF, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+      ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa');
+      ZQAlugar.SQL.Add('from rentcar_pessoa ');
+      ZQAlugar.SQL.Add('inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
+      ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
+      ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
+      ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
+      ZQAlugar.SQL.Add('where Vel_Espec = "'+dmRentCar.ZQFunctions.FieldByName('Espec').AsString+'" and PesFis_Nome = "'+dmRentCar.ZQFunctions.FieldByName('Nome').AsString+'"');
+      ZQAlugar.Open;
+    end;
+     Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+     frmContratoLocacao.QRVelContrLoc.Preview;
+     frmContratoLocacao.Free;
+    end else
+    if (frmRentCarPrincipal.veiculo = 'PJL') then
+    Begin
+     viaContrato := 'J';
+      With dmRentCar do
+        Begin
+          ZQAlugar.Close;
+          ZQAlugar.SQL.Clear;
+          ZQAlugar.SQL.Add('select PesJU_NmFantasia, PesJu_RazaoSocial, PesJu_CNPJ, End_Endereco, End_Num, End_Bairro, End_CEP, End_Cidade, End_Estado, ');
+          ZQAlugar.SQL.Add('Vel_Marca, Vel_Modelo, Vel_Ano, Vel_Cor, Vel_Placa ');
+          ZQAlugar.SQL.Add('from rentcar_pessoa ');
+          ZQAlugar.SQL.Add('inner join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
+          ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
+          ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
+          ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
+          ZQAlugar.SQL.Add('where Vel_Espec = "'+dmRentCar.ZQFunctions.FieldByName('Vel_Espec').AsString+'"');
+          ZQAlugar.Open;
+        end;
+        Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);
+        frmContratoLocacao.QRVelContrLoc.Preview;
+        frmContratoLocacao.Free;
+      end;
+  end;
 end;
 
 end.

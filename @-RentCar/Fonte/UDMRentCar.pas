@@ -63,8 +63,6 @@ type
     ZTCadVeiculoVel_StatusRes: TStringField;
     ZTChamadoCh_id: TIntegerField;
     ZTChamadoRentCar_Pessoa_Pes_id: TIntegerField;
-    ZTChamadoCh_TipoCh: TStringField;
-    ZTChamadoCh_Protocol: TIntegerField;
     ZTChamadoCh_HoraCh: TTimeField;
     ZTChamadoCh_DataCh: TDateField;
     ZTChamadoCh_Status: TStringField;
@@ -74,7 +72,6 @@ type
     ZTPesFisPesFis_CPF: TStringField;
     ZTPesFisPesFis_Sexo: TStringField;
     ZTPesFisPesFis_Tipo: TStringField;
-    ZTPesFisPesFis_EstCivil: TStringField;
     ZTPesFisPesFis_CNH: TStringField;
     ZTPesFisPesFis_Validade: TDateField;
     ZTPesFisPesFis_Login: TStringField;
@@ -111,6 +108,9 @@ type
     ZTGerValGerVal_TipoPg: TStringField;
     ZTAlugarAlu_VlrTotalAPg: TFloatField;
     ZTTipoAcessoriosAcessrio: TStringField;
+    ZTChamadoCh_Protocol: TStringField;
+    ZTChamadoCh_TipoCh: TStringField;
+    ZTPesFisPesFis_EstCivil: TStringField;
   private
     { Private declarations }
   public

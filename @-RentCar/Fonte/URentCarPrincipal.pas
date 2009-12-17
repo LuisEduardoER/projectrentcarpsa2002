@@ -47,14 +47,11 @@ type
     RelClientes: TMenuItem;
     RelCliPesFis: TMenuItem;
     RelCliPesJu: TMenuItem;
-    Contratos: TMenuItem;
-    ContratoLoc: TMenuItem;
-    ContratoLocPesFis: TMenuItem;
-    ContratoLocPesJu: TMenuItem;
     CadVec: TMenuItem;
     TipoAcessorios: TMenuItem;
     abelaPrecosAluguel1: TMenuItem;
     Cadastrados: TMenuItem;
+    ListaReservas: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure SairClick(Sender: TObject);
     procedure FisicaClick(Sender: TObject);
@@ -77,15 +74,14 @@ type
     procedure DevolucaoClick(Sender: TObject);
     procedure RelCliPesFisClick(Sender: TObject);
     procedure RelCliPesJuClick(Sender: TObject);
-    procedure ContratoLocPesFisClick(Sender: TObject);
-    procedure ContratoLocPesJuClick(Sender: TObject);
     procedure CadVecClick(Sender: TObject);
     procedure TipoAcessoriosClick(Sender: TObject);
     procedure CadastradosClick(Sender: TObject);
+    procedure ListaReservasClick(Sender: TObject);
   private
     { Private declarations }
   public
-     tipo, veiculo, cli, perfil, chamado, contrato, gerar : string;
+     tipo, veiculo, cli, perfil, chamado, contrato, gerar, relVeiculo : string;
     { Public declarations }
   end;
 
@@ -118,19 +114,21 @@ begin
 //chamada do formulário para a reserva de veículos - pessoa fisica
  //variavel que será usada para identificação na reserva do veículo
  veiculo := 'PFR';
- dmRentCar.ZTAlugar.Open;
+{ dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
  dmRentCar.ZTPesFis.Open;
- dmRentCar.ZTPessoa.Open;
+ dmRentCar.ZTPessoa.Open;}
 
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsLocacao.Destroy;
  frmLocacao.tsDevolucao.Destroy;
+ frmLocacao.tsListaEspera.Destroy;
  //o lookup irá carregar os dados referentes ao cadastro de pessoa fisica
+{ frmLocacao.btnProcurar.Enabled := False;
  frmLocacao.DBLookupClienteRes.ListSource := dmRentCar.dsTPesFis;
  frmLocacao.DBLookupClienteRes.ListField := 'PesFis_Nome';
- frmLocacao.DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';
+ frmLocacao.DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';}
  frmLocacao.btnCadastrar.Caption := 'Nova Reserva';
  frmLocacao.btnSalvar.Caption := 'Confirmar Reserva';
  frmLocacao.btnProcurar.Enabled := False;
@@ -138,11 +136,11 @@ begin
  frmLocacao.Free;
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
- dmRentCar.ZTAlugar.Close;
+{ dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
  dmRentCar.ZTPesFis.Close;
- dmRentCar.ZTPessoa.Close;
+ dmRentCar.ZTPessoa.Close;}
 
 
 end;
@@ -152,18 +150,20 @@ begin
 //chamada do formulário para a reserva de veículos - pessoa fisica
  //variavel que será usada para identificação na reserva do veículo
  veiculo := 'PJR';
- dmRentCar.ZTAlugar.Open;
+{ dmRentCar.ZTAlugar.Open;
  dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
  dmRentCar.ZTPesJu.Open;
- dmRentCar.ZTPessoa.Open;
+ dmRentCar.ZTPessoa.Open; }
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.tsLocacao.Destroy;
  frmLocacao.tsDevolucao.Destroy;
+ frmLocacao.tsListaEspera.Destroy;
 // o lookup irá receber os dados do cadastro de pessoa juridica
+{  frmLocacao.btnProcurar.Enabled := False;
  frmLocacao.DBLookupClienteRes.ListSource := dmRentCar.dsTPesJu;
  frmLocacao.DBLookupClienteRes.ListField := 'PesJu_NmFantasia';
- frmLocacao.DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';
+ frmLocacao.DBLookupClienteRes.KeyField := 'RentCar_Pessoa_Pes_id';}
  frmLocacao.btnCadastrar.Caption := 'Nova Reserva';
  frmLocacao.btnSalvar.Caption := 'Confirmar Reserva';
  frmLocacao.btnProcurar.Enabled := False;
@@ -171,11 +171,11 @@ begin
  frmLocacao.Free;
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
- dmRentCar.ZTAlugar.Close;
+{ dmRentCar.ZTAlugar.Close;
  dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
  dmRentCar.ZTPesJu.Close;
- dmRentCar.ZTPessoa.Close;
+ dmRentCar.ZTPessoa.Close; }
 
 end;
 
@@ -210,56 +210,62 @@ begin
 end;
 
 procedure TfrmRentCarPrincipal.AlugadosClick(Sender: TObject);
+Var
+Query : string;
 begin
-//rotina que executa a instrução sql para carregar o relatorio de veículos alugados
-  with dmRentCar do
-  Begin
-    ZQAlugar.Close;
-    ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
-    ZQAlugar.SQL.Add('from rentcar_veiculo ');
-    ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
-    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusLoc ="O" ');
-    ZQAlugar.Open;
 
-  if ZQAlugar.IsEmpty then
-  Begin
-    ShowMessage('Não Existem Veiculos Alugados');
-  end else
-  Begin
-    Application.CreateForm(TfrmRelVel, frmRelVel);
-    frmRelVel.QRlblVec.Caption := 'Veículos Alugados';
-    frmRelVel.QRVel.Preview;
-    frmRelVel.Free;
-    dmRentCar.ZQAlugar.Close;
-  end;
-  end;
+   Query := 'Select  rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório ';
+   Query := Query + 'from rentcar_veiculo ';
+   Query := Query + 'left join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query + 'left join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ';
+   Query := Query + 'inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query + 'and rentcar_veiculo.Vel_StatusLoc ="O" ';
+
+   Application.CreateForm(TfrmRelVel, frmRelVel);
+   frmRelVel.QryVel.Close;
+   frmRelVel.QryVel.SQL.Clear;
+   frmRelVel.QryVel.SQL.Add(Query);
+   frmRelVel.QryVel.Open;
+
+   if not frmRelVel.QryVel.IsEmpty then
+   Begin
+      frmRelVel.QRlblVec.Caption := 'Veículos Alugados';
+      frmRelVel.QRVel.Preview;
+      frmRelVel.Free;
+   end else
+   Begin
+     ShowMessage('Não existem veículos Alugados');
+   end;
+
 end;
 
 procedure TfrmRentCarPrincipal.DisponveisClick(Sender: TObject);
+Var
+Query : string;
 begin
-//rotina que executa a instrução sql para carregar o relatorio de veículos disponíveis para locação
-  with dmRentCar do
-  Begin
-    ZQAlugar.Close;
-    ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
-    ZQAlugar.SQL.Add('from rentcar_veiculo ');
-    ZQAlugar.SQL.Add('where rentcar_veiculo.Vel_StatusLoc ="L" and rentcar_veiculo.Vel_StatusRes ="R"');
-    ZQAlugar.Open;
 
-  if ZQAlugar.IsEmpty then
-  Begin
-    ShowMessage('Não Existem Veiculos Disponíveis');
-  end else
-  Begin
-    Application.CreateForm(TfrmRelVel, frmRelVel);
-    frmRelVel.QRlblVec.Caption := 'Veículos Disponíveis';
-    frmRelVel.QRVel.Preview;
-    frmRelVel.Free;
-    dmRentCar.ZQAlugar.Close;
-  end;
-  end;
+   Query := 'Select  rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório ';
+   Query := Query + 'from rentcar_veiculo ';
+   Query := Query + 'left join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query + 'left join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ';
+   Query := Query + 'where rentcar_veiculo.Vel_StatusLoc ="L" and rentcar_veiculo.Vel_StatusRes ="R"';
+
+   Application.CreateForm(TfrmRelVel, frmRelVel);
+   frmRelVel.QryVel.Close;
+   frmRelVel.QryVel.SQL.Clear;
+   frmRelVel.QryVel.SQL.Add(Query);
+   frmRelVel.QryVel.Open;
+
+   if not frmRelVel.QryVel.IsEmpty then
+   Begin
+      frmRelVel.QRlblVec.Caption := 'Veículos Disponíveis';
+      frmRelVel.QRVel.Preview;
+      frmRelVel.Free;
+   end else
+   Begin
+     ShowMessage('Não existem veículos Disponíveis');
+   end;
+
 end;
 
 procedure TfrmRentCarPrincipal.Funcionarios1Click(Sender: TObject);
@@ -280,13 +286,10 @@ end;
 
 procedure TfrmRentCarPrincipal.Usurios1Click(Sender: TObject);
 begin
-//chamada do formulário para o cadastro de usuários
   dmRentCar.ZTAcesso.Open;
   Application.CreateForm(TfrmCadUsuarios, frmCadUsuarios);
   frmCadUsuarios.ShowModal;
   frmCadUsuarios.Free;
-
- //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTAcesso.Close;
 end;
 
@@ -296,30 +299,31 @@ begin
  //variavel que será usada para identificação na locação do veículo
   veiculo := 'PFL';
 //  dmRentCar.ZTAlugar.Open;
-  dmRentCar.ZTCadVeiculo.Open;
+{  dmRentCar.ZTCadVeiculo.Open;
   dmRentCar.ZTGerVal.Open;
   dmRentCar.ZTPesFis.Open;
-  dmRentCar.ZTPessoa.Open;
+  dmRentCar.ZTPessoa.Open; }
   Application.CreateForm(TfrmLocacao, frmLocacao);
   frmLocacao.DateLocI.Date := dmRentCar.ZTAlugarAlu_PerInicialLoc.Value;
   frmLocacao.DateLocF.Date := dmRentCar.ZTAlugarAlu_PerFinalLoc.Value;
   frmLocacao.tsReserva.Destroy;
   frmLocacao.tsDevolucao.Destroy;
+  frmLocacao.tsListaEspera.Destroy;
   // o lookup irá receber os dados do cadastro de pessoa fisica
-  frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
+{  frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
   frmLocacao.DBLookupCliente.ListField := 'PesFis_Nome';
-  frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+  frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';  }
   frmLocacao.btnCadastrar.Caption := 'Nova Locacao';
   frmLocacao.btnSalvar.Caption := 'Confirmar Locacao';
   frmLocacao.ShowModal;
   frmLocacao.Free;
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
-  dmRentCar.ZTCadVeiculo.Open;
+{  dmRentCar.ZTCadVeiculo.Open;
 //  dmRentCar.ZTAlugar.Close;
   dmRentCar.ZTGerVal.Close;
   dmRentCar.ZTPesFis.Close;
-  dmRentCar.ZTPessoa.Close;  
+  dmRentCar.ZTPessoa.Close;  }
 end;
 
 procedure TfrmRentCarPrincipal.LocPesJuClick(Sender: TObject);
@@ -329,19 +333,20 @@ begin
 
  veiculo := 'PJL';
 // dmRentCar.ZTAlugar.Open;
- dmRentCar.ZTCadVeiculo.Open;
+{ dmRentCar.ZTCadVeiculo.Open;
  dmRentCar.ZTGerVal.Open;
  dmRentCar.ZTPesJu.Open;
- dmRentCar.ZTPessoa.Open;
+ dmRentCar.ZTPessoa.Open; }
  Application.CreateForm(TfrmLocacao, frmLocacao);
  frmLocacao.DateLocI.Date := dmRentCar.ZTAlugarAlu_PerInicialLoc.Value;
  frmLocacao.DateLocF.Date := dmRentCar.ZTAlugarAlu_PerFinalLoc.Value;
  frmLocacao.tsReserva.Destroy;
  frmLocacao.tsDevolucao.Destroy;
+ frmLocacao.tsListaEspera.Destroy;
  //o lookup irá receber os dados do cadastro de pessoa juridica
- frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
+{ frmLocacao.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
  frmLocacao.DBLookupCliente.ListField := 'PesJu_NmFantasia';
- frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
+ frmLocacao.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';}
  frmLocacao.btnCadastrar.Caption := 'Nova Locacao';
  frmLocacao.btnSalvar.Caption := 'Confirmar Locacao';
  frmLocacao.ShowModal;
@@ -349,40 +354,40 @@ begin
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
 // dmRentCar.ZTAlugar.Close;
- dmRentCar.ZTCadVeiculo.Close;
+ {dmRentCar.ZTCadVeiculo.Close;
  dmRentCar.ZTGerVal.Close;
  dmRentCar.ZTPesJu.Close;
- dmRentCar.ZTPessoa.Close;
+ dmRentCar.ZTPessoa.Close; }
 
 end;
 
 procedure TfrmRentCarPrincipal.ReservadosClick(Sender: TObject);
+Var
+Query : string;
 begin
-//rotina que executa a instrução sql para carregar o relatorio de veículos reservados
-  with dmRentCar do
-  Begin
-    ZQAlugar.Close;
-    ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img ');
-    ZQAlugar.SQL.Add('from rentcar_veiculo ');
-    ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
-    ZQAlugar.SQL.Add('and rentcar_veiculo.Vel_StatusRes="R" and rentcar_alugar.Alu_DataReserva <> ""');
-    ZQAlugar.Open;
 
+   Query := 'Select  rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório ';
+   Query := Query + 'from rentcar_veiculo ';
+   Query := Query + 'left join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query + 'left join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ';
+   Query := Query + 'inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query +'and rentcar_veiculo.Vel_StatusRes="R" and rentcar_alugar.Alu_DataReserva <> null';
 
- if ZQAlugar.IsEmpty then
-  Begin
-    ShowMessage('Não Existem Veiculos Reservados');
-  end else
-  Begin
-    Application.CreateForm(TfrmRelVel, frmRelVel);
-    frmRelVel.QRlblVec.Caption := 'Veículos Reservados';
-    frmRelVel.QRVel.Preview;
-    frmRelVel.Free;
-    dmRentCar.ZQAlugar.Close;
-  end;
-  end;
+   Application.CreateForm(TfrmRelVel, frmRelVel);
+   frmRelVel.QryVel.Close;
+   frmRelVel.QryVel.SQL.Clear;
+   frmRelVel.QryVel.SQL.Add(Query);
+   frmRelVel.QryVel.Open;
 
+   if not frmRelVel.QryVel.IsEmpty then
+   Begin
+      frmRelVel.QRlblVec.Caption := 'Veículos Reservados';
+      frmRelVel.QRVel.Preview;
+      frmRelVel.Free;
+   end else
+   Begin
+     ShowMessage('Não existem veículos Reservados');
+   end;
 end;
 
 procedure TfrmRentCarPrincipal.PFisicaClick(Sender: TObject);
@@ -507,11 +512,12 @@ procedure TfrmRentCarPrincipal.DevolucaoClick(Sender: TObject);
 begin
  veiculo := 'D';
 //chamada do formulário para a devolucao do veículo
-  dmRentCar.ZTAlugar.Open;
-  dmRentCar.ZTGerVal.Open;
+{  dmRentCar.ZTAlugar.Open;
+  dmRentCar.ZTGerVal.Open;^}
   Application.CreateForm(TfrmLocacao, frmLocacao);
   frmLocacao.tsReserva.Destroy;
   frmLocacao.tsLocacao.Destroy;
+  frmLocacao.tsListaEspera.Destroy;
   frmLocacao.btnCadastrar.Enabled := False;
   frmLocacao.btnAlterar.Enabled := False;
   frmLocacao.btnSalvar.Caption := 'Confirmar Devolucao';
@@ -519,8 +525,8 @@ begin
   frmLocacao.Free;
 
  //fechar as tabelas para evitar que fiquem sendo carregadas na memória
-  dmRentCar.ZTAlugar.Close;
-  dmRentCar.ZTGerVal.Close;  
+ { dmRentCar.ZTAlugar.Close;
+  dmRentCar.ZTGerVal.Close; } 
 end;                         
 
 procedure TfrmRentCarPrincipal.RelCliPesFisClick(Sender: TObject);
@@ -577,46 +583,6 @@ begin
 
 end;
 
-procedure TfrmRentCarPrincipal.ContratoLocPesFisClick(Sender: TObject);
-begin
-//chamada do formulário para a geração do contrato de locacao
-//do cliente pessoa fisica
- //variavel que será usada para identificação na geração do contrato
-  contrato := 'ContLocPesFis';
-  gerar := 'C';
-  dmRentCar.ZTPesFis.Open;
-  Application.CreateForm(TfrmGerar, frmGerar);
-  frmGerar.btnGerar.Caption := 'Gerar Contatro';
-  frmGerar.DBLookupCliente.ListSource := dmRentCar.dsTPesFis;
-  frmGerar.DBLookupCliente.ListField := 'PesFis_Nome';
-  frmGerar.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
-  frmGerar.ShowModal;
-  frmGerar.Free;
-  
-   //fechar a tabela para evitar que fique sendo carregada na memória
-  dmRentCar.ZTPesFis.Close;
-end;
-
-procedure TfrmRentCarPrincipal.ContratoLocPesJuClick(Sender: TObject);
-begin
-//chamada do formulário para a geração do contrato de locacao
-//do cliente pessoa juridica
- //variavel que será usada para identificação na geração do contrato
- contrato := 'ContLocPesJu';
- gerar := 'C';
- dmRentCar.ZTPesJu.Open;
- Application.CreateForm(TfrmGerar, frmGerar);
- frmGerar.btnGerar.Caption := 'Gerar Contrato';
- frmGerar.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
- frmGerar.DBLookupCliente.ListField := 'PesJu_NmFantasia';
- frmGerar.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
- frmGerar.ShowModal;
- frmGerar.Free;
- 
-  //fechar a tabela para evitar que fique sendo carregada na memória
- dmRentCar.ZTPesJu.Close;
-end;
-
 procedure TfrmRentCarPrincipal.CadVecClick(Sender: TObject);
 begin
  //processoro para abrir a tabela necessária para o cadastro
@@ -645,31 +611,46 @@ begin
 end;
 
 procedure TfrmRentCarPrincipal.CadastradosClick(Sender: TObject);
+Var
+Query : string;
 begin
-//rotina que executa a instrução sql para carregar o relatorio de veículos alugados
- with dmRentCar do
-  Begin
-    ZQAlugar.Close;
-    ZQAlugar.SQL.Clear;
-    ZQAlugar.SQL.Add('Select distinct rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório');
-    ZQAlugar.SQL.Add('from rentcar_veiculo ');
-    ZQAlugar.SQL.Add('inner join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ');
-    ZQAlugar.SQL.Add('inner join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ');
-    ZQAlugar.Open;
 
-  if ZQAlugar.IsEmpty then
-  Begin
-    ShowMessage('Não Existem Veiculos Cadastrados');
-  end else
-  Begin
-    Application.CreateForm(TfrmRelVel, frmRelVel);
-    frmRelVel.QRlblVec.Caption := 'Veículos Cadastrados';
-    frmRelVel.QRVel.Preview;
-    frmRelVel.Free;
-    ZQAlugar.Close;
- end;
- end;
+   Query := 'Select  rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório ';
+   Query := Query + 'from rentcar_veiculo ';
+   Query := Query + 'left join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query + 'left join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ';
 
+   Application.CreateForm(TfrmRelVel, frmRelVel);
+   frmRelVel.QryVel.Close;
+   frmRelVel.QryVel.SQL.Clear;
+   frmRelVel.QryVel.SQL.Add(Query);
+   frmRelVel.QryVel.Open;
+
+   if not frmRelVel.QryVel.IsEmpty then
+   Begin
+      frmRelVel.QRlblVec.Caption := 'Veículos Cadastrados';
+      frmRelVel.QRVel.Preview;
+      frmRelVel.Free;
+   end else
+   Begin
+     ShowMessage('Não existem veículos Cadastrados');
+   end;
+end;
+
+procedure TfrmRentCarPrincipal.ListaReservasClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmLocacao, frmLocacao);
+  frmLocacao.DateLocI.Date := dmRentCar.ZTAlugarAlu_PerInicialLoc.Value;
+  frmLocacao.DateLocF.Date := dmRentCar.ZTAlugarAlu_PerFinalLoc.Value;
+  frmLocacao.tsReserva.Destroy;
+  frmLocacao.tsDevolucao.Destroy;
+  frmLocacao.tsLocacao.Destroy;
+  frmLocacao.btnCadastrar.Enabled := False;
+  frmLocacao.btnSalvar.Enabled := False;
+  frmLocacao.btnProcurar.Enabled := False;
+  frmLocacao.btnAlterar.Enabled := False;
+  frmLocacao.ShowModal;
+  frmLocacao.Free;
 end;
 
 end.

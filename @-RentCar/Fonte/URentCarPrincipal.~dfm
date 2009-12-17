@@ -2490,6 +2490,10 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         Caption = 'Devolucao'
         OnClick = DevolucaoClick
       end
+      object ListaReservas: TMenuItem
+        Caption = 'ListaReservas'
+        OnClick = ListaReservasClick
+      end
       object abelaPrecosAluguel1: TMenuItem
         Caption = 'Tabela Precos Aluguel'
       end
@@ -2535,20 +2539,6 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         object PJuridica: TMenuItem
           Caption = 'Juridica'
           OnClick = PJuridicaClick
-        end
-      end
-      object Contratos: TMenuItem
-        Caption = 'Contratos'
-        object ContratoLoc: TMenuItem
-          Caption = 'Locacao'
-          object ContratoLocPesFis: TMenuItem
-            Caption = 'Fisica'
-            OnClick = ContratoLocPesFisClick
-          end
-          object ContratoLocPesJu: TMenuItem
-            Caption = 'Juridica'
-            OnClick = ContratoLocPesJuClick
-          end
         end
       end
     end

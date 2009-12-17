@@ -1,6 +1,6 @@
 object frmCadUsuarios: TfrmCadUsuarios
-  Left = 357
-  Top = 186
+  Left = 358
+  Top = 239
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = '@-RentCar - Cadastro Usu'#225'rios'
@@ -96,7 +96,7 @@ object frmCadUsuarios: TfrmCadUsuarios
       DataField = 'RentCar_PesFis_PesFis_id'
       DataSource = dmRentCar.dsAcesso
       KeyField = 'Pes_id'
-      ListField = 'PesFis_nome'
+      ListField = 'PesFis_Nome'
       ListSource = dmRentCar.dsQFunctions
       TabOrder = 2
       OnClick = DBLookupCBPessoaClick
@@ -144,6 +144,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 73
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 2
     OnClick = btnSalvarClick
     Glyph.Data = {
@@ -221,6 +222,7 @@ object frmCadUsuarios: TfrmCadUsuarios
     Width = 75
     Height = 25
     Caption = 'Alterar'
+    Enabled = False
     TabOrder = 4
     OnClick = btnAlterarClick
     Glyph.Data = {

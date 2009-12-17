@@ -25,7 +25,6 @@ type
     btnDel: TButton;
     DBLookupTipoAcessorios: TDBLookupListBox;
     DBLookupAcessorios: TDBLookupListBox;
-    DBGrid1: TDBGrid;
     procedure btnIncluirClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);

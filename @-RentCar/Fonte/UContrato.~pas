@@ -59,7 +59,7 @@ var
 
 implementation
 
-uses UDMRentCar, ULocacao, UGerContratos, URentCarPrincipal;
+uses UDMRentCar, ULocacao, URentCarPrincipal, UConsultas;
 
 {$R *.dfm}
 
@@ -68,7 +68,7 @@ procedure TfrmContratoLocacao.QRVelContrLocBeforePrint(
 begin
 
 
-     if (frmRentCarPrincipal.contrato = 'ContLocPesFis') then
+     if (frmRentCarPrincipal.veiculo = 'PFL') or (frmConsultas.viaContrato = 'F') then
      Begin
      QRRichLoc.Lines.Add(dmRentCar.ZQAlugar.FieldByName('PesFis_Nome').AsString + ',RG '+ dmRentCar.ZQAlugar.FieldByName('PesFis_RG').AsString
                           +',CPF '+dmRentCar.ZQAlugar.FieldByName('PesFis_CPF').AsString+' residente e domiliciado na '+dmRentCar.ZQAlugar.FieldByName('End_Endereco').AsString
@@ -78,8 +78,9 @@ begin
      QRRichCl1.Lines.Add('O presente contrato tem como OBJETO a locação do automóvel marca  '+dmRentCar.ZQAlugar.FieldByName('Vel_Marca').AsString + ',modelo '+ dmRentCar.ZQAlugar.FieldByName('Vel_Modelo').AsString
                           +',ano '+dmRentCar.ZQAlugar.FieldByName('Vel_Ano').AsString+', cor '+dmRentCar.ZQAlugar.FieldByName('Vel_Cor').AsString
                           +', placa '+dmRentCar.ZQAlugar.FieldByName('Vel_Placa').AsString);
+
      end else
-     if (frmRentCarPrincipal.contrato = 'ContLocPesJu') then
+     if (frmRentCarPrincipal.contrato = 'ContLocPesJu') or (frmConsultas.viaContrato = 'J') then
      Begin
      QRRichLoc.Lines.Add(dmRentCar.ZQAlugar.FieldByName('PesJu_NmFantasia').AsString + ', '+ dmRentCar.ZQAlugar.FieldByName('PesJu_RazaoSocial').AsString
                     +',CNPJ '+dmRentCar.ZQAlugar.FieldByName('PesJu_CNPJ').AsString+' localizada na '+dmRentCar.ZQAlugar.FieldByName('End_Endereco').AsString

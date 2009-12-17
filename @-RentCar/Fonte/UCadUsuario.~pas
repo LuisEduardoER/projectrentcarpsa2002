@@ -46,10 +46,15 @@ begin
  Begin
   ZQFunctions.Close;
   ZQFunctions.SQL.Clear;
-  ZQFunctions.SQL.Add('select Pes_id,PesFis_Nome from rentcar_pessoa, rentcar_pesfis ');
-  ZQFunctions.SQL.Add('where rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
-  ZQFunctions.SQL.Add('and rentcar_pesfis.PesFis_Tipo = "F"');
+  ZQFunctions.SQL.Add('select Pes_id,PesFis_Nome from rentcar_pessoa ');
+  ZQFunctions.SQL.Add(' inner join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id ');
+  ZQFunctions.SQL.Add(' where rentcar_pesfis.PesFis_Tipo = "F"');
   ZQFunctions.Open;
+
+  DBLookupCBPessoa.ListSource := dmRentCar.dsQFunctions;
+  DBLookupCBPessoa.ListField := 'PesFis_Nome';
+  DBLookupCBPessoa.KeyField := 'Pes_id';
+  ZQFunctions.Refresh;
  end;
 end;
 
@@ -57,14 +62,17 @@ procedure TfrmCadUsuarios.DBLookupCBPessoaClick(Sender: TObject);
 begin
  With dmRentCar do
  Begin
+  ZTAcesso.Open;
   ZTAcesso.Filtered := False;
   ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+ QuotedStr(dmRentCar.ZQFunctions.fieldbyname('Pes_id').AsString);
   ZTAcesso.Filtered := True;
-  ZTAcesso.Open;
 
   if not ZTAcesso.IsEmpty then
    Begin
+     ZTAcesso.Cancel;
      btnCadastrar.Enabled := False;
+     btnSalvar.Enabled := False;
+     btnAlterar.Enabled := True;
    end;
  end;
 
@@ -92,6 +100,7 @@ begin
    dmRentCar.ZTAcesso.Post;
    btnSalvar.Enabled := False;
    btnCadastrar.Enabled := True;
+   btnAlterar.Enabled := True;
  end;
 
 end;
@@ -104,6 +113,7 @@ end;
 procedure TfrmCadUsuarios.btnAlterarClick(Sender: TObject);
 begin
  dmRentCar.ZTAcesso.Edit;
+ btnSalvar.Enabled := True;
 
 end;
 

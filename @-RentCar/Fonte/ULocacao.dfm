@@ -4,15 +4,14 @@ object frmLocacao: TfrmLocacao
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = '@-RentCar - Gerenciamento Loca'#231#227'o/Reserva Ve'#237'culos'
-  ClientHeight = 288
-  ClientWidth = 481
+  ClientHeight = 287
+  ClientWidth = 480
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  Menu = MSimular
   OldCreateOrder = False
   Position = poScreenCenter
   PixelsPerInch = 96
@@ -240,19 +239,6 @@ object frmLocacao: TfrmLocacao
             6000C06000D8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9EC
             D8E9ECD8E9EC}
         end
-        object DBGrid1: TDBGrid
-          Left = 224
-          Top = 64
-          Width = 320
-          Height = 120
-          DataSource = dmRentCar.dsTAlugar
-          TabOrder = 8
-          TitleFont.Charset = DEFAULT_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -11
-          TitleFont.Name = 'MS Sans Serif'
-          TitleFont.Style = []
-        end
       end
     end
     object tsReserva: TTabSheet
@@ -326,7 +312,6 @@ object frmLocacao: TfrmLocacao
           DataField = 'RentCar_Pessoa_Pes_id'
           DataSource = dmRentCar.dsTAlugar
           TabOrder = 3
-          OnClick = DBLookupClienteClick
         end
       end
     end
@@ -420,6 +405,60 @@ object frmLocacao: TfrmLocacao
         end
       end
     end
+    object tsListaEspera: TTabSheet
+      Caption = 'Lista Espera Reservas'
+      ImageIndex = 3
+      OnShow = tsListaEsperaShow
+      object Label6: TLabel
+        Left = 9
+        Top = 3
+        Width = 45
+        Height = 13
+        Caption = 'Ve'#237'culo'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DBGListReservas: TDBGrid
+        Left = 6
+        Top = 44
+        Width = 441
+        Height = 157
+        DataSource = dmRentCar.dsQFunctions
+        Enabled = False
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        OnCellClick = DBGListReservasCellClick
+      end
+      object DBLookupVeiculo: TDBLookupComboBox
+        Left = 8
+        Top = 17
+        Width = 217
+        Height = 21
+        KeyField = 'Vel_id'
+        ListField = 'Vel_Espec'
+        ListSource = dmRentCar.dsCadVeiculo
+        TabOrder = 1
+        OnClick = DBLookupVeiculoClick
+      end
+      object DBNvListEspera: TDBNavigator
+        Left = 258
+        Top = 16
+        Width = 188
+        Height = 25
+        DataSource = dmRentCar.dsQFunctions
+        VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+        TabOrder = 2
+      end
+    end
   end
   object btnCadastrar: TBitBtn
     Left = 10
@@ -463,6 +502,7 @@ object frmLocacao: TfrmLocacao
     Width = 77
     Height = 33
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 2
     OnClick = btnSalvarClick
     Glyph.Data = {
@@ -592,6 +632,7 @@ object frmLocacao: TfrmLocacao
     Width = 75
     Height = 32
     Caption = 'Alterar'
+    Enabled = False
     TabOrder = 5
     OnClick = BitBtn1Click
     Glyph.Data = {
@@ -631,13 +672,5 @@ object frmLocacao: TfrmLocacao
     Recipients = <>
     ReplyTo = <>
     Left = 448
-  end
-  object MSimular: TMainMenu
-    Left = 232
-    Top = 145
-    object SimularLocacao: TMenuItem
-      Caption = 'Simular Loca'#231#227'o'
-      OnClick = SimularLocacaoClick
-    end
   end
 end

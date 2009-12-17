@@ -24,6 +24,7 @@ object frmRelVel: TfrmRelVel
     Frame.DrawBottom = False
     Frame.DrawLeft = False
     Frame.DrawRight = False
+    DataSet = QryVel
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -909,9 +910,9 @@ object frmRelVel: TfrmRelVel
     end
     object QRBand2: TQRBand
       Left = 38
-      Top = 143
+      Top = 268
       Width = 718
-      Height = 120
+      Height = 23
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -922,31 +923,13 @@ object frmRelVel: TfrmRelVel
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        317.500000000000000000
+        60.854166666666680000
         1899.708333333333000000)
       BandType = rbDetail
-      object QRDBImg: TQRDBImage
-        Left = 8
-        Top = 10
-        Width = 95
-        Height = 95
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        Size.Values = (
-          251.354166666666700000
-          21.166666666666670000
-          26.458333333333330000
-          251.354166666666700000)
-        DataField = 'Vel_Img'
-        DataSet = dmRentCar.ZQAlugar
-      end
-      object QRDBTEspec: TQRDBText
-        Left = 112
-        Top = 7
-        Width = 64
+      object QRDBText1: TQRDBText
+        Left = 24
+        Top = 4
+        Width = 59
         Height = 17
         Frame.Color = clBlack
         Frame.DrawTop = False
@@ -955,16 +938,16 @@ object frmRelVel: TfrmRelVel
         Frame.DrawRight = False
         Size.Values = (
           44.979166666666670000
-          296.333333333333400000
-          18.520833333333330000
-          169.333333333333300000)
+          63.500000000000000000
+          10.583333333333330000
+          156.104166666666700000)
         Alignment = taLeftJustify
         AlignToBand = False
         AutoSize = True
         AutoStretch = False
         Color = clWhite
-        DataSet = dmRentCar.ZQAlugar
-        DataField = 'Vel_Espec'
+        DataSet = QryVel
+        DataField = 'Acess'#243'rio'
         Transparent = False
         WordWrap = True
         FontSize = 10
@@ -972,9 +955,9 @@ object frmRelVel: TfrmRelVel
     end
     object QRBand3: TQRBand
       Left = 38
-      Top = 263
+      Top = 291
       Width = 718
-      Height = 35
+      Height = 23
       Frame.Color = clBlack
       Frame.DrawTop = False
       Frame.DrawBottom = False
@@ -985,12 +968,12 @@ object frmRelVel: TfrmRelVel
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        92.604166666666680000
+        60.854166666666680000
         1899.708333333333000000)
       BandType = rbSummary
       object QRSysDateTime: TQRSysData
         Left = 618
-        Top = 11
+        Top = 2
         Width = 68
         Height = 17
         Frame.Color = clBlack
@@ -1001,7 +984,7 @@ object frmRelVel: TfrmRelVel
         Size.Values = (
           44.979166666666670000
           1635.125000000000000000
-          29.104166666666670000
+          5.291666666666667000
           179.916666666666700000)
         Alignment = taLeftJustify
         AlignToBand = False
@@ -1012,5 +995,114 @@ object frmRelVel: TfrmRelVel
         FontSize = 10
       end
     end
+    object QRGroup1: TQRGroup
+      Left = 38
+      Top = 143
+      Width = 718
+      Height = 125
+      Frame.Color = clBlack
+      Frame.DrawTop = False
+      Frame.DrawBottom = False
+      Frame.DrawLeft = False
+      Frame.DrawRight = False
+      AlignToBottom = False
+      Color = clWhite
+      ForceNewColumn = False
+      ForceNewPage = False
+      Size.Values = (
+        330.729166666666700000
+        1899.708333333333000000)
+      Expression = 'QryVel.Vel_Espec'
+      Master = QRVel
+      ReprintOnNewPage = False
+      object QRDBImg: TQRDBImage
+        Left = 24
+        Top = 5
+        Width = 95
+        Height = 95
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          251.354166666666700000
+          63.500000000000000000
+          13.229166666666670000
+          251.354166666666700000)
+        DataField = 'Vel_Img'
+        DataSet = QryVel
+      end
+      object QRDBTEspec: TQRDBText
+        Left = 128
+        Top = 7
+        Width = 64
+        Height = 17
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          44.979166666666670000
+          338.666666666666700000
+          18.520833333333330000
+          169.333333333333300000)
+        Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
+        AutoStretch = False
+        Color = clWhite
+        DataSet = QryVel
+        DataField = 'Vel_Espec'
+        Transparent = False
+        WordWrap = True
+        FontSize = 10
+      end
+      object QRLblAcessorios: TQRLabel
+        Left = 24
+        Top = 105
+        Width = 68
+        Height = 17
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        Size.Values = (
+          44.979166666666670000
+          63.500000000000000000
+          277.812500000000000000
+          179.916666666666700000)
+        Alignment = taLeftJustify
+        AlignToBand = False
+        AutoSize = True
+        AutoStretch = False
+        Caption = 'Acess'#243'rios'
+        Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        WordWrap = True
+        FontSize = 10
+      end
+    end
+  end
+  object QryVel: TZQuery
+    Connection = dmRentCar.ZRentCar
+    CachedUpdates = False
+    RequestLive = False
+    ParamCheck = True
+    Params = <>
+    ShowRecordTypes = [usUnmodified, usModified, usInserted]
+    UpdateMode = umUpdateChanged
+    WhereMode = wmWhereKeyOnly
+    Options = [doCalcDefaults]
+    Left = 414
+    Top = 214
   end
 end

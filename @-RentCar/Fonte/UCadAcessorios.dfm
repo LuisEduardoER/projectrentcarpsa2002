@@ -19,7 +19,7 @@ object frmAcessorios: TfrmAcessorios
     Top = 1
     Width = 641
     Height = 205
-    ActivePage = tsAddAcessorios
+    ActivePage = tsTipoAcessorios
     Align = alCustom
     TabOrder = 0
     object tsTipoAcessorios: TTabSheet
@@ -253,7 +253,7 @@ object frmAcessorios: TfrmAcessorios
       object DBTEspec: TDBText
         Left = 170
         Top = 3
-        Width = 65
+        Width = 415
         Height = 17
         DataField = 'Vel_Espec'
         DataSource = dmRentCar.dsCadVeiculo

@@ -52,6 +52,8 @@ type
     procedure btnFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure DBEPlacaExit(Sender: TObject);
 
 
   private
@@ -191,6 +193,8 @@ begin
  dmRentCar.ZTCadVeiculo.Insert;
  btnSalvar.Enabled := True;
  btnCadastrar.Enabled := False;
+ gbCadVeiculo.Enabled := True;
+ DBEModelo.SetFocus;
 
 end;
 
@@ -233,6 +237,8 @@ begin
     dmRentCar.ZTCadVeiculo.post;
     btnSalvar.Enabled := False;
     btnCadastrar.Enabled := True;
+    btnAlterar.Enabled := True;
+    btnExcluir.Enabled := True;
     frmCadVeiculos.AdicionarAcessorios.Enabled := True;
     frmCadVeiculos.ValoresVeiculos.Enabled := True;
  end;
@@ -240,15 +246,32 @@ end;
 
 procedure TfrmCadVeiculos.btnExcluirClick(Sender: TObject);
 begin
+ dmRentCar.ZTGerVal.Open;
+ dmRentCar.ZTAcessorios.Open;
 
  dmRentCar.ZTGerVal.Filtered := False;
  dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
  dmRentCar.ZTGerVal.Filtered := True;
 
+ dmRentCar.ZTAcessorios.Filtered := False;
+ dmRentCar.ZTAcessorios.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
+ dmRentCar.ZTAcessorios.Filtered := True;
+
+ if not dmRentCar.ZTAcessorios.IsEmpty then
+ Begin
+   while not dmRentCar.ZTAcessorios.eof do
+   Begin
+     dmRentCar.ZTAcessorios.Delete;
+     dmRentCar.ZTAcessorios.Next;
+   end;
+ end else
+ Begin
+    dmRentCar.ZTCadVeiculo.Delete;
+ end;
+
  if not dmRentCar.ZTGerVal.IsEmpty then
  Begin
    dmRentCar.ZTCadVeiculo.Delete;
-   dmRentCar.ZTGerVal.Delete;
  end else
  Begin
    dmRentCar.ZTCadVeiculo.Delete;
@@ -291,6 +314,25 @@ begin
     btnSalvar.Enabled := True;
  end;
  btnSalvar.Enabled := True;
+
+end;
+
+procedure TfrmCadVeiculos.FormShow(Sender: TObject);
+begin
+ if not dmRentCar.ZTCadVeiculo.IsEmpty then
+ Begin
+   btnAlterar.Enabled:= True;
+   btnExcluir.Enabled := True;
+ end;
+end;
+
+procedure TfrmCadVeiculos.DBEPlacaExit(Sender: TObject);
+begin
+if pos(' ',DBEPlaca.Text) > 0 Then
+ begin
+  showmessage('Campo com espaço(s) em branco digite novamente');
+  DBEPlaca.SetFocus;
+end;
 
 end;
 

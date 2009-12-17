@@ -1,9 +1,11 @@
 object frmGerar: TfrmGerar
   Left = 447
   Top = 236
-  Width = 323
-  Height = 146
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = '@-RentCar'
+  ClientHeight = 112
+  ClientWidth = 315
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
