@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage;
+  Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage, DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset;
 
 type
   TfrmRelVel = class(TForm)
@@ -14,10 +15,14 @@ type
     QRlblVec: TQRLabel;
     QRLogo: TQRImage;
     QRBand2: TQRBand;
-    QRDBImg: TQRDBImage;
-    QRDBTEspec: TQRDBText;
     QRBand3: TQRBand;
     QRSysDateTime: TQRSysData;
+    QRGroup1: TQRGroup;
+    QryVel: TZQuery;
+    QRDBText1: TQRDBText;
+    QRDBImg: TQRDBImage;
+    QRDBTEspec: TQRDBText;
+    QRLblAcessorios: TQRLabel;
   private
     { Private declarations }
   public
@@ -29,7 +34,7 @@ var
 
 implementation
 
-uses UDMRentCar;
+uses UDMRentCar, URentCarPrincipal;
 
 {$R *.dfm}
 

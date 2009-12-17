@@ -96,15 +96,6 @@ object dmRentCar: TdmRentCar
       FieldName = 'RentCar_Pessoa_Pes_id'
       Visible = False
     end
-    object ZTChamadoCh_TipoCh: TStringField
-      DisplayLabel = 'TipoChamado'
-      FieldName = 'Ch_TipoCh'
-      Size = 30
-    end
-    object ZTChamadoCh_Protocol: TIntegerField
-      DisplayLabel = 'Protocolo'
-      FieldName = 'Ch_Protocol'
-    end
     object ZTChamadoCh_HoraCh: TTimeField
       DisplayLabel = 'HoraChamado'
       FieldName = 'Ch_HoraCh'
@@ -121,6 +112,14 @@ object dmRentCar: TdmRentCar
     object ZTChamadoCh_DescCh: TMemoField
       FieldName = 'Ch_DescCh'
       BlobType = ftMemo
+    end
+    object ZTChamadoCh_Protocol: TStringField
+      FieldName = 'Ch_Protocol'
+      Size = 11
+    end
+    object ZTChamadoCh_TipoCh: TStringField
+      FieldName = 'Ch_TipoCh'
+      Size = 30
     end
   end
   object ZTPessoa: TZTable
@@ -224,11 +223,6 @@ object dmRentCar: TdmRentCar
       Visible = False
       Size = 1
     end
-    object ZTPesFisPesFis_EstCivil: TStringField
-      DisplayLabel = 'Est.Civil'
-      FieldName = 'PesFis_EstCivil'
-      Size = 15
-    end
     object ZTPesFisPesFis_CNH: TStringField
       DisplayLabel = 'CNH'
       FieldName = 'PesFis_CNH'
@@ -254,6 +248,11 @@ object dmRentCar: TdmRentCar
     end
     object ZTPesFisPesFis_DtNascimento: TDateField
       FieldName = 'PesFis_DtNascimento'
+    end
+    object ZTPesFisPesFis_EstCivil: TStringField
+      DisplayLabel = 'Est.Civil'
+      FieldName = 'PesFis_EstCivil'
+      Size = 15
     end
   end
   object dsTPesFis: TDataSource

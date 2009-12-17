@@ -4,7 +4,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = '@-RentCar - Abertura de Chamados'
-  ClientHeight = 389
+  ClientHeight = 393
   ClientWidth = 475
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -150,6 +150,7 @@ object frmRentCarAberturaChamado: TfrmRentCarAberturaChamado
       Top = 39
       Width = 145
       Height = 21
+      Style = csDropDownList
       DataField = 'Ch_TipoCh'
       DataSource = dmRentCar.dsTChamado
       ItemHeight = 13

@@ -5,7 +5,7 @@ object frmCadClientes: TfrmCadClientes
   BorderStyle = bsSingle
   Caption = '@-RentCar - Cadastro de Clientes'
   ClientHeight = 475
-  ClientWidth = 709
+  ClientWidth = 645
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -177,6 +177,7 @@ object frmCadClientes: TfrmCadClientes
         Top = 94
         Width = 104
         Height = 21
+        Style = csDropDownList
         DataField = 'PesFis_EstCivil'
         DataSource = dmRentCar.dsTPesFis
         ItemHeight = 13
@@ -215,6 +216,33 @@ object frmCadClientes: TfrmCadClientes
         Time = 40160.609826388880000000
         TabOrder = 9
         OnExit = DateNascimentoExit
+        OnKeyPress = DateNascimentoKeyPress
+      end
+      object DBGrid1: TDBGrid
+        Left = 288
+        Top = 80
+        Width = 320
+        Height = 120
+        DataSource = dmRentCar.dsAcesso
+        TabOrder = 10
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+      end
+      object DBGrid2: TDBGrid
+        Left = 424
+        Top = 0
+        Width = 320
+        Height = 120
+        DataSource = dmRentCar.dsTPesFis
+        TabOrder = 11
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
       end
     end
     object tsDadosPJ: TTabSheet
@@ -521,7 +549,7 @@ object frmCadClientes: TfrmCadClientes
   object DBGClientes: TDBGrid
     Left = 6
     Top = 266
-    Width = 697
+    Width = 631
     Height = 201
     DataSource = dmRentCar.dsQCliente
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -575,6 +603,7 @@ object frmCadClientes: TfrmCadClientes
     Width = 75
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 3
     OnClick = btnGravarClick
     Glyph.Data = {
@@ -606,10 +635,11 @@ object frmCadClientes: TfrmCadClientes
   end
   object btnExcluir: TBitBtn
     Left = 302
-    Top = 235
+    Top = 236
     Width = 79
     Height = 25
     Caption = 'Excluir'
+    Enabled = False
     TabOrder = 4
     OnClick = btnExcluirClick
     Glyph.Data = {
@@ -778,6 +808,7 @@ object frmCadClientes: TfrmCadClientes
     Width = 75
     Height = 25
     Caption = 'Alterar'
+    Enabled = False
     TabOrder = 8
     OnClick = btnAlterarClick
     Glyph.Data = {

@@ -15,6 +15,7 @@ object frmCadVeiculos: TfrmCadVeiculos
   Menu = MenuVec
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object gbCadVeiculo: TGroupBox
@@ -23,6 +24,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Width = 455
     Height = 208
     Caption = 'Ve'#237'culos'
+    Enabled = False
     TabOrder = 0
     object lblModelo: TLabel
       Left = 9
@@ -71,9 +73,11 @@ object frmCadVeiculos: TfrmCadVeiculos
       Top = 108
       Width = 71
       Height = 21
+      CharCase = ecUpperCase
       DataField = 'Vel_Placa'
       DataSource = dmRentCar.dsCadVeiculo
       TabOrder = 0
+      OnExit = DBEPlacaExit
     end
     object DBECor: TDBEdit
       Left = 147
@@ -298,6 +302,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Width = 69
     Height = 25
     Caption = 'Excluir'
+    Enabled = False
     TabOrder = 5
     OnClick = btnExcluirClick
     Glyph.Data = {
@@ -334,6 +339,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Width = 66
     Height = 25
     Caption = 'Salvar'
+    Enabled = False
     TabOrder = 6
     OnClick = btnSalvarClick
     Glyph.Data = {
@@ -405,6 +411,7 @@ object frmCadVeiculos: TfrmCadVeiculos
     Width = 66
     Height = 25
     Caption = 'Alterar'
+    Enabled = False
     TabOrder = 8
     OnClick = btnAlterarClick
     Glyph.Data = {

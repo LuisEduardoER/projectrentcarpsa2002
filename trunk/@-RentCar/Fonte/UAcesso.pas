@@ -20,6 +20,9 @@ type
     SkinData1: TSkinData;
     procedure btnSairClick(Sender: TObject);
     procedure btnAcessarClick(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
+    procedure edtLoginKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSenhaKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -65,8 +68,32 @@ begin
  end else
  Begin
    ShowMessage('Acesso Inválido, tente novamente');
+   edtLogin.SetFocus;
  end;
 end;
+end;
+
+procedure TfrmAcesso.btnLimparClick(Sender: TObject);
+begin
+ edtLogin.Clear;
+ edtSenha.Clear;
+ cbPerfil.ItemIndex := -1;
+end;
+
+procedure TfrmAcesso.edtLoginKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  Begin
+    edtSenha.SetFocus;
+  end;
+end;
+
+procedure TfrmAcesso.edtSenhaKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  Begin
+    cbPerfil.SetFocus;
+  end;
 end;
 
 end.

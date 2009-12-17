@@ -77,7 +77,7 @@ begin
     frmPerfil.Free;
    end;
   end;
- end else
+ end;{ else
  if frmRentCarPrincipal.gerar = 'C' then
  Begin
      if DBLookupCliente.Text = '' then
@@ -149,7 +149,7 @@ begin
   end;
   end;
 
- end;
+ end; }
 end;
 
 end.

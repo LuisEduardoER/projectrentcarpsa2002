@@ -43,6 +43,7 @@ object frmAcesso: TfrmAcesso
     Width = 98
     Height = 21
     TabOrder = 0
+    OnKeyPress = edtLoginKeyPress
   end
   object edtSenha: TEdit
     Left = 200
@@ -51,6 +52,7 @@ object frmAcesso: TfrmAcesso
     Height = 21
     PasswordChar = '*'
     TabOrder = 1
+    OnKeyPress = edtSenhaKeyPress
   end
   object cbPerfil: TComboBox
     Left = 120
@@ -81,6 +83,7 @@ object frmAcesso: TfrmAcesso
     Height = 25
     Caption = 'Limpar'
     TabOrder = 4
+    OnClick = btnLimparClick
   end
   object btnSair: TButton
     Left = 252

@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage;
+  Dialogs, QRCtrls, QuickRpt, ExtCtrls, pngimage, DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset;
 
 type
   TfrmRelVel = class(TForm)
@@ -14,10 +15,16 @@ type
     QRlblVec: TQRLabel;
     QRLogo: TQRImage;
     QRBand2: TQRBand;
+    QRBand3: TQRBand;
+    QRSysDateTime: TQRSysData;
+    QRGroup1: TQRGroup;
+    QryVel: TZQuery;
+    QRDBText1: TQRDBText;
     QRDBImg: TQRDBImage;
     QRDBTEspec: TQRDBText;
-    QRBand3: TQRBand;
-    QRSysData2: TQRSysData;
+    QRLblAcessorios: TQRLabel;
+    procedure QRVelBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
   private
     { Private declarations }
   public
@@ -29,8 +36,52 @@ var
 
 implementation
 
-uses UDMRentCar;
+uses UDMRentCar, URentCarPrincipal;
 
 {$R *.dfm}
+
+procedure TfrmRelVel.QRVelBeforePrint(Sender: TCustomQuickRep;
+  var PrintReport: Boolean);
+{var
+Query : string; }
+begin
+{   Query := 'Select  rentcar_veiculo.Vel_Id, rentcar_veiculo.Vel_Espec, rentcar_veiculo.Vel_Img, Acessório ';
+   Query := Query + 'from rentcar_veiculo ';
+   Query := Query + 'inner join rentcar_acessorio on rentcar_acessorio.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+   Query := Query + 'inner join rentcar_tipoacessorios on rentcar_tipoacessorios.TipoAcessorio_Id = rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id ';
+   if frmRentCarPrincipal.relVeiculo = 'A' then
+   Begin
+    Query := Query + 'inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+    Query := Query + 'and rentcar_veiculo.Vel_StatusLoc ="O" ';
+   end else
+   if frmRentCarPrincipal.relVeiculo = 'D' then
+   Begin
+    Query := Query + 'where rentcar_veiculo.Vel_StatusLoc ="L" and rentcar_veiculo.Vel_StatusRes ="R"';
+   end else
+   if frmRentCarPrincipal.relVeiculo = 'R' then
+   Begin
+     Query := Query + 'inner join rentcar_alugar on rentcar_alugar.RentCar_Veiculo_Vel_id = rentcar_veiculo.Vel_id ';
+     Query := Query +'and rentcar_veiculo.Vel_StatusRes="R" and rentcar_alugar.Alu_DataReserva <> null';
+   end;
+
+
+   QryVel.Close;
+   QryVel.SQL.Clear;
+   QryVel.SQL.Add(Query);
+   QryVel.Open;
+
+   if not QryVel.IsEmpty then
+   Begin
+      QRVel.Preview;
+   end else
+   Begin
+     ShowMessage('Não existem veículos');
+     Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
+     frmRentCarPrincipal.ShowModal;
+     frmRentCarPrincipal.Free;
+   end;
+
+ }
+end;
 
 end.

@@ -20,6 +20,9 @@ type
     SkinData1: TSkinData;
     procedure btnSairClick(Sender: TObject);
     procedure btnAcessarClick(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
+    procedure edtLoginKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSenhaKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -52,7 +55,7 @@ begin
  dmRentCar.ZTAcesso.Filtered := False;
  dmRentCar.ZTAcesso.Filter := 'Ac_Login = '+QuotedStr(edtLogin.Text)+' and Ac_Senha = '+QuotedStr(edtSenha.Text)+' and Ac_Perfil = '+ QuotedStr(sperfil);
  dmRentCar.ZTAcesso.Filtered := True;
- if (not dmRentCar.ZTAcesso.IsEmpty) or (edtLogin.Text = 'admin') and (edtSenha.Text = 'adminrentcar') and (cbPerfil.Text = 'Administrador') then
+ if (not dmRentCar.ZTAcesso.IsEmpty) or (edtLogin.Text = 'admin') and (edtSenha.Text = 'admin') and (cbPerfil.Text = 'Administrador') then
  Begin
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
   if dmRentCar.ZTAcessoAc_Perfil.Value = 'F' then
@@ -67,6 +70,29 @@ begin
    ShowMessage('Acesso Inválido, tente novamente');
  end;
 end;
+end;
+
+procedure TfrmAcesso.btnLimparClick(Sender: TObject);
+begin
+ edtLogin.Clear;
+ edtSenha.Clear;
+ cbPerfil.ItemIndex := -1;
+end;
+
+procedure TfrmAcesso.edtLoginKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  Begin
+    edtSenha.SetFocus;
+  end;
+end;
+
+procedure TfrmAcesso.edtSenhaKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+  Begin
+    cbPerfil.SetFocus;
+  end;
 end;
 
 end.

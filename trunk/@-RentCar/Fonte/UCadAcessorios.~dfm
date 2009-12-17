@@ -16,7 +16,7 @@ object frmAcessorios: TfrmAcessorios
   TextHeight = 13
   object pgcAcessorio: TPageControl
     Left = 0
-    Top = 17
+    Top = 1
     Width = 641
     Height = 205
     ActivePage = tsAddAcessorios
@@ -253,7 +253,7 @@ object frmAcessorios: TfrmAcessorios
       object DBTEspec: TDBText
         Left = 170
         Top = 3
-        Width = 65
+        Width = 415
         Height = 17
         DataField = 'Vel_Espec'
         DataSource = dmRentCar.dsCadVeiculo
@@ -320,19 +320,6 @@ object frmAcessorios: TfrmAcessorios
         ListField = 'Acess'#243'rio'
         ListSource = dmRentCar.dsQFunctions
         TabOrder = 3
-      end
-      object DBGrid1: TDBGrid
-        Left = 408
-        Top = 32
-        Width = 320
-        Height = 120
-        DataSource = dmRentCar.dsQFunctions
-        TabOrder = 4
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'MS Sans Serif'
-        TitleFont.Style = []
       end
     end
   end

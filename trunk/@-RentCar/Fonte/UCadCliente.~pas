@@ -72,6 +72,8 @@ type
     btnAlterar: TBitBtn;
     DateNascimento: TDateTimePicker;
     Label4: TLabel;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
     function ValidEmail(email: string): boolean;
     procedure btnBuscarClick(Sender: TObject);
     function sBreakApart(BaseString, BreakString: string; StringList: TStringList): TStringList;
@@ -110,6 +112,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure DateNascimentoExit(Sender: TObject);
+    procedure DateNascimentoKeyPress(Sender: TObject; var Key: Char);
 
 
 
@@ -265,11 +268,11 @@ begin
 
   if (texto = 'Cep '+Num+' não encontrado') then
   Begin
-    ShowMessage('Cep '+Num+' não encontrado');
+     application.messagebox(PChar('Cep '+Num+' não foi encontrado'),'Aviso',48);
   end else
   if (texto = 'CEP não está no formato 00000-000 ou 00000000') then
   Begin
-    ShowMessage('CEP não está no formato 00000-000 ou 00000000');
+    application.messagebox('CEP não está no formato 00000-000 ou 00000000','Aviso',48);
   end else
   Begin
   ListBox := TListBox.CreateParented(Self.Handle);
@@ -335,6 +338,9 @@ end;
 
 procedure TfrmCadClientes.DBENomeKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Not (key in ['A'..'Z','a'..'z',#13,#8,#32]) then
+    key := #0;
+
   if key = #13 then
     Begin
       DBECPF.SetFocus;
@@ -350,7 +356,7 @@ begin
 
    if key = #13 then
     Begin
-      DBCBEstCivil.SetFocus;
+      DateNascimento.SetFocus;
     end;
 end;
 
@@ -379,6 +385,10 @@ end;
 procedure TfrmCadClientes.DBENmFantKeyPress(Sender: TObject;
   var Key: Char);
 begin
+
+  if Not (key in ['A'..'Z','a'..'z',#13,#8,#32]) then
+    key := #0;
+
   if key = #13 then
     Begin
       DBERzSocial.SetFocus;
@@ -388,6 +398,9 @@ end;
 procedure TfrmCadClientes.DBERzSocialKeyPress(Sender: TObject;
   var Key: Char);
 begin
+  if Not (key in ['A'..'Z','a'..'z',#13,#8,#32]) then
+    key := #0;
+
   if key = #13 then
     Begin
       DBECNPJ.SetFocus;
@@ -558,16 +571,19 @@ begin
   Begin
     ShowMessage('Nome é um campo obrigatório');
     pgcClientes.ActivePage := tsDadosPF;
+    DBENome.SetFocus;
   end else
   if (DBECPF.Text = '') or (DBECPF.MaxLength < 11) then
   Begin
     ShowMessage('CPF é um campo obrigatório');
     pgcClientes.ActivePage := tsDadosPF;
+    DBECPF.SetFocus;
    end else
   if (DBERG.Text = '') then
   Begin
     ShowMessage('RG é um campo obrigatório');
      pgcClientes.ActivePage := tsDadosPF;
+     DBERG.SetFocus;
    end else
   if (dbrgSexo.ItemIndex = -1) then
   Begin
@@ -578,17 +594,19 @@ begin
   Begin
     ShowMessage('CNH é um campo obrigatório');
     pgcClientes.ActivePage := tsDadosPF;
+    DBECNH.SetFocus;
   end else
   if (DBECEP.Text = '') then
   Begin
     ShowMessage('CEP é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
-   // DBECEP.SetFocus;
+    DBECEP.SetFocus;
   end else
   if (DBENumero.Text = '') then
   Begin
     ShowMessage('Numero é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
+    DBENumero.SetFocus;
   end else
   if (DBTelRes.Text = '') or (DBTelOp.Text = '') or (DBCel.Text = '') or (DBEmail.Text = '')  then
   Begin
@@ -640,6 +658,7 @@ begin
       btnCadastrar.Enabled := True;
       btnSalvar.Enabled := False;
       btnAlterar.Enabled := True;
+      btnExcluir.Enabled := True;
       dmRentCar.ZQCliente.Refresh;
       gbEndereco.Enabled := False;
     end;
@@ -652,26 +671,31 @@ begin
   Begin
     ShowMessage('Nome Fantasia é um campo obrigatório');
     pgcClientes.ActivePage := tsDadosPJ;
+    DBENmFant.SetFocus;
   end else
   if (DBERzSocial.Text = '') then
   Begin
     ShowMessage('Razão Social é um campo obrigatório');
     pgcClientes.ActivePage := tsDadosPJ;
+    DBERzSocial.Text;
   end else
   if (DBECNPJ.Text = '') or (DBECNPJ.MaxLength < 14) then
   Begin
     ShowMessage('CNPJ é um campo obrigatório');
     pgcClientes.ActivePage := tsDadosPJ;
+    DBECNPJ.SetFocus;
   end else
   if (DBECEP.Text = '') then
   Begin
     ShowMessage('CEP é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
+    DBECEP.SetFocus;
   end else
   if (DBENumero.Text = '') then
   Begin
     ShowMessage('Numero é um campo obrigatório');
     pgcClientes.ActivePage := tsEndereco;
+    DBENumero.SetFocus;
   end else
   if (DBTelRes.Text = '') or (DBTelOp.Text = '') or (DBCel.Text = '') or (DBEmail.Text = '')  then
   Begin
@@ -711,6 +735,7 @@ begin
       btnCadastrar.Enabled := True;
       btnSalvar.Enabled := False;
       btnAlterar.Enabled := True;
+      btnExcluir.Enabled := True;
       lblStatusCad.Visible := True;
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
       gbEndereco.Enabled := False;
@@ -721,39 +746,55 @@ end;
 
 procedure TfrmCadClientes.DBGClientesCellClick(Column: TColumn);
 begin
- if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
+ if not dmRentCar.ZQCliente.IsEmpty then
  Begin
-  dmRentCar.ZTPesFis.Open;
-  dmRentCar.ZTPessoa.Open;
-  dmRentCar.ZTEndereco.Open;
+  btnExcluir.Enabled := True;
+  btnAlterar.Enabled := True;
+   if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
+   Begin
+    dmRentCar.ZTPesFis.Open;
+    dmRentCar.ZTPessoa.Open;
+    dmRentCar.ZTEndereco.Open;
+    dmRentCar.ZTAcesso.Open;
 
-  dmRentCar.ZTPessoa.Filtered := False;
-  dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
-  dmRentCar.ZTPessoa.Filtered := True;
-  dmRentCar.ZTPesFis.Filtered := False;
-  dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
-  dmRentCar.ZTPesFis.Filtered := True;
-  dmRentCar.ZTEndereco.Filtered := False;
-  dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
-  dmRentCar.ZTEndereco.Filtered := True;
-  DateValidade.Date := dmRentCar.ZTPesFisPesFis_Validade.Value;
-  DateNascimento.Date := dmRentCar.ZTPesFisPesFis_DtNascimento.Value;
- end else
- if frmRentCarPrincipal.tipo = 'PJ' then
+    dmRentCar.ZTPessoa.Filtered := False;
+    dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
+    dmRentCar.ZTPessoa.Filtered := True;
+
+    dmRentCar.ZTPesFis.Filtered := False;
+    dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+    dmRentCar.ZTPesFis.Filtered := True;
+
+    dmRentCar.ZTEndereco.Filtered := False;
+    dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
+    dmRentCar.ZTEndereco.Filtered := True;
+
+    ShowMessage(dmRentCar.ZTPesFisPesFis_id.AsString);
+    dmRentCar.ZTAcesso.Filtered := False;
+    dmRentCar.ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+    dmRentCar.ZTAcesso.Filtered := True;
+    DateValidade.Date := dmRentCar.ZTPesFisPesFis_Validade.Value;
+    DateNascimento.Date := dmRentCar.ZTPesFisPesFis_DtNascimento.Value;
+   end else
+   if frmRentCarPrincipal.tipo = 'PJ' then
+   Begin
+    dmRentCar.ZTPesJu.Open;
+    dmRentCar.ZTPessoa.Open;
+    dmRentCar.ZTEndereco.Open;
+
+    dmRentCar.ZTPessoa.Filtered := False;
+    dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
+    dmRentCar.ZTPessoa.Filtered := True;
+    dmRentCar.ZTPesJu.Filtered := False;
+    dmRentCar.ZTPesJu.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
+    dmRentCar.ZTPesJu.Filtered := True;
+    dmRentCar.ZTEndereco.Filtered := False;
+    dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
+    dmRentCar.ZTEndereco.Filtered := True;
+   end;
+end else
  Begin
-  dmRentCar.ZTPesJu.Open;
-  dmRentCar.ZTPessoa.Open;
-  dmRentCar.ZTEndereco.Open;
-
-  dmRentCar.ZTPessoa.Filtered := False;
-  dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
-  dmRentCar.ZTPessoa.Filtered := True;
-  dmRentCar.ZTPesJu.Filtered := False;
-  dmRentCar.ZTPesJu.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
-  dmRentCar.ZTPesJu.Filtered := True;
-  dmRentCar.ZTEndereco.Filtered := False;
-  dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
-  dmRentCar.ZTEndereco.Filtered := True;
+   ShowMessage('Não existe(m) dado(s) para sere(m) excluido');
  end;
 end;
 
@@ -790,14 +831,15 @@ cpf : string;
 begin
    if Length(DBECPF.Text) < 11 then
    Begin
+     application.messagebox('O campo CPF deve ter no mínimo 11 numeros','Aviso',48);
      DBECPF.SetFocus;
    end else
    Begin
    cpf := DBECPF.Text;
    lblResCPFCNPJ.Caption := confereCPF(cpf);
-   ShowMessage(lblResCPFCNPJ.Caption);
    if lblResCPFCNPJ.Caption <> 'CPF Válido' then
     Begin
+     ShowMessage('CPF Inválido, digite outro');
      DBECPF.SetFocus;
     end;
    end;
@@ -817,12 +859,9 @@ end;
 
 procedure TfrmCadClientes.DBECNHExit(Sender: TObject);
 begin
-  if (valida_new_cnh(DBECNH.Text)) then
+  if (valida_new_cnh(DBECNH.Text) = False) then
   Begin
-    
-  end else
-  Begin
-   ShowMessage('CNH Inexistente');
+   application.messagebox('CNH Inexistente','Aviso',48);
    DBECNH.SetFocus; 
   end;
 end;
@@ -831,8 +870,9 @@ procedure TfrmCadClientes.DBECNPJExit(Sender: TObject);
 Var
 cnpj : string;
 begin
-   if Length(DBECNPJ.Text) < 11 then
+   if Length(DBECNPJ.Text) < 14 then
    Begin
+     application.messagebox('O campo CNPJ deve ter no minino 11 números','Aviso',48);
      DBECNPJ.SetFocus;
    end else
    Begin
@@ -840,7 +880,8 @@ begin
     lblResCNPJ.Caption := confereCNPJ(cnpj);
     if lblResCNPJ.Caption <> 'CNPJ Válido' then
     Begin
-      DBECNPJ.SetFocus;
+     application.messagebox('CNPJ Inválido, digite outro','Aviso',48);
+     DBECNPJ.SetFocus;
     end;
    end;
 end;
@@ -887,6 +928,7 @@ begin
  dmRentCar.ZTEndereco.Open;
  dmRentCar.ZTEndereco.Insert;
  dmRentCar.ZTPessoa.Insert;
+ 
 
  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
  Begin
@@ -918,6 +960,8 @@ begin
   if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
   Begin
    CadPF;
+   dmRentCar.ZTPessoa.Refresh;
+   dmRentCar.ZTPesFis.Refresh;
   end else
   // caso seja cadastro de pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then
@@ -929,10 +973,18 @@ end;
 
 procedure TfrmCadClientes.btnExcluirClick(Sender: TObject);
 begin
- dmRentCar.ZTPessoa.Open;
+{ dmRentCar.ZTPessoa.Open;
  dmRentCar.ZTPesFis.Open;
  dmRentCar.ZTEndereco.Open;
+}
 
+ dmRentCar.ZTAcesso.Open;
+
+ if dmRentCar.ZTPessoa.IsEmpty then
+ Begin
+   ShowMessage('Selecione o cliente que será excluido');
+ end else
+ Begin
  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') then
  Begin
   dmRentCar.ZTPessoa.Filtered := False;
@@ -955,6 +1007,10 @@ begin
   dmRentCar.ZTChamado.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
   dmRentCar.ZTChamado.Filtered := True;
 
+  dmRentCar.ZTAcesso.Filtered := False;
+  dmRentCar.ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+QuotedStr(dmRentCar.ZTPesFisPesFis_id.AsString);
+  dmRentCar.ZTAcesso.Filtered := True;
+
   dmRentCar.ZTPessoa.Delete;
   dmRentCar.ZTPesFis.Delete;
   dmRentCar.ZTEndereco.Delete;
@@ -966,6 +1022,10 @@ begin
   if not dmRentCar.ZTChamado.IsEmpty then
   Begin
     dmRentCar.ZTChamado.Delete;
+  end else
+  if not dmRentCar.ZTAcesso.IsEmpty then
+  Begin
+    dmRentCar.ZTAcesso.Delete;
   end;
  end else
  if (frmRentCarPrincipal.tipo = 'PF') then
@@ -1004,6 +1064,7 @@ begin
   end;
  end;
   dmRentCar.ZQCliente.Refresh;
+ end;
 end;
 
 procedure TfrmCadClientes.btnProcurarClick(Sender: TObject);
@@ -1099,9 +1160,23 @@ begin
 
    if (dias < 18) then
    Begin
-     ShowMessage('te fode mizera');
+     application.messagebox('A idade permitida é maior de 18 anos','Aviso',48);
      DateNascimento.SetFocus;
    end;
+end;
+
+procedure TfrmCadClientes.DateNascimentoKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if not ( Key in ['0'..'9',#13,#8] ) then
+   Begin
+    Key := #0;
+   end;
+
+   if key = #13 then
+    Begin
+      dbrgSexo.SetFocus;
+    end;
 end;
 
 end.

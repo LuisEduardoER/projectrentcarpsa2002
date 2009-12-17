@@ -40,8 +40,8 @@ begin
     ShowMessage('Escolha o Cliente');
   end else
   Begin
-   pbPerfil.Max:= 2000;
-   for i:= 1 to 2000 do
+   pbPerfil.Max:= 4000;
+   for i:= 1 to 4000 do
    Begin
       pbPerfil.Position:=i;
    end;
@@ -77,7 +77,7 @@ begin
     frmPerfil.Free;
    end;
   end;
- end else
+ end;{ else
  if frmRentCarPrincipal.gerar = 'C' then
  Begin
      if DBLookupCliente.Text = '' then
@@ -149,7 +149,7 @@ begin
   end;
   end;
 
- end;
+ end; }
 end;
 
 end.
