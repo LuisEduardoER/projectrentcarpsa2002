@@ -22,7 +22,7 @@ object frmConsultas: TfrmConsultas
     Top = 5
     Width = 442
     Height = 430
-    ActivePage = tsConsultClientes
+    ActivePage = tsConsultLoc
     TabOrder = 0
     object tsConsultClientes: TTabSheet
       Caption = 'Consulta Clientes'
