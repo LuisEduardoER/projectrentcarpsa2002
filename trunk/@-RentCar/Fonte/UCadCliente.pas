@@ -72,8 +72,6 @@ type
     btnAlterar: TBitBtn;
     DateNascimento: TDateTimePicker;
     Label4: TLabel;
-    DBGrid1: TDBGrid;
-    DBGrid2: TDBGrid;
     function ValidEmail(email: string): boolean;
     procedure btnBuscarClick(Sender: TObject);
     function sBreakApart(BaseString, BreakString: string; StringList: TStringList): TStringList;
@@ -661,6 +659,10 @@ begin
       btnExcluir.Enabled := True;
       dmRentCar.ZQCliente.Refresh;
       gbEndereco.Enabled := False;
+      tsDadosPF.Enabled := False;
+      tsEndereco.Enabled := False;
+      tsContato.Enabled := False;
+      pgcClientes.ActivePage := tsDadosPF;
     end;
   end;
 end;
@@ -740,6 +742,10 @@ begin
       lblStatusCad.Caption := 'Cadastro Realizado com Sucesso...';
       gbEndereco.Enabled := False;
       dmRentCar.ZQCliente.Refresh;
+      tsDadosPJ.Enabled := False;
+      tsEndereco.Enabled := False;
+      tsContato.Enabled := False;
+      pgcClientes.ActivePage := tsDadosPJ;
     end;
     end;
 end;
@@ -769,7 +775,6 @@ begin
     dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
     dmRentCar.ZTEndereco.Filtered := True;
 
-    ShowMessage(dmRentCar.ZTPesFisPesFis_id.AsString);
     dmRentCar.ZTAcesso.Filtered := False;
     dmRentCar.ZTAcesso.Filter := 'RentCar_PesFis_PesFis_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
     dmRentCar.ZTAcesso.Filtered := True;
@@ -960,8 +965,6 @@ begin
   if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN')  then
   Begin
    CadPF;
-   dmRentCar.ZTPessoa.Refresh;
-   dmRentCar.ZTPesFis.Refresh;
   end else
   // caso seja cadastro de pessoa juridica
   if frmRentCarPrincipal.tipo = 'PJ' then

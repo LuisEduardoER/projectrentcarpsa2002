@@ -95,9 +95,6 @@ object frmCadUsuarios: TfrmCadUsuarios
       Height = 21
       DataField = 'RentCar_PesFis_PesFis_id'
       DataSource = dmRentCar.dsAcesso
-      KeyField = 'Pes_id'
-      ListField = 'PesFis_Nome'
-      ListSource = dmRentCar.dsQFunctions
       TabOrder = 2
       OnClick = DBLookupCBPessoaClick
     end

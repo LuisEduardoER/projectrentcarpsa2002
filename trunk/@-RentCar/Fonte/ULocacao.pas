@@ -63,6 +63,7 @@ type
     DBLookupVeiculo: TDBLookupComboBox;
     Label6: TLabel;
     DBNvListEspera: TDBNavigator;
+    Label7: TLabel;
     procedure DBLCBVClick(Sender: TObject);
     procedure DBLookupCBVeiculoClick(Sender: TObject);
     procedure ConeccaoEmail;
@@ -342,8 +343,9 @@ begin
       if Now > dmRentCar.ZTPesFisPesFis_Validade.Value then
       Begin
         ShowMessage('O CNH do Cliente já passou da validade de uso');
-         btnSalvar.Enabled := False;
-         btnCadastrar.Enabled := True;
+        dmRentCar.ZTAlugar.Cancel;
+        btnSalvar.Enabled := False;
+        btnCadastrar.Enabled := True;
       end;
   end;
 
@@ -381,6 +383,7 @@ end;
 procedure TfrmLocacao.btnCadastrarClick(Sender: TObject);
 begin
   lblVlrAluguel.Caption := '';
+  
   dmRentCar.ZTCadVeiculo.Open;
   dmRentCar.ZTGerVal.Open;
   dmRentCar.ZTPesFis.Open;
@@ -762,6 +765,10 @@ begin
   dmRentCar.ZQFunctions.SQL.Add('order by Alu_DataReserva ASC');
   dmRentCar.ZQFunctions.Open;
   dmRentCar.ZQFunctions.FieldByName('Vel_id').Visible := False;
+  if dmRentCar.ZQFunctions.IsEmpty then
+  Begin
+    ShowMessage('Não existem clientes na espera de locação desse veículo');
+  end;
 end;
 
 end.

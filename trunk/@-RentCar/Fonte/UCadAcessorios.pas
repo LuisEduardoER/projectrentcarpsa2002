@@ -83,7 +83,7 @@ procedure TfrmAcessorios.btnAddClick(Sender: TObject);
 begin
   if dmRentCar.ZTTipoAcessorios.IsEmpty then
   Begin
-    ShowMessage('Nao existem acessário para serem adicionados');
+    ShowMessage('Nao existem acessários para serem adicionados');
   end else
   Begin
     dmRentCar.ZTAcessorios.Insert;

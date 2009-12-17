@@ -19,7 +19,7 @@ object frmAcessorios: TfrmAcessorios
     Top = 1
     Width = 641
     Height = 205
-    ActivePage = tsTipoAcessorios
+    ActivePage = tsAddAcessorios
     Align = alCustom
     TabOrder = 0
     object tsTipoAcessorios: TTabSheet
@@ -316,9 +316,6 @@ object frmAcessorios: TfrmAcessorios
         Top = 25
         Width = 121
         Height = 147
-        KeyField = 'TipoAcessorio_Id'
-        ListField = 'Acess'#243'rio'
-        ListSource = dmRentCar.dsQFunctions
         TabOrder = 3
       end
     end

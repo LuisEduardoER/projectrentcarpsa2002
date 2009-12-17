@@ -316,9 +316,6 @@ object frmAcessorios: TfrmAcessorios
         Top = 25
         Width = 121
         Height = 147
-        KeyField = 'TipoAcessorio_Id'
-        ListField = 'Acess'#243'rio'
-        ListSource = dmRentCar.dsQFunctions
         TabOrder = 3
       end
     end
