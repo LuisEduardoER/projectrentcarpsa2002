@@ -108,6 +108,13 @@ object frmLocacao: TfrmLocacao
           DataField = 'Alu_VlrTotalAPg'
           DataSource = dmRentCar.dsTAlugar
         end
+        object Label7: TLabel
+          Left = 200
+          Top = 176
+          Width = 32
+          Height = 13
+          Caption = 'Label7'
+        end
         object DBCBTpPg: TDBComboBox
           Left = 6
           Top = 169

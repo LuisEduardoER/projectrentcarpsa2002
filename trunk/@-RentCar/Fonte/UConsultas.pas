@@ -309,17 +309,17 @@ dF := FormatDateTime('yyyy-MM-dd',DateF.date);
      ZQFunctions.SQL.Add('where rentcar_alugar.Alu_PerInicialLoc = "'+dI+'" or rentcar_alugar.Alu_PerInicialLoc = "'+dF+'"');
      end;
    end else
-   if frmRentCarPrincipal.veiculo = 'PFL' then
+   if frmRentCarPrincipal.veiculo = 'PJL' then
    Begin
      ZQFunctions.Close;
      ZQFunctions.SQL.Clear;
      ZQFunctions.SQL.Add('select rentcar_pessoa.Pes_id, rentcar_pesju.PesJu_NmFantasia as Nome, rentcar_veiculo.Vel_Espec as Espec from rentcar_alugar ');
      ZQFunctions.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id  ');
      ZQFunctions.SQL.Add('inner join rentcar_pessoa on rentcar_pessoa.Pes_Id = rentcar_alugar.RentCar_Pessoa_Pes_id ');
-     ZQFunctions.SQL.Add('inner join rentcar_pesJu on rentcar_pesJu.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_Id ');
+     ZQFunctions.SQL.Add('inner join rentcar_pesJu on rentcar_pesJu.RentCar_Pessoa_Pes_Id = rentcar_pessoa.Pes_id ');
      if ckCliente.Checked = True then
      Begin
-     ZQFunctions.SQL.Add('where rentcar_pesJu.PesFis_NmFantasia = "'+DBLookupCliente.Text+'"');
+     ZQFunctions.SQL.Add('where rentcar_pesJu.PesJu_NmFantasia = "'+DBLookupCliente.Text+'"');
      end else
      if ckVeiculo.Checked = True then
      Begin
@@ -479,7 +479,7 @@ begin
           ZQAlugar.SQL.Add('inner join rentcar_enderecos on rentcar_enderecos.End_Id = rentcar_pessoa.RentCar_Enderecos_End_Id ');
           ZQAlugar.SQL.Add('inner join rentcar_alugar on rentcar_alugar.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id  ');
           ZQAlugar.SQL.Add('inner join rentcar_veiculo on rentcar_veiculo.Vel_id = rentcar_alugar.RentCar_Veiculo_Vel_id ');
-          ZQAlugar.SQL.Add('where Vel_Espec = "'+dmRentCar.ZQFunctions.FieldByName('Vel_Espec').AsString+'"');
+          ZQAlugar.SQL.Add('where Vel_Espec = "'+dmRentCar.ZQFunctions.FieldByName('Espec').AsString+'"');
           ZQAlugar.Open;
         end;
         Application.CreateForm(TfrmContratoLocacao,frmContratoLocacao);

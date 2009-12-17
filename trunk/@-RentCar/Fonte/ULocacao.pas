@@ -629,7 +629,7 @@ begin
     frmConsultas.DBLookupCliente.ListField := 'PesFis_Nome';
     frmConsultas.DBLookupCliente.KeyField := 'RentCar_Pessoa_Pes_id';
   end else
-  if frmRentCarPrincipal.veiculo = 'PFL' then
+  if frmRentCarPrincipal.veiculo = 'PJL' then
   Begin
     frmConsultas.DBLookupCliente.ListSource := dmRentCar.dsTPesJu;
     frmConsultas.DBLookupCliente.ListField := 'PesJu_NmFantasia';

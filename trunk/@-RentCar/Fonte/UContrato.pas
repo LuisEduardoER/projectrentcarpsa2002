@@ -70,6 +70,7 @@ begin
 
      if (frmRentCarPrincipal.veiculo = 'PFL') or (frmConsultas.viaContrato = 'F') then
      Begin
+     QRVecAlu.Caption := 'Contrato Locacao - Pessoa Física';
      QRRichLoc.Lines.Add(dmRentCar.ZQAlugar.FieldByName('PesFis_Nome').AsString + ',RG '+ dmRentCar.ZQAlugar.FieldByName('PesFis_RG').AsString
                           +',CPF '+dmRentCar.ZQAlugar.FieldByName('PesFis_CPF').AsString+' residente e domiliciado na '+dmRentCar.ZQAlugar.FieldByName('End_Endereco').AsString
                           +', nº '+dmRentCar.ZQAlugar.FieldByName('End_Num').AsString+', bairro '+dmRentCar.ZQAlugar.FieldByName('End_Bairro').AsString+', CEP '+dmRentCar.ZQAlugar.FieldByName('End_CEP').AsString
@@ -82,6 +83,7 @@ begin
      end else
      if (frmRentCarPrincipal.veiculo = 'PJL') or (frmConsultas.viaContrato = 'J') then
      Begin
+     QRVecAlu.Caption := 'Contrato Locacao - Pessoa Juridica';
      QRRichLoc.Lines.Add(dmRentCar.ZQAlugar.FieldByName('PesJu_NmFantasia').AsString + ', '+ dmRentCar.ZQAlugar.FieldByName('PesJu_RazaoSocial').AsString
                     +',CNPJ '+dmRentCar.ZQAlugar.FieldByName('PesJu_CNPJ').AsString+' localizada na '+dmRentCar.ZQAlugar.FieldByName('End_Endereco').AsString
                     +', nº '+dmRentCar.ZQAlugar.FieldByName('End_Num').AsString+', bairro '+dmRentCar.ZQAlugar.FieldByName('End_Bairro').AsString+', CEP '+dmRentCar.ZQAlugar.FieldByName('End_CEP').AsString

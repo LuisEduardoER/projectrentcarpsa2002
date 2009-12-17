@@ -80,7 +80,7 @@ begin
                           +', placa '+dmRentCar.ZQAlugar.FieldByName('Vel_Placa').AsString);
 
      end else
-     if (frmRentCarPrincipal.contrato = 'ContLocPesJu') or (frmConsultas.viaContrato = 'J') then
+     if (frmRentCarPrincipal.veiculo = 'PJL') or (frmConsultas.viaContrato = 'J') then
      Begin
      QRRichLoc.Lines.Add(dmRentCar.ZQAlugar.FieldByName('PesJu_NmFantasia').AsString + ', '+ dmRentCar.ZQAlugar.FieldByName('PesJu_RazaoSocial').AsString
                     +',CNPJ '+dmRentCar.ZQAlugar.FieldByName('PesJu_CNPJ').AsString+' localizada na '+dmRentCar.ZQAlugar.FieldByName('End_Endereco').AsString
