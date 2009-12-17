@@ -199,7 +199,7 @@ object frmCadClientes: TfrmCadClientes
         TabOrder = 7
       end
       object btnCapImg: TButton
-        Left = 478
+        Left = 470
         Top = 106
         Width = 138
         Height = 25
@@ -217,32 +217,6 @@ object frmCadClientes: TfrmCadClientes
         TabOrder = 9
         OnExit = DateNascimentoExit
         OnKeyPress = DateNascimentoKeyPress
-      end
-      object DBGrid1: TDBGrid
-        Left = 288
-        Top = 80
-        Width = 320
-        Height = 120
-        DataSource = dmRentCar.dsAcesso
-        TabOrder = 10
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'MS Sans Serif'
-        TitleFont.Style = []
-      end
-      object DBGrid2: TDBGrid
-        Left = 424
-        Top = 0
-        Width = 320
-        Height = 120
-        DataSource = dmRentCar.dsTPesFis
-        TabOrder = 11
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'MS Sans Serif'
-        TitleFont.Style = []
       end
     end
     object tsDadosPJ: TTabSheet

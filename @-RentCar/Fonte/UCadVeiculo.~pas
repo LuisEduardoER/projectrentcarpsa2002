@@ -181,6 +181,11 @@ begin
  dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_acessorio on rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id = rentcar_tipoacessorios.TipoAcessorio_Id ');
  dmRentCar.ZQFunctions.SQL.Add('where rentcar_acessorio.RentCar_Veiculo_Vel_id = "'+dmRentCar.ZTCadVeiculoVel_id.AsString+'"');
  dmRentCar.ZQFunctions.Open;
+ frmAcessorios.DBLookupAcessorios.ListSource := dmRentCar.dsQFunctions;
+ frmAcessorios.DBLookupAcessoriosListField := 'Acessório';
+ frmAcessorios.DBLookupAcessoriosKeyField := 'TipoAcessorio_Id';
+
+
  frmAcessorios.tsTipoAcessorios.Destroy;
  frmAcessorios.ShowModal;
  frmAcessorios.Free;
@@ -246,6 +251,8 @@ end;
 
 procedure TfrmCadVeiculos.btnExcluirClick(Sender: TObject);
 begin
+ dmRentCar.ZTGerVal.Open;
+ dmRentCar.ZTAcessorios.Open;
 
  dmRentCar.ZTGerVal.Filtered := False;
  dmRentCar.ZTGerVal.Filter := 'RentCar_Veiculo_Vel_id = '+QuotedStr(dmRentCar.ZTCadVeiculoVel_id.AsString);
@@ -257,7 +264,7 @@ begin
 
  if not dmRentCar.ZTAcessorios.IsEmpty then
  Begin
-   while not dmRentCar.ZTAcessorios.eof then
+   while not dmRentCar.ZTAcessorios.eof do
    Begin
      dmRentCar.ZTAcessorios.Delete;
      dmRentCar.ZTAcessorios.Next;

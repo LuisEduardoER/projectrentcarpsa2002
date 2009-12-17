@@ -560,6 +560,7 @@ object dmRentCar: TdmRentCar
     Left = 280
     Top = 168
     object ZTTipoAcessoriosTipoAcessorio_Id: TIntegerField
+      DisplayLabel = 'Codigo'
       FieldName = 'TipoAcessorio_Id'
     end
     object ZTTipoAcessoriosAcessrio: TStringField

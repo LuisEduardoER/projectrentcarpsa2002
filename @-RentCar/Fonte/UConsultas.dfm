@@ -4,7 +4,7 @@ object frmConsultas: TfrmConsultas
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = '@-RentCar - Consultas'
-  ClientHeight = 433
+  ClientHeight = 440
   ClientWidth = 452
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,8 +21,8 @@ object frmConsultas: TfrmConsultas
     Left = 5
     Top = 5
     Width = 442
-    Height = 425
-    ActivePage = tsListagemChamados
+    Height = 430
+    ActivePage = tsConsultClientes
     TabOrder = 0
     object tsConsultClientes: TTabSheet
       Caption = 'Consulta Clientes'
@@ -69,7 +69,7 @@ object frmConsultas: TfrmConsultas
       end
       object DBGClientes: TDBGrid
         Left = 5
-        Top = 115
+        Top = 127
         Width = 419
         Height = 215
         DataSource = dmRentCar.dsQCliente
@@ -84,7 +84,7 @@ object frmConsultas: TfrmConsultas
       end
       object DBNavigator4: TDBNavigator
         Left = 6
-        Top = 336
+        Top = 348
         Width = 415
         Height = 25
         DataSource = dmRentCar.dsQFunctions

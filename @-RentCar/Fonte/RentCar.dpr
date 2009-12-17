@@ -14,7 +14,6 @@ uses
   UContrato in 'UContrato.pas' {frmContratoLocacao},
   UAcesso in 'UAcesso.pas' {frmAcesso},
   UCadUsuario in 'UCadUsuario.pas' {frmCadUsuarios},
-  MsgEditor in 'MsgEditor.pas' {frmMessageEditor},
   UPerfil in 'UPerfil.pas' {frmPerfil},
   URelCliPesFis in 'URelCliPesFis.pas' {frmRelCliPesFis},
   URelCliPesJu in 'URelCliPesJu.pas' {frmRelCliPesJu},
@@ -29,7 +28,6 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.CreateForm(TfrmRentCarPrincipal, frmRentCarPrincipal);
-  Application.CreateForm(TfrmMessageEditor, frmMessageEditor);
   Application.CreateForm(TdmRentCar, dmRentCar);
   Application.Run;
 end.

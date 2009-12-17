@@ -21,7 +21,7 @@ object frmLocacao: TfrmLocacao
     Top = 8
     Width = 465
     Height = 235
-    ActivePage = tsListaEspera
+    ActivePage = tsLocacao
     TabOrder = 0
     object tsLocacao: TTabSheet
       Caption = 'Loca'#231#227'o'

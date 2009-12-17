@@ -75,18 +75,16 @@ var
 
 implementation
 
-uses UDMRentCar, URentCarPrincipal, DateUtils, ULocacao, UContrato;
+uses UDMRentCar, URentCarPrincipal, DateUtils, ULocacao, UContrato, DB;
 
 {$R *.dfm}
 
 procedure TfrmConsultas.DBGClientesCellClick(Column: TColumn);
 begin
-  close;
-
-  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') or (frmLocacao.loc = 'L')   then
+  if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.tipo = 'FUN') or (frmRentCarPrincipal.veiculo = 'PJL')   then
   Begin
     dmRentCar.ZTPessoa.Filtered := False;
-    dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Codigo').AsString);
+    dmRentCar.ZTPessoa.Filter := 'Pes_Id = '+QuotedStr(dmRentCar.ZQCliente.FieldByName('Pes_Id').AsString);
     dmRentCar.ZTPessoa.Filtered := True;
     dmRentCar.ZTPesFis.Filtered := False;
     dmRentCar.ZTPesFis.Filter := 'RentCar_Pessoa_Pes_id = '+QuotedStr(dmRentCar.ZTPessoaPes_id.AsString);
@@ -94,14 +92,13 @@ begin
     dmRentCar.ZTEndereco.Filtered := False;
     dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
     dmRentCar.ZTEndereco.Filtered := True;
-   if frmLocacao.loc = 'L' then
+   if frmRentCarPrincipal.veiculo = 'PJL' then
     Begin
      dmRentCar.ZTPesJu.Open;
      dmRentCar.ZTPesJu.Edit;
      dmRentCar.ZTPesJuRentCar_PesFis_PesFis_id.Value := dmRentCar.ZTPesFisPesFis_id.Value;
      dmRentCar.ZTPesJu.Post;
-     frmLocacao.sbCondutor.Panels[1].Text := dmRentCar.ZTPesFisPesFis_Nome.Value;
-    end;
+   end;
   end else
   if (frmRentCarPrincipal.tipo = 'PJ') then
   Begin
@@ -115,7 +112,7 @@ begin
     dmRentCar.ZTEndereco.Filter := 'End_Id = '+QuotedStr(dmRentCar.ZTPessoaRentCar_Enderecos_End_Id.AsString);
     dmRentCar.ZTEndereco.Filtered := True;
   end;
-
+      close;
 end;
 
 procedure TfrmConsultas.ckNomeClick(Sender: TObject);
@@ -342,11 +339,12 @@ procedure TfrmConsultas.btnProcurarCliClick(Sender: TObject);
 Begin
  with dmRentCar do
   Begin
-    if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.perfil = 'F') or (frmRentCarPrincipal.chamado = 'F') or (frmLocacao.loc = 'L') then
+    Application.CreateForm(TfrmLocacao, frmLocacao);
+    if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.perfil = 'F') or (frmRentCarPrincipal.chamado = 'F') or (frmRentCarPrincipal.veiculo = 'PJL') then
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id as Codigo, rentcar_pesfis.PesFis_Nome as Nome, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome as Nome, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pesfis.PesFis_Tipo = "C"');
@@ -363,8 +361,7 @@ Begin
       ZQCliente.SQL.Add('and rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
       end;
       ZQCliente.Open;
-
-
+      ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
       if ZQCliente.IsEmpty then
       Begin
         ShowMessage('Cliente não existente');
@@ -374,7 +371,7 @@ Begin
     Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id as Codigo, rentcar_pesfis.PesFis_Nome as Nome, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id, rentcar_pesfis.PesFis_Nome as Nome, rentcar_pesfis.pesfis_RG as RG, rentcar_pesfis.pesfis_CPF as CPF');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesfis on rentcar_pesfis.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       ZQCliente.SQL.Add('where rentcar_pesfis.PesFis_Tipo = "F"');
@@ -390,8 +387,7 @@ Begin
       ZQCliente.SQL.Add('and rentcar_pessoa.pes_id = rentcar_pesfis.RentCar_Pessoa_Pes_id');
       end;
       ZQCliente.Open;
-
-
+      ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
       if ZQCliente.IsEmpty then
       Begin
         ShowMessage('Funcionario não existente');
@@ -402,7 +398,7 @@ Begin
       Begin
       ZQCliente.Close;
       ZQCliente.SQL.Clear;
-      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id as Codigo,rentcar_pesju.PesJu_NmFantasia as Nome, rentcar_pesju.PesJu_CNPJ as CNPJ');
+      ZQCliente.SQL.Add('Select rentcar_pessoa.Pes_id,rentcar_pesju.PesJu_NmFantasia as Nome, rentcar_pesju.PesJu_CNPJ as CNPJ');
       ZQCliente.SQL.Add('from rentcar_pessoa');
       ZQCliente.SQL.Add('INNER join rentcar_pesju on rentcar_pesju.RentCar_Pessoa_Pes_id = rentcar_pessoa.Pes_id');
       if ckNome.Checked = True then
@@ -417,13 +413,15 @@ Begin
       ZQCliente.SQL.Add('where rentcar_pessoa.pes_id = rentcar_pesju.RentCar_Pessoa_Pes_id');
      end;
      ZQCliente.Open;
+     ZQCliente.FieldByName('Pes_Id').DisplayLabel := 'Codigo';
      if ZQCliente.IsEmpty then
       Begin
         ShowMessage('Cliente não existente');
         DBGClientes.DataSource := dsQCliente;
       end;
   end;
-  end; 
+   frmLocacao.Free;
+  end;
 
 
 end;
@@ -435,6 +433,7 @@ begin
   Begin
    dmRentCar.ZTCadVeiculo.Filtered := False;
   end;}
+  close;
 end;
 
 procedure TfrmConsultas.btnCopiaContratoClick(Sender: TObject);

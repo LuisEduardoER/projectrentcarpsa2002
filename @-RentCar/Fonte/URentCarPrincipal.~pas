@@ -286,13 +286,10 @@ end;
 
 procedure TfrmRentCarPrincipal.Usurios1Click(Sender: TObject);
 begin
-//chamada do formulário para o cadastro de usuários
   dmRentCar.ZTAcesso.Open;
   Application.CreateForm(TfrmCadUsuarios, frmCadUsuarios);
   frmCadUsuarios.ShowModal;
   frmCadUsuarios.Free;
-
- //fechar a tabela para evitar que fique sendo carregada na memória
   dmRentCar.ZTAcesso.Close;
 end;
 

@@ -86,6 +86,7 @@ object frmCadUsuarios: TfrmCadUsuarios
       Height = 21
       DataField = 'Ac_Senha'
       DataSource = dmRentCar.dsAcesso
+      PasswordChar = '*'
       TabOrder = 1
     end
     object DBLookupCBPessoa: TDBLookupComboBox

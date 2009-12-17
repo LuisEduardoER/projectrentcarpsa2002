@@ -13,14 +13,16 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
   Menu = MenuRentCar
   OldCreateOrder = False
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 112
-    Top = 88
+    Left = 320
+    Top = 216
     Width = 601
     Height = 225
+    Align = alCustom
     Picture.Data = {
       0A54504E474F626A65637489504E470D0A1A0A0000000D494844520000025800
       0000D40806000001378C6DC0000000097048597300000B1200000B1201D2DD7E
@@ -2387,7 +2389,7 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       end
       item
         Text = '@-RentCar - Gerencimanto de Locadora de Ve'#237'culos'
-        Width = 600
+        Width = 1050
       end
       item
         Text = 'Hora'
@@ -2493,9 +2495,6 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
       object ListaReservas: TMenuItem
         Caption = 'ListaReservas'
         OnClick = ListaReservasClick
-      end
-      object abelaPrecosAluguel1: TMenuItem
-        Caption = 'Tabela Precos Aluguel'
       end
     end
     object Chamados: TMenuItem

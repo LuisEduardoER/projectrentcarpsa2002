@@ -181,6 +181,11 @@ begin
  dmRentCar.ZQFunctions.SQL.Add('inner join rentcar_acessorio on rentcar_acessorio.RentCar_TipoAcessorios_TipoAcessorio_Id = rentcar_tipoacessorios.TipoAcessorio_Id ');
  dmRentCar.ZQFunctions.SQL.Add('where rentcar_acessorio.RentCar_Veiculo_Vel_id = "'+dmRentCar.ZTCadVeiculoVel_id.AsString+'"');
  dmRentCar.ZQFunctions.Open;
+ frmAcessorios.DBLookupAcessorios.ListSource := dmRentCar.dsQFunctions;
+ frmAcessorios.DBLookupAcessorios.ListField := 'Acessório';
+ frmAcessorios.DBLookupAcessorios.KeyField := 'TipoAcessorio_Id';
+
+
  frmAcessorios.tsTipoAcessorios.Destroy;
  frmAcessorios.ShowModal;
  frmAcessorios.Free;
