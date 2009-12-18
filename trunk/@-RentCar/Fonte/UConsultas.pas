@@ -339,7 +339,6 @@ procedure TfrmConsultas.btnProcurarCliClick(Sender: TObject);
 Begin
  with dmRentCar do
   Begin
-    Application.CreateForm(TfrmLocacao, frmLocacao);
     if (frmRentCarPrincipal.tipo = 'PF') or (frmRentCarPrincipal.veiculo = 'PFR') or (frmRentCarPrincipal.veiculo = 'PFL') or (frmRentCarPrincipal.perfil = 'F') or (frmRentCarPrincipal.chamado = 'F') or (frmRentCarPrincipal.veiculo = 'PJL') then
     Begin
       ZQCliente.Close;
@@ -420,7 +419,6 @@ Begin
         DBGClientes.DataSource := dsQCliente;
       end;
   end;
-   frmLocacao.Free;
   end;
 
 
