@@ -63,7 +63,6 @@ type
     DBLookupVeiculo: TDBLookupComboBox;
     Label6: TLabel;
     DBNvListEspera: TDBNavigator;
-    Label7: TLabel;
     procedure DBLCBVClick(Sender: TObject);
     procedure DBLookupCBVeiculoClick(Sender: TObject);
     procedure ConeccaoEmail;

@@ -49,7 +49,6 @@ type
     RelCliPesJu: TMenuItem;
     CadVec: TMenuItem;
     TipoAcessorios: TMenuItem;
-    abelaPrecosAluguel1: TMenuItem;
     Cadastrados: TMenuItem;
     ListaReservas: TMenuItem;
     procedure FormShow(Sender: TObject);

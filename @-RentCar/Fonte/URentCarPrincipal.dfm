@@ -13,13 +13,12 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
   Menu = MenuRentCar
   OldCreateOrder = False
   Position = poScreenCenter
-  WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 320
-    Top = 216
+    Left = 144
+    Top = 112
     Width = 601
     Height = 225
     Align = alCustom

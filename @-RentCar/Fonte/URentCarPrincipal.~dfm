@@ -2496,9 +2496,6 @@ object frmRentCarPrincipal: TfrmRentCarPrincipal
         Caption = 'ListaReservas'
         OnClick = ListaReservasClick
       end
-      object abelaPrecosAluguel1: TMenuItem
-        Caption = 'Tabela Precos Aluguel'
-      end
     end
     object Chamados: TMenuItem
       Caption = 'Chamados'
