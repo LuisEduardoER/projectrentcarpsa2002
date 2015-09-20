@@ -1,0 +1,1 @@
+O projeto tem como intuito contribuir no gerenciamento de uma locadora de veículos. Permitindo controlar desde uma locação de um veículo até o registro de chamados por parte dos clientes.
